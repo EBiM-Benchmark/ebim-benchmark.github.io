@@ -152,6 +152,168 @@ section:nth-child(even) { background: var(--bg-light); }
   transition: var(--transition);
 }
 
+/* ── Dropdown menus (shared navbar) ── */
+.nav-links li.has-dropdown { position: relative; }
+.has-dropdown > a .dropdown-caret {
+  display: inline-block;
+  margin-left: .25rem;
+  font-size: .65rem;
+  opacity: .7;
+  transition: transform .2s ease;
+}
+.nav-dropdown {
+  list-style: none;
+  margin: 0;
+  padding: .5rem 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background: rgba(15,22,41,.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,212,255,.18);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+  z-index: 1001;
+}
+.nav-links li.has-dropdown:hover > .nav-dropdown,
+.nav-links li.has-dropdown:focus-within > .nav-dropdown,
+.nav-links li.has-dropdown.expanded > .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.nav-links li.has-dropdown:hover > a .dropdown-caret,
+.nav-links li.has-dropdown:focus-within > a .dropdown-caret {
+  transform: rotate(180deg);
+}
+
+/* Dropdown toggle button — desktop hides it (hover handles dropdown);
+   mobile shows it as the only way to expand a sub-menu. */
+.dropdown-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,.65);
+  cursor: pointer;
+  padding: .55rem .9rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+.dropdown-toggle .dropdown-caret { transition: transform .2s ease; }
+.dropdown-toggle:hover { color: var(--accent); }
+.has-dropdown.expanded > .dropdown-toggle .dropdown-caret {
+  transform: rotate(180deg);
+}
+.nav-dropdown a {
+  display: block;
+  padding: .55rem 1.25rem;
+  font-size: .85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.82);
+  white-space: nowrap;
+  transition: color .15s ease, background .15s ease;
+}
+.nav-dropdown a:hover {
+  background: rgba(0,212,255,.10);
+  color: var(--accent);
+}
+.nav-dropdown a.active {
+  color: var(--accent);
+  background: rgba(0,212,255,.07);
+  font-weight: 600;
+}
+
+/* ── Active page indicator (parent nav item) ── */
+.page-home          .nav-home > a,
+.page-competition   .nav-competition > a,
+.page-workshop      .nav-workshop > a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ── On-page TOC sidebar (sub-pages only) ──
+   Fixed-position right-side rail; hidden below 1400px (where the dropdown
+   navbar covers the same need). Within the wide viewport breakpoint, it
+   stays invisible until the sub-hero is scrolled past — JS toggles
+   `.is-visible` based on scroll position. Active section gets a cyan
+   rail + label. */
+.toc-sidebar {
+  display: none;
+  position: fixed;
+  top: calc(var(--nav-h) + 2rem);
+  right: 1.5rem;
+  width: 200px;
+  max-height: calc(100vh - var(--nav-h) - 4rem);
+  overflow-y: auto;
+  z-index: 50;
+  padding: 1rem 0;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(10,14,26,.08);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(10,14,26,.06);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .3s ease, visibility .3s ease, transform .3s ease;
+}
+.toc-sidebar.is-visible {
+  opacity: .55;
+  visibility: visible;
+  transform: translateY(0);
+}
+.toc-sidebar.is-visible:hover,
+.toc-sidebar.is-visible:focus-within {
+  opacity: 1;
+}
+.toc-sidebar-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 1rem .65rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid rgba(10,14,26,.08);
+}
+.toc-sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid rgba(10,14,26,.08);
+  margin-left: 1rem;
+}
+.toc-sidebar li { margin: 0; }
+.toc-sidebar a {
+  display: block;
+  padding: .4rem .8rem .4rem .8rem;
+  color: var(--text-mid);
+  font-size: .82rem;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.toc-sidebar a:hover {
+  color: var(--accent-dark);
+  background: rgba(0,212,255,.04);
+}
+.toc-sidebar a.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 700;
+}
+@media (min-width: 1400px) {
+  .toc-sidebar { display: block; }
+}
+
 /* ---------- Hero ---------- */
 #home {
   min-height: 100vh;
@@ -491,7 +653,7 @@ section:nth-child(even) { background: var(--bg-light); }
   padding: 8px;
 }
 .theme-icon svg { width: 100%; height: 100%; }
-.theme-card h4 {
+.theme-card h3 {
   font-size: .9rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -615,6 +777,7 @@ section:nth-child(even) { background: var(--bg-light); }
 }
 .platform-photo-img {
   width: 100%;
+  height: auto;
   border-radius: 14px;
   box-shadow: 0 16px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(0,212,255,.12);
   display: block;
@@ -1359,6 +1522,10 @@ section:nth-child(even) { background: var(--bg-light); }
   min-height: 110px;
   background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fb 100%);
   border-color: rgba(0,168,204,.25);
+  /* Pin description to the bottom so descriptions align across cards even
+     when logos render at different intrinsic heights. Per-image vertical
+     centering is handled by margin overrides on the inline style. */
+  justify-content: space-between;
 }
 .sponsor-name {
   font-size: 1.05rem;
@@ -1557,15 +1724,61 @@ footer {
     background: rgba(10,14,26,.97);
     flex-direction: column;
     padding: 1rem 0 1.5rem;
-    transform: translateY(-110%);
+    /* Hidden state: translate up by the drawer's own height + the nav height
+       + a small safety margin. Using `100%` alone (or `-110%`) was unreliable
+       because the drawer is now much shorter when dropdowns are collapsed,
+       so a percentage-only translate would leave its bottom edge visible
+       below the navbar. */
+    transform: translateY(calc(-100% - var(--nav-h) - 0.5rem));
     transition: transform .3s ease;
     border-bottom: 1px solid rgba(255,255,255,.1);
     gap: 0;
+    /* Make the drawer scrollable when content exceeds the viewport
+       (e.g., short landscape phones, with all dropdowns expanded). */
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   .nav-links.open { transform: translateY(0); }
   .nav-links a { padding: .75rem 1.5rem; font-size: 1rem; }
   .nav-cta { margin-left: 1.5rem; display: inline-block; }
   .nav-toggle { display: flex; }
+
+  /* Dropdown parents on mobile: use a row layout so the link sits left
+     and the toggle caret button sits right. */
+  .has-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .has-dropdown > a { flex: 1 1 auto; }
+  .has-dropdown > .nav-dropdown { flex: 1 0 100%; }
+
+  /* Dropdowns collapse by default on mobile; expanded class reveals. */
+  .nav-dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
+    background: rgba(0,212,255,.04);
+    border: none;
+    border-radius: 4px;
+    padding: .25rem 0 .5rem;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    margin: .25rem 1.25rem .5rem;
+    min-width: 0;
+  }
+  .has-dropdown.expanded > .nav-dropdown { display: block; }
+  .nav-dropdown a { padding: .5rem 1.25rem; font-size: .9rem; }
+
+  /* Hide the inline caret in the parent <a> on mobile;
+     show the toggle button instead. */
+  .has-dropdown > a .dropdown-caret { display: none; }
+  .dropdown-toggle { display: inline-flex; align-items: center; }
 
   section { padding: 3.5rem 0; }
   .people-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
