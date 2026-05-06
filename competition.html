@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The EBiM Competition · Cross-Continent Robot Benchmark · IROS 2026</title>
+  <meta name="description" content="Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Beijing, Hamburg, Munich, and Pittsburgh. Cable, deformable, caregiving." />
+  <meta name="keywords" content="bimanual manipulation benchmark, robot competition, IROS 2026 challenge, Mobile FR3 Duo, Franka Robotics, sim-to-real, cable routing benchmark, deformable manipulation, robot caregiving, cross-laboratory reproducibility" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://iros-ebim.github.io/competition.html" />
+
+  <!-- Google Search Console verification -->
+  <meta name="google-site-verification" content="-6Ks2ufYwQEMK_F0Erqoj6Fbw5qLqbhbwywmAgTgJJA" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"            content="website" />
+  <meta property="og:site_name"       content="EBiM · IROS 2026 Workshop" />
+  <meta property="og:url"             content="https://iros-ebim.github.io/competition.html" />
+  <meta property="og:title"           content="The EBiM Competition · Cross-Continent Robot Benchmark · IROS 2026" />
+  <meta property="og:description"     content="Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Beijing, Hamburg, Munich, and Pittsburgh. Cable, deformable, caregiving." />
+  <meta property="og:image"           content="https://iros-ebim.github.io/img/og-cover.jpg" />
+  <meta property="og:image:width"     content="1200" />
+  <meta property="og:image:height"    content="630" />
+  <meta property="og:image:alt"       content="IROS 2026 EBiM Workshop — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+  <meta property="og:locale"          content="en_US" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"           content="summary_large_image" />
+  <meta name="twitter:title"          content="The EBiM Competition · Cross-Continent Robot Benchmark · IROS 2026" />
+  <meta name="twitter:description"    content="Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Beijing, Hamburg, Munich, and Pittsburgh. Cable, deformable, caregiving." />
+  <meta name="twitter:image"          content="https://iros-ebim.github.io/img/og-cover.jpg" />
+  <meta name="twitter:image:alt"      content="IROS 2026 EBiM Workshop — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+
+  <!-- Structured data: Competition Event -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "EBiM Competition: Cross-Continent Bimanual Manipulation Benchmark",
+    "description": "Open simulation benchmark followed by real-robot validation on Mobile FR3 Duo platforms in Beijing, Hamburg, Munich, and Pittsburgh. Tasks include cable routing, deformable thermal-pad placement, and caregiving and feeding.",
+    "startDate": "2026-09-27",
+    "endDate": "2026-10-01",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+    "location": [
+      {"@type": "Place", "name": "Beijing testbed", "address": {"@type": "PostalAddress", "addressLocality": "Beijing", "addressCountry": "CN"}},
+      {"@type": "Place", "name": "University of Hamburg · TAMS Group", "address": {"@type": "PostalAddress", "addressLocality": "Hamburg", "addressCountry": "DE"}},
+      {"@type": "Place", "name": "Agile Robots SE", "address": {"@type": "PostalAddress", "addressLocality": "Munich", "addressCountry": "DE"}},
+      {"@type": "Place", "name": "Carnegie Mellon University", "address": {"@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US"}}
+    ],
+    "organizer": [
+      {"@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/"},
+      {"@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/"}
+    ],
+    "url": "https://iros-ebim.github.io/competition.html",
+    "image": "https://iros-ebim.github.io/img/og-cover.jpg",
+    "sponsor": [
+      {"@type": "Organization", "name": "Franka Robotics", "url": "https://franka.de"},
+      {"@type": "Organization", "name": "Agile Robots", "url": "https://www.agile-robots.com"},
+      {"@type": "Organization", "name": "Google", "url": "https://cloud.google.com"}
+    ]
+  }
+  </script>
+
+  <!-- Structured data: Organization schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "IROS 2026 EBiM Workshop",
+    "url": "https://iros-ebim.github.io/",
+    "logo": "https://iros-ebim.github.io/img/IROS_2026_logo.webp",
+    "email": "iros.ebim@gmail.com",
+    "sameAs": ["https://github.com/IROS-EBiM"]
+  }
+  </script>
+
+  <!-- Structured data: Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://iros-ebim.github.io/"},
+      {"@type": "ListItem", "position": 2, "name": "Competition", "item": "https://iros-ebim.github.io/competition.html"}
+    ]
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+
+  <!-- Fonts — preconnect for faster DNS + TLS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Critical CSS inlined to prevent FOUC -->
+  <style>
+    /* Fade-in default state — must be set before JS runs */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    /* Stagger children inside a fade-in parent */
+    .fade-in > *:nth-child(2) { transition-delay: .08s; }
+    .fade-in > *:nth-child(3) { transition-delay: .16s; }
+    .fade-in > *:nth-child(4) { transition-delay: .24s; }
+    .fade-in > *:nth-child(5) { transition-delay: .32s; }
+    .fade-in > *:nth-child(6) { transition-delay: .40s; }
+    /* Active nav link */
+    .nav-links a.active { color: var(--accent) !important; }
+    /* Back to top */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 1.5rem;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent, #00d4ff); color: #0a0e1a;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: opacity .3s, visibility .3s, transform .3s, background .2s, box-shadow .2s;
+      z-index: 998;
+      box-shadow: 0 4px 18px rgba(0,212,255,.35);
+    }
+    #back-to-top.visible { opacity: 1; visibility: visible; transform: none; }
+    #back-to-top:hover { background: #fff; box-shadow: 0 6px 24px rgba(0,212,255,.45); }
+    #back-to-top:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+    #back-to-top svg { pointer-events: none; }
+
+    /* ── Sub-page hero (shorter than home #home) ──
+       Selector specificity bumped to (1,1,0) via `#home.subhero` to override
+       `#home { min-height: 100vh; padding: ... }` from the global stylesheet.
+       Pseudo-element rules likewise override #home::before/::after. */
+    #home.subhero {
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: var(--bg-dark);
+      overflow: hidden;
+      padding: calc(var(--nav-h) + 2.5rem) 0 3rem;
+      box-sizing: border-box;
+    }
+    #home.subhero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: none;
+      pointer-events: none;
+    }
+    #home.subhero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .subhero-content {
+      position: relative; z-index: 1;
+      text-align: center;
+      max-width: 820px;
+      padding: 1.25rem 1.5rem;
+    }
+    .subhero-iros-logo { margin-bottom: 1rem; }
+    .subhero-iros-logo img {
+      height: 72px; width: auto; display: inline-block;
+      filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #fff);
+    }
+    .breadcrumb {
+      display: inline-block;
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 1rem;
+    }
+    .breadcrumb a {
+      color: rgba(255,255,255,.55);
+      transition: color .2s;
+    }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb-sep { margin: 0 .55rem; opacity: .5; }
+    .breadcrumb-current { color: var(--accent); }
+    .subhero-title {
+      font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+      color: #fff;
+      font-weight: 800;
+      line-height: 1.18;
+      margin-bottom: .9rem;
+      letter-spacing: -.01em;
+    }
+    .subhero-subtitle {
+      font-size: clamp(.95rem, 1.6vw, 1.1rem);
+      color: rgba(255,255,255,.72);
+      margin-bottom: 1.6rem;
+      max-width: 640px;
+      margin-left: auto; margin-right: auto;
+    }
+    .subhero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 700px) {
+      #home.subhero { min-height: 50vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; }
+      .subhero-iros-logo img { height: 56px; }
+    }
+
+    /* ── Three-Phase context note (Phase III link to workshop page) ── */
+    .pipeline-note {
+      max-width: 760px;
+      margin: 1.75rem auto 0;
+      text-align: center;
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .pipeline-note a { color: var(--accent); font-weight: 600; }
+    .pipeline-note a:hover { text-decoration: underline; }
+
+    /* ── Testbed Locations grid ── */
+    .testbed-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 980px) {
+      .testbed-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .testbed-grid { grid-template-columns: 1fr; }
+    }
+    .testbed-card {
+      background: #fff;
+      border: 1px solid rgba(10,14,26,.08);
+      border-radius: 14px;
+      padding: 1.4rem 1.25rem;
+      text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .testbed-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,212,255,.45);
+      box-shadow: 0 10px 30px rgba(10,14,26,.08);
+    }
+    .testbed-flag {
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: .55rem;
+      display: block;
+    }
+    .testbed-city {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--bg-dark);
+      margin-bottom: .35rem;
+      letter-spacing: -.005em;
+    }
+    .testbed-institution {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .testbed-role {
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Why This Benchmark ── */
+    .why-benchmark p {
+      max-width: 880px;
+      margin: 1.25rem auto 0;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-body, #2c3243);
+      text-align: left;
+    }
+
+    /* ── Workshop callout banner ──
+       Selector specificity bumped to (0,1,1) so it beats `section:nth-child(even)`
+       from the global stylesheet if section order ever shifts. */
+    section.workshop-callout {
+      background: linear-gradient(135deg, #0a2a4a 0%, #00b4d8 100%);
+      color: #fff;
+      padding: 3rem 1.5rem;
+    }
+    .workshop-callout-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .workshop-callout h3 {
+      color: #fff;
+      font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+      font-weight: 800;
+      margin-bottom: .4rem;
+    }
+    .workshop-callout p {
+      color: rgba(255,255,255,.85);
+      font-size: .98rem;
+      max-width: 520px;
+      margin: 0;
+    }
+    .workshop-callout .btn {
+      background: #fff;
+      color: #0a2a4a;
+      white-space: nowrap;
+    }
+    .workshop-callout .btn:hover {
+      background: #0a0e1a;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    @media (max-width: 640px) {
+      .workshop-callout-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body class="page-competition">
+
+<!-- SHARED NAVBAR — keep in sync across index.html, competition.html, workshop.html, 404.html -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">EBiM<span>·</span>IROS<span>26</span></a>
+
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li class="has-dropdown nav-home">
+        <a href="index.html">Home <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Home menu" aria-expanded="false">
+          <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul class="nav-dropdown">
+          <li><a href="index.html#overview">Overview</a></li>
+          <li><a href="index.html#engage">Two Ways to Engage</a></li>
+          <li><a href="index.html#themes">Key Themes</a></li>
+          <li><a href="index.html#dates">Important Dates</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown nav-competition">
+        <a href="competition.html">Competition <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Competition menu" aria-expanded="false">
+          <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul class="nav-dropdown">
+          <li><a href="competition.html#why">Why This Benchmark</a></li>
+          <li><a href="competition.html#overview">Three-Phase Mechanism</a></li>
+          <li><a href="competition.html#platform">Mobile FR3 Duo</a></li>
+          <li><a href="competition.html#benchmark">The Benchmark</a></li>
+          <li><a href="competition.html#tasks">Tasks</a></li>
+          <li><a href="competition.html#testbeds">Testbeds</a></li>
+          <li><a href="competition.html#call-for-participation">Register Interest</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown nav-workshop">
+        <a href="workshop.html">Workshop <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Workshop menu" aria-expanded="false">
+          <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul class="nav-dropdown">
+          <li><a href="workshop.html#overview">Overview</a></li>
+          <li><a href="workshop.html#schedule">Schedule</a></li>
+          <li><a href="workshop.html#talks">Invited Talks</a></li>
+          <li><a href="workshop.html#panel">Panel</a></li>
+          <li><a href="workshop.html#call-for-participation">Posters</a></li>
+          <li><a href="workshop.html#contact">Important Dates</a></li>
+          <li><a href="workshop.html#dissemination">Dissemination</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#organizers">Organizers</a></li>
+      <li><a href="index.html#sponsors">Sponsors</a></li>
+      <li><a href="mailto:iros.ebim@gmail.com">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<main id="main-content">
+
+<!-- ============================================================
+     SUB-PAGE HERO
+     ============================================================ -->
+<section id="home" class="subhero">
+  <div class="subhero-content">
+    <div class="subhero-iros-logo">
+      <picture>
+        <source srcset="img/IROS_2026_logo.webp" type="image/webp" />
+        <img src="img/IROS_2026_logo.webp" alt="IROS 2026 Pittsburgh conference logo" width="370" height="240" loading="eager" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
+
+    <div class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Competition</span>
+    </div>
+
+    <h1 class="subhero-title">The EBiM Competition</h1>
+    <p class="subhero-subtitle">
+      A globally coordinated benchmark for real-world embodied bimanual manipulation
+    </p>
+
+    <div class="subhero-actions">
+      <a href="mailto:iros.ebim@gmail.com?subject=EBiM%20Competition%20-%20Register%20Interest" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
+        </svg>
+        Register Interest
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ON-PAGE TOC SIDEBAR (desktop ≥ 1400px only — hidden via CSS otherwise)
+     ============================================================ -->
+<aside class="toc-sidebar" aria-labelledby="toc-label">
+  <div id="toc-label" class="toc-sidebar-label">On this page</div>
+  <ul>
+    <li><a href="#why">Why This Benchmark</a></li>
+    <li><a href="#overview">Three-Phase Mechanism</a></li>
+    <li><a href="#platform">Mobile FR3 Duo</a></li>
+    <li><a href="#benchmark">The Benchmark</a></li>
+    <li><a href="#tasks">Benchmark Tasks</a></li>
+    <li><a href="#testbeds">Cross-Continent Testbeds</a></li>
+    <li><a href="#call-for-participation">Call for Participation</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+  </ul>
+</aside>
+
+
+<!-- ============================================================
+     WHY THIS BENCHMARK
+     ============================================================ -->
+<section id="why" class="why-benchmark">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Why This Benchmark</h2>
+    </div>
+    <p class="fade-in">
+      Bimanual manipulation benchmarks today are fragmented. Some evaluate algorithms only in simulation. Others test on a single robot in a single lab. Neither answers the question that matters most: do these methods generalize across platforms, environments, and operators? The EBiM Competition introduces a globally coordinated benchmark that combines an open simulation phase with cross-continent real-robot validation on identical Mobile FR3 Duo platforms. By validating top simulation methods on real hardware in Beijing, Hamburg, Munich, and Pittsburgh, we build the first reproducible, cross-laboratory benchmark for embodied bimanual manipulation.
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     THREE-PHASE MECHANISM (Phases I & II lead into the workshop)
+     ============================================================ -->
+<section id="overview">
+  <div class="container">
+
+    <div class="text-center fade-in">
+      <h2 class="section-title">Three-Phase Mechanism</h2>
+      <p class="section-subtitle">
+        Phases I and II make up the Competition. Phase III is the IROS 2026 workshop where results are presented.
+      </p>
+    </div>
+
+    <!-- ── Three-Phase Pipeline ── -->
+    <div class="pipeline-wrap fade-in" aria-label="Three-phase benchmark pipeline">
+      <div class="pipeline">
+
+        <!-- Phase I -->
+        <div class="pipeline-phase">
+          <div class="phase-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <rect x="4" y="8" width="48" height="32" rx="4" stroke="currentColor" stroke-width="3"/>
+              <path d="M20 46h16M28 40v6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <path d="M16 22l6 6-6 6M30 34h6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="phase-label">Phase I</div>
+          <h3 class="phase-title">Open Simulation Benchmark</h3>
+          <p class="phase-desc">
+            Release an open simulation benchmark focusing on unstructured manipulation scenarios: cable routing,
+            deformable material handling (thermal pad placement), and caregiving and feeding tasks. Global teams
+            participate through an open call on a shared, reproducible leaderboard.
+          </p>
+        </div>
+
+        <!-- Arrow I → II -->
+        <div class="pipeline-arrow" aria-hidden="true">
+          <svg viewBox="0 0 48 24" xmlns="http://www.w3.org/2000/svg">
+            <path class="arrow-line" d="M4 12 H38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="arrow-head" d="M32 5 L44 12 L32 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Phase II -->
+        <div class="pipeline-phase">
+          <div class="phase-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <circle cx="28" cy="28" r="22" stroke="currentColor" stroke-width="3"/>
+              <ellipse cx="28" cy="28" rx="22" ry="9" stroke="currentColor" stroke-width="1.8" opacity=".45"/>
+              <line x1="6" y1="28" x2="50" y2="28" stroke="currentColor" stroke-width="1.8" opacity=".45"/>
+              <path d="M28 6 Q38 28 28 50" stroke="currentColor" stroke-width="1.8" opacity=".45" fill="none"/>
+              <path d="M28 6 Q18 28 28 50" stroke="currentColor" stroke-width="1.8" opacity=".45" fill="none"/>
+              <circle cx="17" cy="22" r="3" fill="currentColor"/>
+              <line x1="17" y1="22" x2="17" y2="17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="27" cy="17" r="3" fill="currentColor"/>
+              <line x1="27" y1="17" x2="27" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="28" cy="21" r="3" fill="currentColor"/>
+              <line x1="28" y1="21" x2="28" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="38" cy="21" r="3" fill="currentColor"/>
+              <line x1="38" y1="21" x2="38" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="phase-label">Phase II</div>
+          <h3 class="phase-title">Cross-Continent Real-World Validation</h3>
+          <p class="phase-desc">
+            Top simulation entries are validated on real robots at partner labs in Beijing, Hamburg, Munich, and Pittsburgh.
+            Unified hardware protocols and teleoperation pipelines ensure cross-site comparability.
+          </p>
+        </div>
+
+        <!-- Arrow II → III -->
+        <div class="pipeline-arrow" aria-hidden="true">
+          <svg viewBox="0 0 48 24" xmlns="http://www.w3.org/2000/svg">
+            <path class="arrow-line" d="M4 12 H38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="arrow-head" d="M32 5 L44 12 L32 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Phase III -->
+        <div class="pipeline-phase">
+          <div class="phase-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <rect x="8" y="6" width="40" height="28" rx="3" stroke="currentColor" stroke-width="3"/>
+              <rect x="15" y="22" width="5" height="6" rx="1" fill="currentColor" opacity=".7"/>
+              <rect x="23" y="17" width="5" height="11" rx="1" fill="currentColor" opacity=".7"/>
+              <rect x="31" y="13" width="5" height="15" rx="1" fill="currentColor"/>
+              <line x1="28" y1="34" x2="28" y2="44" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <path d="M16 44 Q28 48 40 44" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="phase-label">Phase III</div>
+          <h3 class="phase-title">IROS Workshop &amp; Roadmap Release</h3>
+          <p class="phase-desc">
+            Competition results, invited talks, and a panel discussion are presented at IROS 2026. The workshop
+            releases the benchmark protocol, open dataset, and community roadmap for future iterations.
+          </p>
+        </div>
+
+      </div><!-- /.pipeline -->
+    </div><!-- /.pipeline-wrap -->
+
+    <p class="pipeline-note fade-in">
+      Phase III takes place at IROS 2026 — see the <a href="workshop.html">Workshop page</a> for the full program.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ROBOT PLATFORM
+     ============================================================ -->
+<section id="platform" class="platform-section">
+  <div class="container">
+
+    <div class="text-center fade-in">
+      <h2 class="section-title platform-heading">Competition Platform: Mobile FR3 Duo</h2>
+      <p class="section-subtitle platform-subtitle">
+        A standardized bimanual mobile manipulation platform by Franka Robotics, deployed across all international testbed sites.
+      </p>
+    </div>
+
+    <div class="platform-layout fade-in">
+
+      <!-- Left: stacked front + top view images -->
+      <div class="platform-img-col">
+        <figure class="platform-photo-fig">
+          <picture>
+            <source srcset="img/platform/MFR3_Duo.webp" type="image/webp" />
+            <img
+              src="img/platform/MFR3_Duo.png"
+              alt="Mobile FR3 Duo bimanual mobile manipulator by Franka Robotics — front view"
+              width="1600"
+              height="900"
+              class="platform-photo-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+          <figcaption>Front view</figcaption>
+        </figure>
+        <figure class="platform-photo-fig">
+          <picture>
+            <source srcset="img/platform/MFR3_Duo_with_workbench.webp" type="image/webp" />
+            <img
+              src="img/platform/MFR3_Duo_with_workbench.png"
+              alt="Mobile FR3 Duo robot performing manipulation task at a workbench"
+              width="1600"
+              height="900"
+              class="platform-photo-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+          <figcaption>Operating at a workbench</figcaption>
+        </figure>
+      </div>
+
+      <!-- Right: description + specs + attribution -->
+      <div class="platform-info-col">
+        <p class="platform-desc">
+          Mobile FR3 Duo extends the FR3 Duo reference platform into mobile environments by integrating it with Tactile Mobile Robot (TMR). It combines dual-arm manipulation, rich perception, and omnidirectional mobility into a single embodied AI system — enabling data collection and policy execution beyond fixed workcells. All competition testbeds in Beijing, Hamburg, Munich, and Pittsburgh use identical Mobile FR3 Duo platforms to ensure cross-site reproducibility.
+        </p>
+
+        <div class="platform-specs-grid">
+          <div class="spec-item">
+            <span class="spec-label">Base Dimensions</span>
+            <span class="spec-value">800 × 580 × 294 mm</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Reach per Arm</span>
+            <span class="spec-value">855 mm</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Payload</span>
+            <span class="spec-value">3 kg per arm</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Max Speed</span>
+            <span class="spec-value">1.75 m/s</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Sensors</span>
+            <span class="spec-value">14× Torque, 2× LiDAR, 7× Cameras, IMU</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">User PC</span>
+            <span class="spec-value">NVIDIA Jetson AGX Orin</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Control Frequency</span>
+            <span class="spec-value">1 kHz (FCI)</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Connectivity</span>
+            <span class="spec-value">Wi-Fi, Ethernet, USB, Bluetooth</span>
+          </div>
+        </div>
+
+        <p class="platform-attribution">
+          Learn more at
+          <a href="https://franka.de/product-prototypes" target="_blank" rel="noopener">franka.de/product-prototypes</a>
+          &nbsp;·&nbsp; Franka Robotics GmbH
+        </p>
+      </div>
+
+    </div><!-- /.platform-layout -->
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BENCHMARK
+     ============================================================ -->
+<section id="benchmark">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">The Benchmark</h2>
+      <p class="section-subtitle">
+        A multi-axis framework for fair and meaningful evaluation of bimanual manipulation systems.
+      </p>
+    </div>
+
+    <p class="benchmark-intro text-center fade-in">
+      Current bimanual manipulation benchmarks are fragmented across hardware platforms, task definitions,
+      and evaluation criteria. Our workshop targets the design of a community-wide standard covering
+      task diversity, generalization, robustness, and deployment readiness — evaluated on real robots
+      under standardized conditions.
+    </p>
+
+    <div class="benchmark-pillars fade-in">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <h3>Task Suite</h3>
+        <p>Three core tasks: cable routing, deformable material handling (thermal pad placement), and caregiving &amp; feeding.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <h3>Metrics</h3>
+        <p>Success rate, precision, cycle time, generalization score, and human-comparative performance.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <h3>Data Protocol</h3>
+        <p>Shared teleoperation, annotation schema, and hardware calibration guidelines for cross-site compatibility.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">04</div>
+        <h3>Hardware Agnosticism</h3>
+        <p>Platform-neutral APIs and sim-to-real transfer tracks to include diverse robot embodiments.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">05</div>
+        <h3>Leaderboard</h3>
+        <p>An open, continuously updated leaderboard with verified real-robot submissions.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">06</div>
+        <h3>Open Dataset</h3>
+        <p>Curated multi-site demonstration dataset with diverse operators, environments, and objects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BENCHMARK TASKS
+     ============================================================ -->
+<section id="tasks">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Benchmark Tasks</h2>
+      <p class="section-subtitle">
+        Three core bimanual manipulation tasks spanning contact-rich assembly, deformable object handling, and human-centered caregiving.
+      </p>
+    </div>
+
+    <div class="tasks-grid fade-in">
+
+      <!-- Task 1 -->
+      <div class="task-card">
+        <div class="task-img" style="background: linear-gradient(135deg, #0a2a4a 0%, #00b4d8 100%);">
+          <div class="task-img-label">
+            <span>Task</span>
+            <strong>01</strong>
+          </div>
+        </div>
+        <div class="task-body">
+          <h3 class="task-title">Cable Routing &amp; Plugging</h3>
+          <p class="task-desc">Route a cable through clamps and plug from Port A to Port B. Requires color/positional understanding, sequential constraint satisfaction, and mobile repositioning.</p>
+          <div class="task-tags">
+            <span class="task-tag tag-cyan">Contact-Rich</span>
+            <span class="task-tag tag-cyan">Sequential</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task 2 -->
+      <div class="task-card">
+        <div class="task-img" style="background: linear-gradient(135deg, #2d1b69 0%, #c026d3 100%);">
+          <div class="task-img-label">
+            <span>Task</span>
+            <strong>02</strong>
+          </div>
+        </div>
+        <div class="task-body">
+          <h3 class="task-title">Deformable Material Handling (Thermal Pad Placement)</h3>
+          <p class="task-desc">Manipulate thermal silica pads of different colors, shapes, and sizes. The robot must peel deformable thermal pads from a backing sheet and precisely place them at specified semantic target locations. Requires integration of perception, contact-rich manipulation, and precise positioning.</p>
+          <div class="task-tags">
+            <span class="task-tag tag-purple">Deformable</span>
+            <span class="task-tag tag-purple">Precision</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task 3 -->
+      <div class="task-card">
+        <div class="task-img" style="background: linear-gradient(135deg, #7c2d12 0%, #f97316 100%);">
+          <div class="task-img-label">
+            <span>Task</span>
+            <strong>03</strong>
+          </div>
+        </div>
+        <div class="task-body">
+          <h3 class="task-title">Caregiving &amp; Feeding</h3>
+          <p class="task-desc">Autonomous feeding assistance using a spoon to scoop from a bowl of coffee beans. The robot must navigate to a feeding area where a mannequin head is placed at a random position, reach the target region, and deposit beans into an empty collection bowl. Evaluation counts the number of beans successfully transferred.</p>
+          <div class="task-tags">
+            <span class="task-tag tag-amber">Human-Centered</span>
+            <span class="task-tag tag-amber">Safety-Critical</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div><!-- /.tasks-grid -->
+
+    <p class="tasks-note fade-in">
+      Task specifications, evaluation protocols, and simulation environments will be released as part of the benchmark framework.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TESTBED LOCATIONS
+     ============================================================ -->
+<section id="testbeds">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Cross-Continent Testbeds</h2>
+      <p class="section-subtitle">
+        Identical Mobile FR3 Duo platforms deployed at four partner labs across Asia, Europe, and North America.
+      </p>
+    </div>
+
+    <div class="testbed-grid fade-in">
+
+      <div class="testbed-card">
+        <span class="testbed-flag" aria-hidden="true">🇨🇳</span>
+        <div class="testbed-city">Beijing</div>
+        <div class="testbed-institution">Partner lab TBD</div>
+        <p class="testbed-role">Asia testbed for real-robot validation of top simulation entries.</p>
+      </div>
+
+      <div class="testbed-card">
+        <span class="testbed-flag" aria-hidden="true">🇩🇪</span>
+        <div class="testbed-city">Hamburg</div>
+        <div class="testbed-institution">University of Hamburg · TAMS Group</div>
+        <p class="testbed-role">European testbed coordinating data protocols and operator calibration.</p>
+      </div>
+
+      <div class="testbed-card">
+        <span class="testbed-flag" aria-hidden="true">🇩🇪</span>
+        <div class="testbed-city">Munich</div>
+        <div class="testbed-institution">Agile Robots SE</div>
+        <p class="testbed-role">Industry testbed providing platform integration and deployment support.</p>
+      </div>
+
+      <div class="testbed-card">
+        <span class="testbed-flag" aria-hidden="true">🇺🇸</span>
+        <div class="testbed-city">Pittsburgh</div>
+        <div class="testbed-institution">Carnegie Mellon University</div>
+        <p class="testbed-role">North America testbed co-located with the IROS 2026 venue for live finals.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     IMPORTANT DATES / CALL FOR PARTICIPATION
+     ============================================================ -->
+<section id="call-for-participation">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Call for Participation</h2>
+      <p class="section-subtitle">
+        We invite teams from academia and industry to compete in Phase I (simulation) and qualify for Phase II (real-robot validation).
+      </p>
+    </div>
+
+    <div class="cfp-grid fade-in">
+      <div class="cfp-card">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <rect x="4" y="8" width="48" height="32" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+          </svg>
+          Phase I — Simulation
+        </h3>
+        <ul>
+          <li>Open registration on the EBiM leaderboard</li>
+          <li>Three benchmark tasks released with reproducible environments</li>
+          <li>Submissions evaluated under standardized metrics</li>
+          <li>Top entries qualify for Phase II</li>
+        </ul>
+      </div>
+
+      <div class="cfp-card">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M0 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5z"/>
+          </svg>
+          Phase II — Real-Robot Validation
+        </h3>
+        <ul>
+          <li>Top simulation entries validated on Mobile FR3 Duo</li>
+          <li>Identical platforms in Beijing, Hamburg, Munich, Pittsburgh</li>
+          <li>Unified teleoperation and calibration protocols</li>
+          <li>Cross-site results aggregated for the leaderboard</li>
+        </ul>
+      </div>
+
+      <div class="cfp-card">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8z"/>
+          </svg>
+          Eligibility
+        </h3>
+        <ul>
+          <li>Open to academic and industry teams worldwide</li>
+          <li>No platform-specific prior experience required</li>
+          <li>Hardware-agnostic submissions encouraged</li>
+          <li>Travel grants available for top finalists (TBD)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cfp-dates fade-in" role="list" aria-label="Key dates">
+      <div class="date-item" role="listitem">
+        <div class="date-label">Phase I — Benchmark Release</div>
+        <div class="date-value">TBD</div>
+      </div>
+      <div class="date-item" role="listitem">
+        <div class="date-label">Phase I — Submission Deadline</div>
+        <div class="date-value">TBD</div>
+      </div>
+      <div class="date-item" role="listitem">
+        <div class="date-label">Phase II — Real-Robot Window</div>
+        <div class="date-value">TBD</div>
+      </div>
+      <div class="date-item date-item-highlight" role="listitem">
+        <div class="date-label">Phase III — Workshop @ IROS 2026</div>
+        <div class="date-value">Sep 27 – Oct 1, 2026</div>
+      </div>
+    </div>
+
+    <div class="cfp-actions fade-in">
+      <a href="mailto:iros.ebim@gmail.com?subject=EBiM%20Competition%20-%20Register%20Interest" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
+        </svg>
+        Register Interest
+      </a>
+      <span class="cfp-submit-note">Registration portal opening soon</span>
+    </div>
+
+    <div class="cfp-contact fade-in">
+      Questions about the competition?
+      <a href="mailto:iros.ebim@gmail.com">iros.ebim@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SPONSORS — Hardware/Platform + Computing prominent; Community smaller
+     ============================================================ -->
+<section id="sponsors">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Sponsors &amp; Support</h2>
+      <p class="section-subtitle">
+        We gratefully acknowledge the sponsors who make the EBiM Competition possible.
+      </p>
+    </div>
+
+    <!-- Tier 1: Hardware & Platform (prominent) -->
+    <div class="sponsors-tier fade-in">
+      <div class="tier-label">Hardware &amp; Platform Sponsors</div>
+      <div class="sponsors-logos">
+        <a href="https://www.agile-robots.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-lg sponsor-logo-link" style="flex:1;">
+          <img src="img/sponsors/agile_robots.svg" alt="Agile Robots logo" width="641" height="101" loading="lazy" decoding="async" style="max-height:70px;width:auto;display:block;margin:.9rem auto .3rem;filter:brightness(0);">
+          <span class="sponsor-desc">Hardware support · Beijing, Hamburg, Munich &amp; Pittsburgh testbeds</span>
+        </a>
+        <a href="https://franka.de" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-lg sponsor-logo-link" style="flex:1.1;">
+          <img src="img/sponsors/franka_robotics.svg" alt="Franka Robotics logo" width="995" height="162" loading="lazy" decoding="async" style="max-height:100px;width:auto;display:block;margin:0 auto .6rem;">
+          <span class="sponsor-desc">Mobile FR3 Duo platform provider</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Tier 2: Computing Resources (prominent) -->
+    <div class="sponsors-tier fade-in">
+      <div class="tier-label">Computing Resources Sponsor</div>
+      <div class="sponsors-logos">
+        <a href="https://cloud.google.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-lg sponsor-logo-link">
+          <img src="img/sponsors/google.svg" alt="Google Cloud logo" width="272" height="92" loading="lazy" decoding="async" style="max-height:70px;width:auto;display:block;margin:0 auto .6rem;">
+          <span class="sponsor-desc">Computing resources support</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Tier 3: Community (smaller, at the bottom) -->
+    <div class="sponsors-tier fade-in" style="opacity:.92;">
+      <div class="tier-label" style="font-size:.78rem;">Community Sponsors</div>
+      <div class="sponsors-logos">
+        <a href="https://www.tca.org.tw/en/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
+          <img src="img/sponsors/tca.png" alt="Taipei Computer Association logo" width="466" height="71" loading="lazy" decoding="async" style="max-height:42px;width:auto;display:block;margin:0 auto .5rem;">
+          <span class="sponsor-desc" style="font-size:.78rem;">Taipei Computer Association</span>
+        </a>
+        <a href="https://www.mech-mind.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
+          <img src="img/sponsors/mech_mind.png" alt="Mech-Mind Robotics logo" width="2787" height="1068" loading="lazy" decoding="async" style="max-height:42px;width:auto;display:block;margin:0 auto .5rem;">
+          <span class="sponsor-desc" style="font-size:.78rem;">Community Sponsor</span>
+        </a>
+        <a href="https://www.robot-gym.com/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
+          <img src="img/sponsors/robotgym.webp" alt="RobotGym logo" width="7691" height="1760" loading="lazy" decoding="async" style="max-height:42px;width:auto;display:block;margin:0 auto .5rem;">
+          <span class="sponsor-desc" style="font-size:.78rem;">Community Sponsor</span>
+        </a>
+        <a href="https://www.amd.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
+          <img src="img/sponsors/amd.svg" alt="AMD logo" width="140" height="33" loading="lazy" decoding="async" style="max-height:42px;width:auto;display:block;margin:0 auto .5rem;filter:brightness(0);">
+          <span class="sponsor-desc" style="font-size:.78rem;">Community Sponsor</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="sponsor-cta fade-in">
+      Interested in sponsoring?
+      <a href="mailto:iros.ebim@gmail.com">Contact us at iros.ebim@gmail.com</a>
+      to discuss hardware support, travel grants, or community partnership opportunities.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     WORKSHOP CALLOUT
+     ============================================================ -->
+<section class="workshop-callout">
+  <div class="workshop-callout-inner fade-in">
+    <div>
+      <h3>Looking for the Workshop Program?</h3>
+      <p>
+        Phase III of the EBiM initiative is the half-day workshop at IROS 2026, featuring invited talks,
+        a panel discussion, and competition awards.
+      </p>
+    </div>
+    <a href="workshop.html" class="btn">
+      View Workshop Program
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+
+</main>
+
+<!-- SHARED FOOTER — keep in sync across index.html, competition.html, workshop.html, 404.html -->
+<footer id="footer">
+  <div class="footer-inner">
+
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">EBiM<span>·</span>IROS<span>26</span></div>
+        <p class="footer-tagline">
+          Toward a Globally Coordinated Benchmark<br />
+          for Real-World Embodied Bimanual Manipulation
+        </p>
+        <p class="footer-venue">
+          <picture>
+            <source srcset="img/IROS_2026_logo.webp" type="image/webp" />
+            <img src="img/IROS_2026_logo.webp" alt="IROS 2026 Pittsburgh conference logo" width="370" height="240" class="footer-iros-logo" loading="lazy" decoding="async" />
+          </picture>
+          Part of IROS 2026 &nbsp;·&nbsp; Pittsburgh, PA, USA
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-nav-col">
+          <div class="footer-nav-heading">Pages</div>
+          <a href="index.html">Home</a>
+          <a href="competition.html">Competition</a>
+          <a href="workshop.html">Workshop</a>
+        </div>
+        <div class="footer-nav-col">
+          <div class="footer-nav-heading">People</div>
+          <a href="index.html#organizers">Organizers</a>
+          <a href="index.html#sponsors">Sponsors</a>
+        </div>
+        <div class="footer-nav-col">
+          <div class="footer-nav-heading">Participate</div>
+          <a href="competition.html#call-for-participation">Compete</a>
+          <a href="workshop.html#call-for-participation">Submit Poster</a>
+          <a href="mailto:iros.ebim@gmail.com">Contact Us</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="mailto:iros.ebim@gmail.com" class="footer-link-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+          </svg>
+          iros.ebim@gmail.com
+        </a>
+        <a href="https://github.com/IROS-EBiM" target="_blank" rel="noopener" class="footer-link-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://2026.ieee-iros.org/" target="_blank" rel="noopener" class="footer-link-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+          </svg>
+          IROS 2026
+        </a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 Workshop Organizers &mdash;
+        Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation.
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
+       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+       aria-hidden="true">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
