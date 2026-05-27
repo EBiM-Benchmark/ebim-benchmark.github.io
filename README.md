@@ -1,10 +1,10 @@
-# IROS 2026 Workshop Website — IROS-EBiM
+# IROS 2026 Workshop Website — EBiM-Benchmark
 
 **Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation**
 
 IROS 2026 Half-Day Workshop · September 27 – October 1, 2026 · Pittsburgh, PA, USA
 
-🌐 **Live site:** [iros-ebim.github.io](https://iros-ebim.github.io)
+🌐 **Live site:** [ebim-benchmark.github.io](https://ebim-benchmark.github.io)
 📧 **Contact:** [iros.ebim@gmail.com](mailto:iros.ebim@gmail.com)
 
 ---
@@ -35,7 +35,7 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 ## Project structure
 
 ```
-iros-ebim.github.io/
+ebim-benchmark.github.io/
 ├── index.html                           # Landing page (funnel to sub-pages)
 ├── competition.html                     # The EBiM Competition
 ├── workshop.html                        # IROS 2026 Workshop Program
@@ -96,7 +96,7 @@ python -m http.server 8000
 
 ### GitHub Pages deployment
 
-Push to `main` of `IROS-EBiM/iros-ebim.github.io`; GitHub Pages auto-deploys at `https://iros-ebim.github.io`.
+Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-deploys at `https://ebim-benchmark.github.io`.
 
 ---
 
@@ -353,10 +353,10 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] 4-testbed coverage: Hamburg, Munich, Pittsburgh, Shanghai (Asia testbed moved from Beijing to Shanghai)
 - [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot), Sep 27 – Oct 1 (workshop)
 - [x] Competition awards announced: ~$30K total prize pool (1st ~$3K, 2nd ~$2K, 3rd ~$1K) — gold subhero badge, dedicated `#awards` section on competition.html, prize ribbon on home Competition card, navbar entry, SEO meta description
-- [x] Branding unified under IROS-EBiM
+- [x] Branding unified under EBiM-Benchmark
 - [x] OG cover image at 1200×630 spec
 - [x] Stefan Schaal (Intrinsic) and Shaowei Cui confirmed as panelists
-- [x] Google Search Console verified for `https://iros-ebim.github.io/`
+- [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
