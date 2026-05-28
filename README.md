@@ -5,7 +5,7 @@
 IROS 2026 Half-Day Workshop · September 27 – October 1, 2026 · Pittsburgh, PA, USA
 
 🌐 **Live site:** [ebim-benchmark.github.io](https://ebim-benchmark.github.io)
-📧 **Contact:** [iros.ebim@gmail.com](mailto:iros.ebim@gmail.com)
+📧 **Contact:** [ebim.benchmark@gmail.com](mailto:ebim.benchmark@gmail.com)
 
 ---
 
@@ -223,7 +223,7 @@ for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Organizers** → `index.html#organizers`
 - **Sponsors** → `index.html#sponsors`
-- **Contact** → `mailto:iros.ebim@gmail.com`
+- **Contact** → `mailto:ebim.benchmark@gmail.com`
 
 ### Footer columns
 
