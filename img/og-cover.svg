@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  EBiM Benchmark Open Graph cover — SOURCE / PLACEHOLDER (1200×630).
-  The live og:image tag points at og-cover.jpg. This SVG is the EBiM-branded
-  replacement source: rasterize it to refresh the (pre-rebrand) JPG, e.g.
-    rsvg-convert -w 1200 -h 630 og-cover.svg | magick - -quality 90 og-cover.jpg
-  (no SVG rasterizer was available in this environment, so the JPG was left as-is).
+  EBiM Benchmark Open Graph cover — SOURCE (1200×630).
+  The live og:image tag points at og-cover.png, rasterized from this file.
+  To regenerate after editing, e.g.:
+    rsvg-convert -w 1200 -h 630 og-cover.svg -o og-cover.png
 -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#0a0e1a"/>

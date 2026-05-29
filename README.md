@@ -49,8 +49,8 @@ ebim-benchmark.github.io/
 │                                        #   nav + TOC tracking, fade-in observer
 ├── img/
 │   ├── favicon.svg                      # Site favicon (robot mark, accent color)
-│   ├── og-cover.jpg                     # Open Graph card (1200×630, ~116 KB)
-│   ├── og-cover.svg                     # EBiM-branded OG source (rasterize → og-cover.jpg)
+│   ├── og-cover.png                     # Open Graph card (1200×630, ~87 KB, EBiM-branded)
+│   ├── og-cover.svg                     # EBiM-branded OG source (rasterize → og-cover.png)
 │   ├── platform/
 │   │   ├── MFR3_Duo.webp                # 1600×900 WebP (~18 KB) — primary
 │   │   ├── MFR3_Duo.png                 # 4000×2250 PNG (~4 MB)  — fallback
@@ -290,7 +290,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 | Unique `<meta name="description">` (≤ 156 chars) | SERP truncation safe |
 | Unique `<link rel="canonical">` | Avoid duplicate-content penalties |
 | Unique OG (`og:url`, `og:title`, `og:description`) + Twitter Card tags | Per-page social previews |
-| OG image (`og-cover.jpg`, 1200×630, ~116 KB) | Spec-compliant social card |
+| OG image (`og-cover.png`, 1200×630, ~87 KB) | Spec-compliant social card |
 | `<meta name="keywords">` | Used by some academic indexers |
 | `<meta name="google-site-verification">` | Search Console verification token |
 | JSON-LD `Event` schema | Rich event card |
@@ -315,7 +315,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 ## Image asset strategy
 
 ### Open Graph image
-- `img/og-cover.jpg` — 1200×630 JPEG, ~116 KB. Matches the social-share spec. Old `og-cover.png` (1671×936) was removed.
+- `img/og-cover.png` — 1200×630 PNG, ~87 KB, EBiM-branded (rasterized from `img/og-cover.svg`). Matches the social-share spec. The pre-rebrand `og-cover.jpg` was removed.
 
 ### Platform photos (competition.html only)
 - WebP versions are the primary asset for ~96% of browsers (~18 KB and ~31 KB respectively).
@@ -354,7 +354,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot); workshop date TBD
 - [x] Competition awards announced: ~$30K total prize pool (1st ~$3K, 2nd ~$2K, 3rd ~$1K) — gold subhero badge, dedicated `#awards` section on competition.html, prize ribbon on home Competition card, navbar entry, SEO meta description
 - [x] Branding unified under EBiM Benchmark
-- [x] OG cover image at 1200×630 spec
+- [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Stefan Schaal (Intrinsic) and Shaowei Cui confirmed as panelists
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
@@ -364,7 +364,6 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Image optimization: platform PNGs → WebP (~99.5% reduction); OG cover resized + reformatted
 
 ### Still needed
-- [ ] Regenerate `img/og-cover.jpg` from `img/og-cover.svg` (EBiM-branded source) — the current JPG predates the rebrand and may show stale branding
 - [ ] Real headshots in `img/organizers/` (currently using initials avatars)
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
@@ -381,7 +380,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 | `organizers/` | JPG or PNG | 300 × 300 px |
 | `sponsors/` | SVG preferred (or PNG with transparent bg) | ~400 × 160 px |
 | `platform/` | WebP primary + PNG fallback | 1600 × 900 px (WebP), keep originals as PNG |
-| OG cover | JPG | 1200 × 630 px |
+| OG cover | PNG (or JPG) | 1200 × 630 px |
 
 ---
 
