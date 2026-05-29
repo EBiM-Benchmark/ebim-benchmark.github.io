@@ -149,7 +149,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 
 ## Workshop program (final)
 
-**Format:** Half-day morning session — exact date within September 27 – October 1, 2026
+**Format:** Half-day morning session — exact date and venue to be announced
 
 | Time | Session |
 |------|---------|
@@ -351,7 +351,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, Alibaba Cloud), Community (TCA, RobotGym, Mech-Mind, AMD, HHRI)
 - [x] Franka Community placements: sub-link under Franka Robotics card (both pages) + Community Resources callout (competition.html)
 - [x] 4-testbed coverage: Hamburg, Munich, Pittsburgh, Shanghai (Asia testbed moved from Beijing to Shanghai)
-- [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot), Sep 27 – Oct 1 (workshop)
+- [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot); workshop date TBD
 - [x] Competition awards announced: ~$30K total prize pool (1st ~$3K, 2nd ~$2K, 3rd ~$1K) — gold subhero badge, dedicated `#awards` section on competition.html, prize ribbon on home Competition card, navbar entry, SEO meta description
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image at 1200×630 spec
@@ -366,7 +366,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 ### Still needed
 - [ ] Regenerate `img/og-cover.jpg` from `img/og-cover.svg` (EBiM-branded source) — the current JPG predates the rebrand and may show stale branding
 - [ ] Real headshots in `img/organizers/` (currently using initials avatars)
-- [ ] Confirm exact workshop date within September 27 – October 1
+- [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
 - [ ] Fill in workshop poster submission deadlines on workshop.html (currently TBD)
 - [ ] Confirm Asia (Shanghai) partner lab — `testbed-institution` still reads "Partner lab TBD"
