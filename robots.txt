@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://iros-ebim.github.io/sitemap.xml
+Sitemap: https://ebim-benchmark.github.io/sitemap.xml

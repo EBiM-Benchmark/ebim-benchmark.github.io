@@ -1,11 +1,11 @@
-# IROS 2026 Workshop Website — IROS-EBiM
+# EBiM Benchmark Website — EBiM-Benchmark
 
 **Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation**
 
-IROS 2026 Half-Day Workshop · September 27 – October 1, 2026 · Pittsburgh, PA, USA
+A globally coordinated benchmark for real-world embodied bimanual manipulation — Competition + Workshop, 2026
 
-🌐 **Live site:** [iros-ebim.github.io](https://iros-ebim.github.io)
-📧 **Contact:** [iros.ebim@gmail.com](mailto:iros.ebim@gmail.com)
+🌐 **Live site:** [ebim-benchmark.github.io](https://ebim-benchmark.github.io)
+📧 **Contact:** [ebim.benchmark@gmail.com](mailto:ebim.benchmark@gmail.com)
 
 ---
 
@@ -17,7 +17,7 @@ The site is a **multi-page** static site (no build step). Three primary pages pl
 |---|---|---|
 | **Home** | `index.html` | Landing page that funnels visitors to one of two tracks — minimal deep content, maximal navigation clarity |
 | **Competition** | `competition.html` | The EBiM Competition — benchmark tasks, Mobile FR3 Duo platform, cross-continent testbeds, CFP |
-| **Workshop** | `workshop.html` | The IROS 2026 workshop program — schedule, invited talks, panel, posters, dissemination |
+| **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
 | **404** | `404.html` | Branded not-found page (`noindex`) with shared chrome and CTAs back to the three primary pages |
 
 ### Why the split
@@ -35,10 +35,10 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 ## Project structure
 
 ```
-iros-ebim.github.io/
+ebim-benchmark.github.io/
 ├── index.html                           # Landing page (funnel to sub-pages)
 ├── competition.html                     # The EBiM Competition
-├── workshop.html                        # IROS 2026 Workshop Program
+├── workshop.html                        # Workshop Program
 ├── 404.html                             # Branded 404 (noindex)
 ├── css/
 │   └── style.css                        # All shared styles, including dropdowns,
@@ -96,7 +96,7 @@ python -m http.server 8000
 
 ### GitHub Pages deployment
 
-Push to `main` of `IROS-EBiM/iros-ebim.github.io`; GitHub Pages auto-deploys at `https://iros-ebim.github.io`.
+Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-deploys at `https://ebim-benchmark.github.io`.
 
 ---
 
@@ -217,13 +217,13 @@ for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
 
 ### Navbar items
 
-- **EBiM·IROS26** brand → `index.html`
+- **EBiM Benchmark** brand → `index.html`
 - **Home** dropdown → 4 sub-items linking to home sections
 - **Competition** dropdown → 8 sub-items linking to competition sections
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Organizers** → `index.html#organizers`
 - **Sponsors** → `index.html#sponsors`
-- **Contact** → `mailto:iros.ebim@gmail.com`
+- **Contact** → `mailto:ebim.benchmark@gmail.com`
 
 ### Footer columns
 
@@ -353,10 +353,10 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] 4-testbed coverage: Hamburg, Munich, Pittsburgh, Shanghai (Asia testbed moved from Beijing to Shanghai)
 - [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot), Sep 27 – Oct 1 (workshop)
 - [x] Competition awards announced: ~$30K total prize pool (1st ~$3K, 2nd ~$2K, 3rd ~$1K) — gold subhero badge, dedicated `#awards` section on competition.html, prize ribbon on home Competition card, navbar entry, SEO meta description
-- [x] Branding unified under IROS-EBiM
+- [x] Branding unified under EBiM Benchmark
 - [x] OG cover image at 1200×630 spec
 - [x] Stefan Schaal (Intrinsic) and Shaowei Cui confirmed as panelists
-- [x] Google Search Console verified for `https://iros-ebim.github.io/`
+- [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
