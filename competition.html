@@ -470,6 +470,7 @@
     <li><a href="#benchmark">The Benchmark</a></li>
     <li><a href="#tasks">Benchmark Tasks</a></li>
     <li><a href="#testbeds">Cross-Continent Testbeds</a></li>
+    <li><a href="#architecture">Competition Architecture</a></li>
     <li><a href="#call-for-participation">Call for Participation</a></li>
     <li><a href="#awards">Awards &amp; Prizes</a></li>
     <li><a href="#sponsors">Sponsors</a></li>
@@ -968,6 +969,177 @@
 
 
 <!-- ============================================================
+     COMPETITION ARCHITECTURE
+     ============================================================ -->
+<section id="architecture">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Competition Architecture</h2>
+      <p class="section-subtitle">
+        From open simulation to real-robot finals — the end-to-end pipeline and the five pillars that run the benchmark.
+      </p>
+    </div>
+
+    <!-- End-to-end pipeline -->
+    <div class="arch-flow fade-in" aria-label="End-to-end pipeline: Simulation, then Cross-Site Validation, then Real-World Evaluation">
+      <span class="arch-stage">Simulation</span>
+      <svg class="arch-flow-arrow" viewBox="0 0 48 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 12 H38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M32 5 L44 12 L32 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="arch-stage">Cross-Site Validation</span>
+      <svg class="arch-flow-arrow" viewBox="0 0 48 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 12 H38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M32 5 L44 12 L32 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="arch-stage">Real-World Evaluation</span>
+    </div>
+
+    <!-- Five pillars -->
+    <div class="arch-pillars fade-in">
+
+      <div class="arch-pillar">
+        <div class="arch-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="arch-pillar-title">Community</h3>
+        <ul class="arch-pillar-list">
+          <li>Discord</li>
+          <li>GitHub</li>
+          <li>Docs</li>
+          <li>Cloud Access</li>
+        </ul>
+      </div>
+
+      <div class="arch-pillar">
+        <div class="arch-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3 class="arch-pillar-title">Simulation</h3>
+        <div class="arch-pillar-group">
+          <span class="arch-group-label">Tasks</span>
+          <ul class="arch-pillar-list">
+            <li>Cable Routing</li>
+            <li>Thermal Pad</li>
+            <li>Assisted Living</li>
+          </ul>
+        </div>
+        <div class="arch-pillar-group">
+          <span class="arch-group-label">Engines</span>
+          <ul class="arch-pillar-list">
+            <li>MuJoCo</li>
+            <li>Isaac Sim</li>
+            <li>Genesis</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arch-pillar">
+        <div class="arch-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+            <line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+          </svg>
+        </div>
+        <h3 class="arch-pillar-title">Infrastructure</h3>
+        <ul class="arch-pillar-list">
+          <li>Google Cloud</li>
+          <li>AMD GPU Pool</li>
+          <li>Docker</li>
+          <li>Scheduler</li>
+        </ul>
+      </div>
+
+      <div class="arch-pillar">
+        <div class="arch-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <h3 class="arch-pillar-title">Global Validation</h3>
+        <div class="arch-pillar-group">
+          <span class="arch-group-label">Sites</span>
+          <ul class="arch-pillar-list">
+            <li>Hamburg</li>
+            <li>Munich</li>
+            <li>Pittsburgh</li>
+            <li>Shanghai</li>
+          </ul>
+        </div>
+        <div class="arch-pillar-group">
+          <span class="arch-group-label">Platform</span>
+          <ul class="arch-pillar-list">
+            <li>Mobile FR3 Duo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arch-pillar">
+        <div class="arch-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+          </svg>
+        </div>
+        <h3 class="arch-pillar-title">Finals &amp; Results</h3>
+        <ul class="arch-pillar-list">
+          <li>Leaderboard</li>
+          <li>Real Finals</li>
+          <li>Workshop</li>
+          <li>Awards</li>
+          <li>Benchmark Report</li>
+        </ul>
+      </div>
+
+    </div><!-- /.arch-pillars -->
+
+    <!-- Infrastructure & Simulation Stack (layered subsection) -->
+    <div class="stack-sub fade-in">
+      <h3 class="stack-sub-title">Infrastructure &amp; Simulation Stack</h3>
+      <p class="stack-sub-intro">How a submission flows from upload through to physical validation.</p>
+      <div class="stack-layers">
+        <div class="stack-layer">
+          <span class="stack-layer-num">01</span>
+          <div>
+            <div class="stack-layer-title">Participant Access &amp; Submission</div>
+            <div class="stack-layer-desc">Portal for code upload, versioning, and static analysis.</div>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <span class="stack-layer-num">02</span>
+          <div>
+            <div class="stack-layer-title">Simulation Engines</div>
+            <div class="stack-layer-desc">NVIDIA Isaac Sim &middot; MuJoCo &middot; Genesis.</div>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <span class="stack-layer-num">03</span>
+          <div>
+            <div class="stack-layer-title">Compute &amp; Orchestration</div>
+            <div class="stack-layer-desc">GPU pool management, Docker, and automated scheduling.</div>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <span class="stack-layer-num">04</span>
+          <div>
+            <div class="stack-layer-title">Physical Validation</div>
+            <div class="stack-layer-desc">Final cross-site testing on real hardware.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
      IMPORTANT DATES / CALL FOR PARTICIPATION
      ============================================================ -->
 <section id="call-for-participation">
@@ -1235,6 +1407,16 @@
         <a href="https://robotics-institute-germany.de/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
           <img src="img/sponsors/rig.png" alt="Robotics Institute Germany logo" loading="lazy" decoding="async" style="max-height:55px;width:auto;display:block;margin:0 auto .6rem;">
           <span class="sponsor-desc">German national robotics research infrastructure</span>
+        </a>
+        <!-- TODO: replace text placeholder with EASE / CASE logo (e.g. img/sponsors/ease.svg) -->
+        <a href="https://ease-crc.org/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
+          <span class="sponsor-name">EASE / CASE</span>
+          <span class="sponsor-desc">Everyday Activity Science &amp; Engineering · Research infrastructure framework</span>
+        </a>
+        <!-- TODO: replace text placeholder with University of Bremen logo (e.g. img/sponsors/uni-bremen.svg) -->
+        <a href="https://www.uni-bremen.de/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo-link">
+          <span class="sponsor-name">University of Bremen</span>
+          <span class="sponsor-desc">Compute infrastructure partner</span>
         </a>
       </div>
     </div>

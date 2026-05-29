@@ -1885,6 +1885,117 @@ a.sponsor-logo-link:hover .sponsor-name { color: var(--accent-dark); }
   .prize-funding { grid-template-columns: 1fr; gap: 1rem; }
 }
 
+/* ---------- Competition Architecture ---------- */
+/* Pin backgrounds so inserting #architecture doesn't shift the
+   section:nth-child(even) striping for the sections that follow it. */
+.page-competition #architecture,
+.page-competition #call-for-participation,
+.page-competition #sponsors { background: var(--bg-white); }
+
+.arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .85rem;
+  margin: 0 auto 2.75rem;
+}
+.arch-stage {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0f1629 0%, #0a0e1a 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(.85rem, 1.6vw, 1rem);
+  padding: .7rem 1.4rem;
+  border-radius: 100px;
+  border: 1px solid rgba(0,212,255,.35);
+  box-shadow: 0 6px 20px rgba(10,14,26,.18);
+}
+.arch-flow-arrow { width: 42px; height: 22px; color: var(--accent); flex-shrink: 0; }
+
+.arch-pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.1rem;
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+.arch-pillar {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.4rem 1.25rem;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.arch-pillar:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,212,255,.45);
+  box-shadow: 0 12px 32px rgba(0,0,0,.1);
+}
+.arch-pillar-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: rgba(0,212,255,.1);
+  color: var(--accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arch-pillar-icon svg { width: 22px; height: 22px; }
+.arch-pillar-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
+.arch-pillar-group { display: flex; flex-direction: column; gap: .25rem; }
+.arch-group-label {
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.arch-pillar-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  font-size: .83rem;
+  color: var(--text-mid);
+}
+.arch-pillar-list li { position: relative; padding-left: .9rem; line-height: 1.4; }
+.arch-pillar-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: .32rem;
+  height: .32rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Infrastructure & Simulation Stack (layered subsection) */
+.stack-sub { max-width: 820px; margin: 0 auto; }
+.stack-sub-title { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); text-align: center; margin-bottom: .35rem; }
+.stack-sub-intro { text-align: center; font-size: .9rem; color: var(--text-mid); margin-bottom: 1.5rem; }
+.stack-layers { display: flex; flex-direction: column; gap: .6rem; }
+.stack-layer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+}
+.stack-layer-num { font-size: 1.1rem; font-weight: 800; color: var(--accent-dark); line-height: 1.4; flex-shrink: 0; }
+.stack-layer-title { font-size: .95rem; font-weight: 700; color: var(--text-dark); }
+.stack-layer-desc { font-size: .85rem; color: var(--text-mid); line-height: 1.5; }
+
 /* ---------- Footer ---------- */
 footer {
   background: #040711;
