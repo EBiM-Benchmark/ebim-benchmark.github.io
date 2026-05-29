@@ -951,13 +951,6 @@ section:nth-child(even) { background: var(--bg-light); }
   line-height: 1.3;
 }
 
-.task-desc {
-  font-size: .88rem;
-  color: var(--text-mid);
-  line-height: 1.7;
-  flex: 1;
-}
-
 /* Enriched task spec content */
 .task-scenario {
   font-size: .88rem;
