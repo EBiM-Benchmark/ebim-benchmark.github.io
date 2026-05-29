@@ -1,8 +1,8 @@
-# IROS 2026 Workshop Website — EBiM-Benchmark
+# EBiM Benchmark Website — EBiM-Benchmark
 
 **Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation**
 
-IROS 2026 Half-Day Workshop · September 27 – October 1, 2026 · Pittsburgh, PA, USA
+A globally coordinated benchmark for real-world embodied bimanual manipulation — Competition + Workshop, 2026
 
 🌐 **Live site:** [ebim-benchmark.github.io](https://ebim-benchmark.github.io)
 📧 **Contact:** [ebim.benchmark@gmail.com](mailto:ebim.benchmark@gmail.com)
@@ -17,7 +17,7 @@ The site is a **multi-page** static site (no build step). Three primary pages pl
 |---|---|---|
 | **Home** | `index.html` | Landing page that funnels visitors to one of two tracks — minimal deep content, maximal navigation clarity |
 | **Competition** | `competition.html` | The EBiM Competition — benchmark tasks, Mobile FR3 Duo platform, cross-continent testbeds, CFP |
-| **Workshop** | `workshop.html` | The IROS 2026 workshop program — schedule, invited talks, panel, posters, dissemination |
+| **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
 | **404** | `404.html` | Branded not-found page (`noindex`) with shared chrome and CTAs back to the three primary pages |
 
 ### Why the split
@@ -38,7 +38,7 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 ebim-benchmark.github.io/
 ├── index.html                           # Landing page (funnel to sub-pages)
 ├── competition.html                     # The EBiM Competition
-├── workshop.html                        # IROS 2026 Workshop Program
+├── workshop.html                        # Workshop Program
 ├── 404.html                             # Branded 404 (noindex)
 ├── css/
 │   └── style.css                        # All shared styles, including dropdowns,
@@ -48,9 +48,9 @@ ebim-benchmark.github.io/
 │                                        #   collapsible mobile dropdowns, scroll-active
 │                                        #   nav + TOC tracking, fade-in observer
 ├── img/
-│   ├── favicon.svg                      # Site favicon
-│   ├── IROS_2026_logo.webp              # IROS 2026 Pittsburgh logo (hero + footer)
-│   ├── og-cover.jpg                     # Open Graph card (1200×630, ~116 KB)
+│   ├── favicon.svg                      # Site favicon (robot mark, accent color)
+│   ├── og-cover.png                     # Open Graph card (1200×630, ~87 KB, EBiM-branded)
+│   ├── og-cover.svg                     # EBiM-branded OG source (rasterize → og-cover.png)
 │   ├── platform/
 │   │   ├── MFR3_Duo.webp                # 1600×900 WebP (~18 KB) — primary
 │   │   ├── MFR3_Duo.png                 # 4000×2250 PNG (~4 MB)  — fallback
@@ -65,14 +65,14 @@ ebim-benchmark.github.io/
 │   │   ├── vrb.svg                      # Virtual Research Building (Infrastructure & Framework)
 │   │   ├── rig.png                      # Robotics Institute Germany (Infrastructure & Framework)
 │   │   ├── google.svg                   # Google (Computing Resources tier)
-│   │   ├── alibaba_cloud.svg            # Alibaba Cloud (Computing Resources tier)
+│   │   ├── alibaba_cloud.svg            # Alibaba Cloud (unused — sponsor removed; asset retained)
 │   │   ├── tca.png                      # Taipei Computer Association
 │   │   ├── mech_mind.png                # Mech-Mind (dark)
 │   │   ├── mech_mind_white.png
 │   │   ├── robotgym.webp                # RobotGym (dark)
 │   │   ├── robotgym_white.webp
-│   │   ├── amd.svg                      # AMD (white; brightness(0) filter)
-│   │   └── hhri.webp                    # Hon Hai Research Institute (Community)
+│   │   ├── amd.svg                      # AMD (Computing Resources tier; white, brightness(0) filter)
+│   │   └── hhri.png                     # Hon Hai Research Institute (Community)
 │   ├── speakers/                        # (reserved — not used yet)
 │   └── tasks/                           # (reserved — not used yet)
 ├── robots.txt                           # Allow-all + sitemap pointer
@@ -124,10 +124,11 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Three-Phase Mechanism | `#overview` | Pipeline diagram with link to Workshop page for Phase III |
 | Mobile FR3 Duo | `#platform` | Platform specs grid + 2 photos (WebP + PNG fallback) |
 | The Benchmark | `#benchmark` | 6-pillar framework |
-| Benchmark Tasks | `#tasks` | 3 task cards (cable routing, deformable, caregiving) |
+| Benchmark Tasks | `#tasks` | 3 task cards (cable routing, deformable, assisted living) |
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
+| Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
-| Awards & Prizes | `#awards` | 3-card podium (1st/2nd/3rd) + total prize-pool callout (~$30K USD equivalent) |
+| Awards & Prizes | `#awards` | Per-task cash prizes in two tracks (Real-World Excellence + Simulation/AMD) + in-kind AMD hardware support |
 | Sponsors | `#sponsors` | Same tier structure as Home, plus a Community Resources callout (Franka Community) |
 | Workshop callout | (banner) | "Looking for the Workshop?" → workshop.html |
 
@@ -149,7 +150,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 
 ## Workshop program (final)
 
-**Format:** Half-day morning session — exact date within September 27 – October 1, 2026
+**Format:** Half-day morning session — exact date and venue to be announced
 
 | Time | Session |
 |------|---------|
@@ -171,7 +172,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 
 1. **Cable Routing & Plugging** — contact-rich, sequential
 2. **Deformable Material Handling (Thermal Pad Placement)** — deformable, precision
-3. **Caregiving & Feeding** — human-centered, safety-critical
+3. **Assisted Living & Feeding** — human-centered, safety-critical
 
 ## Competition platform
 
@@ -217,7 +218,7 @@ for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
 
 ### Navbar items
 
-- **EBiM·IROS26** brand → `index.html`
+- **EBiM Benchmark** brand → `index.html`
 - **Home** dropdown → 4 sub-items linking to home sections
 - **Competition** dropdown → 8 sub-items linking to competition sections
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
@@ -290,7 +291,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 | Unique `<meta name="description">` (≤ 156 chars) | SERP truncation safe |
 | Unique `<link rel="canonical">` | Avoid duplicate-content penalties |
 | Unique OG (`og:url`, `og:title`, `og:description`) + Twitter Card tags | Per-page social previews |
-| OG image (`og-cover.jpg`, 1200×630, ~116 KB) | Spec-compliant social card |
+| OG image (`og-cover.png`, 1200×630, ~87 KB) | Spec-compliant social card |
 | `<meta name="keywords">` | Used by some academic indexers |
 | `<meta name="google-site-verification">` | Search Console verification token |
 | JSON-LD `Event` schema | Rich event card |
@@ -308,14 +309,14 @@ Each page has exactly **one `<h1>`**. Section headings are `<h2 class="section-t
 
 ### Image attributes
 
-Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, and `decoding="async"`. LCP candidates (the IROS logo in each page's hero/sub-hero) carry `fetchpriority="high"` and `loading="eager"`.
+Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, and `decoding="async"`. The hero/sub-hero brand is a pure CSS/text wordmark (no image), so there is no hero LCP image; remaining LCP-critical images carry `fetchpriority="high"` and `loading="eager"`.
 
 ---
 
 ## Image asset strategy
 
 ### Open Graph image
-- `img/og-cover.jpg` — 1200×630 JPEG, ~116 KB. Matches the social-share spec. Old `og-cover.png` (1671×936) was removed.
+- `img/og-cover.png` — 1200×630 PNG, ~87 KB, EBiM-branded (rasterized from `img/og-cover.svg`). Matches the social-share spec. The pre-rebrand `og-cover.jpg` was removed.
 
 ### Platform photos (competition.html only)
 - WebP versions are the primary asset for ~96% of browsers (~18 KB and ~31 KB respectively).
@@ -342,19 +343,19 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Shared navbar + footer (byte-identical, comment-tagged)
 - [x] Schedule: final 5-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
-- [x] Organizers: OC (11), Advisory (4), Support (10)
+- [x] Organizers: OC (11), Advisory (4), Support (11)
 - [x] He Wang talk title: "Learning Diverse Whole-Body Manipulation Skills for Humanoid Robots"
 - [x] Chuchu Fan talk title: "Formal Visual Planning with Foundation Models"
 - [x] Chalvatzaki affiliation: TU Darmstadt / IEEE RAS TC on Mobile Manipulation
 - [x] Mobile FR3 Duo platform section + photos
-- [x] IROS 2026 logo in hero/sub-hero and footer on all pages
-- [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, Alibaba Cloud), Community (TCA, RobotGym, Mech-Mind, AMD, HHRI)
+- [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
+- [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, AMD), Community (TCA, Mech-Mind, RobotGym, HHRI)
 - [x] Franka Community placements: sub-link under Franka Robotics card (both pages) + Community Resources callout (competition.html)
-- [x] 4-testbed coverage: Hamburg, Munich, Pittsburgh, Shanghai (Asia testbed moved from Beijing to Shanghai)
-- [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot), Sep 27 – Oct 1 (workshop)
-- [x] Competition awards announced: ~$30K total prize pool (1st ~$3K, 2nd ~$2K, 3rd ~$1K) — gold subhero badge, dedicated `#awards` section on competition.html, prize ribbon on home Competition card, navbar entry, SEO meta description
-- [x] Branding unified under EBiM-Benchmark
-- [x] OG cover image at 1200×630 spec
+- [x] 4-testbed coverage: Hamburg (top floor of the Google Hamburg office), Munich, Pittsburgh, Shanghai (Franka Robotics branch office)
+- [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot); workshop date TBD
+- [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta. No sponsor-funding figures shown.
+- [x] Branding unified under EBiM Benchmark
+- [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Stefan Schaal (Intrinsic) and Shaowei Cui confirmed as panelists
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
@@ -365,10 +366,9 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 
 ### Still needed
 - [ ] Real headshots in `img/organizers/` (currently using initials avatars)
-- [ ] Confirm exact workshop date within September 27 – October 1
+- [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
 - [ ] Fill in workshop poster submission deadlines on workshop.html (currently TBD)
-- [ ] Confirm Asia (Shanghai) partner lab — `testbed-institution` still reads "Partner lab TBD"
 - [ ] Optional: convert remaining sponsor PNGs to WebP for marginal extra perf
 
 ---
@@ -380,7 +380,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 | `organizers/` | JPG or PNG | 300 × 300 px |
 | `sponsors/` | SVG preferred (or PNG with transparent bg) | ~400 × 160 px |
 | `platform/` | WebP primary + PNG fallback | 1600 × 900 px (WebP), keep originals as PNG |
-| OG cover | JPG | 1200 × 630 px |
+| OG cover | PNG (or JPG) | 1200 × 630 px |
 
 ---
 
