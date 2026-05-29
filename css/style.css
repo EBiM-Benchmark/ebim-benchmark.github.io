@@ -1913,6 +1913,11 @@ a.sponsor-logo-link:hover .sponsor-name { color: var(--accent-dark); }
   box-shadow: 0 6px 20px rgba(10,14,26,.18);
 }
 .arch-flow-arrow { width: 42px; height: 22px; color: var(--accent); flex-shrink: 0; }
+/* Mobile: stack the pipeline vertically with downward arrows between badges */
+@media (max-width: 768px) {
+  .arch-flow { flex-direction: column; gap: 1rem; }
+  .arch-flow-arrow { transform: rotate(90deg); }
+}
 
 .arch-pillars {
   display: grid;
