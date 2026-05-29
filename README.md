@@ -48,9 +48,9 @@ ebim-benchmark.github.io/
 │                                        #   collapsible mobile dropdowns, scroll-active
 │                                        #   nav + TOC tracking, fade-in observer
 ├── img/
-│   ├── favicon.svg                      # Site favicon
-│   ├── IROS_2026_logo.webp              # IROS 2026 Pittsburgh logo (hero + footer)
+│   ├── favicon.svg                      # Site favicon (robot mark, accent color)
 │   ├── og-cover.jpg                     # Open Graph card (1200×630, ~116 KB)
+│   ├── og-cover.svg                     # EBiM-branded OG source (rasterize → og-cover.jpg)
 │   ├── platform/
 │   │   ├── MFR3_Duo.webp                # 1600×900 WebP (~18 KB) — primary
 │   │   ├── MFR3_Duo.png                 # 4000×2250 PNG (~4 MB)  — fallback
@@ -308,7 +308,7 @@ Each page has exactly **one `<h1>`**. Section headings are `<h2 class="section-t
 
 ### Image attributes
 
-Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, and `decoding="async"`. LCP candidates (the IROS logo in each page's hero/sub-hero) carry `fetchpriority="high"` and `loading="eager"`.
+Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, and `decoding="async"`. The hero/sub-hero brand is a pure CSS/text wordmark (no image), so there is no hero LCP image; remaining LCP-critical images carry `fetchpriority="high"` and `loading="eager"`.
 
 ---
 
@@ -347,7 +347,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Chuchu Fan talk title: "Formal Visual Planning with Foundation Models"
 - [x] Chalvatzaki affiliation: TU Darmstadt / IEEE RAS TC on Mobile Manipulation
 - [x] Mobile FR3 Duo platform section + photos
-- [x] IROS 2026 logo in hero/sub-hero and footer on all pages
+- [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
 - [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, Alibaba Cloud), Community (TCA, RobotGym, Mech-Mind, AMD, HHRI)
 - [x] Franka Community placements: sub-link under Franka Robotics card (both pages) + Community Resources callout (competition.html)
 - [x] 4-testbed coverage: Hamburg, Munich, Pittsburgh, Shanghai (Asia testbed moved from Beijing to Shanghai)
@@ -364,6 +364,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Image optimization: platform PNGs → WebP (~99.5% reduction); OG cover resized + reformatted
 
 ### Still needed
+- [ ] Regenerate `img/og-cover.jpg` from `img/og-cover.svg` (EBiM-branded source) — the current JPG predates the rebrand and may show stale branding
 - [ ] Real headshots in `img/organizers/` (currently using initials avatars)
 - [ ] Confirm exact workshop date within September 27 – October 1
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)

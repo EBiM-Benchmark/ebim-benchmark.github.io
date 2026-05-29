@@ -104,7 +104,8 @@ section:nth-child(even) { background: var(--bg-light); }
   letter-spacing: .02em;
   white-space: nowrap;
 }
-.nav-logo span { color: var(--accent); }
+.nav-logo .wm-mark { color: var(--accent); }
+.nav-logo .wm-word { color: #fff; }
 
 .nav-links {
   display: flex;
@@ -363,16 +364,36 @@ section:nth-child(even) { background: var(--bg-light); }
   padding: 2rem 1.5rem;
 }
 
-.hero-iros-logo {
+/* EBiM Benchmark typographic wordmark (replaces the former logo image) */
+.hero-wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
   margin-bottom: 1.6rem;
 }
-.hero-iros-logo img {
-  height: 140px;
-  width: auto;
-  display: inline-block;
-  filter: drop-shadow(0 0 3px #fff)
-          drop-shadow(0 0 6px #fff)
-          drop-shadow(0 0 2px #fff);
+.hero-wordmark-mark {
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(0, 212, 255, .45);
+}
+.hero-wordmark-sub {
+  margin-top: .4rem;
+  font-size: clamp(.8rem, 2.2vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: .42em;
+  text-indent: .42em; /* offset tracking so the word stays optically centered */
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .82);
+}
+/* Compact variant for the sub-page heroes */
+.hero-wordmark-sm .hero-wordmark-mark { font-size: clamp(2rem, 5.5vw, 3rem); }
+.hero-wordmark-sm .hero-wordmark-sub {
+  font-size: clamp(.7rem, 1.8vw, .9rem);
+  letter-spacing: .36em;
+  text-indent: .36em;
 }
 
 .hero-badge {
@@ -494,8 +515,7 @@ section:nth-child(even) { background: var(--bg-light); }
 /* Short viewports: 16:10 laptop at 200% scaling (~900px CSS), landscape phones */
 @media (max-height: 900px) {
   #home { padding-top: calc(var(--nav-h) + 1rem); padding-bottom: 4rem; }
-  .hero-iros-logo { margin-bottom: 1rem; }
-  .hero-iros-logo img { height: 100px; }
+  .hero-wordmark { margin-bottom: 1rem; }
   .hero-badge { margin-bottom: 1.1rem; }
   .hero-title { font-size: clamp(1.5rem, 3.5vw, 2.4rem); margin-bottom: 0.85rem; }
   .hero-subtitle { margin-bottom: 0.4rem; }
@@ -506,8 +526,7 @@ section:nth-child(even) { background: var(--bg-light); }
 /* Very short viewports: landscape phones, ultra-compact laptops */
 @media (max-height: 700px) {
   #home { padding-top: calc(var(--nav-h) + 0.5rem); padding-bottom: 3rem; }
-  .hero-iros-logo { margin-bottom: 0.6rem; }
-  .hero-iros-logo img { height: 70px; }
+  .hero-wordmark { margin-bottom: 0.6rem; }
   .hero-badge { margin-bottom: 0.75rem; font-size: .72rem; }
   .hero-title { font-size: clamp(1.35rem, 3vw, 2rem); margin-bottom: 0.6rem; }
   .hero-subtitle { margin-bottom: 0.3rem; font-size: .95rem; }
@@ -1729,7 +1748,8 @@ footer {
   letter-spacing: .02em;
   margin-bottom: .75rem;
 }
-.footer-logo span { color: var(--accent); }
+.footer-logo .wm-mark { color: var(--accent); }
+.footer-logo .wm-word { color: #fff; }
 .footer-tagline {
   font-size: .85rem;
   color: rgba(255,255,255,.5);
@@ -1745,13 +1765,6 @@ footer {
   font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
-}
-.footer-iros-logo {
-  height: 48px;
-  width: auto;
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 2px #fff)
-          drop-shadow(0 0 4px #fff);
 }
 .footer-nav {
   display: flex;
@@ -1879,7 +1892,6 @@ footer {
   .people-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   /* Reduce hero vertical padding on mid screens */
   .hero-content { padding: 2rem 1.25rem; }
-  .hero-iros-logo img { height: 110px; }
 }
 
 /* ── 480px ── */
@@ -1897,7 +1909,6 @@ footer {
   .nav-logo { font-size: 1rem; }
   /* Hero */
   .hero-title { font-size: 1.65rem; }
-  .hero-iros-logo img { height: 90px; }
   .hero-actions { flex-direction: column; align-items: center; }
   /* Sponsor large card */
   .sponsor-logo-lg { min-width: 0; width: 100%; }

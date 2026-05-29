@@ -106,7 +106,7 @@
     "@type": "Organization",
     "name": "EBiM Benchmark",
     "url": "https://ebim-benchmark.github.io/",
-    "logo": "https://ebim-benchmark.github.io/img/IROS_2026_logo.webp",
+    "logo": "https://ebim-benchmark.github.io/img/favicon.svg",
     "email": "ebim.benchmark@gmail.com",
     "sameAs": ["https://github.com/EBiM-Benchmark"]
   }
@@ -202,11 +202,6 @@
       max-width: 820px;
       padding: 1.25rem 1.5rem;
     }
-    .subhero-iros-logo { margin-bottom: 1rem; }
-    .subhero-iros-logo img {
-      height: 72px; width: auto; display: inline-block;
-      filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #fff);
-    }
     .breadcrumb {
       display: inline-block;
       font-size: .78rem;
@@ -253,7 +248,6 @@
     }
     @media (max-width: 700px) {
       #home.subhero { min-height: 50vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; }
-      .subhero-iros-logo img { height: 56px; }
     }
 
     /* ── Workshop overview prose ── */
@@ -513,7 +507,7 @@
 <!-- SHARED NAVBAR — keep in sync across index.html, competition.html, workshop.html, 404.html -->
 <nav id="navbar" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">EBiM Benchmark</a>
+    <a href="index.html" class="nav-logo"><span class="wm-mark">EBiM</span> <span class="wm-word">Benchmark</span></a>
 
     <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -578,11 +572,9 @@
      ============================================================ -->
 <section id="home" class="subhero">
   <div class="subhero-content">
-    <div class="subhero-iros-logo">
-      <picture>
-        <source srcset="img/IROS_2026_logo.webp" type="image/webp" />
-        <img src="img/IROS_2026_logo.webp" alt="IROS 2026 Pittsburgh conference logo" width="370" height="240" loading="eager" fetchpriority="high" decoding="async" />
-      </picture>
+    <div class="hero-wordmark hero-wordmark-sm" role="img" aria-label="EBiM Benchmark">
+      <span class="hero-wordmark-mark">EBiM</span>
+      <span class="hero-wordmark-sub">Benchmark</span>
     </div>
 
     <div class="breadcrumb" aria-label="Breadcrumb">
@@ -1302,16 +1294,12 @@
 
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo">EBiM Benchmark</div>
+        <div class="footer-logo"><span class="wm-mark">EBiM</span> <span class="wm-word">Benchmark</span></div>
         <p class="footer-tagline">
           Toward a Globally Coordinated Benchmark<br />
           for Real-World Embodied Bimanual Manipulation
         </p>
         <p class="footer-venue">
-          <picture>
-            <source srcset="img/IROS_2026_logo.webp" type="image/webp" />
-            <img src="img/IROS_2026_logo.webp" alt="IROS 2026 Pittsburgh conference logo" width="370" height="240" class="footer-iros-logo" loading="lazy" decoding="async" />
-          </picture>
           A globally coordinated benchmark for embodied bimanual manipulation
         </p>
       </div>

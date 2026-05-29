@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  EBiM Benchmark Open Graph cover — SOURCE / PLACEHOLDER (1200×630).
+  The live og:image tag points at og-cover.jpg. This SVG is the EBiM-branded
+  replacement source: rasterize it to refresh the (pre-rebrand) JPG, e.g.
+    rsvg-convert -w 1200 -h 630 og-cover.svg | magick - -quality 90 og-cover.jpg
+  (no SVG rasterizer was available in this environment, so the JPG was left as-is).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0e1a"/>
+
+  <!-- faint grid, echoing the site hero -->
+  <g stroke="#00d4ff" stroke-opacity="0.07" stroke-width="1">
+    <path d="M0 90 H1200 M0 180 H1200 M0 270 H1200 M0 360 H1200 M0 450 H1200 M0 540 H1200"/>
+    <path d="M90 0 V630 M180 0 V630 M270 0 V630 M360 0 V630 M450 0 V630 M540 0 V630 M630 0 V630 M720 0 V630 M810 0 V630 M900 0 V630 M990 0 V630 M1080 0 V630 M1110 0 V630"/>
+  </g>
+
+  <!-- center glow -->
+  <radialGradient id="glow" cx="50%" cy="42%" r="55%">
+    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.16"/>
+    <stop offset="70%" stop-color="#00d4ff" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- top accent bar -->
+  <rect x="0" y="0" width="1200" height="10" fill="#00d4ff"/>
+
+  <g font-family="'Inter','Helvetica Neue',Arial,sans-serif" text-anchor="middle">
+    <text x="600" y="270" font-size="180" font-weight="800" letter-spacing="-4"
+          fill="#00d4ff">EBiM</text>
+    <text x="600" y="350" font-size="60" font-weight="600" letter-spacing="22"
+          fill="#e2e8f0">BENCHMARK</text>
+    <text x="600" y="470" font-size="32" font-weight="500" fill="#94a3b8">
+      Toward a Globally Coordinated Benchmark for
+    </text>
+    <text x="600" y="512" font-size="32" font-weight="500" fill="#94a3b8">
+      Real-World Embodied Bimanual Manipulation
+    </text>
+  </g>
+</svg>
