@@ -343,15 +343,15 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Shared navbar + footer (byte-identical, comment-tagged)
 - [x] Schedule: final 5-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
-- [x] Organizers: OC (11), Advisory (4), Support (10)
+- [x] Organizers: OC (11), Advisory (4), Support (11)
 - [x] He Wang talk title: "Learning Diverse Whole-Body Manipulation Skills for Humanoid Robots"
 - [x] Chuchu Fan talk title: "Formal Visual Planning with Foundation Models"
 - [x] Chalvatzaki affiliation: TU Darmstadt / IEEE RAS TC on Mobile Manipulation
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
-- [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG, EASE / CASE, University of Bremen — last two text placeholders pending logos), Computing Resources (Google, Alibaba Cloud), Community (TCA, RobotGym, Mech-Mind, AMD, HHRI)
+- [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, AMD), Community (TCA, Mech-Mind, RobotGym, HHRI)
 - [x] Franka Community placements: sub-link under Franka Robotics card (both pages) + Community Resources callout (competition.html)
-- [x] 4-testbed coverage: Hamburg, Munich, Pittsburgh, Shanghai (Asia testbed moved from Beijing to Shanghai)
+- [x] 4-testbed coverage: Hamburg (top floor of the Google Hamburg office), Munich, Pittsburgh, Shanghai (Franka Robotics branch office)
 - [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot); workshop date TBD
 - [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia); $43K total sponsor funding (AMD $40K; TCA, Mech-Mind, RobotGym $1K each) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta
 - [x] Branding unified under EBiM Benchmark
@@ -369,7 +369,6 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
 - [ ] Fill in workshop poster submission deadlines on workshop.html (currently TBD)
-- [ ] Confirm Asia (Shanghai) partner lab — `testbed-institution` still reads "Partner lab TBD"
 - [ ] Optional: convert remaining sponsor PNGs to WebP for marginal extra perf
 
 ---
