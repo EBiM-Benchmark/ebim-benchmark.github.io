@@ -72,7 +72,7 @@ ebim-benchmark.github.io/
 │   │   ├── robotgym.webp                # RobotGym (dark)
 │   │   ├── robotgym_white.webp
 │   │   ├── amd.svg                      # AMD (white; brightness(0) filter)
-│   │   └── hhri.webp                    # Hon Hai Research Institute (Community)
+│   │   └── hhri.png                     # Hon Hai Research Institute (Community)
 │   ├── speakers/                        # (reserved — not used yet)
 │   └── tasks/                           # (reserved — not used yet)
 ├── robots.txt                           # Allow-all + sitemap pointer
