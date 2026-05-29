@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The EBiM Competition · Cross-Continent Robot Benchmark</title>
-  <meta name="description" content="Compete for a ~$30K prize pool in the EBiM Benchmark: cable routing, deformable handling, and caregiving tasks on Mobile FR3 Duo robots in Hamburg, Munich, Pittsburgh, and Shanghai." />
+  <meta name="description" content="Compete for real cash prizes up to $3,000 per task in the EBiM Benchmark: cable routing, deformable handling, and caregiving tasks on Mobile FR3 Duo robots in Hamburg, Munich, Pittsburgh, and Shanghai." />
   <meta name="keywords" content="bimanual manipulation benchmark, robot competition, embodied AI challenge, Mobile FR3 Duo, Franka Robotics, sim-to-real, cable routing benchmark, deformable manipulation, robot caregiving, cross-laboratory reproducibility" />
 
   <!-- Canonical URL -->
@@ -438,7 +438,7 @@
 
     <div class="subhero-badge" aria-label="Prize pool">
       <span aria-hidden="true">🏆</span>
-      <strong>~$30,000 USD Prize Pool</strong>
+      <strong>Up to $3,000 per task + AMD hardware</strong>
     </div>
 
     <h1 class="subhero-title">The EBiM Competition</h1>
@@ -990,51 +990,115 @@
 
 
 <!-- ============================================================
-     AWARDS & PRIZES — podium tiers + total prize pool callout
+     AWARDS & PRIZES — per-task cash prizes across two tracks
      ============================================================ -->
 <section id="awards">
   <div class="container">
     <div class="text-center fade-in">
       <h2 class="section-title">Awards &amp; Prizes</h2>
       <p class="section-subtitle">
-        Recognizing the top teams across both simulation and real-robot phases.
+        Real cash prizes, awarded <strong>per task</strong> across all three benchmark
+        tasks &mdash; backed by AMD and our community sponsors.
       </p>
     </div>
 
-    <div class="podium-grid fade-in">
-      <article class="podium-card podium-1">
-        <span class="podium-medal" aria-hidden="true">🥇</span>
-        <div class="podium-place">1st Place</div>
-        <div class="podium-amount">~$3,000 USD</div>
-        <div class="podium-note">equivalent in computing credits and in-kind contributions</div>
+    <p class="awards-pertask fade-in">
+      Every prize below is awarded <strong>per task</strong>, independently for each of the
+      <a href="#tasks">three benchmark tasks</a> &mdash; a team can place in every task.
+    </p>
+
+    <div class="prize-tracks fade-in">
+
+      <!-- Headline track: Real-World Excellence (largest prizes) -->
+      <article class="prize-track prize-track-primary">
+        <div class="prize-track-head">
+          <span class="prize-track-eyebrow">Headline &middot; on real hardware</span>
+          <h3 class="prize-track-title">Real-World Excellence</h3>
+          <p class="prize-track-sub">Per task &middot; judged on the physical Mobile FR3 Duo</p>
+        </div>
+        <ul class="prize-tiers">
+          <li class="prize-tier tier-1">
+            <span class="tier-medal" aria-hidden="true">🥇</span>
+            <span class="tier-place">1st</span>
+            <span class="tier-amount">$3,000</span>
+            <span class="tier-extra">Trophy + special design gift</span>
+          </li>
+          <li class="prize-tier tier-2">
+            <span class="tier-medal" aria-hidden="true">🥈</span>
+            <span class="tier-place">2nd</span>
+            <span class="tier-amount">$2,000</span>
+            <span class="tier-extra">Special design gift</span>
+          </li>
+          <li class="prize-tier tier-3">
+            <span class="tier-medal" aria-hidden="true">🥉</span>
+            <span class="tier-place">3rd</span>
+            <span class="tier-amount">$1,000</span>
+            <span class="tier-extra">Special design gift</span>
+          </li>
+        </ul>
       </article>
-      <article class="podium-card podium-2">
-        <span class="podium-medal" aria-hidden="true">🥈</span>
-        <div class="podium-place">2nd Place</div>
-        <div class="podium-amount">~$2,000 USD</div>
-        <div class="podium-note">equivalent in computing credits and in-kind contributions</div>
+
+      <!-- Secondary track: Simulation Prize (AMD Solution) -->
+      <article class="prize-track prize-track-secondary">
+        <div class="prize-track-head">
+          <span class="prize-track-eyebrow">Simulation &middot; AMD Solution</span>
+          <h3 class="prize-track-title">Simulation Prize</h3>
+          <p class="prize-track-sub">Per task &middot; awarded in the open simulation phase</p>
+        </div>
+        <ul class="prize-tiers">
+          <li class="prize-tier tier-1">
+            <span class="tier-medal" aria-hidden="true">🥇</span>
+            <span class="tier-place">1st</span>
+            <span class="tier-amount">$500</span>
+          </li>
+          <li class="prize-tier tier-2">
+            <span class="tier-medal" aria-hidden="true">🥈</span>
+            <span class="tier-place">2nd</span>
+            <span class="tier-amount">$400</span>
+          </li>
+          <li class="prize-tier tier-3">
+            <span class="tier-medal" aria-hidden="true">🥉</span>
+            <span class="tier-place">3rd</span>
+            <span class="tier-amount">$300</span>
+          </li>
+        </ul>
       </article>
-      <article class="podium-card podium-3">
-        <span class="podium-medal" aria-hidden="true">🥉</span>
-        <div class="podium-place">3rd Place</div>
-        <div class="podium-amount">~$1,000 USD</div>
-        <div class="podium-note">equivalent in computing credits and in-kind contributions</div>
-      </article>
+
+    </div><!-- /.prize-tracks -->
+
+    <!-- In-kind AMD hardware support -->
+    <div class="prize-hardware fade-in">
+      <span class="prize-hardware-eyebrow">In-kind &middot; AMD</span>
+      <h3 class="prize-hardware-title">Simulation Development Hardware Support</h3>
+      <p class="prize-hardware-desc">
+        AMD development hardware distributed across three regions &mdash;
+        <strong>U.S.</strong>, <strong>Germany</strong>, and <strong>Asia</strong> &mdash;
+        with each region receiving:
+      </p>
+      <ul class="prize-hardware-list">
+        <li><strong>2&times;</strong> Ryzen AI MAX+ 395</li>
+        <li><strong>4&times;</strong> AMD Radeon Pro 9700</li>
+      </ul>
     </div>
 
-    <div class="prize-total fade-in">
-      <div class="prize-total-label">Total Prize Pool</div>
-      <div class="prize-total-amount">~$30,000 USD equivalent</div>
+    <!-- Total sponsor funding -->
+    <div class="prize-funding fade-in">
+      <div class="prize-funding-total">
+        <span class="prize-funding-label">Total sponsor funding</span>
+        <span class="prize-funding-amount">$43,000</span>
+        <span class="prize-funding-plus">+ AMD development hardware (in kind)</span>
+      </div>
+      <ul class="prize-funding-list">
+        <li><span class="fund-name">AMD</span> <span class="fund-amt">$40,000</span></li>
+        <li><span class="fund-name">Taipei Computer Association</span> <span class="fund-amt">$1,000</span></li>
+        <li><span class="fund-name">Mech-Mind</span> <span class="fund-amt">$1,000</span></li>
+        <li><span class="fund-name">RobotGym</span> <span class="fund-amt">$1,000</span></li>
+      </ul>
     </div>
 
     <div class="prize-notes fade-in">
       <p>
-        Prizes include computing credits, hardware allocations, and other in-kind
-        contributions from our sponsors. Specific composition will be announced
-        before the competition start date.
-      </p>
-      <p>
-        <strong>Eligibility:</strong> Open to all teams participating in both the
+        <strong>Eligibility:</strong> Open to all teams participating in the
         simulation and real-world phases. See
         <a href="#call-for-participation">Call for Participation</a> for details.
       </p>
