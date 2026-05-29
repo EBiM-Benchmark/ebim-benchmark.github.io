@@ -65,13 +65,13 @@ ebim-benchmark.github.io/
 │   │   ├── vrb.svg                      # Virtual Research Building (Infrastructure & Framework)
 │   │   ├── rig.png                      # Robotics Institute Germany (Infrastructure & Framework)
 │   │   ├── google.svg                   # Google (Computing Resources tier)
-│   │   ├── alibaba_cloud.svg            # Alibaba Cloud (Computing Resources tier)
+│   │   ├── alibaba_cloud.svg            # Alibaba Cloud (unused — sponsor removed; asset retained)
 │   │   ├── tca.png                      # Taipei Computer Association
 │   │   ├── mech_mind.png                # Mech-Mind (dark)
 │   │   ├── mech_mind_white.png
 │   │   ├── robotgym.webp                # RobotGym (dark)
 │   │   ├── robotgym_white.webp
-│   │   ├── amd.svg                      # AMD (white; brightness(0) filter)
+│   │   ├── amd.svg                      # AMD (Computing Resources tier; white, brightness(0) filter)
 │   │   └── hhri.png                     # Hon Hai Research Institute (Community)
 │   ├── speakers/                        # (reserved — not used yet)
 │   └── tasks/                           # (reserved — not used yet)
@@ -128,7 +128,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
 | Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
-| Awards & Prizes | `#awards` | Per-task cash prizes in two tracks (Real-World Excellence + Simulation/AMD) + in-kind AMD hardware support + $43K total sponsor funding |
+| Awards & Prizes | `#awards` | Per-task cash prizes in two tracks (Real-World Excellence + Simulation/AMD) + in-kind AMD hardware support |
 | Sponsors | `#sponsors` | Same tier structure as Home, plus a Community Resources callout (Franka Community) |
 | Workshop callout | (banner) | "Looking for the Workshop?" → workshop.html |
 
@@ -353,7 +353,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Franka Community placements: sub-link under Franka Robotics card (both pages) + Community Resources callout (competition.html)
 - [x] 4-testbed coverage: Hamburg (top floor of the Google Hamburg office), Munich, Pittsburgh, Shanghai (Franka Robotics branch office)
 - [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot); workshop date TBD
-- [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia); $43K total sponsor funding (AMD $40K; TCA, Mech-Mind, RobotGym $1K each) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta
+- [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta. No sponsor-funding figures shown.
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Stefan Schaal (Intrinsic) and Shaowei Cui confirmed as panelists
