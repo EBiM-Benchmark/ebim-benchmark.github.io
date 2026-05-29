@@ -124,7 +124,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Three-Phase Mechanism | `#overview` | Pipeline diagram with link to Workshop page for Phase III |
 | Mobile FR3 Duo | `#platform` | Platform specs grid + 2 photos (WebP + PNG fallback) |
 | The Benchmark | `#benchmark` | 6-pillar framework |
-| Benchmark Tasks | `#tasks` | 3 task cards (cable routing, deformable, caregiving) |
+| Benchmark Tasks | `#tasks` | 3 task cards (cable routing, deformable, assisted living) |
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
 | Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
@@ -172,7 +172,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 
 1. **Cable Routing & Plugging** — contact-rich, sequential
 2. **Deformable Material Handling (Thermal Pad Placement)** — deformable, precision
-3. **Caregiving & Feeding** — human-centered, safety-critical
+3. **Assisted Living & Feeding** — human-centered, safety-critical
 
 ## Competition platform
 
