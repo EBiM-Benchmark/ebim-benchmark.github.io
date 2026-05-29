@@ -1830,28 +1830,6 @@ a.sponsor-logo-link:hover .sponsor-name { color: var(--accent-dark); }
 }
 .prize-hardware-list strong { color: var(--accent-dark); }
 
-/* Total sponsor funding */
-.prize-funding {
-  max-width: 560px;
-  margin: 0 auto 1.6rem;
-  text-align: center;
-  background: var(--bg-white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.6rem 1.7rem;
-  box-shadow: var(--card-shadow);
-}
-.prize-funding-label {
-  display: block;
-  font-size: .74rem;
-  font-weight: 700;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: .25rem;
-}
-.prize-funding-amount { display: block; font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 800; color: var(--text-dark); line-height: 1; }
-.prize-funding-plus { display: block; font-size: .8rem; color: var(--accent-dark); font-weight: 600; margin-top: .35rem; }
 .prize-notes {
   max-width: 720px;
   margin: 0 auto;
