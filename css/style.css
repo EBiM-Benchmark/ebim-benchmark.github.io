@@ -958,6 +958,64 @@ section:nth-child(even) { background: var(--bg-light); }
   flex: 1;
 }
 
+/* Enriched task spec content */
+.task-scenario {
+  font-size: .88rem;
+  color: var(--text-mid);
+  line-height: 1.65;
+}
+.task-block { display: flex; flex-direction: column; gap: .3rem; }
+.task-label {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  font-size: .84rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+.task-list li { position: relative; padding-left: 1.05rem; }
+.task-list li::before {
+  content: '';
+  position: absolute;
+  left: .1rem;
+  top: .5em;
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.task-text {
+  font-size: .84rem;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+.task-text strong { color: var(--text-dark); font-weight: 700; }
+.task-sims {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem;
+}
+.task-sims .task-label { margin-right: .15rem; }
+.sim-chip {
+  display: inline-block;
+  padding: .18rem .6rem;
+  border-radius: 6px;
+  font-size: .72rem;
+  font-weight: 600;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  color: var(--text-mid);
+}
+
 .task-tags {
   display: flex;
   flex-wrap: wrap;

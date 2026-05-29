@@ -767,7 +767,7 @@
     <div class="text-center fade-in">
       <h2 class="section-title">Benchmark Tasks</h2>
       <p class="section-subtitle">
-        Three core bimanual manipulation tasks spanning contact-rich assembly, deformable object handling, and human-centered caregiving.
+        Three core bimanual manipulation tasks — contact-rich assembly, deformable material handling, and assisted living. Tasks run in Isaac Sim, MuJoCo, and Genesis.
       </p>
     </div>
 
@@ -783,10 +783,37 @@
         </div>
         <div class="task-body">
           <h3 class="task-title">Cable Routing &amp; Plugging</h3>
-          <p class="task-desc">Route a cable through clamps and plug from Port A to Port B. Requires color/positional understanding, sequential constraint satisfaction, and mobile repositioning.</p>
+          <p class="task-scenario">Industrial path recognition, cable grasping, routing, and fixation.</p>
+
+          <div class="task-block">
+            <span class="task-label">Objectives</span>
+            <ul class="task-list">
+              <li>Route the cable around O-props and through C-props sequentially</li>
+              <li>Reach Y-checkpoints to validate preceding scores</li>
+              <li>Maintain tension and bimanual coordination for Y-props</li>
+            </ul>
+          </div>
+
+          <div class="task-block">
+            <span class="task-label">Technical challenges</span>
+            <p class="task-text">Deformable-object manipulation (flexible cable), contact-rich interaction &amp; path recognition, and bimanual re-grasping with dual-arm coordination.</p>
+          </div>
+
+          <div class="task-block">
+            <span class="task-label">Evaluation</span>
+            <p class="task-text"><strong>Primary:</strong> validated scoring points (total, within 20 min). <strong>Secondary:</strong> completion time, re-grasps, handovers. <strong>Process:</strong> SPARC smoothness, joint torque, bimanual metrics.</p>
+          </div>
+
+          <div class="task-sims">
+            <span class="task-label">Simulators</span>
+            <span class="sim-chip">Isaac Sim</span>
+            <span class="sim-chip">MuJoCo</span>
+          </div>
+
           <div class="task-tags">
             <span class="task-tag tag-cyan">Contact-Rich</span>
-            <span class="task-tag tag-cyan">Sequential</span>
+            <span class="task-tag tag-cyan">Deformable</span>
+            <span class="task-tag tag-cyan">Bimanual</span>
           </div>
         </div>
       </div>
@@ -801,10 +828,38 @@
         </div>
         <div class="task-body">
           <h3 class="task-title">Deformable Material Handling (Thermal Pad Placement)</h3>
-          <p class="task-desc">Manipulate thermal silica pads of different colors, shapes, and sizes. The robot must peel deformable thermal pads from a backing sheet and precisely place them at specified semantic target locations. Requires integration of perception, contact-rich manipulation, and precise positioning.</p>
+          <p class="task-scenario">Industrial electronics manufacturing — a Thermal Interface Material (TIM) assembly benchmark.</p>
+
+          <div class="task-block">
+            <span class="task-label">Objectives</span>
+            <ul class="task-list">
+              <li>Peel the thermal-pad liner from its substrate</li>
+              <li>Transport the highly deformable pad without damage</li>
+              <li>Align and attach it onto the designated PCB chip area</li>
+            </ul>
+          </div>
+
+          <div class="task-block">
+            <span class="task-label">Technical challenges</span>
+            <p class="task-text">Deformable-material modeling (soft-body physics), non-linear adhesion and surface friction, high-precision placement of compliant objects, and contact-rich force control with tactile sensing.</p>
+          </div>
+
+          <div class="task-block">
+            <span class="task-label">Evaluation</span>
+            <p class="task-text">Placement accuracy (center &amp; orientation), deformation quality &amp; wrinkle/folding ratio, process safety (force-threshold violations), and total completion time.</p>
+          </div>
+
+          <div class="task-sims">
+            <span class="task-label">Simulators</span>
+            <span class="sim-chip">Isaac Sim</span>
+            <span class="sim-chip">MuJoCo</span>
+            <span class="sim-chip">Genesis</span>
+          </div>
+
           <div class="task-tags">
             <span class="task-tag tag-purple">Deformable</span>
             <span class="task-tag tag-purple">Precision</span>
+            <span class="task-tag tag-purple">Tactile</span>
           </div>
         </div>
       </div>
@@ -818,11 +873,38 @@
           </div>
         </div>
         <div class="task-body">
-          <h3 class="task-title">Caregiving &amp; Feeding</h3>
-          <p class="task-desc">Autonomous feeding assistance using a spoon to scoop from a bowl of coffee beans. The robot must navigate to a feeding area where a mannequin head is placed at a random position, reach the target region, and deposit beans into an empty collection bowl. Evaluation counts the number of beans successfully transferred.</p>
+          <h3 class="task-title">Assisted Living &amp; Feeding</h3>
+          <p class="task-scenario">Assisted-living dining: Pick &rarr; Deliver &rarr; Feed &rarr; Collect.</p>
+
+          <div class="task-block">
+            <span class="task-label">Objectives</span>
+            <ul class="task-list">
+              <li>Pick, deliver in sequence (Stations A&ndash;H), and feed at Station I</li>
+              <li>Bimanual feeding — one arm holds the spoon, one holds the container</li>
+              <li>Return all objects to the Collection Area (yellow zone)</li>
+            </ul>
+          </div>
+
+          <div class="task-block">
+            <span class="task-label">Environment</span>
+            <p class="task-text">Start Zone, Pickup (gray), Delivery (A&ndash;H), and Feeding (I); objects are IKEA KALAS containers &amp; spoons. Simulation and real-world setups are identical.</p>
+          </div>
+
+          <div class="task-block">
+            <span class="task-label">Evaluation</span>
+            <p class="task-text"><strong>Primary:</strong> success points — Delivery / Feed / Collect (+10 each). <strong>Secondary:</strong> completion time, remaining food items. <strong>Safety:</strong> peak head force &amp; watchdog interventions.</p>
+          </div>
+
+          <div class="task-sims">
+            <span class="task-label">Simulators</span>
+            <span class="sim-chip">Isaac Sim</span>
+            <span class="sim-chip">MuJoCo</span>
+          </div>
+
           <div class="task-tags">
             <span class="task-tag tag-amber">Human-Centered</span>
             <span class="task-tag tag-amber">Safety-Critical</span>
+            <span class="task-tag tag-amber">Bimanual</span>
           </div>
         </div>
       </div>
@@ -831,7 +913,7 @@
     </div><!-- /.tasks-grid -->
 
     <p class="tasks-note fade-in">
-      Task specifications, evaluation protocols, and simulation environments will be released as part of the benchmark framework.
+      Reference simulation environments and full scoring scripts will be released as part of the benchmark framework.
     </p>
 
   </div>
