@@ -162,7 +162,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | 10:25–10:45 | Invited Talk 3 — Speaker TBA (What Is Still Missing to Bring Mobile Manipulation Robots into the Real World) |
 | 10:45–11:05 | Invited Talk 4 — Speaker TBA (Formal Visual Planning with Foundation Models) |
 | 11:05–11:25 | Invited Talk 5 — Speaker TBA (Learning Diverse Whole-Body Manipulation Skills for Humanoid Robots) |
-| 11:25–11:55 | Panel Discussion — Host: Dr. Wenkai Chen |
+| 11:25–11:55 | Panel Discussion — Host TBA |
 | 11:55–12:30 | Best Poster Award & Competition Award |
 | 12:30–13:30 | Sponsored Lunch & Networking |
 
@@ -354,7 +354,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta. No sponsor-funding figures shown.
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
-- [x] Panel: Kenny Kimble (NIST) almost-confirmed; other panelists being re-invited (host Dr. Wenkai Chen retained)
+- [x] Panel: Kenny Kimble (NIST) almost-confirmed; host and other panelists being re-invited
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
