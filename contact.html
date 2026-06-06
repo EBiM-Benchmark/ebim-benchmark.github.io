@@ -269,6 +269,9 @@
     .btn-submit:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
 
     /* Inline error (shown above the submit button on failure) */
+    /* `.form-error` sets display:flex, which would otherwise override the
+       `hidden` attribute — this keeps it hidden until JS reveals it. */
+    .form-error[hidden] { display: none; }
     .form-error {
       display: flex;
       align-items: flex-start;
