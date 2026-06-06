@@ -5,7 +5,31 @@
 A globally coordinated benchmark for real-world embodied bimanual manipulation — Competition + Workshop, 2026
 
 🌐 **Live site:** [ebim-benchmark.github.io](https://ebim-benchmark.github.io)
-📧 **Contact:** [ebim.benchmark@gmail.com](mailto:ebim.benchmark@gmail.com)
+📧 **Contact:** https://ebim-benchmark.github.io/contact.html
+
+### Contact form: deep links & categories
+
+`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category:
+
+- `register` → Competition — Register Interest
+- `competition` → Competition Question
+- `sponsorship` → Sponsorship Inquiry
+- `workshop` → Workshop / Poster Submission
+- `media` → Media / Press
+- `tech` → Technical (Platform / Website)
+- `partnership` → Partnership / Testbed Hosting
+
+Unknown/absent slug = no pre-selection.
+
+**Adding a category** — keep three places in sync, or the subject prefix / pre-selection silently breaks:
+
+1. The `<option>` in the category `<select>` (`contact.html`)
+2. The same option value → `"[PREFIX] "` entry in the JS prefix map
+3. *(optional)* a slug → option-value entry in the `?topic=` map
+
+The option value string must be **byte-identical** (including any em-dash `—`) across all three places.
+
+**Destination email** is configured in the Web3Forms dashboard (tied to the access key in `contact.html`), not in any committed file — so the address stays out of the public repo.
 
 ---
 
@@ -224,7 +248,7 @@ for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Organizers** → `index.html#organizers`
 - **Sponsors** → `index.html#sponsors`
-- **Contact** → `mailto:ebim.benchmark@gmail.com`
+- **Contact** → https://ebim-benchmark.github.io/contact.html
 
 ### Footer columns
 
