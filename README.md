@@ -148,21 +148,21 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 
 ---
 
-## Workshop program (final)
+## Workshop program (tentative — speakers being re-invited)
 
 **Format:** Half-day morning session — exact date and venue to be announced
 
 | Time | Session |
 |------|---------|
 | 08:30–08:40 | Opening Remarks |
-| 08:40–09:00 | Invited Talk 1 — Prof. Abhinav Valada (Freiburg) |
-| 09:00–09:20 | Invited Talk 2 — Prof. Roberto Martín-Martín (UT Austin) |
+| 08:40–09:00 | Invited Talk 1 — Speaker TBA (Long-Horizon Mobile Manipulation in the Wild) |
+| 09:00–09:20 | Invited Talk 2 — Speaker TBA (Robot Benchmarking in Simulation and Real World) |
 | 09:20–09:40 | Competition Highlights — Winner Teams (1st, 2nd, 3rd place) |
 | 09:40–10:25 | Poster Session & Coffee Break |
-| 10:25–10:45 | Invited Talk 3 — Prof. Georgia Chalvatzaki (TU Darmstadt) |
-| 10:45–11:05 | Invited Talk 4 — Prof. Chuchu Fan (MIT) |
-| 11:05–11:25 | Invited Talk 5 — Prof. He Wang (Peking University) |
-| 11:25–11:55 | Panel Discussion — Host: Dr. Wenkai Chen |
+| 10:25–10:45 | Invited Talk 3 — Speaker TBA (What Is Still Missing to Bring Mobile Manipulation Robots into the Real World) |
+| 10:45–11:05 | Invited Talk 4 — Speaker TBA (Formal Visual Planning with Foundation Models) |
+| 11:05–11:25 | Invited Talk 5 — Speaker TBA (Learning Diverse Whole-Body Manipulation Skills for Humanoid Robots) |
+| 11:25–11:55 | Panel Discussion — Host TBA |
 | 11:55–12:30 | Best Poster Award & Competition Award |
 | 12:30–13:30 | Sponsored Lunch & Networking |
 
@@ -344,9 +344,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Schedule: final 5-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
 - [x] Organizers: OC (11), Advisory (4), Support (11)
-- [x] He Wang talk title: "Learning Diverse Whole-Body Manipulation Skills for Humanoid Robots"
-- [x] Chuchu Fan talk title: "Formal Visual Planning with Foundation Models"
-- [x] Chalvatzaki affiliation: TU Darmstadt / IEEE RAS TC on Mobile Manipulation
+- [x] Invited-talk topics retained on workshop.html; speaker identities anonymized (being re-invited)
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
 - [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, AMD), Community (TCA, Mech-Mind, RobotGym, HHRI)
@@ -356,7 +354,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta. No sponsor-funding figures shown.
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
-- [x] Stefan Schaal (Intrinsic) and Shaowei Cui confirmed as panelists
+- [x] Panel: Kenny Kimble (NIST) almost-confirmed; host and other panelists being re-invited
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
