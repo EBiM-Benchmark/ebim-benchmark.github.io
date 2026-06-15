@@ -1549,9 +1549,7 @@ section:nth-child(even) { background: var(--bg-light); }
   .support-grid  { grid-template-columns: 1fr; }
 }
 
-/* ---------- Sponsors ---------- */
-#sponsors { background: var(--bg-white); }
-.sponsors-tier { margin-bottom: 3rem; }
+/* ---------- Tier label (shared by the Partners tiers) ---------- */
 .tier-label {
   font-size: .78rem;
   font-weight: 700;
@@ -1569,66 +1567,6 @@ section:nth-child(even) { background: var(--bg-light); }
   height: 1px;
   background: var(--border);
 }
-.sponsors-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: stretch;
-  justify-content: center;
-}
-.sponsor-logo {
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.4rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: .4rem;
-  min-width: 180px;
-  min-height: 90px;
-  text-align: center;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.sponsor-logo:hover {
-  border-color: var(--accent);
-  box-shadow: 0 4px 20px rgba(0,212,255,.08);
-}
-.sponsor-logo-lg {
-  min-width: 280px;
-  min-height: 110px;
-  background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fb 100%);
-  border-color: rgba(0,168,204,.25);
-  /* Pin description to the bottom so descriptions align across cards even
-     when logos render at different intrinsic heights. Per-image vertical
-     centering is handled by margin overrides on the inline style. */
-  justify-content: space-between;
-}
-.sponsor-name {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--text-dark);
-  letter-spacing: -.01em;
-}
-.sponsor-logo-lg .sponsor-name { font-size: 1.25rem; }
-.sponsor-desc {
-  font-size: .75rem;
-  color: var(--text-muted);
-  line-height: 1.4;
-}
-/* Anchor-wrapped sponsor cards */
-a.sponsor-logo-link { text-decoration: none; cursor: pointer; }
-a.sponsor-logo-link .sponsor-name { color: var(--text-dark); }
-a.sponsor-logo-link:hover .sponsor-name { color: var(--accent-dark); }
-
-.sponsor-cta {
-  text-align: center;
-  margin-top: .5rem;
-  font-size: .9rem;
-  color: var(--text-mid);
-}
-.sponsor-cta a { font-weight: 600; }
 
 /* ---------- Partners (ICRA-style tiered) ---------- */
 #partners { background: var(--bg-white); }
