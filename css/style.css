@@ -1722,6 +1722,24 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 .partners-tier.tier-bronze .partner-namecard { font-size: .95rem; }
 .partners-tier.tier-bronze .partner-caption { font-size: .72rem; }
 
+/* Platinum: two logos per row on wider screens
+   (Agile Robots + Franka Robotics, then Google + AMD). The width cap +
+   flex-basis lets exactly two cards share a row; they collapse to one
+   column on narrow screens via the max-width:600px rule below. */
+.partners-tier.tier-platinum .partners-logos {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.partners-tier.tier-platinum .partner-card { flex: 1 1 240px; }
+
+/* Bronze per-logo size overrides: enlarge VRB / RIG / HHRI, shrink Galbot.
+   Targeted by src so Lightwheel / ManipulationNet keep the tier default. */
+.partners-tier.tier-bronze .partner-logo-img[src*="vrb"],
+.partners-tier.tier-bronze .partner-logo-img[src*="rig"],
+.partners-tier.tier-bronze .partner-logo-img[src*="hhri"] { max-height: 62px; }
+.partners-tier.tier-bronze .partner-logo-img[src*="galbot"] { max-height: 24px; }
+
 @media (max-width: 600px) {
   .partners-tier.tier-platinum .partner-card,
   .partners-tier.tier-gold .partner-card { min-width: 0; width: 100%; }
