@@ -1727,6 +1727,104 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
   .partners-tier.tier-gold .partner-card { min-width: 0; width: 100%; }
 }
 
+/* ---------- EBiM Maturity Roadmap (initiative-level, multi-year) ----------
+   A tinted callout band, deliberately distinct from the Phase I/II/III
+   pipeline so the two three-part structures aren't confused. The pinned
+   backgrounds keep section:nth-child(even) striping stable after the
+   #maturity section is inserted on the home page. */
+.page-home #maturity {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(0,212,255,.08) 0%, transparent 70%),
+    var(--bg-light);
+  border-top: 1px solid rgba(0,212,255,.18);
+  border-bottom: 1px solid rgba(0,212,255,.18);
+}
+.page-home #dates { background: var(--bg-white); }
+.page-home #organizers { background: var(--bg-light); }
+.page-home #partners { background: var(--bg-white); }
+
+.maturity-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 760px) { .maturity-strip { grid-template-columns: 1fr; } }
+.maturity-stage {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--border);
+  border-radius: 14px;
+  padding: 1.3rem 1.35rem 1.4rem;
+}
+.maturity-stage.is-current {
+  border-color: rgba(0,212,255,.45);
+  border-top-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(0,212,255,.10);
+}
+.maturity-stage-top {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-bottom: .75rem;
+}
+.maturity-glyph {
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1.2rem;
+  background: var(--bg-light);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.maturity-stage.is-current .maturity-glyph {
+  background: var(--accent);
+  color: var(--bg-dark);
+  border-color: var(--accent);
+}
+.maturity-stage-name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--bg-dark);
+  line-height: 1.1;
+}
+.maturity-stage-when {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.maturity-badge {
+  margin-left: auto;
+  align-self: flex-start;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: rgba(0,212,255,.14);
+  color: var(--accent-dark);
+  border: 1px solid rgba(0,212,255,.35);
+  border-radius: 100px;
+  padding: .25rem .55rem;
+  white-space: nowrap;
+}
+.maturity-stage-desc {
+  font-size: .9rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin: 0;
+}
+.maturity-caption {
+  text-align: center;
+  margin-top: 1.6rem;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+.maturity-caption a { color: var(--accent-dark); font-weight: 600; }
+.maturity-caption a:hover { text-decoration: underline; }
+
 /* ---------- CfP key dates (replaces old contact section) ---------- */
 #contact { background: var(--bg-dark) !important; }
 #contact .section-title { color: #fff; }
