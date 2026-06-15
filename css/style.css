@@ -1713,6 +1713,11 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
    small visual scale enlarges it without changing the card box (no row-fit
    or margin side effects). */
 .partners-tier.tier-platinum .partner-logo-img[src*="amd"] { transform: scale(1.12); }
+/* Pin Platinum captions to the card bottom so they share a baseline across
+   cards despite differing logo heights (cards in a row are equal height via
+   align-items:stretch). Let captions span the card width so the AMD caption
+   stays on one line, aligning with Google's. */
+.partners-tier.tier-platinum .partner-caption { margin-top: auto; max-width: none; }
 .partners-tier.tier-platinum .partner-namecard { font-size: 1.55rem; }
 
 .partners-tier.tier-gold .partner-card { min-width: 200px; min-height: 114px; }
