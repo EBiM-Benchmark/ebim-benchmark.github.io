@@ -1630,6 +1630,103 @@ a.sponsor-logo-link:hover .sponsor-name { color: var(--accent-dark); }
 }
 .sponsor-cta a { font-weight: 600; }
 
+/* ---------- Partners (ICRA-style tiered) ---------- */
+#partners { background: var(--bg-white); }
+.partners-tier { margin-bottom: 2.75rem; }
+.partners-tier:last-of-type { margin-bottom: 1.5rem; }
+.partners-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: stretch;
+  justify-content: center;
+}
+/* Medal dot on each tier label */
+.partners-tier > .tier-label::before {
+  content: '';
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.partners-tier.tier-platinum > .tier-label { color: #5b6b7a; }
+.partners-tier.tier-platinum > .tier-label::before { background: linear-gradient(135deg,#e2e8f0,#94a3b8); }
+.partners-tier.tier-gold     > .tier-label { color: #a16207; }
+.partners-tier.tier-gold     > .tier-label::before { background: linear-gradient(135deg,#fde68a,#d4a017); }
+.partners-tier.tier-silver   > .tier-label { color: #6b7280; }
+.partners-tier.tier-silver   > .tier-label::before { background: linear-gradient(135deg,#eef0f2,#9ca3af); }
+.partners-tier.tier-bronze   > .tier-label { color: #b45309; }
+.partners-tier.tier-bronze   > .tier-label::before { background: linear-gradient(135deg,#e9b486,#b45309); }
+
+/* Partner card (logo or styled name-card) */
+.partner-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.3rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+a.partner-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 22px rgba(0,212,255,.10);
+  transform: translateY(-2px);
+}
+.partner-logo-img {
+  width: auto;
+  max-width: 100%;
+  display: block;
+  object-fit: contain;
+}
+.partner-namecard {
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -.01em;
+  line-height: 1.15;
+}
+a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
+.partner-caption {
+  font-size: .75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  max-width: 24ch;
+}
+.partner-cta {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: .9rem;
+  color: var(--text-mid);
+}
+.partner-cta a { font-weight: 600; }
+
+/* Tier prominence — sizing descends Platinum → Bronze */
+.partners-tier.tier-platinum .partner-card { min-width: 240px; min-height: 134px; padding: 1.6rem 2rem; }
+.partners-tier.tier-platinum .partner-logo-img { max-height: 84px; }
+.partners-tier.tier-platinum .partner-namecard { font-size: 1.55rem; }
+
+.partners-tier.tier-gold .partner-card { min-width: 200px; min-height: 114px; }
+.partners-tier.tier-gold .partner-logo-img { max-height: 60px; }
+.partners-tier.tier-gold .partner-namecard { font-size: 1.25rem; }
+
+.partners-tier.tier-silver .partner-card { min-width: 170px; min-height: 98px; }
+.partners-tier.tier-silver .partner-logo-img { max-height: 46px; }
+.partners-tier.tier-silver .partner-namecard { font-size: 1.05rem; }
+
+.partners-tier.tier-bronze .partner-card { min-width: 150px; min-height: 82px; padding: 1rem 1.25rem; }
+.partners-tier.tier-bronze .partner-logo-img { max-height: 38px; }
+.partners-tier.tier-bronze .partner-namecard { font-size: .95rem; }
+.partners-tier.tier-bronze .partner-caption { font-size: .72rem; }
+
+@media (max-width: 600px) {
+  .partners-tier.tier-platinum .partner-card,
+  .partners-tier.tier-gold .partner-card { min-width: 0; width: 100%; }
+}
+
 /* ---------- CfP key dates (replaces old contact section) ---------- */
 #contact { background: var(--bg-dark) !important; }
 #contact .section-title { color: #fff; }
@@ -1843,7 +1940,7 @@ a.sponsor-logo-link:hover .sponsor-name { color: var(--accent-dark); }
    section:nth-child(even) striping for the sections that follow it. */
 .page-competition #architecture,
 .page-competition #call-for-participation,
-.page-competition #sponsors { background: var(--bg-white); }
+.page-competition #partners { background: var(--bg-white); }
 
 .arch-flow {
   display: flex;
