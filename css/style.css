@@ -1707,6 +1707,8 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 /* Tier prominence — sizing descends Platinum → Bronze */
 .partners-tier.tier-platinum .partner-card { min-width: 300px; min-height: 134px; padding: 1.5rem 1.2rem; }
 .partners-tier.tier-platinum .partner-logo-img { max-height: 84px; }
+/* Shrink the Google logo (taller aspect, otherwise pinned at the 84px cap). */
+.partners-tier.tier-platinum .partner-logo-img[src*="google"] { max-height: 58px; }
 .partners-tier.tier-platinum .partner-namecard { font-size: 1.55rem; }
 
 .partners-tier.tier-gold .partner-card { min-width: 200px; min-height: 114px; }
