@@ -13,7 +13,7 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 - `register` → Competition — Register Interest
 - `competition` → Competition Question
-- `sponsorship` → Sponsorship Inquiry
+- `partner` → Partnership Inquiry
 - `workshop` → Workshop / Poster Submission
 - `media` → Media / Press
 - `tech` → Technical (Platform / Website)
@@ -35,24 +35,25 @@ The option value string must be **byte-identical** (including any em-dash `—`)
 
 ## Architecture overview
 
-The site is a **multi-page** static site (no build step). Three primary pages plus a 404:
+The site is a **multi-page** static site (no build step). Three primary content pages, a contact form, and a 404:
 
 | Page | URL | Purpose |
 |---|---|---|
 | **Home** | `index.html` | Landing page that funnels visitors to one of two tracks — minimal deep content, maximal navigation clarity |
 | **Competition** | `competition.html` | The EBiM Competition — benchmark tasks, Mobile FR3 Duo platform, cross-continent testbeds, CFP |
 | **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
-| **404** | `404.html` | Branded not-found page (`noindex`) with shared chrome and CTAs back to the three primary pages |
+| **Contact** | `contact.html` | Categorized Web3Forms contact form (+ `contact-success.html` no-JS fallback, `contact-test.html` internal health check) |
+| **404** | `404.html` | Branded not-found page (`noindex`) with shared chrome and CTAs back to the primary pages |
 
 ### Why the split
 
-The home page used to contain everything — schedule, benchmark spec, platform photos, task cards, organizers, sponsors. As the project grew, the page became too long and visitors couldn't quickly find what they needed. The current architecture:
+The home page used to contain everything — schedule, benchmark spec, platform photos, task cards, organizers, partners. As the project grew, the page became too long and visitors couldn't quickly find what they needed. The current architecture:
 
-- **Home** acts as a landing/funnel page (Two Ways to Engage cards, Important Dates summary, Key Themes, Organizers, Sponsors).
+- **Home** acts as a landing/funnel page (Two Ways to Engage cards, Key Themes, EBiM Maturity Roadmap, Important Dates summary, Organizers, Partners).
 - **Competition** owns benchmark/platform/task/testbed deep content.
 - **Workshop** owns schedule/talks/panel/posters/dissemination deep content.
-- The Three-Phase Mechanism diagram appears on Home and Competition (Phase III = the Workshop is referenced as a link).
-- Organizers and Sponsors live only on Home and are linked from sub-pages.
+- The Three-Phase Mechanism diagram appears on Home and Competition (Phase III = the Workshop is referenced as a link). It is **distinct** from the home page's EBiM Maturity Roadmap (Alpha/Beta/Gamma), which describes the multi-year initiative across editions, not this year's phases.
+- Organizers and Partners live only on Home and are linked from sub-pages.
 
 ---
 
@@ -63,6 +64,9 @@ ebim-benchmark.github.io/
 ├── index.html                           # Landing page (funnel to sub-pages)
 ├── competition.html                     # The EBiM Competition
 ├── workshop.html                        # Workshop Program
+├── contact.html                         # Categorized Web3Forms contact form
+├── contact-success.html                 # No-JS POST fallback success page
+├── contact-test.html                    # Internal contact-form health check (not linked)
 ├── 404.html                             # Branded 404 (noindex)
 ├── css/
 │   └── style.css                        # All shared styles, including dropdowns,
@@ -81,22 +85,27 @@ ebim-benchmark.github.io/
 │   │   ├── MFR3_Duo_with_workbench.webp # 1600×900 WebP (~31 KB) — primary
 │   │   └── MFR3_Duo_with_workbench.png  # 4000×2250 PNG (~6.7 MB) — fallback
 │   ├── organizers/                      # Organizer headshots — to be added
-│   ├── sponsors/                        # Sponsor logos
-│   │   ├── agile_robots.svg             # Agile Robots (white; brightness(0) filter)
+│   ├── sponsors/                        # Partner logos (folder name kept as
+│   │   │                                #   sponsors/ so asset paths stay stable)
+│   │   ├── agile_robots.svg             # Agile Robots — Platinum (white; brightness(0) filter)
 │   │   ├── agile_robots_dark.jpg        # Agile Robots dark variant
-│   │   ├── franka_robotics.svg          # Franka Robotics
+│   │   ├── franka_robotics.svg          # Franka Robotics — Platinum
 │   │   ├── franka_robotics_white.png
-│   │   ├── vrb.svg                      # Virtual Research Building (Infrastructure & Framework)
-│   │   ├── rig.png                      # Robotics Institute Germany (Infrastructure & Framework)
-│   │   ├── google.svg                   # Google (Computing Resources tier)
-│   │   ├── alibaba_cloud.svg            # Alibaba Cloud (unused — sponsor removed; asset retained)
-│   │   ├── tca.png                      # Taipei Computer Association
-│   │   ├── mech_mind.png                # Mech-Mind (dark)
+│   │   ├── google.svg                   # Google — Platinum
+│   │   ├── amd.svg                      # AMD — Platinum (white, brightness(0) filter)
+│   │   ├── mech_mind.png                # Mech-Mind — Gold (dark)
 │   │   ├── mech_mind_white.png
-│   │   ├── robotgym.webp                # RobotGym (dark)
+│   │   ├── vivo.png                     # vivo — Gold
+│   │   ├── tca.png                      # Taipei Computer Association — Silver
+│   │   ├── robotgym.webp                # RobotGym — Silver (dark)
 │   │   ├── robotgym_white.webp
-│   │   ├── amd.svg                      # AMD (Computing Resources tier; white, brightness(0) filter)
-│   │   └── hhri.png                     # Hon Hai Research Institute (Community)
+│   │   ├── vrb.svg                      # Virtual Research Building (a.k.a. AICO) — Bronze
+│   │   ├── rig.png                      # Robotics Institute Germany — Bronze
+│   │   ├── hhri.png                     # Hon Hai Research Institute — Bronze
+│   │   ├── galbot.png                   # Galbot — Bronze
+│   │   ├── lightwheel.png               # Lightwheel — Bronze
+│   │   ├── manipulationnet.webp         # ManipulationNet — Bronze
+│   │   └── alibaba_cloud.svg            # Alibaba Cloud (unused — partner removed; asset retained)
 │   ├── speakers/                        # (reserved — not used yet)
 │   └── tasks/                           # (reserved — not used yet)
 ├── robots.txt                           # Allow-all + sitemap pointer
@@ -134,9 +143,10 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Workshop Overview | `#overview` | Abstract paragraph + Three-Phase Pipeline diagram |
 | Two Ways to Engage | `#engage` | Paired feature cards funneling to Competition / Workshop |
 | Key Themes | `#themes` | 4 research-question cards (sim-to-real, cross-site repro, foundation/VLA, contact-rich) |
+| EBiM Maturity Roadmap | `#maturity` | Alpha (2026, current) → Beta (2027) → Gamma (future) multi-year initiative roadmap — styled distinctly from the Phase I/II/III pipeline |
 | Important Dates | `#dates` | 2-column track summary (Competition vs Workshop dates) |
 | Organizers | `#organizers` | Organizing Committee, Advisory Board, Competition Support Team |
-| Sponsors | `#sponsors` | Hardware & Platform · Infrastructure & Framework · Computing Resources · Community |
+| Partners | `#partners` (empty `#sponsors` span kept as alias) | ICRA-style tiers — Platinum · Gold · Silver · Bronze |
 | Get Involved | `#contact` | Dual CTA + email contact (dark section) |
 
 ### Competition (`competition.html`)
@@ -152,8 +162,8 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
 | Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
-| Awards & Prizes | `#awards` | Per-task cash prizes in two tracks (Real-World Excellence + Simulation/AMD) + in-kind AMD hardware support |
-| Sponsors | `#sponsors` | Same tier structure as Home, plus a Community Resources callout (Franka Community) |
+| Awards & Prizes | `#awards` | Per-task prizes in two tracks — Real-World Excellence (cash + Franka voucher) + Simulation Prize (AMD) — up to $5,250/task; + in-kind AMD hardware support |
+| Partners | `#partners` (empty `#sponsors` span kept as alias) | Same ICRA-style tiers as Home, plus a Community Resources callout (Franka Community) |
 | Workshop callout | (banner) | "Looking for the Workshop?" → workshop.html |
 
 ### Workshop (`workshop.html`)
@@ -163,7 +173,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Sub-hero | `#home` | 40vh hero with breadcrumb + View Schedule CTA |
 | Workshop Overview | `#overview` | Half-day workshop intro with link to Competition page |
 | Schedule | `#schedule` | Tentative timeline (08:30–13:30) with type-coded rows |
-| Invited Talks | `#talks` | 5 speaker cards with avatars + talk titles |
+| Invited Talks | `#talks` | 5 speaker cards (speakers + titles "to be announced"; section hidden pending re-invites) |
 | Panel Discussion | `#panel` | Host + panelists + 3 discussion themes |
 | Poster Session & CFP | `#call-for-participation` | Extended Abstracts / Live Demos / Participation cards |
 | Important Dates | `#contact` | Poster deadline / Notification / Camera-Ready / Workshop Day (dark section) |
@@ -179,16 +189,16 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Time | Session |
 |------|---------|
 | 08:30–08:40 | Opening Remarks |
-| 08:40–09:00 | Invited Talk 1 — Speaker TBA (Long-Horizon Mobile Manipulation in the Wild) |
-| 09:00–09:20 | Invited Talk 2 — Speaker TBA (Robot Benchmarking in Simulation and Real World) |
+| 08:40–09:00 | Invited Talk 1 — Speaker TBA (title to be announced) |
+| 09:00–09:20 | Invited Talk 2 — Speaker TBA (title to be announced) |
 | 09:20–09:40 | Competition Highlights — Winner Teams (1st, 2nd, 3rd place) |
 | 09:40–10:25 | Poster Session & Coffee Break |
-| 10:25–10:45 | Invited Talk 3 — Speaker TBA (What Is Still Missing to Bring Mobile Manipulation Robots into the Real World) |
-| 10:45–11:05 | Invited Talk 4 — Speaker TBA (Formal Visual Planning with Foundation Models) |
-| 11:05–11:25 | Invited Talk 5 — Speaker TBA (Learning Diverse Whole-Body Manipulation Skills for Humanoid Robots) |
-| 11:25–11:55 | Panel Discussion — Host TBA |
+| 10:25–10:45 | Invited Talk 3 — Speaker TBA (title to be announced) |
+| 10:45–11:05 | Invited Talk 4 — Speaker TBA (title to be announced) |
+| 11:05–11:25 | Invited Talk 5 — Speaker TBA (title to be announced) |
+| 11:25–11:55 | Panel Discussion — Host TBA; panelists: Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT) |
 | 11:55–12:30 | Best Poster Award & Competition Award |
-| 12:30–13:30 | Sponsored Lunch & Networking |
+| 12:30–13:30 | Hosted Lunch & Networking |
 
 ---
 
@@ -207,7 +217,7 @@ Hamburg · Munich · Pittsburgh · Shanghai
 
 ## Shared chrome (navbar + footer)
 
-The navbar and footer are **byte-identical** across all 4 pages. Each is wrapped in a comment marker:
+The navbar and footer are **byte-identical** across the 4 primary pages (`index`, `competition`, `workshop`, `404`). The contact pages (`contact.html`, `contact-success.html`, `contact-test.html`) carry the same chrome too; `contact.html` additionally marks its own nav link with `aria-current="page"`. Each block is wrapped in a comment marker:
 
 ```html
 <!-- SHARED NAVBAR — keep in sync across index.html, competition.html, workshop.html, 404.html -->
@@ -247,13 +257,13 @@ for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
 - **Competition** dropdown → 8 sub-items linking to competition sections
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Organizers** → `index.html#organizers`
-- **Sponsors** → `index.html#sponsors`
+- **Partners** → `index.html#partners`
 - **Contact** → https://ebim-benchmark.github.io/contact.html
 
 ### Footer columns
 
 - **Pages**: Home / Competition / Workshop
-- **People**: Organizers / Sponsors
+- **People**: Organizers / Partners
 - **Participate**: Compete / Submit Poster / Contact Us
 
 ---
@@ -267,6 +277,7 @@ Each page has a body class that drives the navbar's "you are here" highlight:
 | `index.html` | `<body class="page-home">` |
 | `competition.html` | `<body class="page-competition">` |
 | `workshop.html` | `<body class="page-workshop">` |
+| `contact.html` | `<body class="page-contact">` |
 | `404.html` | `<body class="page-404">` |
 
 The CSS rule:
@@ -354,9 +365,10 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
   ```
 - Net page-weight savings: ~10.7 MB → ~49 KB combined for the two photos when WebP is served.
 
-### Sponsor logos
+### Partner logos
+- Arranged in ICRA-style tiers (Platinum · Gold · Silver · Bronze) with descending logo prominence; per-tier sizing lives in `css/style.css` under `/* ---------- Partners (ICRA-style tiered) ---------- */`, with a few per-logo overrides (e.g. Google shrunk, AMD nudged up via `transform: scale`, VRB/RIG/HHRI enlarged, Galbot shrunk).
 - SVGs render at native resolution; for raster logos `width`/`height` attrs match the source-file dimensions for CLS prevention.
-- All sponsor logos use `loading="lazy"` and `decoding="async"`.
+- All partner logos use `loading="lazy"` and `decoding="async"`. (The folder stays `img/sponsors/` so asset paths remain stable.)
 
 ---
 
@@ -368,30 +380,33 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Schedule: final 5-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
 - [x] Organizers: OC (11), Advisory (4), Support (11)
-- [x] Invited-talk topics retained on workshop.html; speaker identities anonymized (being re-invited)
+- [x] Invited talks: both speakers AND titles set to "to be announced" on workshop.html (speakers being re-invited; the dedicated `#talks` section stays hidden)
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
-- [x] Sponsors: Hardware & Platform (Agile, Franka), Infrastructure & Framework (VRB, RIG), Computing Resources (Google, AMD), Community (TCA, Mech-Mind, RobotGym, HHRI)
-- [x] Franka Community placements: sub-link under Franka Robotics card (both pages) + Community Resources callout (competition.html)
+- [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
+- [x] Franka Community: Community Resources callout on competition.html + footer link (the inline note under the Franka card was dropped in the tier redesign)
 - [x] 4-testbed coverage: Hamburg (top floor of the Google Hamburg office), Munich, Pittsburgh, Shanghai (Franka Robotics branch office)
-- [x] Competition timeline finalized: Jun 16 (start), Jul 31 (sim end), Aug 15 – Aug 31 (real-robot); workshop date TBD
-- [x] Competition awards (per-task cash): Real-World Excellence $3,000 / $2,000 / $1,000 per task + Simulation Prize (AMD Solution) $500 / $400 / $300 per task + in-kind AMD dev hardware (US/DE/Asia) — two-track `#awards` section, subhero badge, home hero + Competition card, SEO meta. No sponsor-funding figures shown.
+- [x] Competition timeline: Simulation Release Jun 20 → Simulation End Aug 5 → Results Announced Aug 6 → Phase II two-window (team hands-on bench testing Aug 6–15; organizer-run testing & evaluation Aug 16–31, with code submission staying open — not a freeze); workshop date & Final Results TBD
+- [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + Franka voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + Franka voucher" (never implies $5,250 is pure cash).
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
-- [x] Panel: Kenny Kimble (NIST) almost-confirmed; host and other panelists being re-invited
+- [x] Panel: four confirmed panelists — Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row, panel cards, and JSON-LD)
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)
 - [x] Image optimization: platform PNGs → WebP (~99.5% reduction); OG cover resized + reformatted
+- [x] EBiM Maturity Roadmap (Alpha 2026 → Beta 2027 → Gamma, foreseeable future) strip on the home page, styled distinctly from the Phase I/II/III pipeline; links the PR2 Beta Program
+- [x] Partner logos wired with links: vivo (Gold), Galbot, Lightwheel, ManipulationNet (Bronze) — files added under `img/sponsors/`
 
 ### Still needed
 - [ ] Real headshots in `img/organizers/` (currently using initials avatars)
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
+- [ ] Confirm invited-talk speakers + titles and the panel host on workshop.html (currently TBA)
 - [ ] Fill in workshop poster submission deadlines on workshop.html (currently TBD)
-- [ ] Optional: convert remaining sponsor PNGs to WebP for marginal extra perf
+- [ ] Optional: convert remaining partner PNGs to WebP for marginal extra perf
 
 ---
 
