@@ -253,7 +253,7 @@ for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
 ### Navbar items
 
 - **EBiM Benchmark** brand → `index.html`
-- **Home** dropdown → 4 sub-items linking to home sections
+- **Home** dropdown → 5 sub-items linking to home sections (incl. Maturity Roadmap)
 - **Competition** dropdown → 8 sub-items linking to competition sections
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Organizers** → `index.html#organizers`
