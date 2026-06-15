@@ -109,7 +109,7 @@ ebim-benchmark.github.io/
 │   ├── speakers/                        # (reserved — not used yet)
 │   └── tasks/                           # (reserved — not used yet)
 ├── robots.txt                           # Allow-all + sitemap pointer
-├── sitemap.xml                          # 3 URLs (home, competition, workshop)
+├── sitemap.xml                          # 4 URLs (home, competition, workshop, contact)
 ├── .nojekyll                            # Disable Jekyll on GitHub Pages
 └── README.md
 ```
@@ -336,7 +336,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 
 `404.html` is intentionally `noindex` and has no OG tags.
 
-`sitemap.xml` lists 3 URLs (home, competition, workshop) and is referenced from `robots.txt`.
+`sitemap.xml` lists 4 URLs (home, competition, workshop, contact) and is referenced from `robots.txt`.
 
 ### Heading hierarchy
 
@@ -392,7 +392,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Panel: four confirmed panelists — Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row, panel cards, and JSON-LD)
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
-- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 3 URLs, alt text + width/height on every img
+- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 4 URLs, alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)
