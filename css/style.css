@@ -1621,6 +1621,9 @@ a.partner-card:hover {
   display: block;
   object-fit: contain;
 }
+/* Fallback for a partner with no logo file yet — renders the name as a
+   styled text card. Currently unused (all partners have logos) but retained
+   as the partner-card name variant; sizing mirrors the per-tier rules below. */
 .partner-namecard {
   font-weight: 800;
   color: var(--text-dark);
