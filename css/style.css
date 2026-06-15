@@ -1705,7 +1705,7 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 .partner-cta a { font-weight: 600; }
 
 /* Tier prominence — sizing descends Platinum → Bronze */
-.partners-tier.tier-platinum .partner-card { min-width: 300px; min-height: 134px; padding: 1.5rem 1.2rem; }
+.partners-tier.tier-platinum .partner-card { min-width: 0; min-height: 134px; padding: 1.5rem 1.2rem; }
 .partners-tier.tier-platinum .partner-logo-img { max-height: 84px; }
 /* Shrink the Google logo (taller aspect, otherwise pinned at the 84px cap). */
 .partners-tier.tier-platinum .partner-logo-img[src*="google"] { max-height: 58px; }
@@ -1725,19 +1725,19 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 .partners-tier.tier-bronze .partner-caption { font-size: .72rem; }
 
 /* Platinum: two logos per row on wider screens
-   (Agile Robots + Franka Robotics, then Google + AMD). The width cap +
-   flex-basis lets exactly two cards share a row; they collapse to one
-   column on narrow screens via the max-width:600px rule below.
-   The wider cards (300px+, trimmed side padding) also visually enlarge the
-   wide-aspect logos — Agile Robots, Franka Robotics, and AMD — which were
-   previously width-constrained well below the 84px cap; Google (taller
-   aspect) stays pinned at its 84px max-height. */
+   (Agile Robots + Franka Robotics, then Google + AMD). Cards size to their
+   logo (no flex-grow), so a narrow logo gets a narrow card instead of a wide
+   card with large side margins — card widths therefore vary within the tier.
+   The per-card max-width (~half the row) keeps at most two per row: the
+   wide-aspect logos (Agile, Franka, AMD) fill that capped width, while Google
+   hugs its smaller intrinsic width. Cards go full-width / one per row on
+   narrow screens via the max-width:600px rule below. */
 .partners-tier.tier-platinum .partners-logos {
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
 }
-.partners-tier.tier-platinum .partner-card { flex: 1 1 300px; }
+.partners-tier.tier-platinum .partner-card { flex: 0 1 auto; max-width: calc(50% - 0.75rem); }
 
 /* Bronze per-logo size overrides: enlarge VRB / RIG / HHRI, shrink Galbot.
    Targeted by src so Lightwheel / ManipulationNet keep the tier default. */
@@ -1749,6 +1749,7 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 @media (max-width: 600px) {
   .partners-tier.tier-platinum .partner-card,
   .partners-tier.tier-gold .partner-card { min-width: 0; width: 100%; }
+  .partners-tier.tier-platinum .partner-card { max-width: none; }
 }
 
 /* ---------- EBiM Maturity Roadmap (initiative-level, multi-year) ----------
