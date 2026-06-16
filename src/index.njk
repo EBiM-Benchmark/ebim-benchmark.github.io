@@ -1,8 +1,6 @@
 ---
 permalink: "index.html"
 bodyClass: "page-home"
-title: "EBiM Benchmark · Embodied Bimanual Manipulation"
-description: "A globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation on Mobile FR3 Duo platforms."
 keywords: "embodied bimanual manipulation, robot benchmark, mobile manipulation, sim-to-real transfer, vision-language-action, VLA, foundation models, robotics benchmark, cross-continent testbeds, Franka FR3 Duo, robot learning"
 canonical: "https://ebim-benchmark.github.io/"
 siteVerification: true
@@ -12,13 +10,13 @@ i18nKey: index
 ---
 {% extends "layouts/base.njk" %}
 
-{% block headStructured %}{% raw %}
+{% block headStructured %}
   <!-- Open Graph -->
   <meta property="og:type"            content="website" />
   <meta property="og:site_name"       content="EBiM Benchmark" />
   <meta property="og:url"             content="https://ebim-benchmark.github.io/" />
-  <meta property="og:title"           content="EBiM Benchmark · Embodied Bimanual Manipulation" />
-  <meta property="og:description"     content="A globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation on Mobile FR3 Duo platforms." />
+  <meta property="og:title"           content="{{ pageMeta.ogTitle | safe }}" />
+  <meta property="og:description"     content="{{ pageMeta.ogDescription | safe }}" />
   <meta property="og:image"           content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"     content="1200" />
   <meta property="og:image:height"    content="630" />
@@ -27,11 +25,10 @@ i18nKey: index
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"           content="summary_large_image" />
-  <meta name="twitter:title"          content="EBiM Benchmark · Embodied Bimanual Manipulation" />
-  <meta name="twitter:description"    content="A globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation on Mobile FR3 Duo platforms." />
+  <meta name="twitter:title"          content="{{ pageMeta.twitterTitle | safe }}" />
+  <meta name="twitter:description"    content="{{ pageMeta.twitterDescription | safe }}" />
   <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"      content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-{% endraw %}
 {% include "jsonld.njk" %}
 {% endblock %}
 

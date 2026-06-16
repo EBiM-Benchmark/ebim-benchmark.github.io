@@ -1,59 +1,59 @@
-<nav id="navbar" role="navigation" aria-label="Main navigation">
+<nav id="navbar" role="navigation" aria-label="{{ t.nav.ariaMain | safe }}">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><span class="wm-mark">EBiM</span> <span class="wm-word">Benchmark</span></a>
+    <a href="index.html" class="nav-logo"><span class="wm-mark">{{ t.brand.mark | safe }}</span> <span class="wm-word">{{ t.brand.word | safe }}</span></a>
 
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <button class="nav-toggle" aria-label="{{ t.nav.ariaToggle | safe }}" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
     <ul class="nav-links">
       <li class="has-dropdown nav-home">
-        <a href="index.html">Home <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
-        <button class="dropdown-toggle" type="button" aria-label="Toggle Home menu" aria-expanded="false">
+        <a href="index.html">{{ t.nav.home | safe }} <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="{{ t.nav.ariaToggleHome | safe }}" aria-expanded="false">
           <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
         </button>
         <ul class="nav-dropdown">
-          <li><a href="index.html#overview">Overview</a></li>
-          <li><a href="index.html#engage">Two Ways to Engage</a></li>
-          <li><a href="index.html#themes">Key Themes</a></li>
-          <li><a href="index.html#maturity">Maturity Roadmap</a></li>
-          <li><a href="index.html#dates">Important Dates</a></li>
+          <li><a href="index.html#overview">{{ t.nav.homeOverview | safe }}</a></li>
+          <li><a href="index.html#engage">{{ t.nav.homeEngage | safe }}</a></li>
+          <li><a href="index.html#themes">{{ t.nav.homeThemes | safe }}</a></li>
+          <li><a href="index.html#maturity">{{ t.nav.homeMaturity | safe }}</a></li>
+          <li><a href="index.html#dates">{{ t.nav.homeDates | safe }}</a></li>
         </ul>
       </li>
       <li class="has-dropdown nav-competition">
-        <a href="competition.html">Competition <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
-        <button class="dropdown-toggle" type="button" aria-label="Toggle Competition menu" aria-expanded="false">
+        <a href="competition.html">{{ t.nav.competition | safe }} <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="{{ t.nav.ariaToggleCompetition | safe }}" aria-expanded="false">
           <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
         </button>
         <ul class="nav-dropdown">
-          <li><a href="competition.html#why">Why This Benchmark</a></li>
-          <li><a href="competition.html#overview">Three-Phase Mechanism</a></li>
-          <li><a href="competition.html#platform">Mobile FR3 Duo</a></li>
-          <li><a href="competition.html#benchmark">The Benchmark</a></li>
-          <li><a href="competition.html#tasks">Tasks</a></li>
-          <li><a href="competition.html#testbeds">Testbeds</a></li>
-          <li><a href="competition.html#call-for-participation">Register Interest</a></li>
-          <li><a href="competition.html#awards">Awards &amp; Prizes</a></li>
+          <li><a href="competition.html#why">{{ t.nav.compWhy | safe }}</a></li>
+          <li><a href="competition.html#overview">{{ t.nav.compOverview | safe }}</a></li>
+          <li><a href="competition.html#platform">{{ t.nav.compPlatform | safe }}</a></li>
+          <li><a href="competition.html#benchmark">{{ t.nav.compBenchmark | safe }}</a></li>
+          <li><a href="competition.html#tasks">{{ t.nav.compTasks | safe }}</a></li>
+          <li><a href="competition.html#testbeds">{{ t.nav.compTestbeds | safe }}</a></li>
+          <li><a href="competition.html#call-for-participation">{{ t.nav.compRegister | safe }}</a></li>
+          <li><a href="competition.html#awards">{{ t.nav.compAwards | safe }}</a></li>
         </ul>
       </li>
       <li class="has-dropdown nav-workshop">
-        <a href="workshop.html">Workshop <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
-        <button class="dropdown-toggle" type="button" aria-label="Toggle Workshop menu" aria-expanded="false">
+        <a href="workshop.html">{{ t.nav.workshop | safe }} <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="{{ t.nav.ariaToggleWorkshop | safe }}" aria-expanded="false">
           <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
         </button>
         <ul class="nav-dropdown">
-          <li><a href="workshop.html#overview">Overview</a></li>
-          <li><a href="workshop.html#schedule">Schedule</a></li>
-          <li hidden><a href="workshop.html#talks">Invited Talks</a></li>
-          <li><a href="workshop.html#panel">Panel</a></li>
-          <li><a href="workshop.html#call-for-participation">Posters</a></li>
-          <li><a href="workshop.html#contact">Important Dates</a></li>
-          <li><a href="workshop.html#dissemination">Dissemination</a></li>
+          <li><a href="workshop.html#overview">{{ t.nav.wsOverview | safe }}</a></li>
+          <li><a href="workshop.html#schedule">{{ t.nav.wsSchedule | safe }}</a></li>
+          <li hidden><a href="workshop.html#talks">{{ t.nav.wsTalks | safe }}</a></li>
+          <li><a href="workshop.html#panel">{{ t.nav.wsPanel | safe }}</a></li>
+          <li><a href="workshop.html#call-for-participation">{{ t.nav.wsPosters | safe }}</a></li>
+          <li><a href="workshop.html#contact">{{ t.nav.wsDates | safe }}</a></li>
+          <li><a href="workshop.html#dissemination">{{ t.nav.wsDissemination | safe }}</a></li>
         </ul>
       </li>
-      <li><a href="index.html#organizers">Organizers</a></li>
-      <li><a href="index.html#partners">Partners</a></li>
-      <li><a href="contact.html"{% if navActive == "contact" %} aria-current="page"{% endif %}>Contact</a></li>
+      <li><a href="index.html#organizers">{{ t.nav.organizers | safe }}</a></li>
+      <li><a href="index.html#partners">{{ t.nav.partners | safe }}</a></li>
+      <li><a href="contact.html"{% if navActive == "contact" %} aria-current="page"{% endif %}>{{ t.nav.contact | safe }}</a></li>
     </ul>
   </div>
 </nav>

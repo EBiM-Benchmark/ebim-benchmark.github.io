@@ -1,5 +1,85 @@
 {
-  "_comment": "TRANSLATABLE English strings. Resolved per page via the eleventyComputed `t` lookup (English fallback). 1a only ships `en`; /zh/ lands in 1b. Values are verbatim from the live English output — keep byte-identical.",
+  "_comment": "TRANSLATABLE English strings. Resolved per page via the eleventyComputed `t` lookup (English fallback). 1a only ships `en`; /zh/ lands in 1b. Values are verbatim from the live English output (entities like &amp;/&nbsp;/&copy; kept literal, emitted with the `safe` filter) — keep byte-identical.",
+
+  "brand": {
+    "mark": "EBiM",
+    "word": "Benchmark"
+  },
+
+  "nav": {
+    "ariaMain": "Main navigation",
+    "ariaToggle": "Toggle navigation",
+    "home": "Home",
+    "ariaToggleHome": "Toggle Home menu",
+    "homeOverview": "Overview",
+    "homeEngage": "Two Ways to Engage",
+    "homeThemes": "Key Themes",
+    "homeMaturity": "Maturity Roadmap",
+    "homeDates": "Important Dates",
+    "competition": "Competition",
+    "ariaToggleCompetition": "Toggle Competition menu",
+    "compWhy": "Why This Benchmark",
+    "compOverview": "Three-Phase Mechanism",
+    "compPlatform": "Mobile FR3 Duo",
+    "compBenchmark": "The Benchmark",
+    "compTasks": "Tasks",
+    "compTestbeds": "Testbeds",
+    "compRegister": "Register Interest",
+    "compAwards": "Awards &amp; Prizes",
+    "workshop": "Workshop",
+    "ariaToggleWorkshop": "Toggle Workshop menu",
+    "wsOverview": "Overview",
+    "wsSchedule": "Schedule",
+    "wsTalks": "Invited Talks",
+    "wsPanel": "Panel",
+    "wsPosters": "Posters",
+    "wsDates": "Important Dates",
+    "wsDissemination": "Dissemination",
+    "organizers": "Organizers",
+    "partners": "Partners",
+    "contact": "Contact"
+  },
+
+  "footer": {
+    "tagline1": "Toward a Globally Coordinated Benchmark",
+    "tagline2": "for Real-World Embodied Bimanual Manipulation",
+    "venue": "A globally coordinated benchmark for embodied bimanual manipulation &nbsp;·&nbsp; Workshop date &amp; venue TBD",
+    "ariaNav": "Footer navigation",
+    "pagesHeading": "Pages",
+    "pagesHome": "Home",
+    "pagesCompetition": "Competition",
+    "pagesWorkshop": "Workshop",
+    "peopleHeading": "People",
+    "peopleOrganizers": "Organizers",
+    "peoplePartners": "Partners",
+    "participateHeading": "Participate",
+    "participateCompete": "Compete",
+    "participateSubmitPoster": "Submit Poster",
+    "participateContact": "Contact Us",
+    "linkContactForm": "Contact form",
+    "linkGithub": "GitHub",
+    "linkDiscord": "Discord",
+    "copy": "&copy; 2026 Workshop Organizers &mdash; Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation."
+  },
+
+  "meta": {
+    "index": {
+      "title": "EBiM Benchmark · Embodied Bimanual Manipulation",
+      "description": "A globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation on Mobile FR3 Duo platforms.",
+      "ogTitle": "EBiM Benchmark · Embodied Bimanual Manipulation",
+      "ogDescription": "A globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation on Mobile FR3 Duo platforms.",
+      "twitterTitle": "EBiM Benchmark · Embodied Bimanual Manipulation",
+      "twitterDescription": "A globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation on Mobile FR3 Duo platforms."
+    },
+    "competition": {
+      "title": "The EBiM Competition · Cross-Continent Robot Benchmark",
+      "description": "Compete for up to $5,250 per task (cash + purchase voucher): cable routing, deformable handling & assisted living on Mobile FR3 Duo across four testbeds.",
+      "ogTitle": "The EBiM Competition · Cross-Continent Robot Benchmark",
+      "ogDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living.",
+      "twitterTitle": "The EBiM Competition · Cross-Continent Robot Benchmark",
+      "twitterDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living."
+    }
+  },
 
   "jsonld": {
     "eventNameIndex": "EBiM Benchmark: Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation",

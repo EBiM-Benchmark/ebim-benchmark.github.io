@@ -6,8 +6,8 @@
 {%- if robots %}
   <meta name="robots" content="{{ robots | safe }}" />
 {%- endif %}
-  <title>{{ title | safe }}</title>
-  <meta name="description" content="{{ description | safe }}" />
+  <title>{{ (pageMeta.title if pageMeta else title) | safe }}</title>
+  <meta name="description" content="{{ (pageMeta.description if pageMeta else description) | safe }}" />
 {%- if keywords %}
   <meta name="keywords" content="{{ keywords | safe }}" />
 {%- endif %}

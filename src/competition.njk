@@ -1,8 +1,6 @@
 ---
 permalink: "competition.html"
 bodyClass: "page-competition"
-title: "The EBiM Competition · Cross-Continent Robot Benchmark"
-description: "Compete for up to $5,250 per task (cash + purchase voucher): cable routing, deformable handling & assisted living on Mobile FR3 Duo across four testbeds."
 keywords: "bimanual manipulation benchmark, robot competition, embodied AI challenge, Mobile FR3 Duo, Franka Robotics, sim-to-real, cable routing benchmark, deformable manipulation, assisted living, cross-laboratory reproducibility"
 canonical: "https://ebim-benchmark.github.io/competition.html"
 siteVerification: true
@@ -12,13 +10,13 @@ i18nKey: competition
 ---
 {% extends "layouts/base.njk" %}
 
-{% block headStructured %}{% raw %}
+{% block headStructured %}
   <!-- Open Graph -->
   <meta property="og:type"            content="website" />
   <meta property="og:site_name"       content="EBiM Benchmark" />
   <meta property="og:url"             content="https://ebim-benchmark.github.io/competition.html" />
-  <meta property="og:title"           content="The EBiM Competition · Cross-Continent Robot Benchmark" />
-  <meta property="og:description"     content="Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living." />
+  <meta property="og:title"           content="{{ pageMeta.ogTitle | safe }}" />
+  <meta property="og:description"     content="{{ pageMeta.ogDescription | safe }}" />
   <meta property="og:image"           content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"     content="1200" />
   <meta property="og:image:height"    content="630" />
@@ -27,11 +25,10 @@ i18nKey: competition
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"           content="summary_large_image" />
-  <meta name="twitter:title"          content="The EBiM Competition · Cross-Continent Robot Benchmark" />
-  <meta name="twitter:description"    content="Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living." />
+  <meta name="twitter:title"          content="{{ pageMeta.twitterTitle | safe }}" />
+  <meta name="twitter:description"    content="{{ pageMeta.twitterDescription | safe }}" />
   <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"      content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-{% endraw %}
 {% include "jsonld.njk" %}
 {% endblock %}
 
