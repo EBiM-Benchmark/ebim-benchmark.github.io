@@ -174,7 +174,7 @@ Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-d
 | Sub-hero | `#home` | 40vh hero with breadcrumb + View Schedule CTA |
 | Workshop Overview | `#overview` | Half-day workshop intro with link to Competition page |
 | Schedule | `#schedule` | Tentative timeline (08:30–13:30) with type-coded rows |
-| Invited Talks | `#talks` | 5 speaker cards (speakers + titles "to be announced"; section hidden pending re-invites) |
+| Invited Talks | `#talks` | 4 speaker cards (speakers + titles "to be announced"; section hidden pending re-invites) |
 | Panel Discussion | `#panel` | Host + panelists + 3 discussion themes |
 | Poster Session & CFP | `#call-for-participation` | Extended Abstracts / Live Demos / Participation cards |
 | Important Dates | `#contact` | Poster deadline / Notification / Camera-Ready / Workshop Day (dark section) |
