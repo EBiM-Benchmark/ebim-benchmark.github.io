@@ -148,7 +148,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
 | Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
-| Awards & Prizes | `#awards` | Per-task prizes in two tracks — Real-World Excellence (cash + Franka voucher) + Simulation Prize (AMD) — up to $5,250/task; + in-kind AMD hardware support |
+| Awards & Prizes | `#awards` | Per-task prizes in two tracks — Real-World Excellence (cash + purchase voucher) + Simulation Prize (AMD) — up to $5,250/task; + in-kind AMD hardware support |
 | Partners | `#partners` (empty `#sponsors` span kept as alias) | Same ICRA-style tiers as Home, plus a Community Resources callout (Franka Community) |
 | Workshop callout | (banner) | "Looking for the Workshop?" → workshop.html |
 
@@ -159,7 +159,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 | Sub-hero | `#home` | 40vh hero with breadcrumb + View Schedule CTA |
 | Workshop Overview | `#overview` | Half-day workshop intro with link to Competition page |
 | Schedule | `#schedule` | Tentative timeline (08:30–13:30) with type-coded rows |
-| Invited Talks | `#talks` | 5 speaker cards (speakers + titles "to be announced"; section hidden pending re-invites) |
+| Invited Talks | `#talks` | 4 speaker cards (speakers + titles "to be announced"; section hidden pending re-invites) |
 | Panel Discussion | `#panel` | Host + panelists + 3 discussion themes |
 | Poster Session & CFP | `#call-for-participation` | Extended Abstracts / Live Demos / Participation cards |
 | Important Dates | `#contact` | Poster deadline / Notification / Camera-Ready / Workshop Day (dark section) |
@@ -175,16 +175,17 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 | Time | Session |
 |------|---------|
 | 08:30–08:40 | Opening Remarks |
-| 08:40–09:00 | Invited Talk 1 — Speaker TBA (title to be announced) |
-| 09:00–09:20 | Invited Talk 2 — Speaker TBA (title to be announced) |
-| 09:20–09:40 | Competition Highlights — Winner Teams (1st, 2nd, 3rd place) |
-| 09:40–10:25 | Poster Session & Coffee Break |
-| 10:25–10:45 | Invited Talk 3 — Speaker TBA (title to be announced) |
-| 10:45–11:05 | Invited Talk 4 — Speaker TBA (title to be announced) |
-| 11:05–11:25 | Invited Talk 5 — Speaker TBA (title to be announced) |
-| 11:25–11:55 | Panel Discussion — Host TBA; panelists: Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT) |
-| 11:55–12:30 | Best Poster Award & Competition Award |
+| 08:40–09:05 | Invited Talk 1 — Speaker TBA (title to be announced) |
+| 09:05–09:30 | Invited Talk 2 — Speaker TBA (title to be announced) |
+| 09:30–09:55 | Invited Talk 3 — Speaker TBA (title to be announced) |
+| 09:55–10:30 | Competition Highlights — Winner Teams (Task 1, Task 2, Task 3 first-place teams) |
+| 10:30–11:00 | Poster Session & Coffee Break |
+| 11:00–11:25 | Invited Talk 4 — Speaker TBA (title to be announced) |
+| 11:25–12:00 | Panel Discussion — Host TBA; panelists: Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT) |
+| 12:10–12:30 | Best Poster Award & Competition Award |
 | 12:30–13:30 | Hosted Lunch & Networking |
+
+*Times are intentionally non-contiguous — a 12:00–12:10 break sits between the panel and the awards.*
 
 ---
 
@@ -338,9 +339,9 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 ### Done
 - [x] Multi-page restructure: `index.html` (landing), `competition.html`, `workshop.html`, `404.html`
 - [x] Shared navbar + footer (byte-identical, comment-tagged)
-- [x] Schedule: final 5-talk + competition + panel program (08:30–13:30)
+- [x] Schedule: final 4-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
-- [x] Organizers: OC (11), Advisory (4), Support (11)
+- [x] Organizers: OC (10), Advisory (4), Support (11)
 - [x] Invited talks: both speakers AND titles set to "to be announced" on workshop.html (speakers being re-invited; the dedicated `#talks` section stays hidden)
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
@@ -349,7 +350,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (all 7 pages), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/register/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
 - [x] 4-testbed coverage: Hamburg (top floor of the Google Hamburg office), Munich, Pittsburgh, Shanghai (Franka Robotics branch office)
 - [x] Competition timeline: Simulation Release Jun 20 → Simulation End Aug 5 → Results Announced Aug 6 → Phase II two-window (team hands-on bench testing Aug 6–15; organizer-run testing & evaluation Aug 16–31, with code submission staying open — not a freeze); workshop date & Final Results TBD
-- [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + Franka voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + Franka voucher" (never implies $5,250 is pure cash).
+- [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics purchase voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + purchase voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + purchase voucher" (never implies $5,250 is pure cash).
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Panel: four confirmed panelists — Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row, panel cards, and JSON-LD)
