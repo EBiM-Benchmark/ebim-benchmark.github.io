@@ -25,7 +25,7 @@
   --transition:  .25s ease;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 1rem); font-size: 16px; }
 
 body {
   font-family: var(--font-main);

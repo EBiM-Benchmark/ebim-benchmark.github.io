@@ -278,6 +278,14 @@ Behavior:
 
 ---
 
+## Anchor-jump scroll offset
+
+In-page navigation lands the user on a section two ways: the navbar dropdowns (Home / Competition / Workshop sub-items) and the TOC sidebar jump to `#section` anchors, and the contact deep-link (`contact.html?topic=…`) calls `scrollIntoView({ block: 'start' })` on `.contact-card`. Because the navbar is `position: fixed`, a raw jump aligns the target to the very top of the viewport, leaving it hidden under the navbar.
+
+`html { scroll-padding-top: calc(var(--nav-h) + 1rem) }` lands those jumps just below the navbar instead. One rule covers both cases — `scroll-padding-top` is honored by native fragment navigation **and** by `scrollIntoView({ block: 'start' })` — and it tracks `--nav-h` automatically, clearing 68px desktop / 60px at the ≤ 380px breakpoint, plus a 1rem gap.
+
+---
+
 ## SEO infrastructure
 
 Each content page (`index`, `competition`, `workshop`) carries:
