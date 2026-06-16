@@ -13,11 +13,11 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 - `register` → Competition — Register Interest
 - `competition` → Competition Question
-- `partner` → Partnership Inquiry  *(label: "Partnership — Hardware, Funding & Compute")*
+- `partner` → Partnership Inquiry *(label: "Partnership — Hardware, Funding & Compute")*
 - `workshop` → Workshop / Poster Submission
 - `media` → Media / Press
 - `tech` → Technical (Platform / Website)
-- `partnership` → Partnership / Testbed Hosting  *(label: "Partnership — Testbed Hosting")*
+- `partnership` → Partnership / Testbed Hosting *(label: "Partnership — Testbed Hosting")*
 
 Unknown/absent slug = no pre-selection.
 
