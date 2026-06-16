@@ -1,0 +1,101 @@
+---
+permalink: "404.html"
+bodyClass: "page-404"
+title: "Page Not Found · EBiM Benchmark"
+description: "The page you were looking for doesn't exist. Return to the EBiM Benchmark home, Competition, or Workshop pages."
+canonical: "https://ebim-benchmark.github.io/404.html"
+robots: "noindex"
+---
+{% extends "layouts/base.njk" %}
+
+{% block headStyle %}{% raw %}
+  <style>
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    #notfound {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-dark);
+      padding: calc(var(--nav-h) + 3rem) 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #notfound::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    #notfound::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .notfound-content {
+      position: relative; z-index: 1;
+      text-align: center;
+      max-width: 720px;
+    }
+    .notfound-code {
+      font-size: clamp(5rem, 16vw, 10rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: -.04em;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 40px rgba(0,212,255,.35);
+    }
+    .notfound-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      letter-spacing: -.01em;
+    }
+    .notfound-message {
+      color: rgba(255,255,255,.72);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto 2.2rem;
+    }
+    .notfound-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+{% endraw %}{% endblock %}
+
+{% block main %}{% raw %}
+<main id="main-content">
+  <section id="notfound">
+    <div class="notfound-content">
+      <div class="notfound-code" aria-hidden="true">404</div>
+      <h1 class="notfound-title">Page Not Found</h1>
+      <p class="notfound-message">
+        The page you were looking for doesn't exist or has moved. Try one of the links below
+        to find what you need.
+      </p>
+      <div class="notfound-actions">
+        <a href="index.html" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146z"/>
+          </svg>
+          Back to Home
+        </a>
+        <a href="competition.html" class="btn btn-outline">View Competition</a>
+        <a href="workshop.html" class="btn btn-outline">View Workshop</a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endraw %}{% endblock %}

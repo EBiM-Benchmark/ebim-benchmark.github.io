@@ -9,7 +9,7 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 ### Contact form: deep links & categories
 
-`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category. Arrows below show each option's `value=""` string (what the link matches); the visible dropdown label can differ:
+`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category. The accepted query slugs (below) are unchanged; each maps to the matching option's stable `data-slug`, and the visible dropdown label can differ:
 
 - `register` → Competition — Register Interest
 - `competition` → Competition Question
@@ -21,22 +21,22 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 Unknown/absent slug = no pre-selection.
 
-**Adding a category** — keep these places in sync, or the subject prefix / pre-selection / Discord CTA silently breaks:
+**Adding a category** — everything keys off a stable per-option `data-slug` (so the human-readable `value`/label can change without touching routing). In `src/contact.njk`:
 
-1. The `<option>` in the category `<select>` (`contact.html`)
-2. The same option value → `"[PREFIX] "` entry in the JS prefix map
-3. *(optional)* a slug → option-value entry in the `?topic=` map
-4. *(optional)* the same option value in the `DISCORD_TOPICS` array, if the category should reveal the "faster path" Discord CTA (shown after the Category field)
+1. Add the `<option value="…" data-slug="SLUG">` to the category `<select>`.
+2. Add a `SLUG → "[PREFIX] "` entry to the JS `prefixMap` (the email subject prefix).
+3. *(optional)* add a query-slug → `data-slug` entry to the `?topic=` `topicMap`.
+4. *(optional)* add the `data-slug` to the `DISCORD_TOPICS` array if the category should reveal the "faster path" Discord CTA (shown after the Category field).
 
-The option value string must be **byte-identical** (including any em-dash `—`) across all of these places.
+The `data-slug` — not the option `value` — is the key shared across these places. The `value` string is the Web3Forms payload and is otherwise free to change.
 
-**Destination email** is configured in the Web3Forms dashboard (tied to the access key in `contact.html`), not in any committed file — so the address stays out of the public repo.
+**Destination email** is configured in the Web3Forms dashboard (tied to the access key in `src/contact.njk`), not in any committed file — so the address stays out of the public repo.
 
 ---
 
 ## Architecture overview
 
-The site is a **multi-page** static site (no build step). Three primary content pages, a contact form, and a 404:
+The site is a **multi-page** static site, built with [Eleventy](https://www.11ty.dev/) — Nunjucks templates in `src/` compile to static HTML in `_site/`. Three primary content pages, a contact form, and a 404:
 
 | Page | URL | Purpose |
 |---|---|---|
@@ -62,75 +62,60 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 
 ```
 ebim-benchmark.github.io/
-├── index.html                           # Landing page (funnel to sub-pages)
-├── competition.html                     # The EBiM Competition
-├── workshop.html                        # Workshop Program
-├── contact.html                         # Categorized Web3Forms contact form
-├── contact-success.html                 # No-JS POST fallback success page
-├── contact-test.html                    # Internal contact-form health check (not linked)
-├── 404.html                             # Branded 404 (noindex)
-├── css/
-│   └── style.css                        # All shared styles, including dropdowns,
-│                                        #   TOC sidebar, mobile drawer, dropdown toggles
-├── js/
-│   └── main.js                          # Navbar scroll FX, mobile hamburger,
-│                                        #   collapsible mobile dropdowns, scroll-active
-│                                        #   nav + TOC tracking, fade-in observer
-├── img/
-│   ├── favicon.svg                      # Site favicon (robot mark, accent color)
-│   ├── og-cover.png                     # Open Graph card (1200×630, ~87 KB, EBiM-branded)
-│   ├── og-cover.svg                     # EBiM-branded OG source (rasterize → og-cover.png)
-│   ├── platform/
-│   │   ├── MFR3_Duo.webp                # 1600×900 WebP (~18 KB) — primary
-│   │   ├── MFR3_Duo.png                 # 4000×2250 PNG (~4 MB)  — fallback
-│   │   ├── MFR3_Duo_with_workbench.webp # 1600×900 WebP (~31 KB) — primary
-│   │   └── MFR3_Duo_with_workbench.png  # 4000×2250 PNG (~6.7 MB) — fallback
-│   ├── organizers/                      # Organizer headshots — to be added
-│   ├── sponsors/                        # Partner logos (folder name kept as
-│   │   │                                #   sponsors/ so asset paths stay stable)
-│   │   ├── agile_robots.svg             # Agile Robots — Platinum (white; brightness(0) filter)
-│   │   ├── agile_robots_dark.jpg        # Agile Robots dark variant
-│   │   ├── franka_robotics.svg          # Franka Robotics — Platinum
-│   │   ├── franka_robotics_white.png
-│   │   ├── google.svg                   # Google — Platinum
-│   │   ├── amd.svg                      # AMD — Platinum (white, brightness(0) filter)
-│   │   ├── mech_mind.png                # Mech-Mind — Gold (dark)
-│   │   ├── mech_mind_white.png
-│   │   ├── vivo.png                     # vivo — Gold
-│   │   ├── tca.png                      # Taipei Computer Association — Silver
-│   │   ├── robotgym.webp                # RobotGym — Silver (dark)
-│   │   ├── robotgym_white.webp
-│   │   ├── vrb.svg                      # Virtual Research Building (a.k.a. AICO) — Bronze
-│   │   ├── rig.png                      # Robotics Institute Germany — Bronze
-│   │   ├── hhri.png                     # Hon Hai Research Institute — Bronze
-│   │   ├── galbot.png                   # Galbot — Bronze
-│   │   ├── lightwheel.png               # Lightwheel — Bronze
-│   │   ├── manipulationnet.webp         # ManipulationNet — Bronze
-│   │   └── alibaba_cloud.svg            # Alibaba Cloud (unused — partner removed; asset retained)
-│   ├── speakers/                        # (reserved — not used yet)
-│   └── tasks/                           # (reserved — not used yet)
-├── robots.txt                           # Allow-all + sitemap pointer
-├── sitemap.xml                          # 4 URLs (home, competition, workshop, contact)
-├── .nojekyll                            # Disable Jekyll on GitHub Pages
+├── .eleventy.js                         # Eleventy config (input src/ → output _site/)
+├── package.json / package-lock.json     # Eleventy dep (+ Prettier, dev) — `npm ci`
+├── .github/workflows/
+│   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
+│   └── verify.yml                       # CI parity gate (runs scripts/verify-phase0.mjs)
+├── scripts/
+│   └── verify-phase0.mjs                # Asserts the build matches the old hand-authored HTML
+├── src/
+│   ├── _includes/
+│   │   ├── layouts/base.njk             # <html> skeleton + per-page head fields/conditionals
+│   │   ├── head.njk                     # Shared favicon/font/CSS head tail
+│   │   ├── navbar.njk                   # Shared navbar (single source of truth)
+│   │   └── footer.njk                   # Shared footer (single source of truth)
+│   ├── index.njk                        # Landing page (funnel to sub-pages)
+│   ├── competition.njk                  # The EBiM Competition
+│   ├── workshop.njk                     # Workshop Program
+│   ├── contact.njk                      # Categorized Web3Forms contact form (+ inline JS)
+│   ├── contact-success.njk              # No-JS POST fallback success page
+│   ├── contact-test.njk                 # Internal contact-form health check (not linked)
+│   ├── 404.njk                          # Branded 404 (noindex)
+│   ├── css/style.css                    # All shared styles (passthrough-copied verbatim)
+│   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
+│   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
+│   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
+│   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
+│   ├── sitemap.xml                      # 4 URLs (home, competition, workshop, contact)
+│   └── .nojekyll                        # Disable Jekyll on GitHub Pages
+├── _site/                               # Build output (gitignored) — this is what gets deployed
 └── README.md
 ```
+
+Each `src/*.njk` page extends `_includes/layouts/base.njk` and supplies its own head meta
+(OG/Twitter/JSON-LD), inline `<style>`, body, and (the contact pages) trailing `<script>`.
+`permalink` front matter pins the exact `.html` URLs, so output paths are unchanged.
 
 ---
 
 ## Setup
 
-Plain HTML/CSS/JS — no build step, no dependencies.
-
-### Local preview
+Built with [Eleventy](https://www.11ty.dev/) (a `package.json` dependency). Prettier is a dev dependency used only by the parity harness — there are no runtime dependencies in the shipped site.
 
 ```bash
-python -m http.server 8000
-# then open http://localhost:8000
+npm ci            # install Eleventy (+ Prettier)
+npm run build     # compile src/ → _site/
+npm run serve     # local dev server with live reload (eleventy --serve)
 ```
+
+### Parity harness
+
+`node scripts/verify-phase0.mjs` builds the site and asserts the output is byte/semantically identical to the previously hand-authored HTML (markup structure, comments, JSON-LD, and the contact form). It runs on every PR via `.github/workflows/verify.yml`.
 
 ### GitHub Pages deployment
 
-Push to `main` of `EBiM-Benchmark/ebim-benchmark.github.io`; GitHub Pages auto-deploys at `https://ebim-benchmark.github.io`.
+`.github/workflows/deploy.yml` builds the site and deploys `_site/` to GitHub Pages on every push to `main`. This takes effect once the repo's Pages source is set to **GitHub Actions** (Settings → Pages → "Build and deployment" → Source).
 
 ---
 
@@ -219,42 +204,13 @@ Hamburg · Munich · Pittsburgh · Shanghai
 
 ## Shared chrome (navbar + footer)
 
-The navbar is **byte-identical** across the 4 primary pages (`index`, `competition`, `workshop`, `404`); the footer is **byte-identical across all 7 pages** — the 4 primary plus the contact pages (`contact.html`, `contact-success.html`, `contact-test.html`). The contact pages carry the same navbar chrome too; `contact.html` additionally marks its own nav link with `aria-current="page"`. Each block is wrapped in a comment marker:
+The navbar and footer are single Nunjucks includes — `src/_includes/navbar.njk` and `src/_includes/footer.njk` — pulled into every page by `src/_includes/layouts/base.njk`. There is one source of truth, so there is nothing to "keep in sync." `contact.njk` sets `navActive: contact` in its front matter, which adds `aria-current="page"` to the Contact nav link; no other page sets an active state.
 
-```html
-<!-- SHARED NAVBAR — keep in sync across index.html, competition.html, workshop.html, 404.html -->
-<nav id="navbar" ...>...</nav>
-
-<!-- SHARED FOOTER — keep in sync across index.html, competition.html, workshop.html, contact.html, contact-success.html, contact-test.html, 404.html -->
-<footer id="footer">...</footer>
-```
+> Earlier versions duplicated these blocks across all 7 HTML files and guarded them with `<!-- SHARED NAVBAR/FOOTER — keep in sync … -->` comments. The Eleventy migration replaced that with the includes above, and those scaffolding comments were dropped.
 
 ### Updating the shared chrome
 
-When changing the navbar or footer:
-
-1. Update the block in **one** file.
-2. Copy/paste the same block into the other pages (the navbar spans the 4 primary pages; the footer spans all 7).
-3. Verify byte-equality:
-
-```bash
-# Quick sanity check (run from repo root)
-python -c "
-import re, hashlib
-from pathlib import Path
-for which, pat, pages in [
-    ('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>',
-     ['index.html', 'competition.html', 'workshop.html', '404.html']),
-    ('FOOTER', r'<!-- SHARED FOOTER.*?</footer>',
-     ['index.html', 'competition.html', 'workshop.html', 'contact.html',
-      'contact-success.html', 'contact-test.html', '404.html'])]:
-    hashes = set()
-    for p in pages:
-        m = re.search(pat, Path(p).read_text(encoding='utf-8'), re.S)
-        hashes.add(hashlib.sha256(m.group(0).encode()).hexdigest()[:12])
-    print(f'{which}: {\"OK\" if len(hashes) == 1 else \"DRIFT\"} ({hashes})')
-"
-```
+Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once. `npm run build` regenerates every page, and `node scripts/verify-phase0.mjs` confirms nothing else changed.
 
 ### Navbar items
 

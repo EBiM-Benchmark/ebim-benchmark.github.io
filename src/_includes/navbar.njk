@@ -1,0 +1,59 @@
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="wm-mark">EBiM</span> <span class="wm-word">Benchmark</span></a>
+
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li class="has-dropdown nav-home">
+        <a href="index.html">Home <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Home menu" aria-expanded="false">
+          <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul class="nav-dropdown">
+          <li><a href="index.html#overview">Overview</a></li>
+          <li><a href="index.html#engage">Two Ways to Engage</a></li>
+          <li><a href="index.html#themes">Key Themes</a></li>
+          <li><a href="index.html#maturity">Maturity Roadmap</a></li>
+          <li><a href="index.html#dates">Important Dates</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown nav-competition">
+        <a href="competition.html">Competition <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Competition menu" aria-expanded="false">
+          <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul class="nav-dropdown">
+          <li><a href="competition.html#why">Why This Benchmark</a></li>
+          <li><a href="competition.html#overview">Three-Phase Mechanism</a></li>
+          <li><a href="competition.html#platform">Mobile FR3 Duo</a></li>
+          <li><a href="competition.html#benchmark">The Benchmark</a></li>
+          <li><a href="competition.html#tasks">Tasks</a></li>
+          <li><a href="competition.html#testbeds">Testbeds</a></li>
+          <li><a href="competition.html#call-for-participation">Register Interest</a></li>
+          <li><a href="competition.html#awards">Awards &amp; Prizes</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown nav-workshop">
+        <a href="workshop.html">Workshop <span class="dropdown-caret" aria-hidden="true">&#9662;</span></a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Workshop menu" aria-expanded="false">
+          <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul class="nav-dropdown">
+          <li><a href="workshop.html#overview">Overview</a></li>
+          <li><a href="workshop.html#schedule">Schedule</a></li>
+          <li hidden><a href="workshop.html#talks">Invited Talks</a></li>
+          <li><a href="workshop.html#panel">Panel</a></li>
+          <li><a href="workshop.html#call-for-participation">Posters</a></li>
+          <li><a href="workshop.html#contact">Important Dates</a></li>
+          <li><a href="workshop.html#dissemination">Dissemination</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#organizers">Organizers</a></li>
+      <li><a href="index.html#partners">Partners</a></li>
+      <li><a href="contact.html"{% if navActive == "contact" %} aria-current="page"{% endif %}>Contact</a></li>
+    </ul>
+  </div>
+</nav>
