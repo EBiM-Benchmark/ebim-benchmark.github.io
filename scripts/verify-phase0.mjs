@@ -252,11 +252,52 @@ function checkContactSpecific() {
     [/var DISCORD_TOPICS = \['competition', 'register', 'workshop'\]/, "DISCORD_TOPICS slug array"],
     [/dataset\.slug/, "reads option dataset.slug"],
     [/prefixMap\[slug\]\s*\|\|\s*'\[CONTACT\] '/, "subject = prefixMap[slug] || [CONTACT]"],
-    [/competition:\s*'\[COMPETITION\] '/, "prefixMap keyed by slug"],
-    [/partnership:\s*'testbed'/, "?topic=partnership → testbed"],
     [/headers:\s*\{\s*'Accept':\s*'application\/json'\s*\}/, "AJAX Accept: application/json header"],
   ];
   for (const [re, label] of must) if (!re.test(js)) problems.push(`inline script: missing ${label}`);
+
+  // 3b) the FULL prefixMap and topicMap must match exactly (not just a sample),
+  // so a regression in any single slug→prefix or query-slug→data-slug pair fails.
+  const parseObjLiteral = (name) => {
+    const m = js.match(new RegExp(`var ${name}\\s*=\\s*\\{([\\s\\S]*?)\\}`));
+    if (!m) return null;
+    const out = {};
+    const re = /(\w+)\s*:\s*'([^']*)'/g;
+    let e;
+    while ((e = re.exec(m[1]))) out[e[1]] = e[2];
+    return out;
+  };
+  const sameMap = (got, expected) => {
+    if (!got) return false;
+    const gk = Object.keys(got).sort();
+    const ek = Object.keys(expected).sort();
+    return gk.length === ek.length && ek.every((k, i) => gk[i] === k && got[k] === expected[k]);
+  };
+  const expectPrefix = {
+    competition: "[COMPETITION] ",
+    register: "[REGISTER] ",
+    workshop: "[WORKSHOP] ",
+    partner: "[PARTNERSHIP] ",
+    media: "[MEDIA] ",
+    tech: "[TECH] ",
+    testbed: "[TESTBED] ",
+    other: "[OTHER] ",
+  };
+  const expectTopic = {
+    register: "register",
+    competition: "competition",
+    partner: "partner",
+    workshop: "workshop",
+    media: "media",
+    tech: "tech",
+    partnership: "testbed",
+  };
+  const gotPrefix = parseObjLiteral("prefixMap");
+  const gotTopic = parseObjLiteral("topicMap");
+  if (!sameMap(gotPrefix, expectPrefix))
+    problems.push(`prefixMap mismatch: got ${JSON.stringify(gotPrefix)}`);
+  if (!sameMap(gotTopic, expectTopic))
+    problems.push(`topicMap (?topic= deep-link) mismatch: got ${JSON.stringify(gotTopic)}`);
 
   // 4) untouched form internals.
   for (const [needle, label] of [
@@ -290,7 +331,19 @@ async function main() {
     console.log(BOLD("Building site (eleventy)…"));
     buildSite();
   }
-  console.log(BOLD(`\nVerifying against base ref: ${resolveBaseRef()}\n`));
+  const baseRef = resolveBaseRef();
+  console.log(BOLD(`\nVerifying against base ref: ${baseRef}\n`));
+
+  // Self-deactivate once the migration is merged: the pre-migration baseline is
+  // the root *.html on the base ref. If it's gone, this one-shot parity gate has
+  // nothing to compare against (and future PRs shouldn't fail on it), so no-op.
+  if (run("git", ["cat-file", "-e", `${baseRef}:index.html`]).status !== 0) {
+    console.log(
+      `Phase 0 baseline (root *.html) is absent on ${baseRef} — the migration is ` +
+        `already merged, so this parity gate is a historical no-op. Passing.`,
+    );
+    process.exit(0);
+  }
 
   const rows = [];
   let allOk = true;

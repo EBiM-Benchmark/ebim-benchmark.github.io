@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "EBiM Benchmark website — Eleventy build (Phase 0 migration; output is byte-for-byte equivalent to the hand-authored static site).",
-  "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "eleventy",
