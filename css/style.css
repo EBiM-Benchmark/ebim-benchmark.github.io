@@ -1158,6 +1158,7 @@ section:nth-child(even) { background: var(--bg-light); }
   border-radius: 50%;
   flex-shrink: 0;
 }
+.legend-opening     .legend-dot { background: #64748b; }
 .legend-talk        .legend-dot { background: var(--accent); }
 .legend-competition .legend-dot { background: #f97316; }
 .legend-poster      .legend-dot { background: #f59e0b; }
@@ -1224,7 +1225,7 @@ section:nth-child(even) { background: var(--bg-light); }
 }
 
 /* Dot colors by type */
-.sched-opening     .sched-dot { border-color: var(--accent-dark); background: rgba(0,212,255,.15); }
+.sched-opening     .sched-dot { border-color: #64748b;            background: rgba(100,116,139,.15); }
 .sched-talk        .sched-dot { border-color: var(--accent);      background: rgba(0,212,255,.12); }
 .sched-competition .sched-dot { border-color: #f97316;            background: rgba(249,115,22,.15); }
 .sched-poster      .sched-dot { border-color: #f59e0b;            background: rgba(245,158,11,.12); }
@@ -1234,7 +1235,7 @@ section:nth-child(even) { background: var(--bg-light); }
 
 /* Row hover — light tint + dot brightens */
 .sched-row:hover .sched-dot { transform: scale(1.25); }
-.sched-opening:hover     { background: rgba(0,212,255,.025); }
+.sched-opening:hover     { background: rgba(100,116,139,.03); }
 .sched-talk:hover        { background: rgba(0,212,255,.025); }
 .sched-competition:hover { background: rgba(249,115,22,.04); }
 .sched-poster:hover      { background: rgba(245,158,11,.03); }
@@ -1300,7 +1301,7 @@ section:nth-child(even) { background: var(--bg-light); }
   letter-spacing: .04em;
   white-space: nowrap;
 }
-.badge-opening     { background: rgba(0,212,255,.1);   color: #0284a1; }
+.badge-opening     { background: rgba(100,116,139,.13); color: #475569; }
 .badge-award       { background: rgba(234,179,8,.13);  color: #a16207; }
 .badge-talk        { background: rgba(0,212,255,.12);  color: #0284a1; }
 .badge-competition { background: rgba(249,115,22,.14); color: #c2410c; }
