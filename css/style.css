@@ -1319,6 +1319,15 @@ section:nth-child(even) { background: var(--bg-light); }
   margin-right: .15rem;
 }
 
+/* Trophy icon in the awards row — gold accent to match the award styling */
+.sched-icon-award {
+  width: 14px; height: 14px;
+  color: #eab308;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-right: .15rem;
+}
+
 /* Panel discussion people layout */
 .sched-panel-people {
   display: flex;
