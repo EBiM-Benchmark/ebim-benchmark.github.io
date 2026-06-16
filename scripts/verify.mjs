@@ -1,31 +1,33 @@
-// Phase 0 acceptance harness.
+// EN parity harness.
 //
-// Proves the Eleventy build is semantically identical to the previously
-// hand-authored static site committed on `main`. For each page it fetches the
-// ORIGINAL committed HTML (git show <base>:<file>) and checks it against the
-// freshly built _site/<file> on four axes:
+// Proves the Eleventy build is semantically identical to the golden EN output
+// captured in tests/baseline/. This is the permanent guard for the invisible
+// i18n refactor (Phase 1a onward): the live English pages must never drift.
+//
+// For each of the 7 built pages it reads the committed baseline fixture
+// (tests/baseline/<file>) and checks it against the freshly built _site/<file>
+// on four axes:
 //
 //   structure  — markup (tags/attrs/text/order) is identical. Comments and
 //                <script> bodies are removed from BOTH sides first (they are
 //                checked separately), then Prettier (parser:"html") formats
 //                each and the results are compared (blank lines ignored).
-//   comments   — the ordered list of HTML comments is identical, except the
-//                obsolete "<!-- SHARED NAVBAR/FOOTER — keep in sync … -->"
-//                scaffolding comments, whose removal is migration diff "(a)".
+//   comments   — the ordered list of HTML comments is identical.
 //   json-ld    — every <script type="application/ld+json"> block is deep-equal
-//                (order-insensitive) to the original. [index/competition/
+//                (order-insensitive) to the baseline. [index/competition/
 //                workshop/contact]
 //   extra      — contact.html: data-slug values + slug-keyed inline script +
 //                untouched form internals. contact-test.html: inline behavior
 //                <script> is byte-for-byte unchanged.
 //
-// Expected: every page PASSES every applicable axis. The only intended diffs
-// are (a) shared chrome now comes from includes (sync comments removed) and
-// (b) contact.html gains data-slug attributes + a rewritten inline script.
+// Expected: every page PASSES every applicable axis. Any red means the EN
+// output drifted — fix the template, never the baseline.
 //
-// Usage:  node scripts/verify-phase0.mjs            (builds, then verifies)
-//         node scripts/verify-phase0.mjs --no-build (verify an existing _site)
-//         BASE_REF=origin/main node scripts/verify-phase0.mjs
+// To re-baseline after an INTENTIONAL English content change: rebuild the site
+// and copy the 7 _site/*.html into tests/baseline/ in the same commit.
+//
+// Usage:  node scripts/verify.mjs            (builds, then verifies)
+//         node scripts/verify.mjs --no-build (verify an existing _site)
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -33,6 +35,7 @@ import prettier from "prettier";
 
 const ROOT = process.cwd();
 const SITE = path.join(ROOT, "_site");
+const BASELINE = path.join(ROOT, "tests", "baseline");
 
 const PAGES = [
   "index.html",
@@ -67,26 +70,10 @@ function buildSite() {
   if (res.status !== 0) throw new Error("Eleventy build failed");
 }
 
-let RESOLVED_BASE = null;
-function resolveBaseRef() {
-  if (RESOLVED_BASE) return RESOLVED_BASE;
-  const candidates = [process.env.BASE_REF, "main", "origin/main"].filter(Boolean);
-  for (const ref of candidates) {
-    if (run("git", ["rev-parse", "--verify", "--quiet", `${ref}^{commit}`]).status === 0) {
-      return (RESOLVED_BASE = ref);
-    }
-  }
-  throw new Error(
-    `Could not resolve a base ref (tried: ${candidates.join(", ")}). ` +
-      `In CI, check out with fetch-depth: 0 or set BASE_REF.`,
-  );
-}
-
-function getOriginal(file) {
-  const ref = resolveBaseRef();
-  const res = run("git", ["show", `${ref}:${file}`]);
-  if (res.status !== 0) throw new Error(`git show ${ref}:${file} failed: ${res.stderr.trim()}`);
-  return normalizeEol(res.stdout);
+function getBaseline(file) {
+  const p = path.join(BASELINE, file);
+  if (!fs.existsSync(p)) throw new Error(`Baseline fixture missing: tests/baseline/${file}`);
+  return normalizeEol(fs.readFileSync(p, "utf8"));
 }
 function getBuilt(file) {
   const p = path.join(SITE, file);
@@ -98,11 +85,9 @@ function getBuilt(file) {
 // ever spans across other comments / markup.
 const COMMENT_RE = /<!--[\s\S]*?-->/g;
 const removeComments = (html) => html.replace(COMMENT_RE, "");
-const isSyncComment = (c) => /keep in sync/.test(c);
 // Empty every <script>…</script> body (run AFTER removeComments so a "<script>"
 // appearing inside a comment can't fool the matcher).
 const stripScriptBodies = (html) => html.replace(/(<script\b[^>]*>)[^]*?(<\/script>)/g, "$1$2");
-const stripDataSlug = (html) => html.replace(/\s+data-slug="[^"]*"/g, "");
 
 const fmt = (html) => prettier.format(html, { parser: "html" });
 // Drop blank lines + trailing whitespace ("insignificant whitespace" per spec).
@@ -163,44 +148,39 @@ function inlineScriptBody(html) {
 // ─────────────────────────────────────────────────────────────── checks ──
 
 async function checkStructure(file) {
-  const prep = (html, isBuilt) => {
-    let h = removeComments(html);
-    if (file === CONTACT && isBuilt) h = stripDataSlug(h);
-    return stripScriptBodies(h);
-  };
-  const fo = collapse(await fmt(prep(getOriginal(file), false)));
-  const fb = collapse(await fmt(prep(getBuilt(file), true)));
+  const prep = (html) => stripScriptBodies(removeComments(html));
+  const fo = collapse(await fmt(prep(getBaseline(file))));
+  const fb = collapse(await fmt(prep(getBuilt(file))));
   return fo === fb ? { ok: true } : { ok: false, detail: firstDiff(fo, fb) };
 }
 
 function checkComments(file) {
   const norm = (c) => c.replace(/\s+/g, " ").trim();
-  const orig = (getOriginal(file).match(COMMENT_RE) || []).filter((c) => !isSyncComment(c)).map(norm);
+  const base = (getBaseline(file).match(COMMENT_RE) || []).map(norm);
   const built = (getBuilt(file).match(COMMENT_RE) || []).map(norm);
-  if (built.some(isSyncComment)) return { ok: false, detail: "build still contains a sync comment" };
-  if (orig.length !== built.length)
-    return { ok: false, detail: `comment count: orig(−sync) ${orig.length} vs built ${built.length}` };
-  for (let i = 0; i < orig.length; i++)
-    if (orig[i] !== built[i])
-      return { ok: false, detail: `comment #${i + 1} differs:\n    exp: ${orig[i]}\n    got: ${built[i]}` };
+  if (base.length !== built.length)
+    return { ok: false, detail: `comment count: baseline ${base.length} vs built ${built.length}` };
+  for (let i = 0; i < base.length; i++)
+    if (base[i] !== built[i])
+      return { ok: false, detail: `comment #${i + 1} differs:\n    exp: ${base[i]}\n    got: ${built[i]}` };
   return { ok: true, count: built.length };
 }
 
 function checkJsonLd(file) {
-  const orig = extractJsonLd(getOriginal(file)).map(canonicalize);
+  const base = extractJsonLd(getBaseline(file)).map(canonicalize);
   const built = extractJsonLd(getBuilt(file)).map(canonicalize);
-  if (orig.length !== built.length)
-    return { ok: false, detail: `block count: orig ${orig.length} vs built ${built.length}` };
-  for (let i = 0; i < orig.length; i++)
-    if (JSON.stringify(orig[i]) !== JSON.stringify(built[i]))
+  if (base.length !== built.length)
+    return { ok: false, detail: `block count: baseline ${base.length} vs built ${built.length}` };
+  for (let i = 0; i < base.length; i++)
+    if (JSON.stringify(base[i]) !== JSON.stringify(built[i]))
       return { ok: false, detail: `JSON-LD block #${i + 1} differs (deep-equal failed)` };
-  return { ok: true, count: orig.length };
+  return { ok: true, count: base.length };
 }
 
 function checkInlineScriptUnchanged(file) {
-  const o = inlineScriptBody(getOriginal(file));
+  const o = inlineScriptBody(getBaseline(file));
   const b = inlineScriptBody(getBuilt(file));
-  if (o === null) return { ok: false, detail: "no inline <script> in original" };
+  if (o === null) return { ok: false, detail: "no inline <script> in baseline" };
   if (b === null) return { ok: false, detail: "no inline <script> in build" };
   return collapse(o) === collapse(b)
     ? { ok: true }
@@ -240,11 +220,11 @@ function checkContactSpecific() {
       problems.push(`option "${value}" data-slug=${JSON.stringify(seen[value])}, expected "${slug}"`);
   }
 
-  // 2) option value= attributes (the Web3Forms payload) unchanged from today.
-  const origValues = [...getOriginal(CONTACT).matchAll(optRe)].map((x) => x[1]);
+  // 2) option value= attributes (the Web3Forms payload) unchanged from baseline.
+  const baseValues = [...getBaseline(CONTACT).matchAll(optRe)].map((x) => x[1]);
   const builtValues = [...built.matchAll(optRe)].map((x) => x[1]);
-  if (JSON.stringify(origValues) !== JSON.stringify(builtValues))
-    problems.push("option value= attributes differ from the original (payload changed!)");
+  if (JSON.stringify(baseValues) !== JSON.stringify(builtValues))
+    problems.push("option value= attributes differ from the baseline (payload changed!)");
 
   // 3) inline script slug-keyed as specified.
   const js = inlineScriptBody(built) || "";
@@ -312,18 +292,6 @@ function checkContactSpecific() {
   return { ok: problems.length === 0, problems };
 }
 
-// Show the exact intended remaining diff on contact.html (data-slug + script).
-async function showContactIntendedDiff() {
-  const a = collapse(await fmt(getOriginal(CONTACT).replace(COMMENT_RE, (c) => (isSyncComment(c) ? "" : c))));
-  const b = collapse(await fmt(getBuilt(CONTACT)));
-  const setA = new Set(a.split("\n"));
-  const setB = new Set(b.split("\n"));
-  return {
-    removed: a.split("\n").filter((l) => !setB.has(l) && l.trim()),
-    added: b.split("\n").filter((l) => !setA.has(l) && l.trim()),
-  };
-}
-
 // ───────────────────────────────────────────────────────────────── main ──
 
 async function main() {
@@ -331,19 +299,7 @@ async function main() {
     console.log(BOLD("Building site (eleventy)…"));
     buildSite();
   }
-  const baseRef = resolveBaseRef();
-  console.log(BOLD(`\nVerifying against base ref: ${baseRef}\n`));
-
-  // Self-deactivate once the migration is merged: the pre-migration baseline is
-  // the root *.html on the base ref. If it's gone, this one-shot parity gate has
-  // nothing to compare against (and future PRs shouldn't fail on it), so no-op.
-  if (run("git", ["cat-file", "-e", `${baseRef}:index.html`]).status !== 0) {
-    console.log(
-      `Phase 0 baseline (root *.html) is absent on ${baseRef} — the migration is ` +
-        `already merged, so this parity gate is a historical no-op. Passing.`,
-    );
-    process.exit(0);
-  }
+  console.log(BOLD(`\nVerifying _site against tests/baseline (golden EN output)\n`));
 
   const rows = [];
   let allOk = true;
@@ -400,17 +356,6 @@ async function main() {
       console.log(`\n• ${BOLD(r.file)}`);
       for (const d of r.details) console.log("  " + d.replace(/\n/g, "\n  "));
     }
-  }
-
-  // ── Intended contact diff (informational) ──
-  try {
-    const { removed, added } = await showContactIntendedDiff();
-    console.log("\n" + BOLD("contact.html — intended remaining diff (data-slug + inline behavior script)"));
-    console.log(`  lines only in ORIGINAL: ${removed.length}, only in BUILT: ${added.length}`);
-    removed.slice(0, 10).forEach((l) => console.log(`  ${RED("−")} ${l.trim().slice(0, 118)}`));
-    added.slice(0, 10).forEach((l) => console.log(`  ${GREEN("+")} ${l.trim().slice(0, 118)}`));
-  } catch (e) {
-    console.log("  (could not compute intended diff: " + e.message + ")");
   }
 
   console.log("\n" + (allOk ? GREEN(BOLD("✓ ALL CHECKS PASSED")) : RED(BOLD("✗ CHECKS FAILED"))));
