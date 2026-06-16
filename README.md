@@ -9,15 +9,15 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 ### Contact form: deep links & categories
 
-`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category:
+`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category. Arrows below show each option's `value=""` string (what the link matches); the visible dropdown label can differ:
 
 - `register` → Competition — Register Interest
 - `competition` → Competition Question
-- `partner` → Partnership Inquiry
+- `partner` → Partnership Inquiry *(label: "Partnership — Hardware, Funding & Compute")*
 - `workshop` → Workshop / Poster Submission
 - `media` → Media / Press
 - `tech` → Technical (Platform / Website)
-- `partnership` → Partnership / Testbed Hosting
+- `partnership` → Partnership / Testbed Hosting *(label: "Partnership — Testbed Hosting")*
 
 Unknown/absent slug = no pre-selection.
 
