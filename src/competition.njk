@@ -8,6 +8,7 @@ canonical: "https://ebim-benchmark.github.io/competition.html"
 siteVerification: true
 headComments: true
 backToTop: true
+i18nKey: competition
 ---
 {% extends "layouts/base.njk" %}
 
@@ -30,68 +31,9 @@ backToTop: true
   <meta name="twitter:description"    content="Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living." />
   <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"      content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-
-  <!-- Structured data: Competition Event -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "EBiM Competition: Cross-Continent Bimanual Manipulation Benchmark",
-    "description": "Open simulation benchmark followed by real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Tasks include cable routing, deformable thermal-pad placement, and assisted living and feeding.",
-    "startDate": "2026-06-20",
-    "endDate": "2026-08-31",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
-    "location": [
-      {"@type": "Place", "name": "Shanghai testbed", "address": {"@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN"}},
-      {"@type": "Place", "name": "University of Hamburg · TAMS Group", "address": {"@type": "PostalAddress", "addressLocality": "Hamburg", "addressCountry": "DE"}},
-      {"@type": "Place", "name": "Agile Robots SE", "address": {"@type": "PostalAddress", "addressLocality": "Munich", "addressCountry": "DE"}},
-      {"@type": "Place", "name": "Carnegie Mellon University", "address": {"@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US"}}
-    ],
-    "organizer": [
-      {"@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/"},
-      {"@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/"}
-    ],
-    "url": "https://ebim-benchmark.github.io/competition.html",
-    "image": "https://ebim-benchmark.github.io/img/og-cover.png",
-    "sponsor": [
-      {"@type": "Organization", "name": "Franka Robotics", "url": "https://franka.de"},
-      {"@type": "Organization", "name": "Agile Robots", "url": "https://www.agile-robots.com"},
-      {"@type": "Organization", "name": "Google", "url": "https://cloud.google.com"},
-      {"@type": "Organization", "name": "AMD", "url": "https://www.amd.com"}
-    ]
-  }
-  </script>
-
-  <!-- Structured data: Organization schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "EBiM Benchmark",
-    "url": "https://ebim-benchmark.github.io/",
-    "logo": "https://ebim-benchmark.github.io/img/favicon.svg",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "general inquiries",
-      "url": "https://ebim-benchmark.github.io/contact.html"
-    },
-    "sameAs": ["https://github.com/EBiM-Benchmark"]
-  }
-  </script>
-
-  <!-- Structured data: Breadcrumbs -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ebim-benchmark.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Competition", "item": "https://ebim-benchmark.github.io/competition.html"}
-    ]
-  }
-  </script>
-{% endraw %}{% endblock %}
+{% endraw %}
+{% include "jsonld.njk" %}
+{% endblock %}
 
 {% block headStyle %}{% raw %}
   <!-- Critical CSS inlined to prevent FOUC -->

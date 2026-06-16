@@ -1,0 +1,21 @@
+{
+  "_comment": "TRANSLATABLE English strings. Resolved per page via the eleventyComputed `t` lookup (English fallback). 1a only ships `en`; /zh/ lands in 1b. Values are verbatim from the live English output — keep byte-identical.",
+
+  "jsonld": {
+    "eventNameIndex": "EBiM Benchmark: Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation",
+    "eventAlternateName": "EBiM Benchmark",
+    "eventDescriptionIndex": "A globally coordinated benchmarking initiative for real-world embodied bimanual manipulation, featuring cross-continent real-robot validation and a community workshop.",
+    "eventNameCompetition": "EBiM Competition: Cross-Continent Bimanual Manipulation Benchmark",
+    "eventDescriptionCompetition": "Open simulation benchmark followed by real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Tasks include cable routing, deformable thermal-pad placement, and assisted living and feeding.",
+    "locationNameIndex": "Cross-continent testbeds (Hamburg, Munich, Pittsburgh, Shanghai)",
+    "testbedNames": [
+      "Shanghai testbed",
+      "University of Hamburg · TAMS Group",
+      "Agile Robots SE",
+      "Carnegie Mellon University"
+    ],
+    "contactType": "general inquiries",
+    "breadcrumbHome": "Home",
+    "breadcrumbCompetition": "Competition"
+  }
+}
