@@ -2123,7 +2123,6 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
   flex-wrap: wrap;
   align-items: center;
   gap: .4rem .7rem;
-  margin-bottom: 1.5rem;
   padding: .95rem 1.1rem;
   background: rgba(0, 212, 255, .08);
   border: 1px solid rgba(0, 212, 255, .28);
