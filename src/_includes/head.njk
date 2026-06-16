@@ -1,0 +1,20 @@
+{# Shared <head> tail — favicon, font preconnect/stylesheet, and the main CSS.
+   Duplicated verbatim across every page in the hand-authored site; centralized
+   here. The descriptive comments only existed on the four "full" pages
+   (index/competition/workshop/contact), so they are gated on `headComments`. #}
+{%- if headComments %}
+  <!-- Favicon -->
+{%- endif %}
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+
+{%- if headComments %}
+  <!-- Fonts — preconnect for faster DNS + TLS -->
+{%- endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+{%- if headComments %}
+  <!-- Styles -->
+{%- endif %}
+  <link rel="stylesheet" href="css/style.css" />

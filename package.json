@@ -1,0 +1,19 @@
+{
+  "name": "ebim-benchmark-site",
+  "version": "0.0.0",
+  "private": true,
+  "description": "EBiM Benchmark website — Eleventy build (Phase 0 migration; output is byte-for-byte equivalent to the hand-authored static site).",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "verify": "node scripts/verify-phase0.mjs"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
+}
