@@ -21,13 +21,14 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 Unknown/absent slug = no pre-selection.
 
-**Adding a category** — keep three places in sync, or the subject prefix / pre-selection silently breaks:
+**Adding a category** — keep these places in sync, or the subject prefix / pre-selection / Discord CTA silently breaks:
 
 1. The `<option>` in the category `<select>` (`contact.html`)
 2. The same option value → `"[PREFIX] "` entry in the JS prefix map
 3. *(optional)* a slug → option-value entry in the `?topic=` map
+4. *(optional)* the same option value in the `DISCORD_TOPICS` array, if the category should reveal the "faster path" Discord CTA (shown after the Category field)
 
-The option value string must be **byte-identical** (including any em-dash `—`) across all three places.
+The option value string must be **byte-identical** (including any em-dash `—`) across all of these places.
 
 **Destination email** is configured in the Web3Forms dashboard (tied to the access key in `contact.html`), not in any committed file — so the address stays out of the public repo.
 
@@ -217,13 +218,13 @@ Hamburg · Munich · Pittsburgh · Shanghai
 
 ## Shared chrome (navbar + footer)
 
-The navbar and footer are **byte-identical** across the 4 primary pages (`index`, `competition`, `workshop`, `404`). The contact pages (`contact.html`, `contact-success.html`, `contact-test.html`) carry the same chrome too; `contact.html` additionally marks its own nav link with `aria-current="page"`. Each block is wrapped in a comment marker:
+The navbar is **byte-identical** across the 4 primary pages (`index`, `competition`, `workshop`, `404`); the footer is **byte-identical across all 7 pages** — the 4 primary plus the contact pages (`contact.html`, `contact-success.html`, `contact-test.html`). The contact pages carry the same navbar chrome too; `contact.html` additionally marks its own nav link with `aria-current="page"`. Each block is wrapped in a comment marker:
 
 ```html
 <!-- SHARED NAVBAR — keep in sync across index.html, competition.html, workshop.html, 404.html -->
 <nav id="navbar" ...>...</nav>
 
-<!-- SHARED FOOTER — keep in sync across index.html, competition.html, workshop.html, 404.html -->
+<!-- SHARED FOOTER — keep in sync across index.html, competition.html, workshop.html, contact.html, contact-success.html, contact-test.html, 404.html -->
 <footer id="footer">...</footer>
 ```
 
@@ -232,7 +233,7 @@ The navbar and footer are **byte-identical** across the 4 primary pages (`index`
 When changing the navbar or footer:
 
 1. Update the block in **one** file.
-2. Copy/paste the same block into the other 3 files.
+2. Copy/paste the same block into the other pages (the navbar spans the 4 primary pages; the footer spans all 7).
 3. Verify byte-equality:
 
 ```bash
@@ -240,10 +241,14 @@ When changing the navbar or footer:
 python -c "
 import re, hashlib
 from pathlib import Path
-for which, pat in [('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>'),
-                   ('FOOTER', r'<!-- SHARED FOOTER.*?</footer>')]:
+for which, pat, pages in [
+    ('NAVBAR', r'<!-- SHARED NAVBAR.*?</nav>',
+     ['index.html', 'competition.html', 'workshop.html', '404.html']),
+    ('FOOTER', r'<!-- SHARED FOOTER.*?</footer>',
+     ['index.html', 'competition.html', 'workshop.html', 'contact.html',
+      'contact-success.html', 'contact-test.html', '404.html'])]:
     hashes = set()
-    for p in ['index.html', 'competition.html', 'workshop.html', '404.html']:
+    for p in pages:
         m = re.search(pat, Path(p).read_text(encoding='utf-8'), re.S)
         hashes.add(hashlib.sha256(m.group(0).encode()).hexdigest()[:12])
     print(f'{which}: {\"OK\" if len(hashes) == 1 else \"DRIFT\"} ({hashes})')
@@ -385,6 +390,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
 - [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
 - [x] Franka Community: Community Resources callout on competition.html + footer link (the inline note under the Franka card was dropped in the tier redesign)
+- [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (all 7 pages), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/register/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
 - [x] 4-testbed coverage: Hamburg (top floor of the Google Hamburg office), Munich, Pittsburgh, Shanghai (Franka Robotics branch office)
 - [x] Competition timeline: Simulation Release Jun 20 → Simulation End Aug 5 → Results Announced Aug 6 → Phase II two-window (team hands-on bench testing Aug 6–15; organizer-run testing & evaluation Aug 16–31, with code submission staying open — not a freeze); workshop date & Final Results TBD
 - [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + Franka voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + Franka voucher" (never implies $5,250 is pure cash).
