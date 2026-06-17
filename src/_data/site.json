@@ -1,4 +1,4 @@
 {
-  "_comment": "Site-wide flags. zhPublished gates the Simplified-Chinese /zh/ locale: while false (Phase 1b), every /zh/ page is noindex, no hreflang is emitted anywhere, and /zh/ stays out of sitemap.xml. Flip to true to publish the localized pages in one change.",
-  "zhPublished": false
+  "_comment": "Site-wide flags. zhPublished gates the Simplified-Chinese /zh/ locale: while false (Phase 1b), every /zh/ page is noindex, no hreflang is emitted anywhere, and /zh/ stays out of sitemap.xml. While true (published), the index/competition pairs carry reciprocal hreflang (en/zh-Hans/x-default), the /zh/ pages drop noindex, and sitemap.xml lists the /zh/ URLs with per-pair xhtml:link alternates.",
+  "zhPublished": true
 }

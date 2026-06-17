@@ -1,5 +1,5 @@
 {
-  "_comment": "MACHINE-DRAFT Simplified-Chinese strings (Phase 1b), for native review. Mirrors every key in en.json; resolved per page via the eleventyComputed `t` lookup (lang: zh), with English fallback for any missing key. Proper nouns / org & person names / the brand 'EBiM Benchmark' / product names (Mobile FR3 Duo) are kept as-is; prose, UI labels, headings and meta are translated. HTML entities (&amp;/&nbsp;/&copy;/&mdash;) are kept literal and emitted with the `safe` filter, exactly as in en.json.",
+  "_comment": "Simplified-Chinese strings (machine draft from Phase 1b; native-reviewed and published in Phase 1d). Mirrors every key in en.json; resolved per page via the eleventyComputed `t` lookup (lang: zh), with English fallback for any missing key. Proper nouns / org & person names / the brand 'EBiM Benchmark' / product names (Mobile FR3 Duo) are kept as-is; prose, UI labels, headings and meta are translated. HTML entities (&amp;/&nbsp;/&copy;/&mdash;) are kept literal and emitted with the `safe` filter, exactly as in en.json.",
 
   "brand": {
     "mark": "EBiM",

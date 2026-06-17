@@ -1,17 +1,25 @@
-// /zh/ preview harness (Phase 1b).
+// /zh/ locale harness (Phase 1b → published).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
-// here). This asserts the Simplified-Chinese preview is correctly UNPUBLISHED
-// and actually localized, for the two pages we localize: /zh/index.html and
+// here). This asserts the Simplified-Chinese locale is in the correct state for
+// the current site.zhPublished flag (src/_data/site.json) and is actually
+// localized, for the two pages we localize: /zh/index.html and
 // /zh/competition.html.
 //
-// Per page it checks:
+// The flag drives every gated assertion, so the harness is GREEN whether the
+// locale is an unpublished preview (zhPublished:false) or live (true):
+//
+//   UNPUBLISHED (false)            PUBLISHED (true)
+//   ─────────────────────          ─────────────────────────────────────────
+//   noindex present                NO noindex
+//   no hreflang anywhere           reciprocal hreflang (en/zh-Hans/x-default)
+//                                  on the index/competition pairs ONLY
+//   /zh/ absent from sitemap       /zh/ URLs present in sitemap (6 URLs total)
+//
+// State-independent per-page checks (always asserted):
 //   build        — the file exists in _site/.
 //   <html lang>  — is exactly "zh-Hans" (BCP-47 Simplified Chinese).
-//   noindex      — <meta name="robots" content="noindex"> is present (the
-//                  zhPublished:false gate).
-//   canonical    — points at the page's OWN /zh/ URL.
-//   no hreflang  — this file emits no rel="alternate" hreflang link.
+//   canonical    — self: points at the page's OWN /zh/ URL (never changes).
 //   chrome       — navbar (#navbar) and footer (#footer) both render.
 //   links        — localized targets (index + competition, incl. #anchors)
 //                  resolve UNDER /zh/ (relative), while not-yet-localized
@@ -21,9 +29,11 @@
 //   localized    — body contains CJK AND the English heading it replaced is
 //                  gone (proof it's translated, not the EN copy).
 //
-// Site-wide it checks:
-//   sitemap      — sitemap.xml contains no /zh/ entry.
-//   hreflang     — NO file in _site/ emits hreflang (EN or zh).
+// Site-wide it checks (gated on the flag):
+//   sitemap      — /zh/ URLs present (published) or absent (unpublished).
+//   hreflang     — emitted ONLY on the 4 localized pages index/competition +
+//                  their /zh/ counterparts (published), or nowhere at all
+//                  (unpublished). EN-only pages must NEVER carry hreflang.
 //
 // Usage:  node scripts/verify-zh.mjs            (builds, then verifies)
 //         node scripts/verify-zh.mjs --no-build (verify an existing _site)
@@ -40,21 +50,47 @@ const BOLD = (s) => `\x1b[1m${s}\x1b[0m`;
 
 const SITE_ORIGIN = "https://ebim-benchmark.github.io";
 
-// The two localized pages, with the EN heading each zh body must NOT contain
-// (and the zh heading it must) — proof the body is translated, not EN copy.
+// The publish gate — the single source of truth every gated assertion reads, so
+// this harness is correct against EITHER committed state of the flag.
+const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.json"), "utf8"));
+const PUBLISHED = SITE_DATA.zhPublished === true;
+
+// The two localized pages. `enUrl`/`zhUrl` are the canonical pair URLs the
+// reciprocal hreflang must advertise (en + x-default → enUrl, zh-Hans → zhUrl);
+// `canonical` is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
 const PAGES = [
   {
     file: "zh/index.html",
     canonical: `${SITE_ORIGIN}/zh/`,
+    enUrl: `${SITE_ORIGIN}/`,
+    zhUrl: `${SITE_ORIGIN}/zh/`,
     enGone: "Two Ways to Engage",
     zhHas: "两种参与方式",
   },
   {
     file: "zh/competition.html",
     canonical: `${SITE_ORIGIN}/zh/competition.html`,
+    enUrl: `${SITE_ORIGIN}/competition.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/competition.html`,
     enGone: "Why This Benchmark",
     zhHas: "为何需要此基准",
   },
+];
+
+// The full set of pages that ARE allowed hreflang when published; every other
+// built page (workshop/contact/404/contact-success/contact-test) must have none.
+const LOCALIZED_PAGES = new Set([
+  "index.html",
+  "competition.html",
+  "zh/index.html",
+  "zh/competition.html",
+]);
+
+// The three reciprocal hreflang <link>s a localized page must emit when published.
+const hreflangLines = (p) => [
+  `<link rel="alternate" hreflang="en" href="${p.enUrl}" />`,
+  `<link rel="alternate" hreflang="zh-Hans" href="${p.zhUrl}" />`,
+  `<link rel="alternate" hreflang="x-default" href="${p.enUrl}" />`,
 ];
 
 const read = (rel) => fs.readFileSync(path.join(SITE, rel), "utf8");
@@ -77,7 +113,7 @@ const bodyOf = (html) => {
 };
 const hasCJK = (s) => /[㐀-鿿]/.test(s);
 
-// All built HTML files (for the site-wide hreflang sweep).
+// All built HTML files, as forward-slash paths relative to _site/.
 function allHtml(dir = SITE, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
@@ -86,6 +122,7 @@ function allHtml(dir = SITE, out = []) {
   }
   return out;
 }
+const relSite = (f) => path.relative(SITE, f).split(path.sep).join("/");
 
 // ── per-page checks: each returns { ok, msg } ──
 function pageChecks(p) {
@@ -102,17 +139,28 @@ function pageChecks(p) {
   const body = bodyOf(html);
 
   add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
-  add(
-    "noindex",
-    /<meta name="robots" content="noindex"\s*\/?>/.test(html),
-    "expected <meta name=robots content=noindex>",
-  );
+
+  // noindex / hreflang are gated on the publish flag.
+  const hasNoindex = /<meta name="robots" content="noindex"\s*\/?>/.test(html);
+  const hreflangCount = (html.match(/rel="alternate" hreflang=/g) || []).length;
+  if (PUBLISHED) {
+    add("no noindex (published)", !hasNoindex, "published zh page must NOT be noindex");
+    add(
+      "hreflang reciprocal (en/zh-Hans/x-default)",
+      hreflangLines(p).every((l) => html.includes(l)),
+      `expected reciprocal hreflang:\n      ${hreflangLines(p).join("\n      ")}`,
+    );
+    add("exactly 3 hreflang", hreflangCount === 3, `expected 3 hreflang links, found ${hreflangCount}`);
+  } else {
+    add("noindex (unpublished)", hasNoindex, "expected <meta name=robots content=noindex>");
+    add("no hreflang (unpublished)", hreflangCount === 0, "unpublished page must emit no hreflang");
+  }
+
   add(
     "canonical=self",
     html.includes(`<link rel="canonical" href="${p.canonical}" />`),
     `expected canonical ${p.canonical}`,
   );
-  add("no hreflang", !/hreflang/.test(html), "page must emit no hreflang");
   add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
   add("footer", /<footer id="footer"/.test(html), "footer did not render");
 
@@ -157,7 +205,9 @@ function main() {
     console.log(BOLD("Building site (eleventy)…"));
     buildSite();
   }
-  console.log(BOLD("\nVerifying /zh/ Simplified-Chinese preview (Phase 1b)\n"));
+  console.log(
+    BOLD(`\nVerifying /zh/ Simplified-Chinese locale — state: ${PUBLISHED ? "PUBLISHED" : "UNPUBLISHED"}\n`),
+  );
 
   let allOk = true;
   const fails = [];
@@ -177,21 +227,49 @@ function main() {
   // ── site-wide ──
   console.log(BOLD("• site-wide"));
   const sitemap = exists("sitemap.xml") ? read("sitemap.xml") : "";
-  const sitemapOk = !/\/zh\//.test(sitemap);
-  console.log(`    ${sitemapOk ? GREEN("PASS") : RED("FAIL")}  sitemap.xml excludes /zh/`);
-  if (!sitemapOk) {
-    allOk = false;
-    fails.push("sitemap.xml — contains a /zh/ entry");
+  const locCount = (sitemap.match(/<loc>/g) || []).length;
+  const siteAdd = (name, ok, msg = "") => {
+    console.log(`    ${ok ? GREEN("PASS") : RED("FAIL")}  ${name}`);
+    if (!ok) {
+      allOk = false;
+      fails.push(`site-wide — ${name}: ${msg}`);
+    }
+  };
+
+  if (PUBLISHED) {
+    for (const p of PAGES) {
+      siteAdd(
+        `sitemap lists ${p.zhUrl}`,
+        sitemap.includes(`<loc>${p.zhUrl}</loc>`),
+        `sitemap.xml missing <loc>${p.zhUrl}</loc>`,
+      );
+    }
+    siteAdd("sitemap has 6 URLs (4 EN + 2 zh)", locCount === 6, `expected 6 <loc>, found ${locCount}`);
+  } else {
+    siteAdd("sitemap excludes /zh/", !/\/zh\//.test(sitemap), "sitemap.xml contains a /zh/ entry");
+    siteAdd("sitemap has 4 URLs (EN only)", locCount === 4, `expected 4 <loc>, found ${locCount}`);
   }
 
-  const withHreflang = allHtml().filter((f) => /hreflang/.test(fs.readFileSync(f, "utf8")));
-  const hreflangOk = withHreflang.length === 0;
-  console.log(
-    `    ${hreflangOk ? GREEN("PASS") : RED("FAIL")}  no hreflang anywhere in _site (EN or zh)`,
-  );
-  if (!hreflangOk) {
-    allOk = false;
-    fails.push(`hreflang found in: ${withHreflang.map((f) => path.relative(SITE, f)).join(", ")}`);
+  // hreflang sweep: published → exactly the 4 localized pages; else → nowhere.
+  const withHreflang = allHtml()
+    .filter((f) => /hreflang/.test(fs.readFileSync(f, "utf8")))
+    .map(relSite)
+    .sort();
+  if (PUBLISHED) {
+    const expected = [...LOCALIZED_PAGES].sort();
+    const ok =
+      withHreflang.length === expected.length && withHreflang.every((f, i) => f === expected[i]);
+    siteAdd(
+      "hreflang ONLY on the 4 localized pages",
+      ok,
+      `expected [${expected.join(", ")}], got [${withHreflang.join(", ")}]`,
+    );
+  } else {
+    siteAdd(
+      "no hreflang anywhere in _site (EN or zh)",
+      withHreflang.length === 0,
+      `hreflang found in: ${withHreflang.join(", ")}`,
+    );
   }
   console.log("");
 

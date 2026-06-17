@@ -1,0 +1,53 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+# Locale-aware sitemap. The four EN URLs are always listed. The two /zh/ URLs
+# and the per-pair <xhtml:link> hreflang alternates are gated on
+# site.zhPublished (src/_data/site.json): while false the output is byte-faithful
+# to the hand-authored EN-only 4-URL sitemap (no xhtml namespace, no zh, no
+# alternates); while true it adds /zh/ + reciprocal en/zh-Hans/x-default
+# alternates on the localized index/competition pairs only. workshop + contact
+# stay listed but carry no alternates (they have no zh counterpart). The
+# alternate hrefs mirror the hreflangAlternates in src/_data/eleventyComputed.js.
+# 404 / contact-success / contact-test are intentionally excluded.
+sitemap:
+  urls:
+    - { loc: "https://ebim-benchmark.github.io/", lastmod: "2026-06-15", changefreq: "weekly", priority: "1.0", pair: "index" }
+    - { loc: "https://ebim-benchmark.github.io/competition.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "competition" }
+    - { loc: "https://ebim-benchmark.github.io/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9" }
+    - { loc: "https://ebim-benchmark.github.io/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6" }
+    - { loc: "https://ebim-benchmark.github.io/zh/", lastmod: "2026-06-15", changefreq: "weekly", priority: "1.0", pair: "index", zh: true }
+    - { loc: "https://ebim-benchmark.github.io/zh/competition.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "competition", zh: true }
+  alternates:
+    index:
+      - { hreflang: "en", href: "https://ebim-benchmark.github.io/" }
+      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/" }
+      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/" }
+    competition:
+      - { hreflang: "en", href: "https://ebim-benchmark.github.io/competition.html" }
+      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/competition.html" }
+      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/competition.html" }
+---
+<?xml version="1.0" encoding="UTF-8"?>
+{%- if site.zhPublished %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- else %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- endif %}
+{%- for u in sitemap.urls %}
+{%- if site.zhPublished or not u.zh %}
+  <url>
+    <loc>{{ u.loc }}</loc>
+    <lastmod>{{ u.lastmod }}</lastmod>
+    <changefreq>{{ u.changefreq }}</changefreq>
+    <priority>{{ u.priority }}</priority>
+{%- if site.zhPublished and u.pair %}
+{%- for alt in sitemap.alternates[u.pair] %}
+    <xhtml:link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.href }}" />
+{%- endfor %}
+{%- endif %}
+  </url>
+{%- endif %}
+{%- endfor %}
+</urlset>
