@@ -1,0 +1,101 @@
+{
+  "_comment": "MACHINE-DRAFT Simplified-Chinese strings (Phase 1b), for native review. Mirrors every key in en.json; resolved per page via the eleventyComputed `t` lookup (lang: zh), with English fallback for any missing key. Proper nouns / org & person names / the brand 'EBiM Benchmark' / product names (Mobile FR3 Duo) are kept as-is; prose, UI labels, headings and meta are translated. HTML entities (&amp;/&nbsp;/&copy;/&mdash;) are kept literal and emitted with the `safe` filter, exactly as in en.json.",
+
+  "brand": {
+    "mark": "EBiM",
+    "word": "Benchmark"
+  },
+
+  "nav": {
+    "ariaMain": "主导航",
+    "ariaToggle": "切换导航",
+    "home": "首页",
+    "ariaToggleHome": "切换首页菜单",
+    "homeOverview": "概述",
+    "homeEngage": "两种参与方式",
+    "homeThemes": "核心主题",
+    "homeMaturity": "成熟度路线图",
+    "homeDates": "重要日期",
+    "competition": "竞赛",
+    "ariaToggleCompetition": "切换竞赛菜单",
+    "compWhy": "为何需要此基准",
+    "compOverview": "三阶段机制",
+    "compPlatform": "Mobile FR3 Duo",
+    "compBenchmark": "基准测试",
+    "compTasks": "任务",
+    "compTestbeds": "测试平台",
+    "compRegister": "登记意向",
+    "compAwards": "奖项与奖金",
+    "workshop": "研讨会",
+    "ariaToggleWorkshop": "切换研讨会菜单",
+    "wsOverview": "概述",
+    "wsSchedule": "日程",
+    "wsTalks": "特邀报告",
+    "wsPanel": "圆桌讨论",
+    "wsPosters": "海报",
+    "wsDates": "重要日期",
+    "wsDissemination": "成果传播",
+    "organizers": "组织者",
+    "partners": "合作伙伴",
+    "contact": "联系我们"
+  },
+
+  "footer": {
+    "tagline1": "迈向全球协同基准",
+    "tagline2": "面向真实世界的具身双臂操作",
+    "venue": "面向具身双臂操作的全球协同基准 &nbsp;·&nbsp; 研讨会日期与地点待定",
+    "ariaNav": "页脚导航",
+    "pagesHeading": "页面",
+    "pagesHome": "首页",
+    "pagesCompetition": "竞赛",
+    "pagesWorkshop": "研讨会",
+    "peopleHeading": "人员",
+    "peopleOrganizers": "组织者",
+    "peoplePartners": "合作伙伴",
+    "participateHeading": "参与",
+    "participateCompete": "参赛",
+    "participateSubmitPoster": "提交海报",
+    "participateContact": "联系我们",
+    "linkContactForm": "联系表单",
+    "linkGithub": "GitHub",
+    "linkDiscord": "Discord",
+    "copy": "&copy; 2026 研讨会组织者 &mdash; 迈向面向真实世界具身双臂操作的全球协同基准。"
+  },
+
+  "meta": {
+    "index": {
+      "title": "EBiM Benchmark · 具身双臂操作",
+      "description": "面向真实世界具身双臂操作的全球协同基准，在 Mobile FR3 Duo 平台上进行跨大洲真实机器人验证。",
+      "ogTitle": "EBiM Benchmark · 具身双臂操作",
+      "ogDescription": "面向真实世界具身双臂操作的全球协同基准，在 Mobile FR3 Duo 平台上进行跨大洲真实机器人验证。",
+      "twitterTitle": "EBiM Benchmark · 具身双臂操作",
+      "twitterDescription": "面向真实世界具身双臂操作的全球协同基准，在 Mobile FR3 Duo 平台上进行跨大洲真实机器人验证。"
+    },
+    "competition": {
+      "title": "EBiM 竞赛 · 跨大洲机器人基准",
+      "description": "每项任务最高可赢取 $5,250（现金 + 购买代金券）：在 Mobile FR3 Duo 上完成线缆布线、可变形物体操作与辅助生活，覆盖四个测试平台。",
+      "ogTitle": "EBiM 竞赛 · 跨大洲机器人基准",
+      "ogDescription": "开放仿真基准，并在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。",
+      "twitterTitle": "EBiM 竞赛 · 跨大洲机器人基准",
+      "twitterDescription": "开放仿真基准，并在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。"
+    }
+  },
+
+  "jsonld": {
+    "eventNameIndex": "EBiM Benchmark：迈向面向真实世界具身双臂操作的全球协同基准",
+    "eventAlternateName": "EBiM Benchmark",
+    "eventDescriptionIndex": "面向真实世界具身双臂操作的全球协同基准计划，包含跨大洲真实机器人验证与社区研讨会。",
+    "eventNameCompetition": "EBiM 竞赛：跨大洲双臂操作基准",
+    "eventDescriptionCompetition": "开放仿真基准，随后在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。任务包括线缆布线、可变形导热垫放置，以及辅助生活与喂食。",
+    "locationNameIndex": "跨大洲测试平台（汉堡、慕尼黑、匹兹堡、上海）",
+    "testbedNames": [
+      "上海测试平台",
+      "University of Hamburg · TAMS Group",
+      "Agile Robots SE",
+      "Carnegie Mellon University"
+    ],
+    "contactType": "一般咨询",
+    "breadcrumbHome": "首页",
+    "breadcrumbCompetition": "竞赛"
+  }
+}

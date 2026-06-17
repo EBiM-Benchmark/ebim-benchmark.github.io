@@ -1,0 +1,4 @@
+{
+  "_comment": "Directory data for the /zh/ Simplified-Chinese tree. lang: zh drives the `t` locale lookup (→ zh.json with English fallback), <html lang=\"zh-Hans\">, assetBase \"../\", the localized navbar/footer links, and the zhNoindex gate — see src/_data/eleventyComputed.js.",
+  "lang": "zh"
+}

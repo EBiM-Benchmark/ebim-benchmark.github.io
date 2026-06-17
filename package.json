@@ -7,7 +7,9 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "verify:zh": "node scripts/verify-zh.mjs --no-build",
+    "verify:all": "node scripts/verify.mjs && node scripts/verify-zh.mjs --no-build"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.0"
