@@ -66,15 +66,21 @@ ebim-benchmark.github.io/
 ├── package.json / package-lock.json     # Eleventy dep (+ Prettier, dev) — `npm ci`
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
-│   └── verify.yml                       # CI parity gate (runs scripts/verify-phase0.mjs)
+│   └── verify.yml                       # CI EN-parity gate (runs scripts/verify.mjs)
 ├── scripts/
-│   └── verify-phase0.mjs                # Asserts the build matches the old hand-authored HTML
+│   └── verify.mjs                       # Asserts the build matches the golden EN baseline
+├── tests/baseline/                      # Golden EN HTML fixtures (the parity baseline)
 ├── src/
+│   ├── _data/
+│   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
+│   │   ├── i18n/en.json                 # Translatable strings (chrome, head-meta, JSON-LD)
+│   │   └── eleventyComputed.js          # Locale lookup `t`, plus assembled jsonLd/pageMeta
 │   ├── _includes/
 │   │   ├── layouts/base.njk             # <html> skeleton + per-page head fields/conditionals
 │   │   ├── head.njk                     # Shared favicon/font/CSS head tail
-│   │   ├── navbar.njk                   # Shared navbar (single source of truth)
-│   │   └── footer.njk                   # Shared footer (single source of truth)
+│   │   ├── navbar.njk                   # Shared navbar (single source; labels via i18n)
+│   │   ├── footer.njk                   # Shared footer (single source; labels via i18n)
+│   │   └── jsonld.njk                   # Renders index/competition JSON-LD from _data
 │   ├── index.njk                        # Landing page (funnel to sub-pages)
 │   ├── competition.njk                  # The EBiM Competition
 │   ├── workshop.njk                     # Workshop Program
@@ -111,11 +117,26 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 ### Parity harness
 
-`node scripts/verify-phase0.mjs` builds the site and asserts the output is byte/semantically identical to the previously hand-authored HTML (markup structure, comments, JSON-LD, and the contact form). It runs on every PR via `.github/workflows/verify.yml`.
+`node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. It runs on every PR via `.github/workflows/verify.yml`.
+
+**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`.
 
 ### GitHub Pages deployment
 
 `.github/workflows/deploy.yml` builds the site and deploys `_site/` to GitHub Pages on every push to `main`. This takes effect once the repo's Pages source is set to **GitHub Actions** (Settings → Pages → "Build and deployment" → Source).
+
+---
+
+## Internationalization (i18n) foundation
+
+The site is English-only today, but the structured-data and shared-chrome strings are factored out so a second locale can be added without touching templates:
+
+- **`src/_data/event.json`** — language-neutral structured-data facts (dates, canonical URLs, organizer/sponsor lists, testbed addresses) shared by the index + competition JSON-LD.
+- **`src/_data/i18n/<lang>.json`** — translatable strings, namespaced `brand` / `nav` / `footer` / `meta` (per-page head-meta) / `jsonld`. Only `en` exists today.
+- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (front matter, default `en`) with **English fallback** for any missing key; `jsonLd` assembles the index/competition JSON-LD blocks; `pageMeta` supplies head-meta for pages that set an `i18nKey`.
+- **`src/_includes/jsonld.njk`** renders the JSON-LD; `navbar.njk` / `footer.njk` and the index/competition head read every string via `t`.
+
+Adding a locale (a later phase) means dropping in `src/_data/i18n/<lang>.json` and the per-locale pages; the English output stays frozen by the parity harness, so the foundation is provably invisible.
 
 ---
 
@@ -210,7 +231,7 @@ The navbar and footer are single Nunjucks includes — `src/_includes/navbar.njk
 
 ### Updating the shared chrome
 
-Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once. `npm run build` regenerates every page, and `node scripts/verify-phase0.mjs` confirms nothing else changed.
+Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once (their visible labels come from `src/_data/i18n/en.json` via the `t` lookup). `npm run build` regenerates every page, and `node scripts/verify.mjs` confirms nothing else changed.
 
 ### Navbar items
 
