@@ -5,8 +5,9 @@
 // footer, back-to-top, script tags) now lives in _includes/; each page is a
 // thin .njk template that extends _includes/layouts/base.njk.
 //
-// Static assets (css/js/img + sitemap.xml/robots.txt/.nojekyll) are copied
-// through verbatim, preserving their exact output paths (css/…, js/…, img/…).
+// Static assets (css/js/img + robots.txt/.nojekyll) are copied through verbatim,
+// preserving their exact output paths (css/…, js/…, img/…). sitemap.xml is
+// rendered from src/sitemap.njk (locale-aware, gated on site.zhPublished).
 import { EleventyI18nPlugin } from "@11ty/eleventy";
 
 export default function (eleventyConfig) {

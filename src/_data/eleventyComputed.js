@@ -82,16 +82,16 @@ export default {
           contact: "contact.html",
         },
 
-  // noindex directive for the unpublished /zh/ preview. While site.zhPublished
-  // is false the localized pages must not be indexed; flipping the flag to true
-  // drops the tag. EN pages never set this (their own `robots` front-matter,
-  // e.g. on 404, is untouched).
+  // noindex directive for the /zh/ locale while it is unpublished. While
+  // site.zhPublished is false the localized pages must not be indexed; flipping
+  // the flag to true drops the tag. EN pages never set this (their own `robots`
+  // front-matter, e.g. on 404, is untouched).
   zhNoindex: (data) => isZh(data) && !(data.site && data.site.zhPublished),
 
-  // hreflang alternates, emitted by base.njk ONLY when site.zhPublished is true
-  // (the one-line flip to publish). Empty in Phase 1b → no hreflang anywhere,
-  // so the EN <head> stays byte-identical. Only the localized pair (index +
-  // competition) advertises alternates.
+  // hreflang alternates, emitted by base.njk ONLY when site.zhPublished is true.
+  // While false they are empty → no hreflang anywhere and the EN <head> is
+  // byte-identical to the pre-i18n output; while true the localized pair (index
+  // + competition) advertises the reciprocal en / zh-Hans / x-default cluster.
   hreflangAlternates: (data) => {
     if (!(data.site && data.site.zhPublished)) return [];
     const key = data.i18nKey;

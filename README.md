@@ -66,14 +66,14 @@ ebim-benchmark.github.io/
 ├── package.json / package-lock.json     # Eleventy dep (+ Prettier, dev) — `npm ci`
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
-│   └── verify.yml                       # CI gate: EN parity + /zh/ preview (verify.mjs + verify-zh.mjs)
+│   └── verify.yml                       # CI gate: EN parity + /zh/ locale (verify.mjs + verify-zh.mjs)
 ├── scripts/
 │   ├── verify.mjs                       # Asserts the build matches the golden EN baseline
-│   └── verify-zh.mjs                    # Asserts the unpublished /zh/ preview (noindex, no sitemap/hreflang, CJK)
+│   └── verify-zh.mjs                    # Asserts the /zh/ locale, gated on zhPublished (hreflang/sitemap/noindex/CJK)
 ├── tests/baseline/                      # Golden EN HTML fixtures (the parity baseline)
 ├── src/
 │   ├── _data/
-│   │   ├── site.json                    # Site flags — zhPublished gates the /zh/ preview
+│   │   ├── site.json                    # Site flags — zhPublished gates /zh/ publication (hreflang/sitemap/noindex)
 │   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
 │   │   ├── i18n/en.json                 # English UI/meta/JSON-LD strings (the fallback locale)
 │   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine draft; Phase 1b)
@@ -91,16 +91,16 @@ ebim-benchmark.github.io/
 │   ├── contact-success.njk              # No-JS POST fallback success page
 │   ├── contact-test.njk                 # Internal contact-form health check (not linked)
 │   ├── 404.njk                          # Branded 404 (noindex)
-│   ├── zh/                              # Simplified-Chinese preview (Phase 1b, UNPUBLISHED)
+│   ├── zh/                              # Simplified-Chinese locale (added Phase 1b; PUBLISHED Phase 1d)
 │   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
-│   │   ├── index.njk                    #   → /zh/ (noindex while zhPublished:false)
+│   │   ├── index.njk                    #   → /zh/ (self-canonical; hreflang ⇄ EN when published)
 │   │   └── competition.njk              #   → /zh/competition.html
 │   ├── css/style.css                    # All shared styles (passthrough-copied verbatim)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
-│   ├── sitemap.xml                      # 4 URLs (home, competition, workshop, contact)
+│   ├── sitemap.njk                      # Locale-aware sitemap (gated on zhPublished; 4 EN + 2 zh URLs when published)
 │   └── .nojekyll                        # Disable Jekyll on GitHub Pages
 ├── _site/                               # Build output (gitignored) — this is what gets deployed
 └── README.md
@@ -128,7 +128,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
-`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the unpublished `/zh/` preview against the same build: each `/zh/` page is `<html lang="zh-Hans">`, carries `noindex`, has a self-referential `/zh/` canonical, emits no `hreflang`, links localized targets under `/zh/` (workshop/contact fall back to EN), and contains translated CJK text — and site-wide that `/zh/` is absent from `sitemap.xml` and no page emits `hreflang`. CI runs both harnesses on every PR.
+`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links localized targets under `/zh/` (workshop/contact fall back to EN), and contains translated CJK text. Published (the current state): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, and `/zh/` present in `sitemap.xml` (6 URLs total), with `hreflang` appearing **only** on the index/competition pairs. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap. CI runs both harnesses on every PR.
 
 ### GitHub Pages deployment
 
@@ -138,15 +138,15 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 ## Internationalization (i18n)
 
-English is the published locale. A **Simplified-Chinese `/zh/` preview** (the landing + competition pages) was added in **Phase 1b** but ships **unpublished** behind a single flag, so the English output is unchanged and the Chinese pages are invisible to search until the team approves them. Structured-data and shared-chrome strings are factored out so a locale is added without touching the EN templates:
+English is the primary locale. A **Simplified-Chinese `/zh/` locale** (the landing + competition pages) was added in **Phase 1b** behind a single flag and **published in Phase 1d** once the translation passed native review. Structured-data and shared-chrome strings are factored out so a locale is added without touching the EN templates:
 
 - **`src/_data/event.json`** — language-neutral structured-data facts (dates, canonical URLs, organizer/sponsor lists, testbed addresses) shared by the index + competition JSON-LD.
 - **`src/_data/i18n/<lang>.json`** — translatable strings, namespaced `brand` / `nav` / `footer` / `meta` (per-page head-meta) / `jsonld`. `en` is the fallback locale; `zh` (Simplified Chinese, machine draft) mirrors every `en` key — any key left untranslated falls back to English.
-- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and index/competition JSON-LD. Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, the not-yet-localized workshop + contact resolve back up to EN), `zhNoindex`, and the gated `hreflangAlternates`.
+- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and index/competition JSON-LD. Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical when `/zh/` is unpublished: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, the not-yet-localized workshop + contact resolve back up to EN), `zhNoindex`, and the gated `hreflangAlternates` (which, once published, is the one intentional EN-head change — the hreflang cluster on index/competition).
 - **`src/_includes/`** — `base.njk` / `head.njk` / `navbar.njk` / `footer.njk` read locale via those helpers; the EN render path is unchanged and guarded by the parity harness.
-- **`src/zh/`** — the localized pages (`lang: zh` via `zh.11tydata.json`), reusing the same includes; only the body prose, `<html lang>`, canonical, and head-meta differ.
+- **`src/zh/`** — the localized pages (`lang: zh` via `zh.11tydata.json`), reusing the same includes; only the body prose, `<html lang>`, canonical, head-meta, and (when published) hreflang differ.
 
-**Unpublished gate — `src/_data/site.json` → `"zhPublished": false`.** While false, every `/zh/` page emits `<meta name="robots" content="noindex">`, `/zh/` is kept out of `sitemap.xml` (a passthrough file — never add it there), and **no `hreflang` is emitted anywhere** (EN or zh). Flipping `zhPublished` to `true` is the one-line publish: it drops the `noindex` and emits the `en` / `zh-Hans` / `x-default` hreflang cluster on the index + competition pair. `scripts/verify-zh.mjs` proves the unpublished state; note that publishing will change the EN `<head>` (adding hreflang), so the EN baseline must be regenerated in that same commit.
+**Publish gate — `src/_data/site.json` → `"zhPublished"`** (now `true`; published in Phase 1d). While `false`, every `/zh/` page emits `<meta name="robots" content="noindex">`, `/zh/` is kept out of the sitemap, and **no `hreflang` is emitted anywhere** (EN or zh). While `true`, the `/zh/` pages drop `noindex`, the index + competition pairs carry the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster (EN-only pages emit none; canonicals stay self), and `sitemap.xml` lists the `/zh/` URLs with per-pair `xhtml:link` alternates. The sitemap is rendered from `src/sitemap.njk` (gated, locale-aware) — not a static passthrough — and is byte-faithful to the old EN-only 4-URL sitemap when the flag is `false`. Because publishing adds `hreflang` to the EN `<head>`, the `index`/`competition` baselines were regenerated in the publishing commit; `scripts/verify-zh.mjs` reads the flag and proves whichever state is committed.
 
 ---
 
@@ -337,7 +337,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 
 `404.html` is intentionally `noindex` and has no OG tags.
 
-`sitemap.xml` lists 4 URLs (home, competition, workshop, contact) and is referenced from `robots.txt`.
+`sitemap.xml` is rendered from `src/sitemap.njk` (gated on `zhPublished`): the 4 EN URLs (home, competition, workshop, contact) plus, when published, the 2 `/zh/` URLs — with `xhtml:link` hreflang alternates on the index/competition pairs only. It is referenced from `robots.txt`.
 
 ### Heading hierarchy
 
@@ -394,7 +394,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Panel: four confirmed panelists — Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row, panel cards, and JSON-LD)
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
-- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), sitemap with 4 URLs, alt text + width/height on every img
+- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), locale-aware sitemap (4 EN + 2 zh URLs when published), alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)
