@@ -2,7 +2,10 @@ name: Build & EN parity
 
 # Permanent guard: builds the Eleventy site and asserts the English output is
 # semantically identical to the golden fixtures in tests/baseline/
-# (see scripts/verify.mjs). Runs on every PR and on pushes to main.
+# (see scripts/verify.mjs). The second step verifies the unpublished /zh/
+# Simplified-Chinese preview (noindex, no sitemap entry, no hreflang, localized
+# links, CJK body — see scripts/verify-zh.mjs) against the _site that the first
+# step already built. Runs on every PR and on pushes to main.
 
 on:
   pull_request:
@@ -30,3 +33,6 @@ jobs:
 
       - name: Build + verify EN parity against the committed baseline
         run: node scripts/verify.mjs
+
+      - name: Verify /zh/ preview (noindex, no sitemap/hreflang, localized, CJK)
+        run: node scripts/verify-zh.mjs --no-build

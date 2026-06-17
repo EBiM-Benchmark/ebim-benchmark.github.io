@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ htmlLang }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {%- if robots %}
   <meta name="robots" content="{{ robots | safe }}" />
+{%- endif %}
+{%- if zhNoindex %}
+  <meta name="robots" content="noindex" />
 {%- endif %}
   <title>{{ (pageMeta.title if pageMeta else title) | safe }}</title>
   <meta name="description" content="{{ (pageMeta.description if pageMeta else description) | safe }}" />
@@ -17,6 +20,11 @@
   <!-- Canonical URL -->
 {%- endif %}
   <link rel="canonical" href="{{ canonical | safe }}" />
+{%- endif %}
+{%- if hreflangAlternates and hreflangAlternates.length %}
+{%- for alt in hreflangAlternates %}
+  <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.href | safe }}" />
+{%- endfor %}
 {%- endif %}
 {%- if siteVerification %}
 
@@ -48,7 +56,7 @@
 </button>
 {%- endif %}
 
-<script src="js/main.js" defer></script>
+<script src="{{ assetBase }}js/main.js" defer></script>
 {% block trailingScripts %}{% endblock %}
 </body>
 </html>

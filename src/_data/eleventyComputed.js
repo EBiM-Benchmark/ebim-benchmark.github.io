@@ -29,6 +29,10 @@ function resolveLocale(data) {
   return deepMerge(locales.en || {}, locales[lang] || {});
 }
 
+// True only for the Simplified-Chinese /zh/ pages (lang === "zh"). Every
+// locale-aware helper below branches on this; EN pages take the unchanged path.
+const isZh = (data) => (data.lang || "en") === "zh";
+
 function organizationSchema(ev, t) {
   return {
     "@context": "https://schema.org",
@@ -47,6 +51,62 @@ function organizationSchema(ev, t) {
 
 export default {
   t: (data) => resolveLocale(data),
+
+  // BCP-47 language tag for <html lang>. EN pages stay "en" (output unchanged);
+  // /zh/ pages advertise Simplified Chinese as "zh-Hans".
+  htmlLang: (data) => (isZh(data) ? "zh-Hans" : "en"),
+
+  // Path prefix for the root-level assets (css/js/img) relative to the current
+  // page. EN pages live at the site root → "" (every asset link unchanged).
+  // /zh/ pages live one directory down → "../" so css/style.css resolves to
+  // /css/style.css, img/favicon.svg to /img/favicon.svg, etc.
+  assetBase: (data) => (isZh(data) ? "../" : ""),
+
+  // Locale-aware navigation targets for navbar.njk / footer.njk. EN keeps the
+  // exact current relative filenames (byte-identical render). For /zh/ pages,
+  // index + competition are localized (relative, staying under /zh/), while the
+  // not-yet-localized workshop + contact point back up to their EN URLs — so
+  // the zh preview is fully navigable with no 404s.
+  links: (data) =>
+    isZh(data)
+      ? {
+          index: "index.html",
+          competition: "competition.html",
+          workshop: "../workshop.html",
+          contact: "../contact.html",
+        }
+      : {
+          index: "index.html",
+          competition: "competition.html",
+          workshop: "workshop.html",
+          contact: "contact.html",
+        },
+
+  // noindex directive for the unpublished /zh/ preview. While site.zhPublished
+  // is false the localized pages must not be indexed; flipping the flag to true
+  // drops the tag. EN pages never set this (their own `robots` front-matter,
+  // e.g. on 404, is untouched).
+  zhNoindex: (data) => isZh(data) && !(data.site && data.site.zhPublished),
+
+  // hreflang alternates, emitted by base.njk ONLY when site.zhPublished is true
+  // (the one-line flip to publish). Empty in Phase 1b → no hreflang anywhere,
+  // so the EN <head> stays byte-identical. Only the localized pair (index +
+  // competition) advertises alternates.
+  hreflangAlternates: (data) => {
+    if (!(data.site && data.site.zhPublished)) return [];
+    const key = data.i18nKey;
+    if (key !== "index" && key !== "competition") return [];
+    const base = "https://ebim-benchmark.github.io/";
+    const pair = {
+      index: { en: base, zh: base + "zh/" },
+      competition: { en: base + "competition.html", zh: base + "zh/competition.html" },
+    }[key];
+    return [
+      { hreflang: "en", href: pair.en },
+      { hreflang: "zh-Hans", href: pair.zh },
+      { hreflang: "x-default", href: pair.en },
+    ];
+  },
 
   pageMeta: (data) => {
     if (!data.i18nKey) return undefined;

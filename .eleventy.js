@@ -7,7 +7,17 @@
 //
 // Static assets (css/js/img + sitemap.xml/robots.txt/.nojekyll) are copied
 // through verbatim, preserving their exact output paths (css/…, js/…, img/…).
+import { EleventyI18nPlugin } from "@11ty/eleventy";
+
 export default function (eleventyConfig) {
+  // i18n plugin (ships with Eleventy core). EN is the default language and
+  // stays at the root with no /en/ prefix; the zh locale lives under /zh/.
+  // Registering it only adds locale-aware filters — it changes no EN output.
+  eleventyConfig.addPlugin(EleventyI18nPlugin, {
+    defaultLanguage: "en",
+    errorMode: "allow-fallback",
+  });
+
   // Passthrough copy — object form pins the exact output path regardless of
   // the input directory, so assets land at _site/<name> (not _site/src/<name>).
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });

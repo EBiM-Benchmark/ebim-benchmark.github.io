@@ -66,15 +66,18 @@ ebim-benchmark.github.io/
 ├── package.json / package-lock.json     # Eleventy dep (+ Prettier, dev) — `npm ci`
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
-│   └── verify.yml                       # CI EN-parity gate (runs scripts/verify.mjs)
+│   └── verify.yml                       # CI gate: EN parity + /zh/ preview (verify.mjs + verify-zh.mjs)
 ├── scripts/
-│   └── verify.mjs                       # Asserts the build matches the golden EN baseline
+│   ├── verify.mjs                       # Asserts the build matches the golden EN baseline
+│   └── verify-zh.mjs                    # Asserts the unpublished /zh/ preview (noindex, no sitemap/hreflang, CJK)
 ├── tests/baseline/                      # Golden EN HTML fixtures (the parity baseline)
 ├── src/
 │   ├── _data/
+│   │   ├── site.json                    # Site flags — zhPublished gates the /zh/ preview
 │   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
-│   │   ├── i18n/en.json                 # Translatable strings (chrome, head-meta, JSON-LD)
-│   │   └── eleventyComputed.js          # Locale lookup `t`, plus assembled jsonLd/pageMeta
+│   │   ├── i18n/en.json                 # English UI/meta/JSON-LD strings (the fallback locale)
+│   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine draft; Phase 1b)
+│   │   └── eleventyComputed.js          # Locale lookup `t` + htmlLang/assetBase/links/jsonLd/pageMeta
 │   ├── _includes/
 │   │   ├── layouts/base.njk             # <html> skeleton + per-page head fields/conditionals
 │   │   ├── head.njk                     # Shared favicon/font/CSS head tail
@@ -88,6 +91,10 @@ ebim-benchmark.github.io/
 │   ├── contact-success.njk              # No-JS POST fallback success page
 │   ├── contact-test.njk                 # Internal contact-form health check (not linked)
 │   ├── 404.njk                          # Branded 404 (noindex)
+│   ├── zh/                              # Simplified-Chinese preview (Phase 1b, UNPUBLISHED)
+│   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
+│   │   ├── index.njk                    #   → /zh/ (noindex while zhPublished:false)
+│   │   └── competition.njk              #   → /zh/competition.html
 │   ├── css/style.css                    # All shared styles (passthrough-copied verbatim)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
@@ -121,22 +128,25 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`.
 
+`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the unpublished `/zh/` preview against the same build: each `/zh/` page is `<html lang="zh-Hans">`, carries `noindex`, has a self-referential `/zh/` canonical, emits no `hreflang`, links localized targets under `/zh/` (workshop/contact fall back to EN), and contains translated CJK text — and site-wide that `/zh/` is absent from `sitemap.xml` and no page emits `hreflang`. CI runs both harnesses on every PR.
+
 ### GitHub Pages deployment
 
 `.github/workflows/deploy.yml` builds the site and deploys `_site/` to GitHub Pages on every push to `main`. This takes effect once the repo's Pages source is set to **GitHub Actions** (Settings → Pages → "Build and deployment" → Source).
 
 ---
 
-## Internationalization (i18n) foundation
+## Internationalization (i18n)
 
-The site is English-only today, but the structured-data and shared-chrome strings are factored out so a second locale can be added without touching templates:
+English is the published locale. A **Simplified-Chinese `/zh/` preview** (the landing + competition pages) was added in **Phase 1b** but ships **unpublished** behind a single flag, so the English output is unchanged and the Chinese pages are invisible to search until the team approves them. Structured-data and shared-chrome strings are factored out so a locale is added without touching the EN templates:
 
 - **`src/_data/event.json`** — language-neutral structured-data facts (dates, canonical URLs, organizer/sponsor lists, testbed addresses) shared by the index + competition JSON-LD.
-- **`src/_data/i18n/<lang>.json`** — translatable strings, namespaced `brand` / `nav` / `footer` / `meta` (per-page head-meta) / `jsonld`. Only `en` exists today.
-- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (front matter, default `en`) with **English fallback** for any missing key; `jsonLd` assembles the index/competition JSON-LD blocks; `pageMeta` supplies head-meta for pages that set an `i18nKey`.
-- **`src/_includes/jsonld.njk`** renders the JSON-LD; `navbar.njk` / `footer.njk` and the index/competition head read every string via `t`.
+- **`src/_data/i18n/<lang>.json`** — translatable strings, namespaced `brand` / `nav` / `footer` / `meta` (per-page head-meta) / `jsonld`. `en` is the fallback locale; `zh` (Simplified Chinese, machine draft) mirrors every `en` key — any key left untranslated falls back to English.
+- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and index/competition JSON-LD. Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, the not-yet-localized workshop + contact resolve back up to EN), `zhNoindex`, and the gated `hreflangAlternates`.
+- **`src/_includes/`** — `base.njk` / `head.njk` / `navbar.njk` / `footer.njk` read locale via those helpers; the EN render path is unchanged and guarded by the parity harness.
+- **`src/zh/`** — the localized pages (`lang: zh` via `zh.11tydata.json`), reusing the same includes; only the body prose, `<html lang>`, canonical, and head-meta differ.
 
-Adding a locale (a later phase) means dropping in `src/_data/i18n/<lang>.json` and the per-locale pages; the English output stays frozen by the parity harness, so the foundation is provably invisible.
+**Unpublished gate — `src/_data/site.json` → `"zhPublished": false`.** While false, every `/zh/` page emits `<meta name="robots" content="noindex">`, `/zh/` is kept out of `sitemap.xml` (a passthrough file — never add it there), and **no `hreflang` is emitted anywhere** (EN or zh). Flipping `zhPublished` to `true` is the one-line publish: it drops the `noindex` and emits the `en` / `zh-Hans` / `x-default` hreflang cluster on the index + competition pair. `scripts/verify-zh.mjs` proves the unpublished state; note that publishing will change the EN `<head>` (adding hreflang), so the EN baseline must be regenerated in that same commit.
 
 ---
 
@@ -231,7 +241,7 @@ The navbar and footer are single Nunjucks includes — `src/_includes/navbar.njk
 
 ### Updating the shared chrome
 
-Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once (their visible labels come from `src/_data/i18n/en.json` via the `t` lookup). `npm run build` regenerates every page, and `node scripts/verify.mjs` confirms nothing else changed.
+Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible labels come from `src/_data/i18n/en.json` via the `t` lookup (zh from `zh.json`), and link targets from the locale-aware `links` helper, so the one include serves both EN and `/zh/`. `npm run build` regenerates every page, and `node scripts/verify.mjs` confirms nothing else changed.
 
 ### Navbar items
 

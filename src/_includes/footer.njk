@@ -16,27 +16,27 @@
       <nav class="footer-nav" aria-label="{{ t.footer.ariaNav | safe }}">
         <div class="footer-nav-col">
           <div class="footer-nav-heading">{{ t.footer.pagesHeading | safe }}</div>
-          <a href="index.html">{{ t.footer.pagesHome | safe }}</a>
-          <a href="competition.html">{{ t.footer.pagesCompetition | safe }}</a>
-          <a href="workshop.html">{{ t.footer.pagesWorkshop | safe }}</a>
+          <a href="{{ links.index }}">{{ t.footer.pagesHome | safe }}</a>
+          <a href="{{ links.competition }}">{{ t.footer.pagesCompetition | safe }}</a>
+          <a href="{{ links.workshop }}">{{ t.footer.pagesWorkshop | safe }}</a>
         </div>
         <div class="footer-nav-col">
           <div class="footer-nav-heading">{{ t.footer.peopleHeading | safe }}</div>
-          <a href="index.html#organizers">{{ t.footer.peopleOrganizers | safe }}</a>
-          <a href="index.html#partners">{{ t.footer.peoplePartners | safe }}</a>
+          <a href="{{ links.index }}#organizers">{{ t.footer.peopleOrganizers | safe }}</a>
+          <a href="{{ links.index }}#partners">{{ t.footer.peoplePartners | safe }}</a>
         </div>
         <div class="footer-nav-col">
           <div class="footer-nav-heading">{{ t.footer.participateHeading | safe }}</div>
-          <a href="competition.html#call-for-participation">{{ t.footer.participateCompete | safe }}</a>
-          <a href="workshop.html#call-for-participation">{{ t.footer.participateSubmitPoster | safe }}</a>
-          <a href="contact.html">{{ t.footer.participateContact | safe }}</a>
+          <a href="{{ links.competition }}#call-for-participation">{{ t.footer.participateCompete | safe }}</a>
+          <a href="{{ links.workshop }}#call-for-participation">{{ t.footer.participateSubmitPoster | safe }}</a>
+          <a href="{{ links.contact }}">{{ t.footer.participateContact | safe }}</a>
         </div>
       </nav>
     </div>
 
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href="contact.html" class="footer-link-item">
+        <a href="{{ links.contact }}" class="footer-link-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
           </svg>
