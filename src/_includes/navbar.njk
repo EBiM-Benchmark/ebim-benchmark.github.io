@@ -54,6 +54,19 @@
       <li><a href="{{ links.index }}#organizers">{{ t.nav.organizers | safe }}</a></li>
       <li><a href="{{ links.index }}#partners">{{ t.nav.partners | safe }}</a></li>
       <li><a href="{{ links.contact }}"{% if navActive == "contact" %} aria-current="page"{% endif %}>{{ t.nav.contact | safe }}</a></li>
+{%- if localeToggle %}
+      <li class="nav-lang">
+        <span class="lang-toggle" role="group" aria-label="{{ t.nav.ariaLanguage | safe }}">
+          {%- if localeToggle.active == "en" %}
+          <span class="lang-opt is-active" lang="en" aria-current="true">EN</span>
+          <a class="lang-opt" lang="zh-Hans" hreflang="zh-Hans" href="{{ localeToggle.zhHref }}">中文</a>
+          {%- else %}
+          <a class="lang-opt" lang="en" hreflang="en" href="{{ localeToggle.enHref }}">EN</a>
+          <span class="lang-opt is-active" lang="zh-Hans" aria-current="true">中文</span>
+          {%- endif %}
+        </span>
+      </li>
+{%- endif %}
     </ul>
   </div>
 </nav>

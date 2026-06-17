@@ -33,6 +33,19 @@ function resolveLocale(data) {
 // locale-aware helper below branches on this; EN pages take the unchanged path.
 const isZh = (data) => (data.lang || "en") === "zh";
 
+// Cross-locale counterpart URLs for the in-page language toggle (navbar.njk),
+// keyed by i18nKey and RELATIVE to the page being rendered: `en` is the path to
+// the EN page (used on a /zh/ page, linking back to English), `zh` is the path
+// to the /zh/ page (used on the EN page, linking out to 中文). These are the
+// SAME page pairs the reciprocal hreflang advertises — kept here as nav-relative
+// links (hreflangAlternates emits the absolute forms). Localizing a new page in
+// Phase 2 is one row here + an i18nKey + a /zh/ counterpart; the navbar toggle
+// and hreflang then light up together, with no template special-casing.
+const TOGGLE_HREFS = {
+  index: { en: "../", zh: "zh/" },
+  competition: { en: "../competition.html", zh: "zh/competition.html" },
+};
+
 function organizationSchema(ev, t) {
   return {
     "@context": "https://schema.org",
@@ -106,6 +119,25 @@ export default {
       { hreflang: "zh-Hans", href: pair.zh },
       { hreflang: "x-default", href: pair.en },
     ];
+  },
+
+  // In-page language toggle, consumed by navbar.njk. Present ONLY on a page that
+  // has a PUBLISHED localized counterpart — i.e. an i18nKey listed in
+  // TOGGLE_HREFS (index/competition today; auto-extends in Phase 2) and only
+  // while site.zhPublished is true, so the toggle is visible exactly where the
+  // reciprocal hreflang is emitted. Returns null everywhere else, so the navbar
+  // renders with NO toggle (byte-identical to the pre-toggle output on the five
+  // EN-only pages). Shape:
+  //   active        — the current page's locale ("en" | "zh"); the template
+  //                   marks it aria-current and renders the OTHER locale as the
+  //                   cross-locale link.
+  //   enHref/zhHref — the counterpart URL relative to the current page (the EN
+  //                   page links out to zhHref, the /zh/ page back to enHref).
+  localeToggle: (data) => {
+    if (!(data.site && data.site.zhPublished)) return null;
+    const hrefs = TOGGLE_HREFS[data.i18nKey];
+    if (!hrefs) return null;
+    return { active: isZh(data) ? "zh" : "en", enHref: hrefs.en, zhHref: hrefs.zh };
   },
 
   pageMeta: (data) => {
