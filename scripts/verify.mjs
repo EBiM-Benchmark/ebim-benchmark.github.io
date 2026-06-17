@@ -24,7 +24,9 @@
 // output drifted — fix the template, never the baseline.
 //
 // To re-baseline after an INTENTIONAL English content change: rebuild the site
-// and copy the 7 _site/*.html into tests/baseline/ in the same commit.
+// and copy the 7 _site/*.html into tests/baseline/ in the same commit. The
+// fixtures are byte-faithful to the build, so a straight copy is the whole
+// procedure — never hand-edit a fixture.
 //
 // Usage:  node scripts/verify.mjs            (builds, then verifies)
 //         node scripts/verify.mjs --no-build (verify an existing _site)
