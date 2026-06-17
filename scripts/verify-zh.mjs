@@ -58,12 +58,15 @@ const PUBLISHED = SITE_DATA.zhPublished === true;
 // The two localized pages. `enUrl`/`zhUrl` are the canonical pair URLs the
 // reciprocal hreflang must advertise (en + x-default → enUrl, zh-Hans → zhUrl);
 // `canonical` is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
+// `enToggleHref` is the navbar language-toggle's EN-counterpart link, RELATIVE
+// to this /zh/ page (the reciprocal of the EN page's "zh/…" link).
 const PAGES = [
   {
     file: "zh/index.html",
     canonical: `${SITE_ORIGIN}/zh/`,
     enUrl: `${SITE_ORIGIN}/`,
     zhUrl: `${SITE_ORIGIN}/zh/`,
+    enToggleHref: "../",
     enGone: "Two Ways to Engage",
     zhHas: "两种参与方式",
   },
@@ -72,6 +75,7 @@ const PAGES = [
     canonical: `${SITE_ORIGIN}/zh/competition.html`,
     enUrl: `${SITE_ORIGIN}/competition.html`,
     zhUrl: `${SITE_ORIGIN}/zh/competition.html`,
+    enToggleHref: "../competition.html",
     enGone: "Why This Benchmark",
     zhHas: "为何需要此基准",
   },
@@ -196,6 +200,35 @@ function pageChecks(p) {
     !body.includes(p.enGone),
     `EN heading "${p.enGone}" still present — body not translated`,
   );
+
+  // In-page language toggle (navbar) — gated on the publish flag, mirroring the
+  // hreflang relationship. On a published /zh/ page "中文" is the active option
+  // and "EN" links to the EN counterpart; while unpublished the toggle is absent.
+  if (PUBLISHED) {
+    add(
+      "lang toggle group",
+      /<span class="lang-toggle" role="group" aria-label="[^"]+">/.test(html),
+      "language toggle group did not render",
+    );
+    add(
+      "lang toggle: 中文 active",
+      html.includes(
+        '<span class="lang-opt is-active" lang="zh-Hans" aria-current="true">中文</span>',
+      ),
+      "expected 中文 marked active (aria-current, lang=zh-Hans)",
+    );
+    add(
+      `lang toggle: EN → ${p.enToggleHref}`,
+      html.includes(`<a class="lang-opt" lang="en" hreflang="en" href="${p.enToggleHref}">EN</a>`),
+      `expected EN counterpart link href="${p.enToggleHref}" with hreflang="en"`,
+    );
+  } else {
+    add(
+      "no lang toggle (unpublished)",
+      !/class="lang-toggle"/.test(html),
+      "unpublished /zh/ page must not render the language toggle",
+    );
+  }
 
   return checks;
 }

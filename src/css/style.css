@@ -238,6 +238,38 @@ section:nth-child(even) { background: var(--bg-light); }
   font-weight: 700;
 }
 
+/* ── Language toggle (EN ⇄ 中文) ──
+   Rendered only on pages with a published localized counterpart (navbar.njk).
+   A compact pill in the nav: the current language is a filled, non-interactive
+   chip; the other is a link to its counterpart. Lives inside .nav-links so it
+   also rides into the mobile drawer. */
+.nav-lang { display: flex; align-items: center; }
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: .5rem;
+  padding: 2px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+}
+.lang-toggle .lang-opt {
+  display: block;
+  padding: .2rem .6rem;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  line-height: 1.4;
+  color: rgba(255,255,255,.7);
+  border-radius: 999px;
+  transition: color var(--transition), background var(--transition);
+}
+.lang-toggle a.lang-opt:hover { color: var(--accent); }
+.lang-toggle .lang-opt.is-active {
+  color: var(--bg-dark);
+  background: var(--accent);
+}
+
 /* ── On-page TOC sidebar (sub-pages only) ──
    Fixed-position right-side rail; hidden below 1400px (where the dropdown
    navbar covers the same need). Within the wide viewport breakpoint, it
@@ -2312,6 +2344,12 @@ footer {
   .nav-links a { padding: .75rem 1.5rem; font-size: 1rem; }
   .nav-cta { margin-left: 1.5rem; display: inline-block; }
   .nav-toggle { display: flex; }
+
+  /* Language toggle in the mobile drawer: left-aligned with the other items,
+     with roomier tap targets. */
+  .nav-lang { padding: .75rem 1.5rem; }
+  .lang-toggle { margin-left: 0; }
+  .lang-toggle .lang-opt { padding: .4rem .85rem; font-size: .9rem; }
 
   /* Dropdown parents on mobile: use a row layout so the link sits left
      and the toggle caret button sits right. */

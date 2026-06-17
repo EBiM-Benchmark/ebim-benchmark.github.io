@@ -37,7 +37,8 @@
     "wsDissemination": "Dissemination",
     "organizers": "Organizers",
     "partners": "Partners",
-    "contact": "Contact"
+    "contact": "Contact",
+    "ariaLanguage": "Language"
   },
 
   "footer": {
