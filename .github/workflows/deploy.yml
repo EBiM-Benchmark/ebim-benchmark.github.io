@@ -1,9 +1,8 @@
 name: Deploy to GitHub Pages
 
-# NOTE: Pushing this workflow does NOT change how Pages serves the site. It
-# takes effect only after the repo's Pages "build and deployment" source is
-# switched from "Deploy from a branch" to "GitHub Actions" (Settings → Pages).
-# That switch is the Phase 0 cutover — perform it only after sign-off.
+# Live deploy path: builds the site and deploys _site/ to GitHub Pages on
+# every push to main. The repo's Pages "build and deployment" source is set to
+# "GitHub Actions" (the Phase 0 cutover is complete).
 
 on:
   push:

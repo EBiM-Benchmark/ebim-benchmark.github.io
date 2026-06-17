@@ -2,7 +2,7 @@ name: Build & EN parity
 
 # Permanent guard: builds the Eleventy site and asserts the English output is
 # semantically identical to the golden fixtures in tests/baseline/
-# (see scripts/verify.mjs). Runs on every PR.
+# (see scripts/verify.mjs). Runs on every PR and on pushes to main.
 
 on:
   pull_request:
