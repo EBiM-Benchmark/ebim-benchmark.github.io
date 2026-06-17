@@ -23,7 +23,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
-  eleventyConfig.addPassthroughCopy({ "src/sitemap.xml": "sitemap.xml" });
+  // sitemap.xml is rendered from src/sitemap.njk (locale-aware, gated on
+  // site.zhPublished) — not a static passthrough.
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
 
