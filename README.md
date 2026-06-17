@@ -241,7 +241,7 @@ The navbar and footer are single Nunjucks includes — `src/_includes/navbar.njk
 
 ### Updating the shared chrome
 
-Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once (their visible labels come from `src/_data/i18n/en.json` via the `t` lookup). `npm run build` regenerates every page, and `node scripts/verify.mjs` confirms nothing else changed.
+Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible labels come from `src/_data/i18n/en.json` via the `t` lookup (zh from `zh.json`), and link targets from the locale-aware `links` helper, so the one include serves both EN and `/zh/`. `npm run build` regenerates every page, and `node scripts/verify.mjs` confirms nothing else changed.
 
 ### Navbar items
 
