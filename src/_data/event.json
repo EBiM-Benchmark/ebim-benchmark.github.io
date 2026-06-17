@@ -1,0 +1,39 @@
+{
+  "_comment": "Language-NEUTRAL structured-data facts, single source of truth for the index + competition JSON-LD. Values are copied verbatim from the live JSON-LD blocks; do not 'improve' them. Translatable strings (names/descriptions/labels) live in _data/i18n/<lang>.json.",
+
+  "startDate": "2026-06-20",
+  "endDate": "2026-08-31",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+
+  "brand": "EBiM Benchmark",
+  "siteUrl": "https://ebim-benchmark.github.io/",
+  "competitionUrl": "https://ebim-benchmark.github.io/competition.html",
+  "contactUrl": "https://ebim-benchmark.github.io/contact.html",
+  "logo": "https://ebim-benchmark.github.io/img/favicon.svg",
+  "image": "https://ebim-benchmark.github.io/img/og-cover.png",
+  "sameAs": ["https://github.com/EBiM-Benchmark"],
+
+  "organizersIndex": [
+    { "@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/" },
+    { "@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/" },
+    { "@type": "Organization", "name": "Tsinghua University", "url": "https://www.tsinghua.edu.cn/en/" }
+  ],
+  "organizersCompetition": [
+    { "@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/" },
+    { "@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/" }
+  ],
+  "sponsors": [
+    { "@type": "Organization", "name": "Franka Robotics", "url": "https://franka.de" },
+    { "@type": "Organization", "name": "Agile Robots", "url": "https://www.agile-robots.com" },
+    { "@type": "Organization", "name": "Google", "url": "https://cloud.google.com" },
+    { "@type": "Organization", "name": "AMD", "url": "https://www.amd.com" }
+  ],
+
+  "testbedAddresses": [
+    { "@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN" },
+    { "@type": "PostalAddress", "addressLocality": "Hamburg", "addressCountry": "DE" },
+    { "@type": "PostalAddress", "addressLocality": "Munich", "addressCountry": "DE" },
+    { "@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US" }
+  ]
+}

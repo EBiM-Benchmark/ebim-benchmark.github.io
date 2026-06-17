@@ -1,13 +1,13 @@
-name: Verify Phase 0 parity
+name: Build & EN parity
 
-# Gate for the Phase 0 migration: builds the Eleventy site and asserts the
-# output is semantically identical to the hand-authored HTML on `main`
-# (see scripts/verify-phase0.mjs). Runs on every PR and on the migration branch.
+# Permanent guard: builds the Eleventy site and asserts the English output is
+# semantically identical to the golden fixtures in tests/baseline/
+# (see scripts/verify.mjs). Runs on every PR and on pushes to main.
 
 on:
   pull_request:
   push:
-    branches: [phase0-eleventy]
+    branches: [main]
 
 permissions:
   contents: read
@@ -16,13 +16,11 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (full history — the harness diffs against the base ref)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v6
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: npm
@@ -30,8 +28,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build + verify parity against the committed baseline
-        run: node scripts/verify-phase0.mjs
-        env:
-          # The harness builds the site itself, then compares to this ref.
-          BASE_REF: origin/main
+      - name: Build + verify EN parity against the committed baseline
+        run: node scripts/verify.mjs
