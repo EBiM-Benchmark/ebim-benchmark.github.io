@@ -77,7 +77,7 @@ ebim-benchmark.github.io/
 │   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
 │   │   ├── i18n/en.json                 # English UI/meta/JSON-LD strings (the fallback locale)
 │   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine draft; Phase 1b)
-│   │   └── eleventyComputed.js          # Locale lookup `t` + htmlLang/assetBase/links/jsonLd/pageMeta
+│   │   └── eleventyComputed.js          # Locale lookup `t` + htmlLang/assetBase/links/localeToggle/jsonLd/pageMeta
 │   ├── _includes/
 │   │   ├── layouts/base.njk             # <html> skeleton + per-page head fields/conditionals
 │   │   ├── head.njk                     # Shared favicon/font/CSS head tail
@@ -128,7 +128,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
-`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links localized targets under `/zh/` (workshop/contact fall back to EN), and contains translated CJK text. Published (the current state): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, and `/zh/` present in `sitemap.xml` (6 URLs total), with `hreflang` appearing **only** on the index/competition pairs. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap. CI runs both harnesses on every PR.
+`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links localized targets under `/zh/` (workshop/contact fall back to EN), and contains translated CJK text. Published (the current state): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (6 URLs total) with `hreflang` appearing **only** on the index/competition pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. CI runs both harnesses on every PR.
 
 ### GitHub Pages deployment
 
@@ -142,7 +142,7 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** (the landi
 
 - **`src/_data/event.json`** — language-neutral structured-data facts (dates, canonical URLs, organizer/sponsor lists, testbed addresses) shared by the index + competition JSON-LD.
 - **`src/_data/i18n/<lang>.json`** — translatable strings, namespaced `brand` / `nav` / `footer` / `meta` (per-page head-meta) / `jsonld`. `en` is the fallback locale; `zh` (Simplified Chinese, machine draft) mirrors every `en` key — any key left untranslated falls back to English.
-- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and index/competition JSON-LD. Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical when `/zh/` is unpublished: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, the not-yet-localized workshop + contact resolve back up to EN), `zhNoindex`, and the gated `hreflangAlternates` (which, once published, is the one intentional EN-head change — the hreflang cluster on index/competition).
+- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and index/competition JSON-LD. Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical when `/zh/` is unpublished: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, the not-yet-localized workshop + contact resolve back up to EN), `zhNoindex`, and the gated `hreflangAlternates` (which, once published, is the one intentional EN-head change — the hreflang cluster on index/competition). `localeToggle` drives the in-page navbar **language switcher**: it returns `null` unless the page has a *published* localized counterpart — keyed off the same `i18nKey` + `zhPublished` gate as the hreflang (page-pairs live in the `TOGGLE_HREFS` map) — so the toggle appears exactly where the reciprocal hreflang does, and EN-only pages render the navbar with no toggle (byte-identical). It hands the navbar the active locale and the counterpart URL relative to the current page; localizing a new page in Phase 2 is one row in `TOGGLE_HREFS` + an `i18nKey` + a `/zh/` counterpart, with no template change.
 - **`src/_includes/`** — `base.njk` / `head.njk` / `navbar.njk` / `footer.njk` read locale via those helpers; the EN render path is unchanged and guarded by the parity harness.
 - **`src/zh/`** — the localized pages (`lang: zh` via `zh.11tydata.json`), reusing the same includes; only the body prose, `<html lang>`, canonical, head-meta, and (when published) hreflang differ.
 
@@ -252,6 +252,7 @@ Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible l
 - **Organizers** → `index.html#organizers`
 - **Partners** → `index.html#partners`
 - **Contact** → https://ebim-benchmark.github.io/contact.html
+- **Language toggle** (EN ⇄ 中文) → shown **only** on pages with a published localized counterpart (currently index + competition, EN and `/zh/`). The current locale is a non-interactive chip (`aria-current`); the other is a link to its counterpart (`hreflang`/`lang` set). Driven by the `localeToggle` helper, it lives inside `.nav-links` so it rides into the mobile drawer, and auto-extends to any page localized in Phase 2.
 
 ### Footer columns
 

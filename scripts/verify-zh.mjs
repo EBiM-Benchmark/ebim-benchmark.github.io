@@ -15,6 +15,8 @@
 //   no hreflang anywhere           reciprocal hreflang (en/zh-Hans/x-default)
 //                                  on the index/competition pairs ONLY
 //   /zh/ absent from sitemap       /zh/ URLs present in sitemap (6 URLs total)
+//   no language toggle             navbar language toggle renders: 中文 active +
+//                                  "EN" → the EN counterpart (../ , ../competition.html)
 //
 // State-independent per-page checks (always asserted):
 //   build        — the file exists in _site/.
