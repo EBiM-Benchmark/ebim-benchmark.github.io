@@ -157,7 +157,7 @@ English is the published locale. A **Simplified-Chinese `/zh/` preview** (the la
 | Section | ID | Purpose |
 |---|---|---|
 | Hero | `#home` | Full-viewport hero with two CTAs (Enter Competition / View Workshop) |
-| Workshop Overview | `#overview` | Abstract paragraph + Three-Phase Pipeline diagram |
+| Overview | `#overview` | Abstract paragraph + Three-Phase Pipeline diagram |
 | Two Ways to Engage | `#engage` | Paired feature cards funneling to Competition / Workshop |
 | Key Themes | `#themes` | 4 research-question cards (sim-to-real, cross-site repro, foundation/VLA, contact-rich) |
 | EBiM Maturity Roadmap | `#maturity` | Alpha (2026, current) → Beta (2027) → Gamma (future) multi-year initiative roadmap — styled distinctly from the Phase I/II/III pipeline |
