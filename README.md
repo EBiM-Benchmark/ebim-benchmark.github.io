@@ -126,7 +126,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 `node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. It runs on every PR via `.github/workflows/verify.yml`.
 
-**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`.
+**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
 `node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the unpublished `/zh/` preview against the same build: each `/zh/` page is `<html lang="zh-Hans">`, carries `noindex`, has a self-referential `/zh/` canonical, emits no `hreflang`, links localized targets under `/zh/` (workshop/contact fall back to EN), and contains translated CJK text — and site-wide that `/zh/` is absent from `sitemap.xml` and no page emits `hreflang`. CI runs both harnesses on every PR.
 
