@@ -1,7 +1,8 @@
 // One-off GUARD for the EN re-baseline (regenerate fixtures from the build).
 //
-// Proves the OLD (committed at HEAD) tests/baseline/*.html and the NEW
-// (working-tree, freshly copied from _site) fixtures differ ONLY in formatting:
+// Proves the OLD (pre-re-baseline, read from a base ref) tests/baseline/*.html
+// and the NEW (working-tree, freshly copied from _site) fixtures differ ONLY in
+// formatting:
 //   • JSON-LD indentation (4-space hand-authored → dump(2) 2-space) — the
 //     jsonld.njk include renders index + competition via dump(2).
 //   • the footer copyright reflow (the single-line t.footer.copy) — all 7 pages.
@@ -17,8 +18,9 @@
 // and (c) blank lines + trailing whitespace (all formatting), the bytes must be
 // identical — so no content/attr/text difference can hide anywhere else.
 //
-// OLD is read via `git show HEAD:tests/baseline/<f>`; NEW from disk.
-// Usage:  node scripts/check-rebaseline.mjs
+// OLD is read from a base ref (default: merge-base of HEAD with main, i.e. the
+// pre-re-baseline tree); NEW from the working tree on disk.
+// Usage:  node scripts/check-rebaseline.mjs [base-ref]   (e.g. main, or 20d6b0a)
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -82,10 +84,26 @@ function inlineScriptBody(h) {
   return null;
 }
 
-// ── OLD (HEAD) vs NEW (disk), both EOL-normalized ──
+// ── base ref: the committed tree to compare the working-tree fixtures against.
+// It must be the PRE-re-baseline state, so the guard re-proves "formatting-only"
+// even after the regenerated fixtures are committed on this branch. Default = the
+// merge-base of HEAD with main (where this branch diverged from the old
+// baselines); pass an explicit ref as argv[2] to override. If main is absent
+// (detached/CI shallow checkout) it falls back to HEAD — note that once the
+// re-baseline is committed, HEAD already holds the NEW fixtures, so that
+// fallback trivially shows "identical" and proves nothing; pass a real base ref.
+const baseArg = process.argv[2];
+const resolveBaseRef = () => {
+  if (baseArg) return baseArg;
+  const mb = spawnSync("git", ["merge-base", "HEAD", "main"], { encoding: "utf8" });
+  return mb.status === 0 && mb.stdout.trim() ? mb.stdout.trim() : "HEAD";
+};
+const BASE_REF = resolveBaseRef();
+
+// ── OLD (base ref) vs NEW (working tree on disk), both EOL-normalized ──
 const OLD = (f) => {
-  const r = spawnSync("git", ["show", `HEAD:tests/baseline/${f}`], { encoding: "utf8" });
-  if (r.status !== 0) throw new Error(`git show HEAD:tests/baseline/${f} failed: ${r.stderr}`);
+  const r = spawnSync("git", ["show", `${BASE_REF}:tests/baseline/${f}`], { encoding: "utf8" });
+  if (r.status !== 0) throw new Error(`git show ${BASE_REF}:tests/baseline/${f} failed: ${r.stderr}`);
   return normalizeEol(r.stdout);
 };
 const NEW = (f) => normalizeEol(fs.readFileSync(path.join(BASELINE, f), "utf8"));
@@ -161,7 +179,6 @@ async function checkPage(file) {
   const blankLineDelta =
     newH.split("\n").filter((l) => l.trim() === "").length -
     oldH.split("\n").filter((l) => l.trim() === "").length;
-  const rawIdentical = oldH === newH;
 
   return {
     file,
@@ -173,20 +190,21 @@ async function checkPage(file) {
     jsonldIndentChanged,
     footerReflowed,
     blankLineDelta,
-    rawIdentical,
     problems,
   };
 }
 
 async function main() {
-  console.log(BOLD("\nRe-baseline GUARD — OLD (HEAD) vs NEW (working tree), 7 EN fixtures\n"));
+  console.log(BOLD(`\nRe-baseline GUARD — OLD (${BASE_REF}) vs NEW (working tree), 7 EN fixtures`));
+  if (BASE_REF === "HEAD")
+    console.log(RED("  ⚠ base ref resolved to HEAD — if the re-baseline is already committed this proves nothing; pass a pre-re-baseline ref"));
+  console.log("");
   const rows = [];
   for (const f of PAGES) rows.push(await checkPage(f));
 
   const mark = (ok) => (ok ? GREEN("PASS") : RED("FAIL"));
-  const yn = (b) => (b ? "yes" : "no");
   const pad = (s, n) => s + " ".repeat(Math.max(0, n - s.replace(/\x1b\[[0-9;]*m/g, "").length));
-  const W = [22, 11, 10, 9, 9, 9, 13, 10, 8];
+  const W = [22, 11, 10, 9, 9, 9, 15, 10, 8];
   console.log(
     "  " +
       ["page", "structure", "comments", "json-ld", "inline", "raw-cat", "jsonld-indent", "footer", "blank±"]
