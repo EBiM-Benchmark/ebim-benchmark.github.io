@@ -1,7 +1,8 @@
-{#- Renders the index/competition JSON-LD from shared data (see
-    _data/eleventyComputed.js `jsonLd`, sourced from _data/event.json +
-    _data/i18n/<lang>.json). Each block is deep-equal to the hand-authored
-    English block; locales differ only in the translatable strings. -#}
+{#- Renders the JSON-LD blocks for the data-driven pages (index, competition,
+    workshop, contact) from shared data (see _data/eleventyComputed.js `jsonLd`,
+    sourced from _data/event.json + _data/i18n/<lang>.json). Each block is
+    deep-equal to the hand-authored English block; locales differ only in the
+    translatable strings. -#}
 {%- for block in jsonLd %}
   <!-- {{ block.comment }} -->
   <script type="application/ld+json">

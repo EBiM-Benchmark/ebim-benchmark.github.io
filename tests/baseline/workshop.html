@@ -35,81 +35,130 @@
   <!-- Structured data: Workshop Event with sub-events for each talk + panel -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "EBiM Benchmark Workshop on Embodied Bimanual Manipulation",
-    "description": "Invited talks, panel discussion, poster session, and competition awards. Date and venue to be announced.",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "location": {
-      "@type": "Place",
-      "name": "To be announced"
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "EBiM Benchmark Workshop on Embodied Bimanual Manipulation",
+  "description": "Invited talks, panel discussion, poster session, and competition awards. Date and venue to be announced.",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "To be announced"
+  },
+  "url": "https://ebim-benchmark.github.io/workshop.html",
+  "image": "https://ebim-benchmark.github.io/img/og-cover.png",
+  "organizer": [
+    {
+      "@type": "Organization",
+      "name": "University of Hamburg",
+      "url": "https://www.uni-hamburg.de/"
     },
-    "url": "https://ebim-benchmark.github.io/workshop.html",
-    "image": "https://ebim-benchmark.github.io/img/og-cover.png",
-    "organizer": [
-      {"@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/"},
-      {"@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/"}
-    ],
-    "subEvent": [
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Panel: Benchmarking Standards for Embodied Robots",
-        "performer": [
-          {"@type": "Person", "name": "Stefan Schaal", "affiliation": {"@type": "Organization", "name": "Intrinsic"}},
-          {"@type": "Person", "name": "Kenny Kimble", "affiliation": {"@type": "Organization", "name": "NIST"}},
-          {"@type": "Person", "name": "Sven Parusel", "affiliation": {"@type": "Organization", "name": "Franka Robotics"}},
-          {"@type": "Person", "name": "Shaowei Cui", "affiliation": {"@type": "Organization", "name": "SCUT"}}
-        ]
-      }
-    ]
-  }
+    {
+      "@type": "Organization",
+      "name": "Carnegie Mellon University",
+      "url": "https://www.cmu.edu/"
+    }
+  ],
+  "subEvent": [
+    {
+      "@type": "Event",
+      "name": "Talk title to be announced"
+    },
+    {
+      "@type": "Event",
+      "name": "Talk title to be announced"
+    },
+    {
+      "@type": "Event",
+      "name": "Talk title to be announced"
+    },
+    {
+      "@type": "Event",
+      "name": "Talk title to be announced"
+    },
+    {
+      "@type": "Event",
+      "name": "Panel: Benchmarking Standards for Embodied Robots",
+      "performer": [
+        {
+          "@type": "Person",
+          "name": "Stefan Schaal",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "Intrinsic"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Kenny Kimble",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "NIST"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Sven Parusel",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "Franka Robotics"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Shaowei Cui",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "SCUT"
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <!-- Structured data: Organization schema -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "EBiM Benchmark",
-    "url": "https://ebim-benchmark.github.io/",
-    "logo": "https://ebim-benchmark.github.io/img/favicon.svg",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "general inquiries",
-      "url": "https://ebim-benchmark.github.io/contact.html"
-    },
-    "sameAs": ["https://github.com/EBiM-Benchmark"]
-  }
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "EBiM Benchmark",
+  "url": "https://ebim-benchmark.github.io/",
+  "logo": "https://ebim-benchmark.github.io/img/favicon.svg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "general inquiries",
+    "url": "https://ebim-benchmark.github.io/contact.html"
+  },
+  "sameAs": [
+    "https://github.com/EBiM-Benchmark"
+  ]
+}
   </script>
 
   <!-- Structured data: Breadcrumbs -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ebim-benchmark.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Workshop", "item": "https://ebim-benchmark.github.io/workshop.html"}
-    ]
-  }
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ebim-benchmark.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Workshop",
+      "item": "https://ebim-benchmark.github.io/workshop.html"
+    }
+  ]
+}
   </script>
+
 
 
   <!-- Favicon -->

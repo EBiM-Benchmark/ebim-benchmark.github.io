@@ -1,5 +1,5 @@
 {
-  "_comment": "Language-NEUTRAL structured-data facts, single source of truth for the index + competition JSON-LD. Values are copied verbatim from the live JSON-LD blocks; do not 'improve' them. Translatable strings (names/descriptions/labels) live in _data/i18n/<lang>.json.",
+  "_comment": "Language-NEUTRAL structured-data facts, single source of truth for the index + competition + workshop + contact JSON-LD. Values are copied verbatim from the live JSON-LD blocks; do not 'improve' them. Translatable strings (names/descriptions/labels) live in _data/i18n/<lang>.json.",
 
   "startDate": "2026-06-20",
   "endDate": "2026-08-31",
@@ -35,5 +35,20 @@
     { "@type": "PostalAddress", "addressLocality": "Hamburg", "addressCountry": "DE" },
     { "@type": "PostalAddress", "addressLocality": "Munich", "addressCountry": "DE" },
     { "@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US" }
+  ],
+
+  "_commentWorkshop": "Neutral facts for the workshop Event JSON-LD. The workshop block has NO startDate/endDate (date TBD) and its own attendance mode (Offline, vs the index/competition Mixed). Its `organizer` is Hamburg + CMU; the panel `performer` list (proper nouns + affiliations) is neutral. Translatable: event name/description, the talk/panel subEvent names — see i18n/<lang>.json jsonld.*.",
+  "workshopEventStatus": "https://schema.org/EventScheduled",
+  "workshopEventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "workshopLocation": { "@type": "Place", "name": "To be announced" },
+  "workshopOrganizers": [
+    { "@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/" },
+    { "@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/" }
+  ],
+  "panelPanelists": [
+    { "@type": "Person", "name": "Stefan Schaal", "affiliation": { "@type": "Organization", "name": "Intrinsic" } },
+    { "@type": "Person", "name": "Kenny Kimble", "affiliation": { "@type": "Organization", "name": "NIST" } },
+    { "@type": "Person", "name": "Sven Parusel", "affiliation": { "@type": "Organization", "name": "Franka Robotics" } },
+    { "@type": "Person", "name": "Shaowei Cui", "affiliation": { "@type": "Organization", "name": "SCUT" } }
   ]
 }

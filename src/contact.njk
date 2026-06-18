@@ -1,23 +1,22 @@
 ---
 permalink: "contact.html"
 bodyClass: "page-contact"
-title: "Contact · EBiM Benchmark"
-description: "Have a question about the EBiM Benchmark competition, workshop, partnership, or platform? Send a categorized message and we'll route it to the right team."
 keywords: "EBiM Benchmark contact, embodied bimanual manipulation contact, competition question, workshop poster submission, partnership inquiry, robotics benchmark"
 canonical: "https://ebim-benchmark.github.io/contact.html"
 headComments: true
 backToTop: true
 navActive: "contact"
+pageKey: contact
 ---
 {% extends "layouts/base.njk" %}
 
-{% block headStructured %}{% raw %}
+{% block headStructured %}
   <!-- Open Graph -->
   <meta property="og:type"            content="website" />
   <meta property="og:site_name"       content="EBiM Benchmark" />
   <meta property="og:url"             content="https://ebim-benchmark.github.io/contact.html" />
-  <meta property="og:title"           content="Contact · EBiM Benchmark" />
-  <meta property="og:description"     content="Send the EBiM Benchmark team a categorized message — competition, workshop, partnership, media, technical, or testbed-hosting inquiries." />
+  <meta property="og:title"           content="{{ pageMeta.ogTitle | safe }}" />
+  <meta property="og:description"     content="{{ pageMeta.ogDescription | safe }}" />
   <meta property="og:image"           content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"     content="1200" />
   <meta property="og:image:height"    content="630" />
@@ -26,39 +25,12 @@ navActive: "contact"
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"           content="summary_large_image" />
-  <meta name="twitter:title"          content="Contact · EBiM Benchmark" />
-  <meta name="twitter:description"    content="Send the EBiM Benchmark team a categorized message — competition, workshop, partnership, media, technical, or testbed-hosting inquiries." />
+  <meta name="twitter:title"          content="{{ pageMeta.twitterTitle | safe }}" />
+  <meta name="twitter:description"    content="{{ pageMeta.twitterDescription | safe }}" />
   <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"      content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-
-  <!-- Structured data: ContactPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "Contact · EBiM Benchmark",
-    "url": "https://ebim-benchmark.github.io/contact.html",
-    "description": "Contact form for the EBiM Benchmark initiative on embodied bimanual manipulation.",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "EBiM Benchmark",
-      "url": "https://ebim-benchmark.github.io/"
-    }
-  }
-  </script>
-
-  <!-- Structured data: Breadcrumbs -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ebim-benchmark.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://ebim-benchmark.github.io/contact.html"}
-    ]
-  }
-  </script>
-{% endraw %}{% endblock %}
+{% include "jsonld.njk" %}
+{% endblock %}
 
 {% block headStyle %}{% raw %}
   <!-- Critical CSS inlined to prevent FOUC -->
