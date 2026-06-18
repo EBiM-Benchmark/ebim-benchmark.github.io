@@ -1,22 +1,24 @@
-// /zh/ locale harness (Phase 1b → published).
+// /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b adds
+// workshop + contact as UNPUBLISHED drafts).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
-// here). This asserts the Simplified-Chinese locale is in the correct state for
-// the current site.zhPublished flag (src/_data/site.json) and is actually
-// localized, for the two pages we localize: /zh/index.html and
-// /zh/competition.html.
+// here). This asserts the Simplified-Chinese locale is in the correct state and
+// is actually localized, for the FOUR pages we now ship: /zh/index.html,
+// /zh/competition.html, /zh/workshop.html, /zh/contact.html.
 //
-// The flag drives every gated assertion, so the harness is GREEN whether the
-// locale is an unpublished preview (zhPublished:false) or live (true):
+// Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
+// by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
+// "contact": false }. Each page's gated assertions read THAT page's flag, so the
+// harness is GREEN in any mix of published pages and drafts:
 //
-//   UNPUBLISHED (false)            PUBLISHED (true)
+//   DRAFT (flag false)             PUBLISHED (flag true)
 //   ─────────────────────          ─────────────────────────────────────────
 //   noindex present                NO noindex
-//   no hreflang anywhere           reciprocal hreflang (en/zh-Hans/x-default)
-//                                  on the index/competition pairs ONLY
-//   /zh/ absent from sitemap       /zh/ URLs present in sitemap (6 URLs total)
-//   no language toggle             navbar language toggle renders: 中文 active +
-//                                  "EN" → the EN counterpart (../ , ../competition.html)
+//   no hreflang on EN or zh        reciprocal hreflang (en/zh-Hans/x-default)
+//                                  on this page's EN + /zh/ pair
+//   /zh/ url absent from sitemap   /zh/ url present in sitemap
+//   no language toggle             navbar language toggle: 中文 active +
+//                                  "EN" → the EN counterpart
 //
 // State-independent per-page checks (always asserted):
 //   build        — the file exists in _site/.
@@ -24,18 +26,23 @@
 //   canonical    — self: points at the page's OWN /zh/ URL (never changes).
 //   chrome       — navbar (#navbar) and footer (#footer) both render.
 //   links        — localized targets (index + competition, incl. #anchors)
-//                  resolve UNDER /zh/ (relative), while not-yet-localized
-//                  workshop + contact point to their EN URLs (../). No bare
+//                  resolve UNDER /zh/ (relative), while workshop + contact point
+//                  to their EN URLs (../) — the shared navbar links keep the zh
+//                  drafts unlinked from the published nav. No bare
 //                  workshop.html / contact.html (which would 404 under /zh/).
 //   assets       — css/js resolve up to the root (../css, ../js).
 //   localized    — body contains CJK AND the English heading it replaced is
 //                  gone (proof it's translated, not the EN copy).
+//   contact form — (contact page only) the Web3Forms option value=/data-slug,
+//                  the hidden fields + honeypot, and the inline behavior script
+//                  are IDENTICAL to the EN contact page (single-sourced JS,
+//                  untranslated payload) — only visible labels are localized.
 //
-// Site-wide it checks (gated on the flag):
-//   sitemap      — /zh/ URLs present (published) or absent (unpublished).
-//   hreflang     — emitted ONLY on the 4 localized pages index/competition +
-//                  their /zh/ counterparts (published), or nowhere at all
-//                  (unpublished). EN-only pages must NEVER carry hreflang.
+// Site-wide it checks (per-page gated):
+//   sitemap      — each PUBLISHED page's /zh/ url is present; each DRAFT's is
+//                  absent. Total = 4 EN + (number of published zh).
+//   hreflang     — emitted ONLY on the published localized pairs (EN + /zh/);
+//                  never on a draft pair, and never on the EN-only utility pages.
 //
 // Usage:  node scripts/verify-zh.mjs            (builds, then verifies)
 //         node scripts/verify-zh.mjs --no-build (verify an existing _site)
@@ -52,18 +59,21 @@ const BOLD = (s) => `\x1b[1m${s}\x1b[0m`;
 
 const SITE_ORIGIN = "https://ebim-benchmark.github.io";
 
-// The publish gate — the single source of truth every gated assertion reads, so
-// this harness is correct against EITHER committed state of the flag.
+// The publish gate — the PER-PAGE map (keyed by i18nKey) every gated assertion
+// reads, so this harness is correct against ANY committed mix of the flags.
 const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.json"), "utf8"));
-const PUBLISHED = SITE_DATA.zhPublished === true;
+const PUB = SITE_DATA.zhPublished || {};
+const isPub = (key) => PUB[key] === true;
 
-// The two localized pages. `enUrl`/`zhUrl` are the canonical pair URLs the
-// reciprocal hreflang must advertise (en + x-default → enUrl, zh-Hans → zhUrl);
-// `canonical` is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
-// `enToggleHref` is the navbar language-toggle's EN-counterpart link, RELATIVE
-// to this /zh/ page (the reciprocal of the EN page's "zh/…" link).
+// The four localized pages. `key` is the i18nKey (the publish-flag key).
+// `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
+// advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
+// is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
+// `enToggleHref` is the navbar language-toggle's EN-counterpart link, RELATIVE to
+// this /zh/ page (only asserted when the page is published).
 const PAGES = [
   {
+    key: "index",
     file: "zh/index.html",
     canonical: `${SITE_ORIGIN}/zh/`,
     enUrl: `${SITE_ORIGIN}/`,
@@ -73,6 +83,7 @@ const PAGES = [
     zhHas: "两种参与方式",
   },
   {
+    key: "competition",
     file: "zh/competition.html",
     canonical: `${SITE_ORIGIN}/zh/competition.html`,
     enUrl: `${SITE_ORIGIN}/competition.html`,
@@ -81,16 +92,43 @@ const PAGES = [
     enGone: "Why This Benchmark",
     zhHas: "为何需要此基准",
   },
+  {
+    key: "workshop",
+    file: "zh/workshop.html",
+    canonical: `${SITE_ORIGIN}/zh/workshop.html`,
+    enUrl: `${SITE_ORIGIN}/workshop.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/workshop.html`,
+    enToggleHref: "../workshop.html",
+    enGone: "Tentative Schedule",
+    zhHas: "暂定日程",
+  },
+  {
+    key: "contact",
+    file: "zh/contact.html",
+    canonical: `${SITE_ORIGIN}/zh/contact.html`,
+    enUrl: `${SITE_ORIGIN}/contact.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/contact.html`,
+    enToggleHref: "../contact.html",
+    enGone: "Contact Us",
+    zhHas: "联系我们",
+  },
 ];
 
-// The full set of pages that ARE allowed hreflang when published; every other
-// built page (workshop/contact/404/contact-success/contact-test) must have none.
-const LOCALIZED_PAGES = new Set([
-  "index.html",
-  "competition.html",
-  "zh/index.html",
-  "zh/competition.html",
-]);
+// The EN file each localized page mirrors (used for the hreflang sweep + the
+// contact-form parity check).
+const EN_FILE = {
+  index: "index.html",
+  competition: "competition.html",
+  workshop: "workshop.html",
+  contact: "contact.html",
+};
+
+// The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every
+// PUBLISHED localized page. Every other built page (drafts + 404/contact-success/
+// contact-test) must carry none.
+const LOCALIZED_PAGES = new Set(
+  PAGES.filter((p) => isPub(p.key)).flatMap((p) => [EN_FILE[p.key], p.file]),
+);
 
 // The three reciprocal hreflang <link>s a localized page must emit when published.
 const hreflangLines = (p) => [
@@ -119,6 +157,42 @@ const bodyOf = (html) => {
 };
 const hasCJK = (s) => /[㐀-鿿]/.test(s);
 
+// The attribute-less inline behavior <script> body (comment-safe), or null —
+// used to prove the contact form's JS is single-sourced (identical EN ↔ zh).
+const removeComments = (h) => h.replace(/<!--[\s\S]*?-->/g, "");
+// Drop <style>/<script> bodies so the link checks only see real navigable hrefs
+// — a CSS selector like `a[href="contact.html"]` is not a link and must not be
+// mistaken for one (the contact page's active-nav CSS carries exactly that).
+const stripStyleScript = (h) =>
+  h
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+function inlineScriptBody(html) {
+  const re = /<script\b([^>]*)>([^]*?)<\/script>/g;
+  const clean = removeComments(html);
+  let m;
+  while ((m = re.exec(clean))) if (m[1].trim() === "") return m[2];
+  return null;
+}
+const collapseWs = (s) =>
+  s
+    .split("\n")
+    .map((l) => l.replace(/\s+$/, ""))
+    .filter((l) => l !== "")
+    .join("\n");
+
+// Ordered [value, data-slug] pairs for every <option> (data-slug may be null).
+function optionPairs(html) {
+  const re = /<option value="([^"]*)"([^>]*)>/g;
+  const out = [];
+  let m;
+  while ((m = re.exec(html))) {
+    const slug = m[2].match(/data-slug="([^"]*)"/);
+    out.push([m[1], slug ? slug[1] : null]);
+  }
+  return out;
+}
+
 // All built HTML files, as forward-slash paths relative to _site/.
 function allHtml(dir = SITE, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -132,6 +206,7 @@ const relSite = (f) => path.relative(SITE, f).split(path.sep).join("/");
 
 // ── per-page checks: each returns { ok, msg } ──
 function pageChecks(p) {
+  const published = isPub(p.key);
   const checks = [];
   const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
 
@@ -146,10 +221,10 @@ function pageChecks(p) {
 
   add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
 
-  // noindex / hreflang are gated on the publish flag.
+  // noindex / hreflang are gated on this page's publish flag.
   const hasNoindex = /<meta name="robots" content="noindex"\s*\/?>/.test(html);
   const hreflangCount = (html.match(/rel="alternate" hreflang=/g) || []).length;
-  if (PUBLISHED) {
+  if (published) {
     add("no noindex (published)", !hasNoindex, "published zh page must NOT be noindex");
     add(
       "hreflang reciprocal (en/zh-Hans/x-default)",
@@ -158,8 +233,8 @@ function pageChecks(p) {
     );
     add("exactly 3 hreflang", hreflangCount === 3, `expected 3 hreflang links, found ${hreflangCount}`);
   } else {
-    add("noindex (unpublished)", hasNoindex, "expected <meta name=robots content=noindex>");
-    add("no hreflang (unpublished)", hreflangCount === 0, "unpublished page must emit no hreflang");
+    add("noindex (draft)", hasNoindex, "expected <meta name=robots content=noindex>");
+    add("no hreflang (draft)", hreflangCount === 0, "draft page must emit no hreflang");
   }
 
   add(
@@ -170,20 +245,26 @@ function pageChecks(p) {
   add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
   add("footer", /<footer id="footer"/.test(html), "footer did not render");
 
-  // Localized targets resolve under /zh/ (relative, no ../); EN targets use ../.
+  // Localized targets resolve under /zh/ (relative, no ../); the workshop +
+  // contact DRAFTS point up to EN (../) — matching the hardcoded zh bodies + the
+  // links() chrome, so published pages stay byte-identical and drafts stay
+  // unlinked. Scoped to real markup (style/script stripped) so a CSS selector
+  // like `a[href="contact.html"]` isn't mistaken for a link. (When a draft is
+  // published its body/nav links flip to relative — update these checks then.)
+  const linkHtml = stripStyleScript(html);
   add(
     "links→zh (index/competition)",
-    /href="index\.html(#[^"]*)?"/.test(html) && /href="competition\.html(#[^"]*)?"/.test(html),
+    /href="index\.html(#[^"]*)?"/.test(linkHtml) && /href="competition\.html(#[^"]*)?"/.test(linkHtml),
     "expected relative index.html / competition.html links (resolve under /zh/)",
   );
   add(
     "links→EN (workshop/contact via ../)",
-    html.includes('href="../workshop.html') && html.includes('href="../contact.html'),
+    linkHtml.includes('href="../workshop.html') && linkHtml.includes('href="../contact.html'),
     "expected ../workshop.html and ../contact.html (EN targets)",
   );
   add(
     "no bare workshop/contact (would 404 under /zh/)",
-    !/href="workshop\.html/.test(html) && !/href="contact\.html/.test(html),
+    !/href="workshop\.html/.test(linkHtml) && !/href="contact\.html/.test(linkHtml),
     "found a bare workshop.html/contact.html link that would 404 under /zh/",
   );
 
@@ -203,10 +284,10 @@ function pageChecks(p) {
     `EN heading "${p.enGone}" still present — body not translated`,
   );
 
-  // In-page language toggle (navbar) — gated on the publish flag, mirroring the
-  // hreflang relationship. On a published /zh/ page "中文" is the active option
-  // and "EN" links to the EN counterpart; while unpublished the toggle is absent.
-  if (PUBLISHED) {
+  // In-page language toggle (navbar) — gated on this page's publish flag,
+  // mirroring the hreflang relationship. On a published /zh/ page "中文" is the
+  // active option and "EN" links to the EN counterpart; a draft has no toggle.
+  if (published) {
     add(
       "lang toggle group",
       /<span class="lang-toggle" role="group" aria-label="[^"]+">/.test(html),
@@ -226,9 +307,45 @@ function pageChecks(p) {
     );
   } else {
     add(
-      "no lang toggle (unpublished)",
+      "no lang toggle (draft)",
       !/class="lang-toggle"/.test(html),
-      "unpublished /zh/ page must not render the language toggle",
+      "draft /zh/ page must not render the language toggle",
+    );
+  }
+
+  // ── Contact form: payload + JS identical to EN; only labels are localized. ──
+  if (p.key === "contact" && exists(EN_FILE.contact)) {
+    const en = read(EN_FILE.contact);
+
+    // 1) option value= + data-slug= pairs byte-identical to EN (payload + routing).
+    const enOpts = JSON.stringify(optionPairs(en));
+    const zhOpts = JSON.stringify(optionPairs(html));
+    add(
+      "form options value=/data-slug identical to EN",
+      enOpts === zhOpts,
+      `zh option value/data-slug differ from EN:\n      EN: ${enOpts}\n      ZH: ${zhOpts}`,
+    );
+
+    // 2) hidden fields + honeypot + action unchanged (operational, English).
+    for (const [needle, label] of [
+      ['name="access_key" value="748f5c30-e7fd-49b0-9eb5-5c1c92f03f78"', "access_key hidden field"],
+      ['name="from_name" value="EBiM Benchmark Website Contact"', "from_name hidden field"],
+      ['name="subject" value="[CONTACT] New contact form submission"', "subject hidden field"],
+      ['name="redirect" value="https://ebim-benchmark.github.io/contact-success.html"', "redirect → EN contact-success"],
+      ['name="botcheck"', "honeypot field"],
+      ['action="https://api.web3forms.com/submit"', "form action"],
+    ]) {
+      add(`contact ${label} present`, html.includes(needle), `missing/changed: ${label}`);
+    }
+
+    // 3) inline behavior script present AND byte-identical to EN (single-sourced).
+    const enJs = inlineScriptBody(en);
+    const zhJs = inlineScriptBody(html);
+    add("contact inline JS present", zhJs !== null && /DISCORD_TOPICS/.test(zhJs || ""), "no inline contact script");
+    add(
+      "contact inline JS identical to EN",
+      enJs !== null && zhJs !== null && collapseWs(enJs) === collapseWs(zhJs),
+      "zh contact inline JS differs from EN (must be single-sourced)",
     );
   }
 
@@ -240,15 +357,14 @@ function main() {
     console.log(BOLD("Building site (eleventy)…"));
     buildSite();
   }
-  console.log(
-    BOLD(`\nVerifying /zh/ Simplified-Chinese locale — state: ${PUBLISHED ? "PUBLISHED" : "UNPUBLISHED"}\n`),
-  );
+  const stateStr = PAGES.map((p) => `${p.key}:${isPub(p.key) ? "pub" : "draft"}`).join("  ");
+  console.log(BOLD(`\nVerifying /zh/ Simplified-Chinese locale — per-page state: ${stateStr}\n`));
 
   let allOk = true;
   const fails = [];
 
   for (const p of PAGES) {
-    console.log(BOLD(`• ${p.file}`));
+    console.log(BOLD(`• ${p.file}  (${isPub(p.key) ? "PUBLISHED" : "DRAFT"})`));
     for (const c of pageChecks(p)) {
       console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
       if (!c.ok) {
@@ -271,41 +387,46 @@ function main() {
     }
   };
 
-  if (PUBLISHED) {
-    for (const p of PAGES) {
+  // Each published page's /zh/ url present; each draft's absent.
+  let expectedZhUrls = 0;
+  for (const p of PAGES) {
+    if (isPub(p.key)) {
+      expectedZhUrls++;
       siteAdd(
-        `sitemap lists ${p.zhUrl}`,
+        `sitemap lists ${p.zhUrl} (published)`,
         sitemap.includes(`<loc>${p.zhUrl}</loc>`),
         `sitemap.xml missing <loc>${p.zhUrl}</loc>`,
       );
+    } else {
+      siteAdd(
+        `sitemap excludes ${p.zhUrl} (draft)`,
+        !sitemap.includes(`<loc>${p.zhUrl}</loc>`),
+        `draft ${p.zhUrl} must not appear in sitemap.xml`,
+      );
     }
-    siteAdd("sitemap has 6 URLs (4 EN + 2 zh)", locCount === 6, `expected 6 <loc>, found ${locCount}`);
-  } else {
-    siteAdd("sitemap excludes /zh/", !/\/zh\//.test(sitemap), "sitemap.xml contains a /zh/ entry");
-    siteAdd("sitemap has 4 URLs (EN only)", locCount === 4, `expected 4 <loc>, found ${locCount}`);
   }
+  const expectedTotal = 4 + expectedZhUrls;
+  siteAdd(
+    `sitemap has ${expectedTotal} URLs (4 EN + ${expectedZhUrls} zh)`,
+    locCount === expectedTotal,
+    `expected ${expectedTotal} <loc>, found ${locCount}`,
+  );
 
-  // hreflang sweep: published → exactly the 4 localized pages; else → nowhere.
+  // hreflang sweep: exactly the published localized pairs (EN + /zh/), nothing else.
   const withHreflang = allHtml()
     .filter((f) => /hreflang/.test(fs.readFileSync(f, "utf8")))
     .map(relSite)
     .sort();
-  if (PUBLISHED) {
-    const expected = [...LOCALIZED_PAGES].sort();
-    const ok =
-      withHreflang.length === expected.length && withHreflang.every((f, i) => f === expected[i]);
-    siteAdd(
-      "hreflang ONLY on the 4 localized pages",
-      ok,
-      `expected [${expected.join(", ")}], got [${withHreflang.join(", ")}]`,
-    );
-  } else {
-    siteAdd(
-      "no hreflang anywhere in _site (EN or zh)",
-      withHreflang.length === 0,
-      `hreflang found in: ${withHreflang.join(", ")}`,
-    );
-  }
+  const expected = [...LOCALIZED_PAGES].sort();
+  const ok =
+    withHreflang.length === expected.length && withHreflang.every((f, i) => f === expected[i]);
+  siteAdd(
+    expected.length
+      ? `hreflang ONLY on the ${expected.length} published localized pages`
+      : "no hreflang anywhere in _site",
+    ok,
+    `expected [${expected.join(", ")}], got [${withHreflang.join(", ")}]`,
+  );
   console.log("");
 
   if (fails.length) {

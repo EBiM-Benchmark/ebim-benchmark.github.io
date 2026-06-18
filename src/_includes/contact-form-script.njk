@@ -1,0 +1,147 @@
+{% raw %}
+<!-- Contact form enhancements: dynamic subject prefix + AJAX submission -->
+<script>
+  (function () {
+    'use strict';
+    var form = document.querySelector('#contactForm');
+    if (!form) return;
+
+    var errorBox  = document.querySelector('#formError');
+    var errorText = document.querySelector('#formErrorText');
+    var successEl = document.querySelector('#formSuccess');
+
+    // Category data-slug → email-subject prefix. Keyed off the stable per-option
+    // data-slug (not the human-readable value/label), so editors can retitle a
+    // category without breaking routing. Prefixes stay English — they are
+    // operational inbox metadata, not user-facing copy.
+    var prefixMap = {
+      competition: '[COMPETITION] ',
+      register:    '[REGISTER] ',
+      workshop:    '[WORKSHOP] ',
+      partner:     '[PARTNERSHIP] ',
+      media:       '[MEDIA] ',
+      tech:        '[TECH] ',
+      testbed:     '[TESTBED] ',
+      other:       '[OTHER] '
+    };
+
+    // Resolve the selected <option>'s data-slug (empty for the placeholder).
+    function selectedSlug() {
+      var sel = form.category;
+      return (sel && sel.options[sel.selectedIndex]?.dataset.slug) || '';
+    }
+
+    // ── Discord CTA: reveal a "faster path" banner for community-relevant topics ──
+    // Purely additive — the form is never hidden, gated, or altered by this.
+    var DISCORD_TOPICS = ['competition', 'register', 'workshop'];
+    var discordCta = document.getElementById('discordCta');
+
+    function syncDiscordCta() {
+      if (!discordCta) return;
+      discordCta.hidden = (DISCORD_TOPICS.indexOf(selectedSlug()) === -1);
+    }
+
+    if (form.category) {
+      form.category.addEventListener('change', syncDiscordCta);
+    }
+
+    function showError(msg) {
+      errorText.textContent = msg || 'Something went wrong. Please try again.';
+      errorBox.hidden = false;
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideError() {
+      errorBox.hidden = true;
+    }
+
+    function showSuccess() {
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Native HTML5 validation guards the no-JS POST fallback and also blocks
+    // this submit handler from firing until the form is valid, so there's no
+    // need to re-check validity here.
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      hideError();
+
+      var submitBtn = form.querySelector('button[type=submit]');
+      var submitLabel = submitBtn.querySelector('.btn-label') || submitBtn;
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Sending...';
+
+      // Build the Web3Forms email subject line from the chosen category's slug.
+      var slug = form.category.options[form.category.selectedIndex]?.dataset.slug;
+      form.subject.value = (prefixMap[slug] || '[CONTACT] ') + form.subject_user.value;
+
+      var data = new FormData(form);
+
+      try {
+        // The `Accept: application/json` header makes Web3Forms return JSON
+        // (instead of following the hidden `redirect` field), so AJAX works
+        // while the redirect still serves the no-JS fallback.
+        var res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        });
+        var json = await res.json();
+        if (json.success) {
+          showSuccess();
+        } else {
+          showError(json.message || 'Submission failed. Please try again.');
+        }
+      } catch (err) {
+        showError('Network error — please try again later.');
+      } finally {
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Send Message';
+      }
+    });
+
+    // ── Deep-link: pre-select a category from a ?topic= query param ──
+    // Accepted query slugs are kept stable for inbound links and mapped to the
+    // option data-slug (note: ?topic=partnership targets the "testbed" option).
+    var topicMap = {
+      register:    'register',
+      competition: 'competition',
+      partner:     'partner',
+      workshop:    'workshop',
+      media:       'media',
+      tech:        'tech',
+      partnership: 'testbed'
+    };
+    try {
+      var topic = new URLSearchParams(location.search).get('topic');
+      var wantedSlug = topic ? topicMap[topic.trim().toLowerCase()] : null;
+      var categoryEl = form.category;
+      var matchOpt = wantedSlug && categoryEl
+        ? [].find.call(categoryEl.options, function (o) { return o.dataset.slug === wantedSlug; })
+        : null;
+      if (matchOpt) {
+        categoryEl.value = matchOpt.value;
+        // The deep-link sets .value directly and does NOT dispatch 'change',
+        // so the CTA must be synced explicitly here.
+        syncDiscordCta();
+        // Land the user ready to type: bring the form into view and focus Name.
+        // (Use getElementById, not form.name — form.name is the form's own
+        //  name property, not the Name <input>.)
+        var card = document.querySelector('.contact-card') || categoryEl;
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var nameEl = document.getElementById('name');
+        if (nameEl && nameEl.focus) {
+          nameEl.focus({ preventScroll: true });
+        }
+      }
+    } catch (e) {
+      /* deep-link is a progressive enhancement; ignore any failure */
+    }
+
+    // Initial load (covers the no-deep-link case and a browser-restored value).
+    syncDiscordCta();
+  })();
+</script>
+{% endraw %}

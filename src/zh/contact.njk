@@ -1,8 +1,8 @@
 ---
-permalink: "contact.html"
+permalink: "/zh/contact.html"
 bodyClass: "page-contact"
-keywords: "EBiM Benchmark contact, embodied bimanual manipulation contact, competition question, workshop poster submission, partnership inquiry, robotics benchmark"
-canonical: "https://ebim-benchmark.github.io/contact.html"
+keywords: "EBiM Benchmark 联系方式, 具身双臂操作联系, 竞赛咨询, 研讨会海报投稿, 合作咨询, 机器人基准"
+canonical: "https://ebim-benchmark.github.io/zh/contact.html"
 headComments: true
 backToTop: true
 navActive: "contact"
@@ -14,21 +14,21 @@ i18nKey: contact
   <!-- Open Graph -->
   <meta property="og:type"            content="website" />
   <meta property="og:site_name"       content="EBiM Benchmark" />
-  <meta property="og:url"             content="https://ebim-benchmark.github.io/contact.html" />
+  <meta property="og:url"             content="https://ebim-benchmark.github.io/zh/contact.html" />
   <meta property="og:title"           content="{{ pageMeta.ogTitle | safe }}" />
   <meta property="og:description"     content="{{ pageMeta.ogDescription | safe }}" />
   <meta property="og:image"           content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"     content="1200" />
   <meta property="og:image:height"    content="630" />
-  <meta property="og:image:alt"       content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-  <meta property="og:locale"          content="en_US" />
+  <meta property="og:image:alt"       content="EBiM Benchmark — 迈向面向真实世界具身双臂操作的全球协同基准" />
+  <meta property="og:locale"          content="zh_CN" />
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"           content="summary_large_image" />
   <meta name="twitter:title"          content="{{ pageMeta.twitterTitle | safe }}" />
   <meta name="twitter:description"    content="{{ pageMeta.twitterDescription | safe }}" />
   <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
-  <meta name="twitter:image:alt"      content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+  <meta name="twitter:image:alt"      content="EBiM Benchmark — 迈向面向真实世界具身双臂操作的全球协同基准" />
 {% include "jsonld.njk" %}
 {% endblock %}
 
@@ -308,18 +308,18 @@ i18nKey: contact
       <span class="hero-wordmark-sub">Benchmark</span>
     </div>
 
-    <div class="breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Home</a>
+    <div class="breadcrumb" aria-label="面包屑导航">
+      <a href="index.html">首页</a>
       <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">Contact</span>
+      <span class="breadcrumb-current">联系</span>
     </div>
 
-    <h1 class="subhero-title">Contact Us</h1>
+    <h1 class="subhero-title">联系我们</h1>
     <p class="subhero-subtitle">
-      Have a question? Send us a message and we'll route it to the right person on the team.
+      有疑问？给我们留言，我们会转交给团队中对应的同事。
     </p>
     <p class="subhero-note">
-      For the fastest response, please pick the category that best matches your inquiry.
+      为获得最快回复，请选择最符合你咨询内容的类别。
     </p>
   </div>
 </section>
@@ -342,16 +342,16 @@ i18nKey: contact
 
           <!-- Name -->
           <div class="form-field">
-            <label class="form-label" for="name">Your Name <span class="req" aria-hidden="true">*</span></label>
+            <label class="form-label" for="name">你的姓名 <span class="req" aria-hidden="true">*</span></label>
             <input class="form-input" type="text" id="name" name="name" maxlength="120"
-                   required autocomplete="name" placeholder="Jane Doe" />
+                   required autocomplete="name" placeholder="张三" />
           </div>
 
           <!-- Email -->
           <div class="form-field">
             <label class="form-label" for="email">
-              Your Email <span class="req" aria-hidden="true">*</span>
-              <span class="form-label-note">This is where we'll reply.</span>
+              你的邮箱 <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">我们将通过此邮箱回复。</span>
             </label>
             <input class="form-input" type="email" id="email" name="email" maxlength="200"
                    required autocomplete="email" placeholder="you@example.com" />
@@ -360,25 +360,25 @@ i18nKey: contact
           <!-- Affiliation -->
           <div class="form-field">
             <label class="form-label" for="affiliation">
-              Affiliation <span class="form-label-note">(optional)</span>
+              所属机构 <span class="form-label-note">（可选）</span>
             </label>
             <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200"
-                   autocomplete="organization" placeholder="University / Company / Lab" />
+                   autocomplete="organization" placeholder="高校 / 公司 / 实验室" />
           </div>
 
           <!-- Category -->
           <div class="form-field">
-            <label class="form-label" for="category">Category <span class="req" aria-hidden="true">*</span></label>
+            <label class="form-label" for="category">类别 <span class="req" aria-hidden="true">*</span></label>
             <select class="form-select" id="category" name="category" required>
-              <option value="" disabled selected>Select a category</option>
-              <option value="Competition Question" data-slug="competition">Competition Question</option>
-              <option value="Competition — Register Interest" data-slug="register">Competition — Register Interest</option>
-              <option value="Workshop / Poster Submission" data-slug="workshop">Workshop / Poster Submission</option>
-              <option value="Partnership Inquiry" data-slug="partner">Partnership — Hardware, Funding &amp; Compute</option>
-              <option value="Media / Press" data-slug="media">Media / Press</option>
-              <option value="Technical (Platform / Website)" data-slug="tech">Technical (Platform / Website)</option>
-              <option value="Partnership / Testbed Hosting" data-slug="testbed">Partnership — Testbed Hosting</option>
-              <option value="Other / General" data-slug="other">Other / General</option>
+              <option value="" disabled selected>请选择类别</option>
+              <option value="Competition Question" data-slug="competition">竞赛咨询</option>
+              <option value="Competition — Register Interest" data-slug="register">竞赛 —— 登记意向</option>
+              <option value="Workshop / Poster Submission" data-slug="workshop">研讨会 / 海报投稿</option>
+              <option value="Partnership Inquiry" data-slug="partner">合作 —— 硬件、资金与算力</option>
+              <option value="Media / Press" data-slug="media">媒体 / 新闻</option>
+              <option value="Technical (Platform / Website)" data-slug="tech">技术（平台 / 网站）</option>
+              <option value="Partnership / Testbed Hosting" data-slug="testbed">合作 —— 测试平台托管</option>
+              <option value="Other / General" data-slug="other">其他 / 一般咨询</option>
             </select>
           </div>
 
@@ -389,24 +389,24 @@ i18nKey: contact
               <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.63 1.612-1.438 1.612Z"/>
             </svg>
             <span class="discord-cta-text">
-              The fastest way to reach us is our
+              联系我们最快的方式是我们的
               <a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord <span aria-hidden="true">→</span></a>
             </span>
-            <span class="discord-cta-note">You can still use this form — we read both.</span>
+            <span class="discord-cta-note">你仍然可以使用此表单 —— 两边我们都会查看。</span>
           </div>
 
           <!-- Subject (user-facing; the Web3Forms email subject is set on submit) -->
           <div class="form-field">
-            <label class="form-label" for="subject_user">Subject <span class="req" aria-hidden="true">*</span></label>
+            <label class="form-label" for="subject_user">主题 <span class="req" aria-hidden="true">*</span></label>
             <input class="form-input" type="text" id="subject_user" name="subject_user" maxlength="200"
-                   required placeholder="Brief description of your question" />
+                   required placeholder="简要描述你的问题" />
           </div>
 
           <!-- Message -->
           <div class="form-field">
-            <label class="form-label" for="message">Message <span class="req" aria-hidden="true">*</span></label>
+            <label class="form-label" for="message">留言 <span class="req" aria-hidden="true">*</span></label>
             <textarea class="form-textarea" id="message" name="message" rows="6" maxlength="5000"
-                      required placeholder="Tell us a bit more about how we can help…"></textarea>
+                      required placeholder="请多告诉我们一些，我们能如何帮助你……"></textarea>
           </div>
 
           <!-- Hidden Web3Forms fields -->
@@ -424,14 +424,14 @@ i18nKey: contact
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span id="formErrorText">Something went wrong. Please try again.</span>
+            <span id="formErrorText">出了点问题，请重试。</span>
           </div>
 
           <button type="submit" class="btn btn-submit">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
             </svg>
-            <span class="btn-label">Send Message</span>
+            <span class="btn-label">发送留言</span>
           </button>
 
         </div>
@@ -445,17 +445,16 @@ i18nKey: contact
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h2>Thanks!</h2>
-        <p>We've received your message and will respond within 3–5 business days.</p>
-        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">Back to Home</a>
+        <h2>感谢！</h2>
+        <p>我们已收到你的留言，将在 3–5 个工作日内回复。</p>
+        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">返回首页</a>
       </div>
 
     </div>
 
     <p class="contact-privacy fade-in">
-      We use your information only to respond to your message. We don't share it with third
-      parties and won't add you to any mailing list. Submissions are processed by Web3Forms
-      and routed to our team inbox.
+      我们仅使用你的信息来回复你的留言。我们不会将其分享给第三方，也不会将你加入任何邮件列表。
+      提交内容由 Web3Forms 处理，并转发至我们的团队邮箱。
     </p>
 
   </div>
@@ -465,8 +464,8 @@ i18nKey: contact
 </main>
 {% endraw %}{% endblock %}
 
-{# Contact-form behavior (subject prefix + AJAX submit + Discord CTA + ?topic=
-   deep-link) is single-sourced in _includes/contact-form-script.njk and shared
-   verbatim with src/zh/contact.njk — the JS is language-agnostic (keys off each
-   option's data-slug, never the visible label). #}
+{# Contact-form behavior is single-sourced in _includes/contact-form-script.njk
+   and shared verbatim with the EN src/contact.njk — language-agnostic JS (keys
+   off each option's data-slug, never the visible label), so the zh draft's form
+   submits the identical Web3Forms payload. #}
 {% block trailingScripts %}{% include "contact-form-script.njk" %}{% endblock %}

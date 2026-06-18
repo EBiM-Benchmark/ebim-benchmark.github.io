@@ -1,5 +1,5 @@
 {
-  "_comment": "Simplified-Chinese strings (machine draft from Phase 1b; native-reviewed and published in Phase 1d). Mirrors every key in en.json; resolved per page via the eleventyComputed `t` lookup (lang: zh), with English fallback for any missing key. Proper nouns / org & person names / the brand 'EBiM Benchmark' / product names (Mobile FR3 Duo) are kept as-is; prose, UI labels, headings and meta are translated. HTML entities (&amp;/&nbsp;/&copy;/&mdash;) are kept literal and emitted with the `safe` filter, exactly as in en.json.",
+  "_comment": "Simplified-Chinese strings. index/competition: machine draft from Phase 1b, native-reviewed and published in Phase 1d. workshop/contact meta + jsonld: machine draft added in Phase 2b (UNPUBLISHED drafts awaiting native review). Mirrors every key in en.json; resolved per page via the eleventyComputed `t` lookup (lang: zh), with English fallback for any missing key. Proper nouns / org & person names / the brand 'EBiM Benchmark' / product names (Mobile FR3 Duo) are kept as-is; prose, UI labels, headings and meta are translated. HTML entities (&amp;/&nbsp;/&copy;/&mdash;) are kept literal and emitted with the `safe` filter, exactly as in en.json.",
 
   "brand": {
     "mark": "EBiM",
@@ -79,6 +79,22 @@
       "ogDescription": "开放仿真基准，并在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。",
       "twitterTitle": "EBiM 竞赛 · 跨大洲机器人基准",
       "twitterDescription": "开放仿真基准，并在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。"
+    },
+    "workshop": {
+      "title": "EBiM Benchmark 研讨会 · 具身双臂操作",
+      "description": "为期半天的 EBiM Benchmark 研讨会，聚焦具身双臂操作：4 场特邀报告、一场关于基准化的专家圆桌、海报展示与颁奖。",
+      "ogTitle": "EBiM Benchmark 研讨会 · 具身双臂操作",
+      "ogDescription": "为期半天的 EBiM Benchmark 研讨会，聚焦具身双臂操作：4 场特邀报告、一场关于基准化的专家圆桌、海报展示与颁奖。",
+      "twitterTitle": "EBiM Benchmark 研讨会 · 具身双臂操作",
+      "twitterDescription": "为期半天的 EBiM Benchmark 研讨会，聚焦具身双臂操作：4 场特邀报告、一场关于基准化的专家圆桌、海报展示与颁奖。"
+    },
+    "contact": {
+      "title": "联系我们 · EBiM Benchmark",
+      "description": "对 EBiM Benchmark 的竞赛、研讨会、合作或平台有疑问？发送一条带分类的留言，我们会转交给对应的团队。",
+      "ogTitle": "联系我们 · EBiM Benchmark",
+      "ogDescription": "向 EBiM Benchmark 团队发送一条带分类的留言 —— 竞赛、研讨会、合作、媒体、技术或测试平台托管等咨询。",
+      "twitterTitle": "联系我们 · EBiM Benchmark",
+      "twitterDescription": "向 EBiM Benchmark 团队发送一条带分类的留言 —— 竞赛、研讨会、合作、媒体、技术或测试平台托管等咨询。"
     }
   },
 
@@ -97,6 +113,14 @@
     ],
     "contactType": "一般咨询",
     "breadcrumbHome": "首页",
-    "breadcrumbCompetition": "竞赛"
+    "breadcrumbCompetition": "竞赛",
+    "eventNameWorkshop": "EBiM Benchmark 具身双臂操作研讨会",
+    "eventDescriptionWorkshop": "特邀报告、圆桌讨论、海报展示与竞赛颁奖。日期与地点待定。",
+    "talkTitleTba": "报告题目待公布",
+    "panelName": "圆桌讨论：具身机器人的基准化标准",
+    "breadcrumbWorkshop": "研讨会",
+    "contactPageName": "联系我们 · EBiM Benchmark",
+    "contactPageDescription": "EBiM Benchmark 具身双臂操作计划的联系表单。",
+    "breadcrumbContact": "联系"
   }
 }
