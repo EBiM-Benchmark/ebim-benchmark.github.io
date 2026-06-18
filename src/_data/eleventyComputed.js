@@ -5,12 +5,14 @@
 //             locale overrides). 1a ships only `en`, so every lookup is en.
 //             Templates read `t.nav.*`, `t.footer.*`, `t.jsonld.*`, etc.
 //   pageMeta — the head-meta string set for pages that opt in via `i18nKey`
-//             (index/competition only); undefined elsewhere so base.njk falls
-//             back to the front-matter title/description.
+//             (index/competition) or `pageKey` (workshop/contact — EN-only,
+//             see below); undefined elsewhere so base.njk falls back to the
+//             front-matter title/description.
 //   jsonLd  — the assembled JSON-LD block list (comment + object) for the
-//             index/competition pages, rendered by _includes/jsonld.njk.
-//             Sourced from the language-neutral `event` data + translatable
-//             `t.jsonld` strings; deep-equal to the hand-authored blocks.
+//             index/competition/workshop/contact pages, rendered by
+//             _includes/jsonld.njk. Sourced from the language-neutral `event`
+//             data + translatable `t.jsonld` strings; deep-equal to the
+//             hand-authored blocks.
 
 function deepMerge(base, over) {
   if (over === undefined) return base;
@@ -140,15 +142,24 @@ export default {
     return { active: isZh(data) ? "zh" : "en", enHref: hrefs.en, zhHref: hrefs.zh };
   },
 
+  // The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
+  // and the jsonld.* strings). `i18nKey` (index/competition — pages with a
+  // localized /zh/ counterpart) doubles as this key; `pageKey` is the EN-only
+  // equivalent for pages that draw from the shared data WITHOUT participating in
+  // localization (workshop/contact in Phase 2a — no hreflang, no toggle, no
+  // /zh/ output). localeToggle/hreflangAlternates stay keyed on i18nKey alone,
+  // so a pageKey-only page never lights those up. Phase 2b promotes a page from
+  // pageKey → i18nKey when its /zh/ counterpart ships.
   pageMeta: (data) => {
-    if (!data.i18nKey) return undefined;
+    const key = data.i18nKey || data.pageKey;
+    if (!key) return undefined;
     const t = resolveLocale(data);
-    return (t.meta || {})[data.i18nKey];
+    return (t.meta || {})[key];
   },
 
   jsonLd: (data) => {
-    const key = data.i18nKey;
-    if (key !== "index" && key !== "competition") return undefined;
+    const key = data.i18nKey || data.pageKey;
+    if (!["index", "competition", "workshop", "contact"].includes(key)) return undefined;
     const ev = data.event;
     const t = resolveLocale(data);
     const j = t.jsonld;
@@ -181,31 +192,106 @@ export default {
       ];
     }
 
-    // competition
+    if (key === "competition") {
+      return [
+        {
+          comment: "Structured data: Competition Event",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: j.eventNameCompetition,
+            description: j.eventDescriptionCompetition,
+            startDate: ev.startDate,
+            endDate: ev.endDate,
+            eventStatus: ev.eventStatus,
+            eventAttendanceMode: ev.eventAttendanceMode,
+            location: ev.testbedAddresses.map((address, i) => ({
+              "@type": "Place",
+              name: j.testbedNames[i],
+              address,
+            })),
+            organizer: ev.organizersCompetition,
+            url: data.canonical,
+            image: ev.image,
+            sponsor: ev.sponsors,
+          },
+        },
+        { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
+        {
+          comment: "Structured data: Breadcrumbs",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: j.breadcrumbHome, item: ev.siteUrl },
+              { "@type": "ListItem", position: 2, name: j.breadcrumbCompetition, item: data.canonical },
+            ],
+          },
+        },
+      ];
+    }
+
+    if (key === "workshop") {
+      // Rich workshop Event: NO start/end date (TBD), its own Offline attendance
+      // mode, a placeholder Place, organizer Orgs, and nested subEvents — four
+      // identical "talk" placeholders plus the panel (translatable subEvent
+      // names; neutral panelist Persons + affiliations). Deep-equal to the
+      // hand-authored block proves the lift is faithful.
+      return [
+        {
+          comment: "Structured data: Workshop Event with sub-events for each talk + panel",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: j.eventNameWorkshop,
+            description: j.eventDescriptionWorkshop,
+            eventStatus: ev.workshopEventStatus,
+            eventAttendanceMode: ev.workshopEventAttendanceMode,
+            location: ev.workshopLocation,
+            url: data.canonical,
+            image: ev.image,
+            organizer: ev.workshopOrganizers,
+            subEvent: [
+              { "@type": "Event", name: j.talkTitleTba },
+              { "@type": "Event", name: j.talkTitleTba },
+              { "@type": "Event", name: j.talkTitleTba },
+              { "@type": "Event", name: j.talkTitleTba },
+              { "@type": "Event", name: j.panelName, performer: ev.panelPanelists },
+            ],
+          },
+        },
+        { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
+        {
+          comment: "Structured data: Breadcrumbs",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: j.breadcrumbHome, item: ev.siteUrl },
+              { "@type": "ListItem", position: 2, name: j.breadcrumbWorkshop, item: data.canonical },
+            ],
+          },
+        },
+      ];
+    }
+
+    // contact
     return [
       {
-        comment: "Structured data: Competition Event",
+        comment: "Structured data: ContactPage",
         data: {
           "@context": "https://schema.org",
-          "@type": "Event",
-          name: j.eventNameCompetition,
-          description: j.eventDescriptionCompetition,
-          startDate: ev.startDate,
-          endDate: ev.endDate,
-          eventStatus: ev.eventStatus,
-          eventAttendanceMode: ev.eventAttendanceMode,
-          location: ev.testbedAddresses.map((address, i) => ({
-            "@type": "Place",
-            name: j.testbedNames[i],
-            address,
-          })),
-          organizer: ev.organizersCompetition,
+          "@type": "ContactPage",
+          name: j.contactPageName,
           url: data.canonical,
-          image: ev.image,
-          sponsor: ev.sponsors,
+          description: j.contactPageDescription,
+          isPartOf: {
+            "@type": "WebSite",
+            name: ev.brand,
+            url: ev.siteUrl,
+          },
         },
       },
-      { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
       {
         comment: "Structured data: Breadcrumbs",
         data: {
@@ -213,7 +299,7 @@ export default {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: j.breadcrumbHome, item: ev.siteUrl },
-            { "@type": "ListItem", position: 2, name: j.breadcrumbCompetition, item: data.canonical },
+            { "@type": "ListItem", position: 2, name: j.breadcrumbContact, item: data.canonical },
           ],
         },
       },

@@ -79,6 +79,22 @@
       "ogDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living.",
       "twitterTitle": "The EBiM Competition · Cross-Continent Robot Benchmark",
       "twitterDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living."
+    },
+    "workshop": {
+      "title": "EBiM Benchmark Workshop · Embodied Bimanual Manipulation",
+      "description": "Half-day EBiM Benchmark workshop on embodied bimanual manipulation: 4 invited talks, an expert panel on benchmarking, a poster session, and awards.",
+      "ogTitle": "EBiM Benchmark Workshop · Embodied Bimanual Manipulation",
+      "ogDescription": "Half-day EBiM Benchmark workshop on embodied bimanual manipulation: 4 invited talks, an expert panel on benchmarking, a poster session, and awards.",
+      "twitterTitle": "EBiM Benchmark Workshop · Embodied Bimanual Manipulation",
+      "twitterDescription": "Half-day EBiM Benchmark workshop on embodied bimanual manipulation: 4 invited talks, an expert panel on benchmarking, a poster session, and awards."
+    },
+    "contact": {
+      "title": "Contact · EBiM Benchmark",
+      "description": "Have a question about the EBiM Benchmark competition, workshop, partnership, or platform? Send a categorized message and we'll route it to the right team.",
+      "ogTitle": "Contact · EBiM Benchmark",
+      "ogDescription": "Send the EBiM Benchmark team a categorized message — competition, workshop, partnership, media, technical, or testbed-hosting inquiries.",
+      "twitterTitle": "Contact · EBiM Benchmark",
+      "twitterDescription": "Send the EBiM Benchmark team a categorized message — competition, workshop, partnership, media, technical, or testbed-hosting inquiries."
     }
   },
 
@@ -97,6 +113,14 @@
     ],
     "contactType": "general inquiries",
     "breadcrumbHome": "Home",
-    "breadcrumbCompetition": "Competition"
+    "breadcrumbCompetition": "Competition",
+    "breadcrumbWorkshop": "Workshop",
+    "breadcrumbContact": "Contact",
+    "eventNameWorkshop": "EBiM Benchmark Workshop on Embodied Bimanual Manipulation",
+    "eventDescriptionWorkshop": "Invited talks, panel discussion, poster session, and competition awards. Date and venue to be announced.",
+    "talkTitleTba": "Talk title to be announced",
+    "panelName": "Panel: Benchmarking Standards for Embodied Robots",
+    "contactPageName": "Contact · EBiM Benchmark",
+    "contactPageDescription": "Contact form for the EBiM Benchmark initiative on embodied bimanual manipulation."
   }
 }

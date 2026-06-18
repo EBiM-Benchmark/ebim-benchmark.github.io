@@ -1,23 +1,22 @@
 ---
 permalink: "workshop.html"
 bodyClass: "page-workshop"
-title: "EBiM Benchmark Workshop · Embodied Bimanual Manipulation"
-description: "Half-day EBiM Benchmark workshop on embodied bimanual manipulation: 4 invited talks, an expert panel on benchmarking, a poster session, and awards."
 keywords: "embodied AI workshop, robot manipulation symposium, robotics panel, mobile manipulation talks, bimanual manipulation benchmark, foundation models, real-world mobile manipulation, whole-body manipulation"
 canonical: "https://ebim-benchmark.github.io/workshop.html"
 siteVerification: true
 headComments: true
 backToTop: true
+pageKey: workshop
 ---
 {% extends "layouts/base.njk" %}
 
-{% block headStructured %}{% raw %}
+{% block headStructured %}
   <!-- Open Graph -->
   <meta property="og:type"            content="website" />
   <meta property="og:site_name"       content="EBiM Benchmark" />
   <meta property="og:url"             content="https://ebim-benchmark.github.io/workshop.html" />
-  <meta property="og:title"           content="EBiM Benchmark Workshop · Embodied Bimanual Manipulation" />
-  <meta property="og:description"     content="Half-day EBiM Benchmark workshop on embodied bimanual manipulation: 4 invited talks, an expert panel on benchmarking, a poster session, and awards." />
+  <meta property="og:title"           content="{{ pageMeta.ogTitle | safe }}" />
+  <meta property="og:description"     content="{{ pageMeta.ogDescription | safe }}" />
   <meta property="og:image"           content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"     content="1200" />
   <meta property="og:image:height"    content="630" />
@@ -26,90 +25,12 @@ backToTop: true
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"           content="summary_large_image" />
-  <meta name="twitter:title"          content="EBiM Benchmark Workshop · Embodied Bimanual Manipulation" />
-  <meta name="twitter:description"    content="Half-day EBiM Benchmark workshop on embodied bimanual manipulation: 4 invited talks, an expert panel on benchmarking, a poster session, and awards." />
+  <meta name="twitter:title"          content="{{ pageMeta.twitterTitle | safe }}" />
+  <meta name="twitter:description"    content="{{ pageMeta.twitterDescription | safe }}" />
   <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"      content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-
-  <!-- Structured data: Workshop Event with sub-events for each talk + panel -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "EBiM Benchmark Workshop on Embodied Bimanual Manipulation",
-    "description": "Invited talks, panel discussion, poster session, and competition awards. Date and venue to be announced.",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "location": {
-      "@type": "Place",
-      "name": "To be announced"
-    },
-    "url": "https://ebim-benchmark.github.io/workshop.html",
-    "image": "https://ebim-benchmark.github.io/img/og-cover.png",
-    "organizer": [
-      {"@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/"},
-      {"@type": "Organization", "name": "Carnegie Mellon University", "url": "https://www.cmu.edu/"}
-    ],
-    "subEvent": [
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Talk title to be announced"
-      },
-      {
-        "@type": "Event",
-        "name": "Panel: Benchmarking Standards for Embodied Robots",
-        "performer": [
-          {"@type": "Person", "name": "Stefan Schaal", "affiliation": {"@type": "Organization", "name": "Intrinsic"}},
-          {"@type": "Person", "name": "Kenny Kimble", "affiliation": {"@type": "Organization", "name": "NIST"}},
-          {"@type": "Person", "name": "Sven Parusel", "affiliation": {"@type": "Organization", "name": "Franka Robotics"}},
-          {"@type": "Person", "name": "Shaowei Cui", "affiliation": {"@type": "Organization", "name": "SCUT"}}
-        ]
-      }
-    ]
-  }
-  </script>
-
-  <!-- Structured data: Organization schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "EBiM Benchmark",
-    "url": "https://ebim-benchmark.github.io/",
-    "logo": "https://ebim-benchmark.github.io/img/favicon.svg",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "general inquiries",
-      "url": "https://ebim-benchmark.github.io/contact.html"
-    },
-    "sameAs": ["https://github.com/EBiM-Benchmark"]
-  }
-  </script>
-
-  <!-- Structured data: Breadcrumbs -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ebim-benchmark.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Workshop", "item": "https://ebim-benchmark.github.io/workshop.html"}
-    ]
-  }
-  </script>
-{% endraw %}{% endblock %}
+{% include "jsonld.njk" %}
+{% endblock %}
 
 {% block headStyle %}{% raw %}
   <!-- Critical CSS inlined to prevent FOUC -->
