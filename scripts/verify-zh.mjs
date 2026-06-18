@@ -245,8 +245,12 @@ function pageChecks(p) {
   add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
   add("footer", /<footer id="footer"/.test(html), "footer did not render");
 
-  // Localized targets resolve under /zh/ (relative, no ../); EN targets use ../.
-  // Scoped to real markup (style/script stripped) so CSS selectors aren't links.
+  // Localized targets resolve under /zh/ (relative, no ../); the workshop +
+  // contact DRAFTS point up to EN (../) — matching the hardcoded zh bodies + the
+  // links() chrome, so published pages stay byte-identical and drafts stay
+  // unlinked. Scoped to real markup (style/script stripped) so a CSS selector
+  // like `a[href="contact.html"]` isn't mistaken for a link. (When a draft is
+  // published its body/nav links flip to relative — update these checks then.)
   const linkHtml = stripStyleScript(html);
   add(
     "links→zh (index/competition)",
