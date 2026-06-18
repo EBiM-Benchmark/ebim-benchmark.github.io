@@ -5,7 +5,10 @@
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
 // is actually localized, for the FOUR pages we now ship: /zh/index.html,
-// /zh/competition.html, /zh/workshop.html, /zh/contact.html.
+// /zh/competition.html, /zh/workshop.html, /zh/contact.html. It also covers the
+// hidden /zh/contact-success.html utility page (the no-JS target of the zh
+// contact form's redirect) — a plain noindex zh page with no hreflang/toggle and
+// out of the sitemap (see contactSuccessChecks below).
 //
 // Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
 // by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
@@ -337,7 +340,7 @@ function pageChecks(p) {
       ['name="access_key" value="748f5c30-e7fd-49b0-9eb5-5c1c92f03f78"', "access_key hidden field"],
       ['name="from_name" value="EBiM Benchmark Website Contact"', "from_name hidden field"],
       ['name="subject" value="[CONTACT] New contact form submission"', "subject hidden field"],
-      ['name="redirect" value="https://ebim-benchmark.github.io/contact-success.html"', "redirect → EN contact-success"],
+      ['name="redirect" value="https://ebim-benchmark.github.io/zh/contact-success.html"', "redirect → zh contact-success"],
       ['name="botcheck"', "honeypot field"],
       ['action="https://api.web3forms.com/submit"', "form action"],
     ]) {
@@ -354,6 +357,61 @@ function pageChecks(p) {
       "zh contact inline JS differs from EN (must be single-sourced)",
     );
   }
+
+  return checks;
+}
+
+// The hidden /zh/ utility page: the no-JS target of the zh contact form's
+// redirect (src/zh/contact-success.njk). It is NOT one of the four localized
+// PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
+// and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
+// the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN
+// contact-success.html, localized. Living under src/zh/ gives it lang="zh-Hans",
+// ../ assets, and the zh navbar/footer.
+function contactSuccessChecks() {
+  const file = "zh/contact-success.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/contact-success.html" />',
+    ),
+    "expected self canonical to /zh/contact-success.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden utility page must emit no hreflang");
+  add(
+    "no language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden utility page must not render the language toggle",
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../css/style.css"') && html.includes('src="../js/main.js"'),
+    "expected ../css/style.css and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
 
   return checks;
 }
@@ -380,6 +438,17 @@ function main() {
     }
     console.log("");
   }
+
+  // ── hidden /zh/ utility page (contact-success) ──
+  console.log(BOLD("• zh/contact-success.html  (HIDDEN UTILITY)"));
+  for (const c of contactSuccessChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/contact-success.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
 
   // ── site-wide ──
   console.log(BOLD("• site-wide"));
@@ -416,6 +485,13 @@ function main() {
     `sitemap has ${expectedTotal} URLs (4 EN + ${expectedZhUrls} zh)`,
     locCount === expectedTotal,
     `expected ${expectedTotal} <loc>, found ${locCount}`,
+  );
+
+  // The hidden zh utility page must never be listed in the sitemap.
+  siteAdd(
+    "sitemap excludes /zh/contact-success.html (hidden utility)",
+    !sitemap.includes("/zh/contact-success.html"),
+    "/zh/contact-success.html must not appear in sitemap.xml",
   );
 
   // hreflang sweep: exactly the published localized pairs (EN + /zh/), nothing else.

@@ -5,6 +5,10 @@ title: "Page Not Found · EBiM Benchmark"
 description: "The page you were looking for doesn't exist. Return to the EBiM Benchmark home, Competition, or Workshop pages."
 canonical: "https://ebim-benchmark.github.io/404.html"
 robots: "noindex"
+# GitHub Pages serves this single /404.html for a miss at ANY URL depth (incl.
+# /zh/…). absoluteUrls makes assetBase + the navbar/footer links root-absolute
+# (see src/_data/eleventyComputed.js) so assets and chrome resolve from any depth.
+absoluteUrls: true
 ---
 {% extends "layouts/base.njk" %}
 
@@ -80,22 +84,53 @@ robots: "noindex"
   <section id="notfound">
     <div class="notfound-content">
       <div class="notfound-code" aria-hidden="true">404</div>
-      <h1 class="notfound-title">Page Not Found</h1>
-      <p class="notfound-message">
+      <h1 class="notfound-title" id="nf-title">Page Not Found</h1>
+      <p class="notfound-message" id="nf-message">
         The page you were looking for doesn't exist or has moved. Try one of the links below
         to find what you need.
       </p>
       <div class="notfound-actions">
-        <a href="index.html" class="btn btn-primary">
+        <a href="/index.html" class="btn btn-primary" id="nf-home">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146z"/>
           </svg>
-          Back to Home
+          <span id="nf-home-label">Back to Home</span>
         </a>
-        <a href="competition.html" class="btn btn-outline">View Competition</a>
-        <a href="workshop.html" class="btn btn-outline">View Workshop</a>
+        <a href="/competition.html" class="btn btn-outline" id="nf-competition">View Competition</a>
+        <a href="/workshop.html" class="btn btn-outline" id="nf-workshop">View Workshop</a>
       </div>
     </div>
   </section>
 </main>
+{% endraw %}{% endblock %}
+
+{# The single /404.html is served by GitHub Pages for a miss at ANY depth,
+   including under /zh/. The server render is English (what gets baselined); this
+   tiny dependency-free script localizes the copy + retargets the buttons to the
+   /zh/ pages when the missed path is under /zh/. No-JS users keep the English
+   default. Runtime-only — the swap never appears in the baselined output. #}
+{% block trailingScripts %}{% raw %}
+<script>
+  (function () {
+    if (!/^\/zh(\/|$)/.test(location.pathname)) return;
+    var setText = function (id, text) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    var setHref = function (id, url) {
+      var el = document.getElementById(id);
+      if (el) el.setAttribute('href', url);
+    };
+    document.documentElement.setAttribute('lang', 'zh-Hans');
+    document.title = '页面未找到 · EBiM Benchmark';
+    setText('nf-title', '页面未找到');
+    setText('nf-message', '你访问的页面不存在或已被移动。请通过以下链接找到你需要的内容。');
+    setText('nf-home-label', '返回首页');
+    setHref('nf-home', '/zh/');
+    setText('nf-competition', '查看竞赛');
+    setHref('nf-competition', '/zh/competition.html');
+    setText('nf-workshop', '查看研讨会');
+    setHref('nf-workshop', '/zh/workshop.html');
+  })();
+</script>
 {% endraw %}{% endblock %}
