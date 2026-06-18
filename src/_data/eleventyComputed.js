@@ -35,6 +35,16 @@ function resolveLocale(data) {
 // locale-aware helper below branches on this; EN pages take the unchanged path.
 const isZh = (data) => (data.lang || "en") === "zh";
 
+// The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
+// and the jsonld.* strings). `i18nKey` (index/competition — pages with a
+// localized /zh/ counterpart) doubles as this key; `pageKey` is the EN-only
+// equivalent for pages that draw from the shared data WITHOUT participating in
+// localization (workshop/contact in Phase 2a — no hreflang, no toggle, no /zh/
+// output). localeToggle/hreflangAlternates stay keyed on i18nKey alone, so a
+// pageKey-only page never lights those up. Phase 2b promotes a page from
+// pageKey → i18nKey when its /zh/ counterpart ships.
+const pageDataKey = (data) => data.i18nKey || data.pageKey;
+
 // Cross-locale counterpart URLs for the in-page language toggle (navbar.njk),
 // keyed by i18nKey and RELATIVE to the page being rendered: `en` is the path to
 // the EN page (used on a /zh/ page, linking back to English), `zh` is the path
@@ -142,23 +152,18 @@ export default {
     return { active: isZh(data) ? "zh" : "en", enHref: hrefs.en, zhHref: hrefs.zh };
   },
 
-  // The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
-  // and the jsonld.* strings). `i18nKey` (index/competition — pages with a
-  // localized /zh/ counterpart) doubles as this key; `pageKey` is the EN-only
-  // equivalent for pages that draw from the shared data WITHOUT participating in
-  // localization (workshop/contact in Phase 2a — no hreflang, no toggle, no
-  // /zh/ output). localeToggle/hreflangAlternates stay keyed on i18nKey alone,
-  // so a pageKey-only page never lights those up. Phase 2b promotes a page from
-  // pageKey → i18nKey when its /zh/ counterpart ships.
+  // Head-meta string set, keyed by pageDataKey (i18nKey or pageKey). Undefined
+  // for pages with neither, so base.njk falls back to the front-matter
+  // title/description.
   pageMeta: (data) => {
-    const key = data.i18nKey || data.pageKey;
+    const key = pageDataKey(data);
     if (!key) return undefined;
     const t = resolveLocale(data);
     return (t.meta || {})[key];
   },
 
   jsonLd: (data) => {
-    const key = data.i18nKey || data.pageKey;
+    const key = pageDataKey(data);
     if (!["index", "competition", "workshop", "contact"].includes(key)) return undefined;
     const ev = data.event;
     const t = resolveLocale(data);
