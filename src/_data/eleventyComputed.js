@@ -119,7 +119,13 @@ export default {
   // page. EN pages live at the site root → "" (every asset link unchanged).
   // /zh/ pages live one directory down → "../" so css/style.css resolves to
   // /css/style.css, img/favicon.svg to /img/favicon.svg, etc.
-  assetBase: (data) => (isZh(data) ? "../" : ""),
+  //   absoluteUrls — the 404 ONLY (set in its front-matter). GitHub Pages serves
+  //   the single /404.html for a miss at ANY depth (e.g. /zh/bad-url), so a
+  //   relative or "../" base would resolve its assets under the missed directory
+  //   and break the page. "/" makes head.njk emit /css/style.css, /js/main.js,
+  //   /img/favicon.svg — correct from any depth. No other page sets the flag, so
+  //   every other page's assetBase is byte-identical to before.
+  assetBase: (data) => (data.absoluteUrls ? "/" : isZh(data) ? "../" : ""),
 
   // Locale-aware navigation targets for navbar.njk / footer.njk — CHROME only.
   // The page bodies hardcode their own links inside their translated raw blocks,
@@ -135,20 +141,31 @@ export default {
   // ../…). Publishing a future draft is a content edit, not just a flag flip:
   // repoint these AND the hardcoded body links to the /zh/ page, flip its
   // zhPublished flag, and re-baseline the EN fixture for its new hreflang cluster.
+  //   absoluteUrls — the 404 ONLY: root-absolute chrome links (/index.html etc.)
+  //   so the navbar/footer point at the real pages from a miss at ANY depth,
+  //   matching its root-absolute assetBase. Gated on the flag, so no other page
+  //   changes (the EN and zh branches below are byte-identical to before).
   links: (data) =>
-    isZh(data)
+    data.absoluteUrls
       ? {
-          index: "index.html",
-          competition: "competition.html",
-          workshop: "workshop.html",
-          contact: "contact.html",
+          index: "/index.html",
+          competition: "/competition.html",
+          workshop: "/workshop.html",
+          contact: "/contact.html",
         }
-      : {
-          index: "index.html",
-          competition: "competition.html",
-          workshop: "workshop.html",
-          contact: "contact.html",
-        },
+      : isZh(data)
+        ? {
+            index: "index.html",
+            competition: "competition.html",
+            workshop: "workshop.html",
+            contact: "contact.html",
+          }
+        : {
+            index: "index.html",
+            competition: "competition.html",
+            workshop: "workshop.html",
+            contact: "contact.html",
+          },
 
   // noindex directive for a /zh/ page while ITS page is a draft. A draft (its
   // zhPublished[key] flag is false) must not be indexed; flipping that flag to
