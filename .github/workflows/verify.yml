@@ -4,11 +4,12 @@ name: Build & EN parity
 # semantically identical to the golden fixtures in tests/baseline/
 # (see scripts/verify.mjs). The second step verifies the /zh/ Simplified-Chinese
 # locale against the _site the first step built — its assertions are gated PER
-# PAGE on site.zhPublished[i18nKey], so each page is checked against its own flag:
-# published invariants (no noindex, reciprocal hreflang, /zh/ in sitemap, toggle)
-# for index/competition and draft invariants (noindex, no hreflang/sitemap/toggle)
-# for the workshop/contact drafts (see scripts/verify-zh.mjs). Runs on every PR
-# and on pushes to main.
+# PAGE on site.zhPublished[i18nKey], so each page is checked against its own flag.
+# As of Phase 2c all four /zh/ pages are published, so each is asserted against
+# the published invariants (no noindex, reciprocal hreflang, /zh/ in sitemap,
+# language toggle); the harness stays dual-state, so returning any flag to false
+# re-asserts that page's draft invariants (see scripts/verify-zh.mjs). Runs on
+# every PR and on pushes to main.
 
 on:
   pull_request:
