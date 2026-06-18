@@ -38,8 +38,9 @@ const isZh = (data) => (data.lang || "en") === "zh";
 // Per-page publish gate. site.zhPublished is a map keyed by i18nKey (see
 // src/_data/site.json); a localized page is PUBLISHED iff its own key's flag is
 // true. Drives zhNoindex / hreflangAlternates / localeToggle so each page's SEO
-// surface (noindex, hreflang, sitemap, toggle) lights up independently — index +
-// competition are published while workshop + contact ship as drafts (false).
+// surface (noindex, hreflang, sitemap, toggle) lights up independently — all
+// four content pages (index, competition, workshop, contact) are published as of
+// Phase 2c (set a flag back to false to return that page to a draft).
 const isPublished = (data) => {
   const map = (data.site && data.site.zhPublished) || {};
   return map[data.i18nKey] === true;
@@ -62,8 +63,9 @@ const pageDataKey = (data) => data.i18nKey || data.pageKey;
 // to the /zh/ page (used on the EN page, linking out to 中文). These are the
 // SAME page pairs the reciprocal hreflang advertises — kept here as nav-relative
 // links (hreflangAlternates emits the absolute forms). All four localized pages
-// have a row; the toggle only RENDERS where isPublished is true, so workshop +
-// contact (drafts) stay toggle-less until their flag flips — no template change.
+// have a row; the toggle only RENDERS where isPublished is true — all four as of
+// Phase 2c (a page returned to draft would silently drop its toggle, no template
+// change).
 const TOGGLE_HREFS = {
   index: { en: "../", zh: "zh/" },
   competition: { en: "../competition.html", zh: "zh/competition.html" },
@@ -123,22 +125,23 @@ export default {
   // The page bodies hardcode their own links inside their translated raw blocks,
   // so these must MATCH the body links for each page (do NOT auto-flip on the
   // publish flag, or the navbar would diverge from the still-hardcoded body).
-  // EN keeps the exact current relative filenames (byte-identical render). For
-  // /zh/ pages, index + competition are localized (relative, under /zh/), while
-  // workshop + contact — shipping as /zh/ DRAFTS — point back up to their EN URLs
-  // (matching the zh bodies), so the published index/competition pages stay
-  // byte-identical and never link to a draft, and a draft is reachable only by
-  // direct URL (an unlinked preview). Publishing a draft is therefore a content
-  // edit, not just a flag flip: repoint these AND the hardcoded body links to the
-  // /zh/ page, flip its zhPublished flag, and re-baseline the EN fixture for its
-  // new hreflang cluster.
+  // EN keeps the exact current relative filenames (byte-identical render). All
+  // four /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
+  // + competition), so every zh chrome link is localized — relative, resolving
+  // under /zh/. The hardcoded zh bodies were repointed to match in the same
+  // commit (../workshop.html → workshop.html, ../contact.html → contact.html,
+  // preserving every #anchor and ?topic= suffix). The only cross-locale link left
+  // on a zh page is the navbar language toggle's EN counterpart (localeToggle,
+  // ../…). Publishing a future draft is a content edit, not just a flag flip:
+  // repoint these AND the hardcoded body links to the /zh/ page, flip its
+  // zhPublished flag, and re-baseline the EN fixture for its new hreflang cluster.
   links: (data) =>
     isZh(data)
       ? {
           index: "index.html",
           competition: "competition.html",
-          workshop: "../workshop.html",
-          contact: "../contact.html",
+          workshop: "workshop.html",
+          contact: "contact.html",
         }
       : {
           index: "index.html",
@@ -172,10 +175,10 @@ export default {
   // In-page language toggle, consumed by navbar.njk. Present ONLY on a PUBLISHED
   // localized page — its i18nKey is in TOGGLE_HREFS AND its own zhPublished[key]
   // flag is true, so the toggle is visible exactly where the reciprocal hreflang
-  // is emitted (index/competition today; workshop/contact auto-light when their
-  // flag flips). Returns null everywhere else, so the navbar renders with NO
-  // toggle (byte-identical to the pre-toggle output on the EN-only pages and the
-  // draft /zh/ pages). Shape:
+  // is emitted (all four localized pairs as of Phase 2c). Returns null everywhere
+  // else, so the navbar renders with NO toggle (byte-identical to the pre-toggle
+  // output on the EN-only utility pages, and on any /zh/ page returned to draft).
+  // Shape:
   //   active        — the current page's locale ("en" | "zh"); the template
   //                   marks it aria-current and renders the OTHER locale as the
   //                   cross-locale link.
