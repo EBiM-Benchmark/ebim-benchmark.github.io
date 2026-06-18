@@ -44,7 +44,7 @@ The site is a **multi-page** static site, built with [Eleventy](https://www.11ty
 | **Competition** | `competition.html` | The EBiM Competition — benchmark tasks, Mobile FR3 Duo platform, cross-continent testbeds, CFP |
 | **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
 | **Contact** | `contact.html` | Categorized Web3Forms contact form (+ `contact-success.html` no-JS fallback, `contact-test.html` internal health check) |
-| **404** | `404.html` | Branded not-found page (`noindex`) with shared chrome and CTAs back to the primary pages |
+| **404** | `404.html` | Branded not-found page (`noindex`). Emits **root-absolute** asset/nav/CTA URLs so it renders correctly when GitHub Pages serves the single `/404.html` for a miss at any depth; a tiny client-side script localizes its copy + CTAs when the missed path is under `/zh/` |
 
 ### Why the split
 
@@ -89,15 +89,16 @@ ebim-benchmark.github.io/
 │   ├── competition.njk                  # The EBiM Competition
 │   ├── workshop.njk                     # Workshop Program
 │   ├── contact.njk                      # Categorized Web3Forms contact form (JS via shared include)
-│   ├── contact-success.njk              # No-JS POST fallback success page
+│   ├── contact-success.njk              # No-JS POST fallback success page (EN; localized sibling at zh/contact-success.njk)
 │   ├── contact-test.njk                 # Internal contact-form health check (not linked)
-│   ├── 404.njk                          # Branded 404 (noindex)
+│   ├── 404.njk                          # Branded 404 (noindex; absoluteUrls → root-absolute URLs so it works at any depth; client-side zh variant)
 │   ├── zh/                              # Simplified-Chinese locale (1b; index/competition PUBLISHED 1d, workshop/contact PUBLISHED 2c)
 │   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
 │   │   ├── index.njk                    #   → /zh/ (self-canonical; hreflang ⇄ EN when published)
 │   │   ├── competition.njk              #   → /zh/competition.html (published)
 │   │   ├── workshop.njk                 #   → /zh/workshop.html (published: hreflang/sitemap/toggle)
-│   │   └── contact.njk                  #   → /zh/contact.html (published; form JS via shared include)
+│   │   ├── contact.njk                  #   → /zh/contact.html (published; form JS via shared include)
+│   │   └── contact-success.njk          #   → /zh/contact-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh contact form's no-JS redirect target)
 │   ├── css/style.css                    # All shared styles (passthrough-copied verbatim)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
@@ -131,7 +132,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 7 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
-`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all four pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (8 URLs total) with `hreflang` on all four EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. CI runs both harnesses on every PR.
+`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all four pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (8 URLs total) with `hreflang` on all four EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. It also covers the hidden `/zh/contact-success.html` utility page — `<html lang="zh-Hans">`, a single `noindex`, no `hreflang`/toggle, out of the sitemap, CJK body, `../` assets. CI runs both harnesses on every PR.
 
 ### GitHub Pages deployment
 
@@ -398,7 +399,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Panel: four confirmed panelists — Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row, panel cards, and JSON-LD)
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
-- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), locale-aware sitemap (4 EN + 2 zh URLs when published), alt text + width/height on every img
+- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), locale-aware sitemap (4 EN + 4 zh URLs published — Phase 2c), alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)
