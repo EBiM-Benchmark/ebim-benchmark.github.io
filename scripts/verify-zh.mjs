@@ -1,5 +1,6 @@
-// /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b adds
-// workshop + contact as UNPUBLISHED drafts).
+// /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b added
+// workshop + contact as drafts; Phase 2c published them — all four /zh/ pages
+// are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
@@ -25,11 +26,11 @@
 //   <html lang>  — is exactly "zh-Hans" (BCP-47 Simplified Chinese).
 //   canonical    — self: points at the page's OWN /zh/ URL (never changes).
 //   chrome       — navbar (#navbar) and footer (#footer) both render.
-//   links        — localized targets (index + competition, incl. #anchors)
-//                  resolve UNDER /zh/ (relative), while workshop + contact point
-//                  to their EN URLs (../) — the shared navbar links keep the zh
-//                  drafts unlinked from the published nav. No bare
-//                  workshop.html / contact.html (which would 404 under /zh/).
+//   links        — all four localized targets (index/competition/workshop/
+//                  contact, incl. #anchors and ?topic= suffixes) resolve UNDER
+//                  /zh/ (relative). No zh→EN ../workshop.html / ../contact.html
+//                  content links remain; the lone deliberate cross-locale link
+//                  (the navbar toggle's EN counterpart) is stripped first.
 //   assets       — css/js resolve up to the root (../css, ../js).
 //   localized    — body contains CJK AND the English heading it replaced is
 //                  gone (proof it's translated, not the EN copy).
@@ -167,6 +168,11 @@ const stripStyleScript = (h) =>
   h
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+// Drop the navbar language-toggle <li> so its EN-counterpart link (href="../…",
+// the one deliberate cross-locale link on a published zh page) isn't mistaken for
+// a stray zh→EN content link by the "no ../ to EN" check below. The <li> has no
+// nested <li>, so the lazy match to the first </li> is exact.
+const stripLangToggle = (h) => h.replace(/<li class="nav-lang">[\s\S]*?<\/li>/g, "");
 function inlineScriptBody(html) {
   const re = /<script\b([^>]*)>([^]*?)<\/script>/g;
   const clean = removeComments(html);
@@ -245,27 +251,27 @@ function pageChecks(p) {
   add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
   add("footer", /<footer id="footer"/.test(html), "footer did not render");
 
-  // Localized targets resolve under /zh/ (relative, no ../); the workshop +
-  // contact DRAFTS point up to EN (../) — matching the hardcoded zh bodies + the
-  // links() chrome, so published pages stay byte-identical and drafts stay
-  // unlinked. Scoped to real markup (style/script stripped) so a CSS selector
-  // like `a[href="contact.html"]` isn't mistaken for a link. (When a draft is
-  // published its body/nav links flip to relative — update these checks then.)
-  const linkHtml = stripStyleScript(html);
+  // All four localized targets now resolve UNDER /zh/ (relative, no ../) on every
+  // published zh page: index + competition since Phase 1d, workshop + contact
+  // since Phase 2c (their bodies + the links() chrome were repointed when the
+  // drafts published). The ONLY surviving cross-locale link is the navbar
+  // language toggle's EN counterpart (href="../…", hreflang="en") — crossing
+  // locales is its whole purpose — so it is stripped before the "no ../ to EN"
+  // assertion. Style/script are also stripped so a CSS selector like
+  // `a[href="contact.html"]` isn't mistaken for a link.
+  const linkHtml = stripLangToggle(stripStyleScript(html));
   add(
-    "links→zh (index/competition)",
-    /href="index\.html(#[^"]*)?"/.test(linkHtml) && /href="competition\.html(#[^"]*)?"/.test(linkHtml),
-    "expected relative index.html / competition.html links (resolve under /zh/)",
+    "links→zh (all four relative, under /zh/)",
+    /href="index\.html(#[^"]*)?"/.test(linkHtml) &&
+      /href="competition\.html(#[^"]*)?"/.test(linkHtml) &&
+      /href="workshop\.html(#[^"]*)?"/.test(linkHtml) &&
+      /href="contact\.html([#?][^"]*)?"/.test(linkHtml),
+    "expected relative index/competition/workshop/contact links (resolve under /zh/)",
   );
   add(
-    "links→EN (workshop/contact via ../)",
-    linkHtml.includes('href="../workshop.html') && linkHtml.includes('href="../contact.html'),
-    "expected ../workshop.html and ../contact.html (EN targets)",
-  );
-  add(
-    "no bare workshop/contact (would 404 under /zh/)",
-    !/href="workshop\.html/.test(linkHtml) && !/href="contact\.html/.test(linkHtml),
-    "found a bare workshop.html/contact.html link that would 404 under /zh/",
+    "no zh→EN workshop/contact links (../, outside the toggle)",
+    !linkHtml.includes('href="../workshop.html') && !linkHtml.includes('href="../contact.html'),
+    "found a ../workshop.html or ../contact.html link — published zh pages must link to the /zh/ page",
   );
 
   // Assets resolve up to the site root.

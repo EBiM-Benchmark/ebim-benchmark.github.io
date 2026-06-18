@@ -123,22 +123,23 @@ export default {
   // The page bodies hardcode their own links inside their translated raw blocks,
   // so these must MATCH the body links for each page (do NOT auto-flip on the
   // publish flag, or the navbar would diverge from the still-hardcoded body).
-  // EN keeps the exact current relative filenames (byte-identical render). For
-  // /zh/ pages, index + competition are localized (relative, under /zh/), while
-  // workshop + contact — shipping as /zh/ DRAFTS — point back up to their EN URLs
-  // (matching the zh bodies), so the published index/competition pages stay
-  // byte-identical and never link to a draft, and a draft is reachable only by
-  // direct URL (an unlinked preview). Publishing a draft is therefore a content
-  // edit, not just a flag flip: repoint these AND the hardcoded body links to the
-  // /zh/ page, flip its zhPublished flag, and re-baseline the EN fixture for its
-  // new hreflang cluster.
+  // EN keeps the exact current relative filenames (byte-identical render). All
+  // four /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
+  // + competition), so every zh chrome link is localized — relative, resolving
+  // under /zh/. The hardcoded zh bodies were repointed to match in the same
+  // commit (../workshop.html → workshop.html, ../contact.html → contact.html,
+  // preserving every #anchor and ?topic= suffix). The only cross-locale link left
+  // on a zh page is the navbar language toggle's EN counterpart (localeToggle,
+  // ../…). Publishing a future draft is a content edit, not just a flag flip:
+  // repoint these AND the hardcoded body links to the /zh/ page, flip its
+  // zhPublished flag, and re-baseline the EN fixture for its new hreflang cluster.
   links: (data) =>
     isZh(data)
       ? {
           index: "index.html",
           competition: "competition.html",
-          workshop: "../workshop.html",
-          contact: "../contact.html",
+          workshop: "workshop.html",
+          contact: "contact.html",
         }
       : {
           index: "index.html",
