@@ -69,38 +69,41 @@ ebim-benchmark.github.io/
 │   └── verify.yml                       # CI gate: EN parity + /zh/ locale (verify.mjs + verify-zh.mjs)
 ├── scripts/
 │   ├── verify.mjs                       # Asserts the build matches the golden EN baseline
-│   └── verify-zh.mjs                    # Asserts the /zh/ locale, gated on zhPublished (hreflang/sitemap/noindex/CJK)
+│   └── verify-zh.mjs                    # Asserts the /zh/ locale, per-page gated on zhPublished (hreflang/sitemap/noindex/CJK)
 ├── tests/baseline/                      # Golden EN HTML fixtures (the parity baseline)
 ├── src/
 │   ├── _data/
-│   │   ├── site.json                    # Site flags — zhPublished gates /zh/ publication (hreflang/sitemap/noindex)
+│   │   ├── site.json                    # Site flags — zhPublished is a PER-PAGE map (i18nKey→bool) gating each /zh/ page
 │   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
 │   │   ├── i18n/en.json                 # English UI/meta/JSON-LD strings (the fallback locale)
-│   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine draft; Phase 1b)
-│   │   └── eleventyComputed.js          # Locale lookup `t` + htmlLang/assetBase/links/localeToggle/jsonLd/pageMeta
+│   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine draft; 1b index/competition + 2b workshop/contact)
+│   │   └── eleventyComputed.js          # Locale lookup `t` + htmlLang/assetBase/links/localeToggle/jsonLd/pageMeta (per-page publish gate)
 │   ├── _includes/
 │   │   ├── layouts/base.njk             # <html> skeleton + per-page head fields/conditionals
 │   │   ├── head.njk                     # Shared favicon/font/CSS head tail
 │   │   ├── navbar.njk                   # Shared navbar (single source; labels via i18n)
 │   │   ├── footer.njk                   # Shared footer (single source; labels via i18n)
-│   │   └── jsonld.njk                   # Renders the index/competition/workshop/contact JSON-LD from _data
+│   │   ├── jsonld.njk                   # Renders the index/competition/workshop/contact JSON-LD from _data
+│   │   └── contact-form-script.njk      # Single-sourced contact-form JS (shared by EN + zh contact)
 │   ├── index.njk                        # Landing page (funnel to sub-pages)
 │   ├── competition.njk                  # The EBiM Competition
 │   ├── workshop.njk                     # Workshop Program
-│   ├── contact.njk                      # Categorized Web3Forms contact form (+ inline JS)
+│   ├── contact.njk                      # Categorized Web3Forms contact form (JS via shared include)
 │   ├── contact-success.njk              # No-JS POST fallback success page
 │   ├── contact-test.njk                 # Internal contact-form health check (not linked)
 │   ├── 404.njk                          # Branded 404 (noindex)
-│   ├── zh/                              # Simplified-Chinese locale (added Phase 1b; PUBLISHED Phase 1d)
+│   ├── zh/                              # Simplified-Chinese locale (1b; index/competition PUBLISHED 1d, workshop/contact DRAFTS 2b)
 │   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
 │   │   ├── index.njk                    #   → /zh/ (self-canonical; hreflang ⇄ EN when published)
-│   │   └── competition.njk              #   → /zh/competition.html
+│   │   ├── competition.njk              #   → /zh/competition.html (published)
+│   │   ├── workshop.njk                 #   → /zh/workshop.html (draft: noindex, no hreflang/sitemap/toggle)
+│   │   └── contact.njk                  #   → /zh/contact.html (draft; form JS via shared include)
 │   ├── css/style.css                    # All shared styles (passthrough-copied verbatim)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
-│   ├── sitemap.njk                      # Locale-aware sitemap (gated on zhPublished; 4 EN + 2 zh URLs when published)
+│   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 4 EN + the published /zh/ URLs)
 │   └── .nojekyll                        # Disable Jekyll on GitHub Pages
 ├── _site/                               # Build output (gitignored) — this is what gets deployed
 └── README.md
@@ -138,15 +141,15 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 ## Internationalization (i18n)
 
-English is the primary locale. A **Simplified-Chinese `/zh/` locale** (the landing + competition pages) was added in **Phase 1b** behind a single flag and **published in Phase 1d** once the translation passed native review. Structured-data and shared-chrome strings are factored out so a locale is added without touching the EN templates:
+English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added in **Phase 1b**: the landing + competition pages were **published in Phase 1d** once their translation passed native review, and the workshop + contact pages followed in **Phase 2b** as **unpublished machine-draft previews** (noindex, no hreflang/sitemap/toggle) awaiting review. Publish state is **per page** (see the gate below). Structured-data and shared-chrome strings are factored out so a locale is added without touching the EN templates:
 
 - **`src/_data/event.json`** — language-neutral structured-data facts (dates, canonical URLs, organizer/sponsor lists, testbed addresses, the workshop's attendance mode / placeholder venue / panelists) shared by the JSON-LD on the index, competition, workshop, and contact pages.
 - **`src/_data/i18n/<lang>.json`** — translatable strings, namespaced `brand` / `nav` / `footer` / `meta` (per-page head-meta) / `jsonld`. `en` is the fallback locale; `zh` (Simplified Chinese, machine draft) mirrors every `en` key — any key left untranslated falls back to English.
-- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and the index/competition/workshop/contact JSON-LD, keyed by `pageDataKey` = `i18nKey || pageKey`. `i18nKey` (index/competition) marks a page with a localized `/zh/` counterpart and drives hreflang/toggle/`/zh/`; `pageKey` (workshop/contact, added in Phase 2a) binds an EN-only page to the same shared data **without** localization — Phase 2b promotes it to `i18nKey` when its `/zh/` counterpart ships. Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical when `/zh/` is unpublished: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, the not-yet-localized workshop + contact resolve back up to EN), `zhNoindex`, and the gated `hreflangAlternates` (which, once published, is the one intentional EN-head change — the hreflang cluster on index/competition). `localeToggle` drives the in-page navbar **language switcher**: it returns `null` unless the page has a *published* localized counterpart — keyed off the same `i18nKey` + `zhPublished` gate as the hreflang (page-pairs live in the `TOGGLE_HREFS` map) — so the toggle appears exactly where the reciprocal hreflang does, and EN-only pages render the navbar with no toggle (byte-identical). It hands the navbar the active locale and the counterpart URL relative to the current page; localizing a new page in Phase 2 is one row in `TOGGLE_HREFS` + an `i18nKey` + a `/zh/` counterpart, with no template change.
+- **`src/_data/eleventyComputed.js`** — `t` resolves the page's `lang` (default `en`) with **English fallback**; `pageMeta` / `jsonLd` build the per-locale head-meta and the index/competition/workshop/contact JSON-LD, keyed by `pageDataKey` = `i18nKey || pageKey`. `i18nKey` (all four content pages, as of Phase 2b) marks a page with a localized `/zh/` counterpart and drives hreflang/toggle/`/zh/`; `pageKey` is the EN-only equivalent that binds a page to the same shared data **without** localization (the Phase 2a state of workshop/contact, promoted to `i18nKey` in 2b — the helper still supports `pageKey` for any future EN-only-but-data-bound page). Locale-aware helpers keep the shared shell working under `/zh/` while leaving EN byte-identical: `htmlLang` (`en` → `zh-Hans`), `assetBase` (`""` → `"../"` since `/zh/` is one directory down), `links` (nav targets: index + competition relative under `/zh/`, workshop + contact resolve back up to EN so the published pages stay byte-identical and the drafts stay unlinked), the per-page `zhNoindex`, and the per-page-gated `hreflangAlternates` (which, where published, is the one intentional EN-head change — the hreflang cluster on index/competition). `localeToggle` drives the in-page navbar **language switcher**: it returns `null` unless the page is a *published* localized page — keyed off the same per-page `zhPublished[i18nKey]` gate as the hreflang (page-pairs live in the `TOGGLE_HREFS` map, which now has all four pages) — so the toggle appears exactly where the reciprocal hreflang does, and EN-only/draft pages render the navbar with no toggle (byte-identical). Localizing/publishing a page is one row in `TOGGLE_HREFS` + `HREFLANG_PAIRS` + an `i18nKey` + a `/zh/` counterpart + flipping its `zhPublished` flag, with no template change.
 - **`src/_includes/`** — `base.njk` / `head.njk` / `navbar.njk` / `footer.njk` read locale via those helpers; the EN render path is unchanged and guarded by the parity harness.
-- **`src/zh/`** — the localized pages (`lang: zh` via `zh.11tydata.json`), reusing the same includes; only the body prose, `<html lang>`, canonical, head-meta, and (when published) hreflang differ.
+- **`src/zh/`** — the localized pages (`lang: zh` via `zh.11tydata.json`), reusing the same includes; only the body prose, `<html lang>`, canonical, head-meta, and (where published) hreflang differ. The contact form's behavior JS is single-sourced in `_includes/contact-form-script.njk` and `{% include %}`d by both EN and zh contact, so there is one copy of the language-agnostic logic (it keys off each option's `data-slug`, never the visible label) and the EN render stays byte-identical.
 
-**Publish gate — `src/_data/site.json` → `"zhPublished"`** (now `true`; published in Phase 1d). While `false`, every `/zh/` page emits `<meta name="robots" content="noindex">`, `/zh/` is kept out of the sitemap, and **no `hreflang` is emitted anywhere** (EN or zh). While `true`, the `/zh/` pages drop `noindex`, the index + competition pairs carry the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster (EN-only pages emit none; canonicals stay self), and `sitemap.xml` lists the `/zh/` URLs with per-pair `xhtml:link` alternates. The sitemap is rendered from `src/sitemap.njk` (gated, locale-aware) — not a static passthrough — and is byte-faithful to the old EN-only 4-URL sitemap when the flag is `false`. Because publishing adds `hreflang` to the EN `<head>`, the `index`/`competition` baselines were regenerated in the publishing commit; `scripts/verify-zh.mjs` reads the flag and proves whichever state is committed.
+**Publish gate — `src/_data/site.json` → `"zhPublished"`** is a **per-page map** keyed by `i18nKey`, e.g. `{ "index": true, "competition": true, "workshop": false, "contact": false }` (index/competition published in 1d; workshop/contact ship as 2b drafts). Each page reads **its own** flag. For a page whose flag is `false` (**draft**): its `/zh/` page emits `<meta name="robots" content="noindex">`, is kept out of the sitemap, carries **no `hreflang`** (either side), and renders **no language toggle**. For a page whose flag is `true` (**published**): the `/zh/` page drops `noindex`, the EN + `/zh/` pair carries the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster (EN-only pages emit none; canonicals stay self), the `/zh/` url is listed in `sitemap.xml` with per-pair `xhtml:link` alternates, and the navbar language toggle renders. The sitemap is rendered from `src/sitemap.njk` (per-page gated, locale-aware) — not a static passthrough. `scripts/verify-zh.mjs` reads the map and proves whichever mix of published pages and drafts is committed; flip a page's flag to `true` to publish it (re-baseline that page's EN fixture in the same commit, since publishing adds its hreflang cluster to the EN `<head>`).
 
 ---
 
@@ -338,7 +341,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 
 `404.html` is intentionally `noindex` and has no OG tags.
 
-`sitemap.xml` is rendered from `src/sitemap.njk` (gated on `zhPublished`): the 4 EN URLs (home, competition, workshop, contact) plus, when published, the 2 `/zh/` URLs — with `xhtml:link` hreflang alternates on the index/competition pairs only. It is referenced from `robots.txt`.
+`sitemap.xml` is rendered from `src/sitemap.njk` (per-page gated on `zhPublished`): the 4 EN URLs (home, competition, workshop, contact) plus a `/zh/` URL for each **published** page — currently the 2 published `/zh/` URLs (index, competition) with `xhtml:link` hreflang alternates on those pairs; the workshop/contact `/zh/` drafts are excluded until their flag flips. It is referenced from `robots.txt`.
 
 ### Heading hierarchy
 

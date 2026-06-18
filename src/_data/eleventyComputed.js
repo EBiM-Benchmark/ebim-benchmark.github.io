@@ -35,14 +35,25 @@ function resolveLocale(data) {
 // locale-aware helper below branches on this; EN pages take the unchanged path.
 const isZh = (data) => (data.lang || "en") === "zh";
 
+// Per-page publish gate. site.zhPublished is a map keyed by i18nKey (see
+// src/_data/site.json); a localized page is PUBLISHED iff its own key's flag is
+// true. Drives zhNoindex / hreflangAlternates / localeToggle so each page's SEO
+// surface (noindex, hreflang, sitemap, toggle) lights up independently — index +
+// competition are published while workshop + contact ship as drafts (false).
+const isPublished = (data) => {
+  const map = (data.site && data.site.zhPublished) || {};
+  return map[data.i18nKey] === true;
+};
+
 // The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
-// and the jsonld.* strings). `i18nKey` (index/competition — pages with a
-// localized /zh/ counterpart) doubles as this key; `pageKey` is the EN-only
-// equivalent for pages that draw from the shared data WITHOUT participating in
-// localization (workshop/contact in Phase 2a — no hreflang, no toggle, no /zh/
-// output). localeToggle/hreflangAlternates stay keyed on i18nKey alone, so a
-// pageKey-only page never lights those up. Phase 2b promotes a page from
-// pageKey → i18nKey when its /zh/ counterpart ships.
+// and the jsonld.* strings). `i18nKey` (all four content pages as of Phase 2b —
+// each has a localized /zh/ counterpart) doubles as this key; `pageKey` is the
+// EN-only equivalent for a page that draws from the shared data WITHOUT
+// participating in localization (the Phase 2a state of workshop/contact, before
+// their /zh/ counterparts shipped). localeToggle/hreflangAlternates stay keyed on
+// i18nKey alone, so a pageKey-only page never lights those up. No page uses
+// pageKey today, but the fallback is kept for any future EN-only-but-data-bound
+// page; promote it to i18nKey (and add a /zh/ counterpart) to localize.
 const pageDataKey = (data) => data.i18nKey || data.pageKey;
 
 // Cross-locale counterpart URLs for the in-page language toggle (navbar.njk),
@@ -50,12 +61,33 @@ const pageDataKey = (data) => data.i18nKey || data.pageKey;
 // the EN page (used on a /zh/ page, linking back to English), `zh` is the path
 // to the /zh/ page (used on the EN page, linking out to 中文). These are the
 // SAME page pairs the reciprocal hreflang advertises — kept here as nav-relative
-// links (hreflangAlternates emits the absolute forms). Localizing a new page in
-// Phase 2 is one row here + an i18nKey + a /zh/ counterpart; the navbar toggle
-// and hreflang then light up together, with no template special-casing.
+// links (hreflangAlternates emits the absolute forms). All four localized pages
+// have a row; the toggle only RENDERS where isPublished is true, so workshop +
+// contact (drafts) stay toggle-less until their flag flips — no template change.
 const TOGGLE_HREFS = {
   index: { en: "../", zh: "zh/" },
   competition: { en: "../competition.html", zh: "zh/competition.html" },
+  workshop: { en: "../workshop.html", zh: "zh/workshop.html" },
+  contact: { en: "../contact.html", zh: "zh/contact.html" },
+};
+
+// Absolute en / zh URLs for each localized pair, the source of the reciprocal
+// hreflang cluster (en + x-default → en; zh-Hans → zh). Same pairs as
+// TOGGLE_HREFS, emitted absolute. Gated per page by isPublished.
+const HREFLANG_PAIRS = {
+  index: { en: "https://ebim-benchmark.github.io/", zh: "https://ebim-benchmark.github.io/zh/" },
+  competition: {
+    en: "https://ebim-benchmark.github.io/competition.html",
+    zh: "https://ebim-benchmark.github.io/zh/competition.html",
+  },
+  workshop: {
+    en: "https://ebim-benchmark.github.io/workshop.html",
+    zh: "https://ebim-benchmark.github.io/zh/workshop.html",
+  },
+  contact: {
+    en: "https://ebim-benchmark.github.io/contact.html",
+    zh: "https://ebim-benchmark.github.io/zh/contact.html",
+  },
 };
 
 function organizationSchema(ev, t) {
@@ -107,25 +139,21 @@ export default {
           contact: "contact.html",
         },
 
-  // noindex directive for the /zh/ locale while it is unpublished. While
-  // site.zhPublished is false the localized pages must not be indexed; flipping
-  // the flag to true drops the tag. EN pages never set this (their own `robots`
-  // front-matter, e.g. on 404, is untouched).
-  zhNoindex: (data) => isZh(data) && !(data.site && data.site.zhPublished),
+  // noindex directive for a /zh/ page while ITS page is a draft. A draft (its
+  // zhPublished[key] flag is false) must not be indexed; flipping that flag to
+  // true drops the tag. EN pages never set this (their own `robots` front-matter,
+  // e.g. on 404, is untouched).
+  zhNoindex: (data) => isZh(data) && !isPublished(data),
 
-  // hreflang alternates, emitted by base.njk ONLY when site.zhPublished is true.
-  // While false they are empty → no hreflang anywhere and the EN <head> is
-  // byte-identical to the pre-i18n output; while true the localized pair (index
-  // + competition) advertises the reciprocal en / zh-Hans / x-default cluster.
+  // hreflang alternates, emitted by base.njk ONLY for a PUBLISHED localized page.
+  // Gated per page: a draft (or a page with no localized counterpart) returns []
+  // → no hreflang on either side and the EN <head> stays byte-identical. A
+  // published page (EN or /zh/) advertises the reciprocal en / zh-Hans /
+  // x-default cluster for its pair.
   hreflangAlternates: (data) => {
-    if (!(data.site && data.site.zhPublished)) return [];
-    const key = data.i18nKey;
-    if (key !== "index" && key !== "competition") return [];
-    const base = "https://ebim-benchmark.github.io/";
-    const pair = {
-      index: { en: base, zh: base + "zh/" },
-      competition: { en: base + "competition.html", zh: base + "zh/competition.html" },
-    }[key];
+    if (!isPublished(data)) return [];
+    const pair = HREFLANG_PAIRS[data.i18nKey];
+    if (!pair) return [];
     return [
       { hreflang: "en", href: pair.en },
       { hreflang: "zh-Hans", href: pair.zh },
@@ -133,20 +161,20 @@ export default {
     ];
   },
 
-  // In-page language toggle, consumed by navbar.njk. Present ONLY on a page that
-  // has a PUBLISHED localized counterpart — i.e. an i18nKey listed in
-  // TOGGLE_HREFS (index/competition today; auto-extends in Phase 2) and only
-  // while site.zhPublished is true, so the toggle is visible exactly where the
-  // reciprocal hreflang is emitted. Returns null everywhere else, so the navbar
-  // renders with NO toggle (byte-identical to the pre-toggle output on the five
-  // EN-only pages). Shape:
+  // In-page language toggle, consumed by navbar.njk. Present ONLY on a PUBLISHED
+  // localized page — its i18nKey is in TOGGLE_HREFS AND its own zhPublished[key]
+  // flag is true, so the toggle is visible exactly where the reciprocal hreflang
+  // is emitted (index/competition today; workshop/contact auto-light when their
+  // flag flips). Returns null everywhere else, so the navbar renders with NO
+  // toggle (byte-identical to the pre-toggle output on the EN-only pages and the
+  // draft /zh/ pages). Shape:
   //   active        — the current page's locale ("en" | "zh"); the template
   //                   marks it aria-current and renders the OTHER locale as the
   //                   cross-locale link.
   //   enHref/zhHref — the counterpart URL relative to the current page (the EN
   //                   page links out to zhHref, the /zh/ page back to enHref).
   localeToggle: (data) => {
-    if (!(data.site && data.site.zhPublished)) return null;
+    if (!isPublished(data)) return null;
     const hrefs = TOGGLE_HREFS[data.i18nKey];
     if (!hrefs) return null;
     return { active: isZh(data) ? "zh" : "en", enHref: hrefs.en, zhHref: hrefs.zh };
