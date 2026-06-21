@@ -5,5 +5,10 @@
     "competition": true,
     "workshop": true,
     "contact": true
-  }
+  },
+  "_commentGsc": "Additive, order-independent list of Google Search Console HTML-tag verification tokens — one per verifying owner. Rendered as Google site-verification <meta> tags (by src/_includes/layouts/base.njk) on pages whose front matter sets siteVerification: true (currently index, competition, workshop). Add a token to register a new owner; never remove an existing one or you un-verify that owner.",
+  "googleSiteVerification": [
+    "-6Ks2ufYwQEMK_F0Erqoj6Fbw5qLqbhbwywmAgTgJJA",
+    "Sa0tsCvfq9GrEHN7qGI1J3l_Un3dP6-ANuAnZV3bGX8"
+  ]
 }
