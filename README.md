@@ -63,7 +63,7 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 ```
 ebim-benchmark.github.io/
 ├── .eleventy.js                         # Eleventy config (input src/ → output _site/)
-├── package.json / package-lock.json     # Eleventy dep (+ Prettier, dev) — `npm ci`
+├── package.json / package-lock.json     # Eleventy + clean-css deps (+ Prettier, @fontsource/inter, dev) — `npm ci`
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
 │   └── verify.yml                       # CI gate: EN parity + /zh/ locale (verify.mjs + verify-zh.mjs)
@@ -77,10 +77,11 @@ ebim-benchmark.github.io/
 │   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
 │   │   ├── i18n/en.json                 # English UI/meta/JSON-LD strings (the fallback locale)
 │   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine-drafted + native-reviewed; 1b index/competition + 2b workshop/contact)
+│   │   ├── inlineCss.js                 # Minifies style.css (clean-css) → inlined into every <head>, removing the render-blocking CSS request
 │   │   └── eleventyComputed.js          # Locale lookup `t` + htmlLang/assetBase/links/localeToggle/jsonLd/pageMeta (per-page publish gate)
 │   ├── _includes/
 │   │   ├── layouts/base.njk             # <html> skeleton + per-page head fields/conditionals
-│   │   ├── head.njk                     # Shared favicon/font/CSS head tail
+│   │   ├── head.njk                     # Shared head tail: favicon, self-hosted Inter preload, inlined CSS
 │   │   ├── navbar.njk                   # Shared navbar (single source; labels via i18n)
 │   │   ├── footer.njk                   # Shared footer (single source; labels via i18n)
 │   │   ├── jsonld.njk                   # Renders the index/competition/workshop/contact JSON-LD from _data
@@ -99,8 +100,9 @@ ebim-benchmark.github.io/
 │   │   ├── workshop.njk                 #   → /zh/workshop.html (published: hreflang/sitemap/toggle)
 │   │   ├── contact.njk                  #   → /zh/contact.html (published; form JS via shared include)
 │   │   └── contact-success.njk          #   → /zh/contact-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh contact form's no-JS redirect target)
-│   ├── css/style.css                    # All shared styles (passthrough-copied verbatim)
+│   ├── css/style.css                    # All shared styles + @font-face — minified & inlined into <head> (also passthrough-copied to /css/, now unreferenced)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
+│   ├── fonts/                           # Self-hosted Inter woff2 (latin + latin-ext, 5 weights) → passthrough to /fonts/
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
@@ -118,10 +120,10 @@ Each `src/*.njk` page extends `_includes/layouts/base.njk` and supplies its own 
 
 ## Setup
 
-Built with [Eleventy](https://www.11ty.dev/) (a `package.json` dependency). Prettier is a dev dependency used only by the parity harness — there are no runtime dependencies in the shipped site.
+Built with [Eleventy](https://www.11ty.dev/) and [clean-css](https://github.com/clean-css/clean-css) (`package.json` dependencies — clean-css minifies the global stylesheet that gets inlined into every `<head>` at build). Prettier (parity harness) and `@fontsource/inter` (the source of the committed woff2 files) are dev dependencies. The shipped site self-hosts its fonts and ships no browser-runtime dependencies or third-party requests.
 
 ```bash
-npm ci            # install Eleventy (+ Prettier)
+npm ci            # install Eleventy + clean-css (+ Prettier, @fontsource/inter)
 npm run build     # compile src/ → _site/
 npm run serve     # local dev server with live reload (eleventy --serve)
 ```
