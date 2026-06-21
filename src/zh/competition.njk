@@ -748,25 +748,26 @@ i18nKey: competition
         </div>
         <div class="task-body">
           <h3 class="task-title">辅助生活与喂食</h3>
-          <p class="task-scenario">辅助生活用餐：拾取 &rarr; 递送 &rarr; 喂食 &rarr; 回收。</p>
+          <p class="task-scenario">厨房到餐厅的四阶段服务流程：摆台 &rarr; 喂食 &rarr; 咖啡豆回收 &rarr; 清理。</p>
 
           <div class="task-block">
             <span class="task-label">目标</span>
             <ul class="task-list">
-              <li>按序拾取、递送（A&ndash;H 站点），并在 I 站点喂食</li>
-              <li>双臂喂食 —— 一臂持勺，一臂持容器</li>
-              <li>将所有物体归还至回收区（黄色区域）</li>
+              <li>摆台 —— 将盘子、杯子、装有咖啡豆的碗与勺子从厨房搬运至三个指定座位</li>
+              <li>喂食 —— 用勺子舀取咖啡豆，在头部前保持 &ge;3 秒，随后将咖啡豆放回（双臂：一臂持勺，一臂稳住碗）</li>
+              <li>咖啡豆回收 —— 将咖啡豆倒入带称重的回收箱</li>
+              <li>清理 —— 将全部四件餐具归还至标记的水槽区域</li>
             </ul>
           </div>
 
           <div class="task-block">
             <span class="task-label">环境</span>
-            <p class="task-text">起始区、拾取区（灰色）、递送区（A&ndash;H）与喂食区（I）；物体为 IKEA KALAS 容器与勺子。仿真与真实世界布置完全一致。</p>
+            <p class="task-text">两个房间 —— 厨房与用餐区。物体初始叠放在厨房的盘子上（盘子、杯子、装有咖啡豆的碗、勺子）；从六个座位中随机指定三个；厨房内设有带称重的回收箱与标记的水槽区域。仿真与真实世界布置完全一致。</p>
           </div>
 
           <div class="task-block">
             <span class="task-label">评估</span>
-            <p class="task-text"><strong>主要：</strong>成功点 —— 递送 / 喂食 / 回收（各 +10）。<strong>次要：</strong>完成时间、剩余食物件数。<strong>安全：</strong>头部峰值力与看门狗干预。</p>
+            <p class="task-text"><strong>主要：</strong>四个阶段 —— 摆台、喂食、咖啡豆回收、清理 —— 每阶段 4 分（满分 16）；咖啡豆回收按回收比例计分。<strong>排名：</strong>最高完成阶段 &rarr; 总分 &rarr; 完成时间。<strong>安全：</strong>头/面部峰值力（<a href="https://www.iso.org/standard/62996.html" target="_blank" rel="noopener">ISO/TS 15066</a>）、看门狗干预。</p>
           </div>
 
           <div class="task-sims">
