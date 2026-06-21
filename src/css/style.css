@@ -1482,6 +1482,13 @@ section:nth-child(even) { background: var(--bg-light); }
   object-fit: cover;
   border: 2.5px solid var(--border);
   flex-shrink: 0;
+  transition: box-shadow var(--transition);
+}
+
+.org-card:hover .org-photo,
+.advisory-card:hover .org-photo,
+.support-card:hover .org-photo {
+  box-shadow: 0 6px 20px rgba(10, 14, 26, .18);
 }
 
 /* ── Organizing Committee — 4 columns ── */
