@@ -195,10 +195,13 @@ i18nKey: competition
       box-shadow: 0 10px 30px rgba(10,14,26,.08);
     }
     .testbed-flag {
-      font-size: 2rem;
-      line-height: 1;
-      margin-bottom: .55rem;
       display: block;
+      width: 40px;
+      height: 30px;
+      margin: 0 auto .55rem;
+      border-radius: 3px;
+      border: 1px solid rgba(10, 14, 26, .08);
+      object-fit: cover;
     }
     .testbed-city {
       font-size: 1.15rem;
@@ -821,7 +824,7 @@ i18nKey: competition
     <div class="testbed-grid fade-in">
 
       <div class="testbed-card">
-        <span class="testbed-flag" aria-hidden="true">🇨🇳</span>
+        <img class="testbed-flag" src="img/flags/cn.svg" alt="" width="40" height="30" loading="lazy" decoding="async">
         <div class="testbed-city">Shanghai</div>
         <div class="testbed-institution">Franka Robotics · Shanghai branch office</div>
         <p class="testbed-role">Asia testbed hosted at the Franka Robotics Shanghai branch office for cross-continent real-robot validation.</p>
@@ -829,21 +832,21 @@ i18nKey: competition
       </div>
 
       <div class="testbed-card">
-        <span class="testbed-flag" aria-hidden="true">🇩🇪</span>
+        <img class="testbed-flag" src="img/flags/de.svg" alt="" width="40" height="30" loading="lazy" decoding="async">
         <div class="testbed-city">Hamburg</div>
         <div class="testbed-institution">University of Hamburg · TAMS Group</div>
         <p class="testbed-role">European testbed hosted at a University of Hamburg robotics lab (venue TBA); coordinates data protocols and operator calibration.</p>
       </div>
 
       <div class="testbed-card">
-        <span class="testbed-flag" aria-hidden="true">🇩🇪</span>
+        <img class="testbed-flag" src="img/flags/de.svg" alt="" width="40" height="30" loading="lazy" decoding="async">
         <div class="testbed-city">Munich</div>
         <div class="testbed-institution">Agile Robots SE</div>
         <p class="testbed-role">Industry testbed providing platform integration and deployment support.</p>
       </div>
 
       <div class="testbed-card">
-        <span class="testbed-flag" aria-hidden="true">🇺🇸</span>
+        <img class="testbed-flag" src="img/flags/us.svg" alt="" width="40" height="30" loading="lazy" decoding="async">
         <div class="testbed-city">Pittsburgh</div>
         <div class="testbed-institution">Carnegie Mellon University</div>
         <p class="testbed-role">North America testbed at Carnegie Mellon University for cross-continent real-robot validation.</p>
