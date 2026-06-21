@@ -31,10 +31,10 @@
   ],
 
   "testbedAddresses": [
-    { "@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN" },
     { "@type": "PostalAddress", "addressLocality": "Hamburg", "addressCountry": "DE" },
     { "@type": "PostalAddress", "addressLocality": "Munich", "addressCountry": "DE" },
-    { "@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US" }
+    { "@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US" },
+    { "@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN" }
   ],
 
   "_commentWorkshop": "Neutral facts for the workshop Event JSON-LD. The workshop block has NO startDate/endDate (date TBD) and its own attendance mode (Offline, vs the index/competition Mixed). Its `organizer` is Hamburg + CMU; the panel `performer` list (proper nouns + affiliations) is neutral. Translatable: event name/description, the talk/panel subEvent names — see i18n/<lang>.json jsonld.*.",

@@ -106,10 +106,10 @@
     "eventDescriptionCompetition": "开放仿真基准，随后在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。任务包括线缆布线、可变形导热垫放置，以及辅助生活与喂食。",
     "locationNameIndex": "跨大洲测试平台（汉堡、慕尼黑、匹兹堡、上海）",
     "testbedNames": [
-      "上海测试平台",
       "University of Hamburg · TAMS Group",
       "Agile Robots SE",
-      "Carnegie Mellon University"
+      "Carnegie Mellon University",
+      "上海测试平台"
     ],
     "contactType": "一般咨询",
     "breadcrumbHome": "首页",

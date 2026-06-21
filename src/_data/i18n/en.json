@@ -106,10 +106,10 @@
     "eventDescriptionCompetition": "Open simulation benchmark followed by real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Tasks include cable routing, deformable thermal-pad placement, and assisted living and feeding.",
     "locationNameIndex": "Cross-continent testbeds (Hamburg, Munich, Pittsburgh, Shanghai)",
     "testbedNames": [
-      "Shanghai testbed",
       "University of Hamburg · TAMS Group",
       "Agile Robots SE",
-      "Carnegie Mellon University"
+      "Carnegie Mellon University",
+      "Shanghai testbed"
     ],
     "contactType": "general inquiries",
     "breadcrumbHome": "Home",
