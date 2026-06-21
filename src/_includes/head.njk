@@ -1,4 +1,4 @@
-{# Shared <head> tail — favicon, font preconnect/stylesheet, and the main CSS.
+{# Shared <head> tail — favicon, font preload, and the inlined main CSS.
    Duplicated verbatim across every page in the hand-authored site; centralized
    here. The descriptive comments only existed on the four "full" pages
    (index/competition/workshop/contact), so they are gated on `headComments`. #}
@@ -8,13 +8,11 @@
   <link rel="icon" type="image/svg+xml" href="{{ assetBase }}img/favicon.svg" />
 
 {%- if headComments %}
-  <!-- Fonts — preconnect for faster DNS + TLS -->
+  <!-- Fonts — self-hosted Inter (woff2); preload the hero/LCP weight (800) -->
 {%- endif %}
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ assetBase }}fonts/inter-latin-800-normal.woff2" />
 
 {%- if headComments %}
-  <!-- Styles -->
+  <!-- Styles — global sheet inlined (minified) to remove the render-blocking request -->
 {%- endif %}
-  <link rel="stylesheet" href="{{ assetBase }}css/style.css" />
+  <style>{{ inlineCss | safe }}</style>

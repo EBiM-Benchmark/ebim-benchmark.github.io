@@ -25,6 +25,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
+  eleventyConfig.addPassthroughCopy({ "src/fonts": "fonts" });
   // sitemap.xml is rendered from src/sitemap.njk (locale-aware, per-page gated
   // on the site.zhPublished map) — not a static passthrough.
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
