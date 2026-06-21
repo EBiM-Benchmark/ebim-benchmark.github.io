@@ -37,7 +37,7 @@
     { "@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN" }
   ],
 
-  "_commentWorkshop": "Neutral facts for the workshop Event JSON-LD. The workshop block has NO startDate/endDate (date TBD) and its own attendance mode (Offline, vs the index/competition Mixed). Its `organizer` is Hamburg + CMU; the panel `performer` list (proper nouns + affiliations) is neutral. Translatable: event name/description, the talk/panel subEvent names — see i18n/<lang>.json jsonld.*.",
+  "_commentWorkshop": "Reference data for the workshop Event JSON-LD, which is DATE-GATED: eleventyComputed.js emits the workshop Event only once a real `workshopStartDate` (and optionally `workshopEndDate`) is added here — until then the workshop page carries only Organization + BreadcrumbList. (An undated Event, and its undated/locationless subEvents, are invalid rich results, so the placeholder talk/panel subEvents were dropped; re-add only REAL dated subEvents on restore.) The fields below stay as the neutral facts for that future restore: own attendance mode (Offline, vs the index/competition Mixed); `organizer` Hamburg + CMU; the panel `performer` list (proper nouns + affiliations). Translatable strings (event name/description, the former talk/panel subEvent names) live in i18n/<lang>.json jsonld.*.",
   "workshopEventStatus": "https://schema.org/EventScheduled",
   "workshopEventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "workshopLocation": { "@type": "Place", "name": "To be announced" },

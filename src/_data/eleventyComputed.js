@@ -12,7 +12,10 @@
 //             index/competition/workshop/contact pages, rendered by
 //             _includes/jsonld.njk. Sourced from the language-neutral `event`
 //             data + translatable `t.jsonld` strings; deep-equal to the
-//             hand-authored blocks.
+//             hand-authored blocks — EXCEPT workshop, whose Event is now
+//             date-gated (emitted only when ev.workshopStartDate exists, with
+//             the placeholder subEvents dropped; see the key === "workshop"
+//             block), so today it emits only Organization + BreadcrumbList.
 
 function deepMerge(base, over) {
   if (over === undefined) return base;
