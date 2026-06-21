@@ -118,16 +118,19 @@ export default {
   // /zh/ pages advertise Simplified Chinese as "zh-Hans".
   htmlLang: (data) => (isZh(data) ? "zh-Hans" : "en"),
 
-  // Path prefix for the root-level assets (css/js/img) relative to the current
+  // Path prefix for the root-level assets (fonts/js/img) relative to the current
   // page. EN pages live at the site root → "" (every asset link unchanged).
-  // /zh/ pages live one directory down → "../" so css/style.css resolves to
-  // /css/style.css, img/favicon.svg to /img/favicon.svg, etc.
+  // /zh/ pages live one directory down → "../" so fonts/inter-…woff2 resolves to
+  // /fonts/…, img/favicon.svg to /img/favicon.svg, etc. (The global CSS is now
+  // INLINED into <head>, so it no longer rides assetBase; the @font-face src uses
+  // an absolute /fonts/ URL that is depth-independent on its own.)
   //   absoluteUrls — the 404 ONLY (set in its front-matter). GitHub Pages serves
   //   the single /404.html for a miss at ANY depth (e.g. /zh/bad-url), so a
   //   relative or "../" base would resolve its assets under the missed directory
-  //   and break the page. "/" makes head.njk emit /css/style.css, /js/main.js,
-  //   /img/favicon.svg — correct from any depth. No other page sets the flag, so
-  //   every other page's assetBase is byte-identical to before.
+  //   and break the page. "/" makes head.njk emit /fonts/inter-…woff2 (preload)
+  //   and /img/favicon.svg (and base.njk /js/main.js) — correct from any depth.
+  //   No other page sets the flag, so every other page's assetBase is
+  //   byte-identical to before.
   assetBase: (data) => (data.absoluteUrls ? "/" : isZh(data) ? "../" : ""),
 
   // Locale-aware navigation targets for navbar.njk / footer.njk — CHROME only.
