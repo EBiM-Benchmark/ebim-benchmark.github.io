@@ -12,7 +12,10 @@
 //             index/competition/workshop/contact pages, rendered by
 //             _includes/jsonld.njk. Sourced from the language-neutral `event`
 //             data + translatable `t.jsonld` strings; deep-equal to the
-//             hand-authored blocks.
+//             hand-authored blocks — EXCEPT workshop, whose Event is now
+//             date-gated (emitted only when ev.workshopStartDate exists, with
+//             the placeholder subEvents dropped; see the key === "workshop"
+//             block), so today it emits only Organization + BreadcrumbList.
 
 function deepMerge(base, over) {
   if (over === undefined) return base;
@@ -293,34 +296,16 @@ export default {
     }
 
     if (key === "workshop") {
-      // Rich workshop Event: NO start/end date (TBD), its own Offline attendance
-      // mode, a placeholder Place, organizer Orgs, and nested subEvents — four
-      // identical "talk" placeholders plus the panel (translatable subEvent
-      // names; neutral panelist Persons + affiliations). Deep-equal to the
-      // hand-authored block proves the lift is faithful.
-      return [
-        {
-          comment: "Structured data: Workshop Event with sub-events for each talk + panel",
-          data: {
-            "@context": "https://schema.org",
-            "@type": "Event",
-            name: j.eventNameWorkshop,
-            description: j.eventDescriptionWorkshop,
-            eventStatus: ev.workshopEventStatus,
-            eventAttendanceMode: ev.workshopEventAttendanceMode,
-            location: ev.workshopLocation,
-            url: data.canonical,
-            image: ev.image,
-            organizer: ev.workshopOrganizers,
-            subEvent: [
-              { "@type": "Event", name: j.talkTitleTba },
-              { "@type": "Event", name: j.talkTitleTba },
-              { "@type": "Event", name: j.talkTitleTba },
-              { "@type": "Event", name: j.talkTitleTba },
-              { "@type": "Event", name: j.panelName, performer: ev.panelPanelists },
-            ],
-          },
-        },
+      // The workshop Event is emitted ONLY once a real date exists. Google
+      // validates every node typed "Event" (including each subEvent) and requires
+      // startDate for rich-result eligibility; an undated Event — and any subEvent
+      // missing startDate + location — is reported invalid. While the workshop
+      // date, venue, and talk line-up are TBD we publish only the Organization +
+      // BreadcrumbList blocks. To restore the Event later, add ev.workshopStartDate
+      // (and optionally ev.workshopEndDate) to _data/event.json, and re-introduce
+      // real, dated subEvents at that point — do NOT re-add the "Talk title to be
+      // announced" placeholders, which cannot be valid Events.
+      const blocks = [
         { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
         {
           comment: "Structured data: Breadcrumbs",
@@ -334,6 +319,26 @@ export default {
           },
         },
       ];
+      if (typeof ev.workshopStartDate === "string") {
+        blocks.unshift({
+          comment: "Structured data: Workshop Event",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: j.eventNameWorkshop,
+            description: j.eventDescriptionWorkshop,
+            startDate: ev.workshopStartDate,
+            ...(typeof ev.workshopEndDate === "string" ? { endDate: ev.workshopEndDate } : {}),
+            eventStatus: ev.workshopEventStatus,
+            eventAttendanceMode: ev.workshopEventAttendanceMode,
+            location: ev.workshopLocation,
+            url: data.canonical,
+            image: ev.image,
+            organizer: ev.workshopOrganizers,
+          },
+        });
+      }
+      return blocks;
     }
 
     // contact
