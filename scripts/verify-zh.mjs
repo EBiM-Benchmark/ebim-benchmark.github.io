@@ -34,7 +34,7 @@
 //                  /zh/ (relative). No zh→EN ../workshop.html / ../contact.html
 //                  content links remain; the lone deliberate cross-locale link
 //                  (the navbar toggle's EN counterpart) is stripped first.
-//   assets       — css/js resolve up to the root (../css, ../js).
+//   assets       — js + the font preload resolve up to the root (../fonts, ../js).
 //   localized    — body contains CJK AND the English heading it replaced is
 //                  gone (proof it's translated, not the EN copy).
 //   contact form — (contact page only) the Web3Forms option value=/data-slug,
@@ -280,8 +280,8 @@ function pageChecks(p) {
   // Assets resolve up to the site root.
   add(
     "assets→../",
-    html.includes('href="../css/style.css"') && html.includes('src="../js/main.js"'),
-    "expected ../css/style.css and ../js/main.js",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
   );
 
   // Translated, not the EN copy.
@@ -407,8 +407,8 @@ function contactSuccessChecks() {
 
   add(
     "assets→../",
-    html.includes('href="../css/style.css"') && html.includes('src="../js/main.js"'),
-    "expected ../css/style.css and ../js/main.js",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
   );
 
   add("body has CJK", hasCJK(body), "body contains no CJK text");

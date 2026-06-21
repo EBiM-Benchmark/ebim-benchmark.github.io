@@ -12,9 +12,11 @@
     "verify:all": "node scripts/verify.mjs && node scripts/verify-zh.mjs --no-build"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.1.0"
+    "@11ty/eleventy": "^3.1.0",
+    "clean-css": "^5.3.3"
   },
   "devDependencies": {
+    "@fontsource/inter": "^5.2.8",
     "prettier": "^3.4.2"
   }
 }
