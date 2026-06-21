@@ -641,7 +641,7 @@ i18nKey: competition
     <div class="text-center fade-in">
       <h2 class="section-title">基准任务</h2>
       <p class="section-subtitle">
-        三项核心双臂操作任务 —— 富接触装配、可变形材料操作与辅助生活。任务在 Isaac Sim、MuJoCo 与 Genesis 中运行。
+        三项核心双臂操作任务 —— 富接触装配、可变形材料操作与辅助生活。任务在 Isaac Sim、MuJoCo 与 Genesis 中运行。所有任务均在全自主条件下评估。
       </p>
     </div>
 
@@ -675,7 +675,7 @@ i18nKey: competition
 
           <div class="task-block">
             <span class="task-label">评估</span>
-            <p class="task-text"><strong>主要：</strong>有效得分点（总计，20 分钟内）。<strong>次要：</strong>完成时间、再抓取次数、交接次数。<strong>过程：</strong>SPARC 平滑度、关节力矩、双臂指标。</p>
+            <p class="task-text"><strong>主要：</strong>完成率 —— 按序正确布线并在 Y 形检查点处验证；仅从起点开始连续正确的部分计入（一旦出现错误布线，其后全部作废）。<strong>限时：</strong>180 分钟 · 仅全自主。<strong>次要：</strong>完成时间、再抓取次数、交接次数。<strong>过程：</strong>SPARC 平滑度、关节力矩、双臂协同（SMP/STI）。</p>
           </div>
 
           <div class="task-sims">
@@ -720,7 +720,7 @@ i18nKey: competition
 
           <div class="task-block">
             <span class="task-label">评估</span>
-            <p class="task-text">放置精度（中心与朝向）、变形质量与褶皱/折叠比例、过程安全性（力阈值违规），以及总完成时间。</p>
+            <p class="task-text"><strong>主要：</strong>有效放置 IoU —— 抓取成功 × 朝向成功 × IoU（0–1）；朝向错误则计 0。<strong>并列决胜：</strong>完成时间。<strong>过程/安全：</strong>力阈值违规。</p>
           </div>
 
           <div class="task-sims">
