@@ -26,10 +26,12 @@
   <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.href | safe }}" />
 {%- endfor %}
 {%- endif %}
-{%- if siteVerification %}
+{%- if siteVerification and site.googleSiteVerification %}
 
   <!-- Google Search Console verification -->
-  <meta name="google-site-verification" content="-6Ks2ufYwQEMK_F0Erqoj6Fbw5qLqbhbwywmAgTgJJA" />
+{%- for token in site.googleSiteVerification %}
+  <meta name="google-site-verification" content="{{ token }}" />
+{%- endfor %}
 {%- endif %}
 
 {% block headStructured %}{% endblock %}
