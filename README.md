@@ -73,7 +73,7 @@ ebim-benchmark.github.io/
 ├── tests/baseline/                      # Golden EN HTML fixtures (the parity baseline)
 ├── src/
 │   ├── _data/
-│   │   ├── site.json                    # Site flags — zhPublished is a PER-PAGE map (i18nKey→bool) gating each /zh/ page
+│   │   ├── site.json                    # Site config — zhPublished (PER-PAGE i18nKey→bool map gating each /zh/ page) + googleSiteVerification (additive GSC token list)
 │   │   ├── event.json                   # Language-neutral structured-data facts (JSON-LD)
 │   │   ├── i18n/en.json                 # English UI/meta/JSON-LD strings (the fallback locale)
 │   │   ├── i18n/zh.json                 # Simplified-Chinese strings (machine-drafted + native-reviewed; 1b index/competition + 2b workshop/contact)
@@ -334,7 +334,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 | Unique OG (`og:url`, `og:title`, `og:description`) + Twitter Card tags | Per-page social previews |
 | OG image (`og-cover.png`, 1200×630, ~87 KB) | Spec-compliant social card |
 | `<meta name="keywords">` | Used by some academic indexers |
-| `<meta name="google-site-verification">` | Search Console verification token |
+| `<meta name="google-site-verification">` | Search Console verification token(s) — data-driven list in `site.json` (one `<meta>` per verifying owner) |
 | JSON-LD `Event` schema | Rich event card |
 | JSON-LD `Organization` schema | Brand entity |
 | JSON-LD `BreadcrumbList` (sub-pages) | Breadcrumb-style SERP enhancement |
