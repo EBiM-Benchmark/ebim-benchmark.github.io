@@ -387,7 +387,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Shared navbar + footer (byte-identical, comment-tagged)
 - [x] Schedule: final 4-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
-- [x] Organizers: OC (10), Advisory (4), Support (15); headshot photos wired for 26/29 cards (3 remain as initials avatars)
+- [x] Organizers: OC (10), Advisory (4), Support (17); headshot photos wired for 30/31 cards (1 remains as initials avatar)
 - [x] Invited talks: both speakers AND titles set to "to be announced" on workshop.html (speakers being re-invited; the dedicated `#talks` section stays hidden)
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
@@ -410,7 +410,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Partner logos wired with links: vivo (Gold), Galbot, Lightwheel, ManipulationNet (Bronze) — files added under `img/sponsors/`
 
 ### Still needed
-- [ ] Real headshots for the 3 remaining initials-avatar cards (Zackory Erickson, Sven Parusel, Alexander Schröder); the other 26 organizer cards now use photos
+- [ ] Real headshot for the remaining initials-avatar card (Sonya Yang); the other 30 organizer cards now use photos
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
 - [ ] Confirm invited-talk speakers + titles and the panel host on workshop.html (currently TBA)
