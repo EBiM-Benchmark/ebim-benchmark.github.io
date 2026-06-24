@@ -196,7 +196,7 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 | Sub-hero | `#home` | 40vh hero with breadcrumb + View Schedule CTA |
 | Workshop Overview | `#overview` | Half-day workshop intro with link to Competition page |
 | Schedule | `#schedule` | Tentative timeline (08:30–13:30) with type-coded rows |
-| Invited Talks | `#talks` | 4 speaker cards (speakers + titles "to be announced"; section hidden pending re-invites) |
+| Invited Talks | `#talks` | 4 confirmed speaker cards (talk titles still "to be announced"); section now visible |
 | Panel Discussion | `#panel` | Host + panelists + 3 discussion themes |
 | Poster Session & CFP | `#call-for-participation` | Extended Abstracts / Live Demos / Participation cards |
 | Important Dates | `#contact` | Poster deadline / Notification / Camera-Ready / Workshop Day (dark section) |
@@ -205,20 +205,20 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 
 ---
 
-## Workshop program (tentative — speakers being re-invited)
+## Workshop program (tentative)
 
 **Format:** Half-day morning session — exact date and venue to be announced
 
 | Time | Session |
 |------|---------|
 | 08:30–08:40 | Opening Remarks |
-| 08:40–09:05 | Invited Talk 1 — Speaker TBA (title to be announced) |
-| 09:05–09:30 | Invited Talk 2 — Speaker TBA (title to be announced) |
-| 09:30–09:55 | Invited Talk 3 — Speaker TBA (title to be announced) |
+| 08:40–09:05 | Invited Talk 1 — Prof. Abhinav Valada (University of Freiburg) (title to be announced) |
+| 09:05–09:30 | Invited Talk 2 — Prof. Roberto Martín-Martín (UT Austin) (title to be announced) |
+| 09:30–09:55 | Invited Talk 3 — Prof. He Wang (Peking University) (title to be announced) |
 | 09:55–10:30 | Competition Highlights — Winner Teams (Task 1, Task 2, Task 3 first-place teams) |
 | 10:30–11:00 | Poster Session & Coffee Break |
-| 11:00–11:25 | Invited Talk 4 — Speaker TBA (title to be announced) |
-| 11:25–12:00 | Panel Discussion — Host TBA; panelists: Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT) |
+| 11:00–11:25 | Invited Talk 4 — Prof. Chuchu Fan (MIT) (title to be announced) |
+| 11:25–12:00 | Panel Discussion — Host TBA; panelists: Stefan Schaal (Intrinsic), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT) |
 | 12:10–12:30 | Best Poster Award & Competition Award |
 | 12:30–13:30 | Hosted Lunch & Networking |
 
@@ -388,7 +388,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Schedule: final 4-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
 - [x] Organizers: OC (10), Advisory (4), Support (17); headshot photos wired for all 31 cards (no organizer card remains an initials avatar)
-- [x] Invited talks: both speakers AND titles set to "to be announced" on workshop.html (speakers being re-invited; the dedicated `#talks` section stays hidden)
+- [x] Invited talks: four confirmed speakers — Prof. Abhinav Valada (University of Freiburg), Prof. Roberto Martín-Martín (UT Austin), Prof. He Wang (Peking University), Prof. Chuchu Fan (MIT) — wired into the `#talks` cards + schedule rows; the dedicated `#talks` section is now revealed; talk titles still "to be announced"
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
 - [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
@@ -399,7 +399,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics purchase voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + purchase voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + purchase voucher" (never implies $5,250 is pure cash).
 - [x] Branding unified under EBiM Benchmark
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
-- [x] Panel: four confirmed panelists — Stefan Schaal (Intrinsic), Kenny Kimble (NIST), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row + panel cards; kept in `event.json` as reference data for the date-gated workshop Event, not in current JSON-LD)
+- [x] Panel: three confirmed panelists — Stefan Schaal (Intrinsic), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row + panel cards; kept in `event.json` as reference data for the date-gated workshop Event, not in current JSON-LD). Kenny Kimble (NIST) withdrew and was removed from the page and the `event.json` reference data.
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
 - [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), locale-aware sitemap (4 EN + 4 zh URLs published — Phase 2c), alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
@@ -412,7 +412,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 ### Still needed
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
 - [ ] Confirm Final Results date on index.html Important Dates (currently TBD)
-- [ ] Confirm invited-talk speakers + titles and the panel host on workshop.html (currently TBA)
+- [ ] Confirm invited-talk titles and the panel host on workshop.html (speakers confirmed; talk titles + host still TBA)
 - [ ] Fill in workshop poster submission deadlines on workshop.html (currently TBD)
 - [ ] Optional: convert remaining partner PNGs to WebP for marginal extra perf
 
