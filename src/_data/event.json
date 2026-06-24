@@ -47,7 +47,6 @@
   ],
   "panelPanelists": [
     { "@type": "Person", "name": "Stefan Schaal", "affiliation": { "@type": "Organization", "name": "Intrinsic" } },
-    { "@type": "Person", "name": "Kenny Kimble", "affiliation": { "@type": "Organization", "name": "NIST" } },
     { "@type": "Person", "name": "Sven Parusel", "affiliation": { "@type": "Organization", "name": "Franka Robotics" } },
     { "@type": "Person", "name": "Shaowei Cui", "affiliation": { "@type": "Organization", "name": "SCUT" } }
   ]
