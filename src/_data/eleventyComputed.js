@@ -74,6 +74,7 @@ const TOGGLE_HREFS = {
   competition: { en: "../competition.html", zh: "zh/competition.html" },
   workshop: { en: "../workshop.html", zh: "zh/workshop.html" },
   contact: { en: "../contact.html", zh: "zh/contact.html" },
+  register: { en: "../register.html", zh: "zh/register.html" },
 };
 
 // Absolute en / zh URLs for each localized pair, the source of the reciprocal
@@ -92,6 +93,10 @@ const HREFLANG_PAIRS = {
   contact: {
     en: "https://ebim-benchmark.github.io/contact.html",
     zh: "https://ebim-benchmark.github.io/zh/contact.html",
+  },
+  register: {
+    en: "https://ebim-benchmark.github.io/register.html",
+    zh: "https://ebim-benchmark.github.io/zh/register.html",
   },
 };
 
@@ -158,6 +163,7 @@ export default {
           competition: "/competition.html",
           workshop: "/workshop.html",
           contact: "/contact.html",
+          register: "/register.html",
         }
       : isZh(data)
         ? {
@@ -165,12 +171,14 @@ export default {
             competition: "competition.html",
             workshop: "workshop.html",
             contact: "contact.html",
+            register: "register.html",
           }
         : {
             index: "index.html",
             competition: "competition.html",
             workshop: "workshop.html",
             contact: "contact.html",
+            register: "register.html",
           },
 
   // noindex directive for a /zh/ page while ITS page is a draft. A draft (its

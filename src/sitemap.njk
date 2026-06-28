@@ -17,10 +17,12 @@ sitemap:
     - { loc: "https://ebim-benchmark.github.io/competition.html", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9", pair: "competition" }
     - { loc: "https://ebim-benchmark.github.io/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop" }
     - { loc: "https://ebim-benchmark.github.io/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6", pair: "contact" }
+    - { loc: "https://ebim-benchmark.github.io/register.html", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8", pair: "register" }
     - { loc: "https://ebim-benchmark.github.io/zh/", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0", pair: "index", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/competition.html", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9", pair: "competition", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6", pair: "contact", zh: true }
+    - { loc: "https://ebim-benchmark.github.io/zh/register.html", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8", pair: "register", zh: true }
   alternates:
     index:
       - { hreflang: "en", href: "https://ebim-benchmark.github.io/" }
@@ -38,9 +40,13 @@ sitemap:
       - { hreflang: "en", href: "https://ebim-benchmark.github.io/contact.html" }
       - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/contact.html" }
       - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/contact.html" }
+    register:
+      - { hreflang: "en", href: "https://ebim-benchmark.github.io/register.html" }
+      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/register.html" }
+      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/register.html" }
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.contact %}
+{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.contact or site.zhPublished.register %}
 {%- if anyPublished %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
