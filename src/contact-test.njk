@@ -124,6 +124,13 @@ robots: "noindex, nofollow"
     .btn-submit:disabled { opacity: .65; cursor: not-allowed; }
     .btn-submit:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
 
+    /* hCaptcha widget — centered in the card, above the send button */
+    .test-card .h-captcha {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
     /* Result box */
     .test-result {
       margin-top: 1.5rem;
@@ -211,8 +218,14 @@ robots: "noindex, nofollow"
         Sends one live submission through the production Web3Forms endpoint to confirm the
         contact pipeline is delivering. It uses a placeholder reply-to address
         (<code>healthcheck@example.com</code>); delivery is routed to the team inbox by the
-        Web3Forms access key, and the message is safe to ignore.
+        Web3Forms access key, and the message is safe to ignore. Solve the captcha below,
+        then send.
       </p>
+
+      <!-- hCaptcha (zero-config via the web3forms client script in trailingScripts).
+           The contact access key enforces hCaptcha server-side once enabled, so this
+           health check must solve it too — exactly like a real contact submission. -->
+      <div class="h-captcha" data-captcha="true"></div>
 
       <button id="testBtn" type="button" class="btn btn-submit">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
@@ -265,6 +278,20 @@ robots: "noindex, nofollow"
     }
 
     btn.addEventListener('click', async function () {
+      // hCaptcha guard: the contact key enforces hCaptcha server-side once enabled, so a
+      // token-less POST is rejected — this mirrors a real contact submission. Block only
+      // when the widget rendered but isn't solved; if hcEl is null (widget not rendered,
+      // e.g. the client script failed) let Web3Forms decide, like the contact form.
+      // (hCaptcha tokens are single-use; the widget is reset after each send.)
+      var hcEl = document.querySelector('textarea[name="h-captcha-response"]');
+      if (hcEl && !hcEl.value) {
+        render('error', 'Solve the captcha first', [
+          ['Captcha', 'Complete the hCaptcha challenge above, then click Send again.']
+        ]);
+        return;
+      }
+      var hcToken = hcEl ? hcEl.value : '';
+
       btn.disabled = true;
       if (label) label.textContent = 'Sending...';
       result.hidden = true;
@@ -277,7 +304,8 @@ robots: "noindex, nofollow"
         email:      'healthcheck@example.com',
         category:   'Other / General',
         subject:    subject,
-        message:    'Automated test from contact-test.html. Safe to ignore.'
+        message:    'Automated test from contact-test.html. Safe to ignore.',
+        'h-captcha-response': hcToken
       };
 
       try {
@@ -311,8 +339,11 @@ robots: "noindex, nofollow"
       } finally {
         btn.disabled = false;
         if (label) label.textContent = 'Send test submission';
+        // hCaptcha tokens are single-use — reset so the next test requires a fresh solve.
+        if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
       }
     });
   })();
 </script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 {% endraw %}{% endblock %}
