@@ -54,7 +54,7 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 - **Competition** owns benchmark/platform/task/testbed deep content.
 - **Workshop** owns schedule/talks/panel/posters/dissemination deep content.
 - The Three-Phase Mechanism diagram appears on Home and Competition (Phase III = the Workshop is referenced as a link). It is **distinct** from the home page's EBiM Maturity Roadmap (Alpha/Beta/Gamma), which describes the multi-year initiative across editions, not this year's phases.
-- Organizers and Partners live only on Home and are linked from sub-pages.
+- Organizers live only on Home (linked from sub-pages). Partners appear on both Home and Competition with identical Silver/Bronze tiers (the other sub-pages link to `#partners`).
 
 ---
 
@@ -377,6 +377,8 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - Arranged in ICRA-style tiers (Platinum · Gold · Silver · Bronze) with descending logo prominence; per-tier sizing lives in `css/style.css` under `/* ---------- Partners (ICRA-style tiered) ---------- */`, with a few per-logo overrides (e.g. Google shrunk, AMD nudged up via `transform: scale`, VRB/RIG/HHRI enlarged, Galbot shrunk).
 - SVGs render at native resolution; for raster logos `width`/`height` attrs match the source-file dimensions for CLS prevention.
 - All partner logos use `loading="lazy"` and `decoding="async"`. (The folder stays `img/sponsors/` so asset paths remain stable.)
+- A partner with no link is rendered as a `<div class="partner-card">` (no `href`) instead of an `<a>`; the hover/lift affordance is scoped to `a.partner-card` in CSS, so a non-anchor card is styled identically but stays inert (e.g. Synrise).
+- The Silver/Bronze tiers are kept identical on Home and Competition (`index.njk` ↔ `competition.njk`, plus the `zh/` mirrors) — any logo added to one must be added to all four.
 
 ---
 
@@ -391,7 +393,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Invited talks: four confirmed speakers — Prof. Abhinav Valada (University of Freiburg), Prof. Roberto Martín-Martín (UT Austin), Prof. He Wang (Peking University), Prof. Chuchu Fan (MIT) — wired into the `#talks` cards + schedule rows; the dedicated `#talks` section is now revealed; talk titles still "to be announced"
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
-- [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
+- [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym, Synrise), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet, Computational Freedom); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
 - [x] Franka Community: Community Resources callout on competition.html + footer link (the inline note under the Franka card was dropped in the tier redesign)
 - [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (all 7 pages), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/register/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
 - [x] 4-testbed coverage: Hamburg (University of Hamburg robotics lab, venue TBA), Munich, Pittsburgh, Shanghai (Franka Robotics branch office; card links to the testbed WeChat group)
@@ -407,7 +409,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)
 - [x] Image optimization: platform PNGs → WebP (~99.5% reduction); OG cover resized + reformatted
 - [x] EBiM Maturity Roadmap (Alpha 2026 → Beta 2027 → Gamma, foreseeable future) strip on the home page, styled distinctly from the Phase I/II/III pipeline; links the PR2 Beta Program
-- [x] Partner logos wired with links: vivo (Gold), Galbot, Lightwheel, ManipulationNet (Bronze) — files added under `img/sponsors/`
+- [x] Partner logos wired with links: vivo (Gold), Galbot, Lightwheel, ManipulationNet (Bronze), Computational Freedom (Bronze → gpufree.cn) — files added under `img/sponsors/`. Synrise (Silver) added as a deliberately non-linked card (`<div class="partner-card">`). Both on Home + Competition (EN + zh).
 
 ### Still needed
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)
