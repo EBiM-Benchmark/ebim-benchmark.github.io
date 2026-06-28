@@ -16,7 +16,6 @@
     // operational inbox metadata, not user-facing copy.
     var prefixMap = {
       competition: '[COMPETITION] ',
-      register:    '[REGISTER] ',
       workshop:    '[WORKSHOP] ',
       partner:     '[PARTNERSHIP] ',
       media:       '[MEDIA] ',
@@ -33,7 +32,7 @@
 
     // ── Discord CTA: reveal a "faster path" banner for community-relevant topics ──
     // Purely additive — the form is never hidden, gated, or altered by this.
-    var DISCORD_TOPICS = ['competition', 'register', 'workshop'];
+    var DISCORD_TOPICS = ['competition', 'workshop'];
     var discordCta = document.getElementById('discordCta');
 
     function syncDiscordCta() {
@@ -68,6 +67,14 @@
       e.preventDefault();
       hideError();
 
+      // hCaptcha guard: block submit until the captcha is solved (mirrors register).
+      // (hc is null if the widget hasn't rendered — let Web3Forms decide in that case.)
+      var hc = form.querySelector('textarea[name="h-captcha-response"]');
+      if (hc && !hc.value) {
+        showError(form.dataset.msgCaptcha || 'Please complete the captcha before submitting.');
+        return;
+      }
+
       var submitBtn = form.querySelector('button[type=submit]');
       var submitLabel = submitBtn.querySelector('.btn-label') || submitBtn;
       submitBtn.disabled = true;
@@ -93,9 +100,11 @@
           showSuccess();
         } else {
           showError(json.message || 'Submission failed. Please try again.');
+          if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
         }
       } catch (err) {
         showError('Network error — please try again later.');
+        if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
       } finally {
         submitBtn.disabled = false;
         submitLabel.textContent = 'Send Message';
@@ -106,7 +115,6 @@
     // Accepted query slugs are kept stable for inbound links and mapped to the
     // option data-slug (note: ?topic=partnership targets the "testbed" option).
     var topicMap = {
-      register:    'register',
       competition: 'competition',
       partner:     'partner',
       workshop:    'workshop',

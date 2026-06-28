@@ -9,9 +9,8 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 
 ### Contact form: deep links & categories
 
-`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category. The accepted query slugs (below) are unchanged; each maps to the matching option's stable `data-slug`, and the visible dropdown label can differ:
+`contact.html` posts to Web3Forms. **Deep links** — `contact.html?topic=SLUG` pre-selects a category. Each accepted query slug (below) maps to the matching option's stable `data-slug`, and the visible dropdown label can differ:
 
-- `register` → Competition — Register Interest
 - `competition` → Competition Question
 - `partner` → Partnership Inquiry *(label: "Partnership — Hardware, Funding & Compute")*
 - `workshop` → Workshop / Poster Submission
@@ -19,7 +18,7 @@ A globally coordinated benchmark for real-world embodied bimanual manipulation �
 - `tech` → Technical (Platform / Website)
 - `partnership` → Partnership / Testbed Hosting *(label: "Partnership — Testbed Hosting")*
 
-Unknown/absent slug = no pre-selection.
+Unknown/absent slug = no pre-selection. The former `register` slug was retired when team registration moved to its own `register.html` page, so a stale `contact.html?topic=register` now simply loads the form with no category pre-selected.
 
 **Adding a category** — everything keys off a stable per-option `data-slug` (so the human-readable `value`/label can change without touching routing). In `src/contact.njk`:
 
@@ -401,7 +400,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
 - [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym, Synrise), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet, Computational Freedom); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
 - [x] Franka Community: Community Resources callout on competition.html + footer link (the inline note under the Franka card was dropped in the tier redesign)
-- [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (all 9 pages), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/register/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
+- [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (all 9 pages), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
 - [x] 4-testbed coverage: Hamburg (University of Hamburg robotics lab, venue TBA), Munich, Pittsburgh, Shanghai (Franka Robotics branch office; card links to the testbed WeChat group)
 - [x] Competition timeline: Simulation Release Jun 29 → Simulation End Aug 3 → Results Announced Aug 8 → Phase II two-window (team hands-on bench testing Aug 10–19; organizer-run testing & evaluation Aug 20–31, with code submission staying open — not a freeze); workshop date & Final Results TBD
 - [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics purchase voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + purchase voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + purchase voucher" (never implies $5,250 is pure cash).
