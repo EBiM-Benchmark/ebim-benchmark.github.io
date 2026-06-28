@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Contact Form Health Check · EBiM Benchmark</title>
-  <meta name="description" content="Internal health check for the EBiM Benchmark contact form. Not for public use." />
+  <meta name="robots" content="noindex" />
+  <title>Registration Received · EBiM Benchmark</title>
+  <meta name="description" content="Your EBiM Benchmark team registration has been received." />
+  <link rel="canonical" href="https://ebim-benchmark.github.io/register-success.html" />
 
 
 
@@ -18,172 +19,18 @@
   <style>
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
-
-    /* ── Sub-page hero (compact) ── */
-    #home.subhero {
-      min-height: 30vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background: var(--bg-dark);
-      overflow: hidden;
-      padding: calc(var(--nav-h) + 2.5rem) 0 3rem;
-      box-sizing: border-box;
-    }
-    #home.subhero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-    #home.subhero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .subhero-content {
-      position: relative; z-index: 1;
-      text-align: center;
-      max-width: 760px;
-      padding: 1.25rem 1.5rem;
-    }
-    .subhero-eyebrow {
-      display: inline-block;
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: #f59e0b;
-      background: rgba(245,158,11,.12);
-      border: 1px solid rgba(245,158,11,.4);
-      padding: .3rem .85rem;
-      border-radius: 100px;
-      margin-bottom: 1rem;
-    }
-    .subhero-title {
-      font-size: clamp(1.7rem, 3.6vw, 2.6rem);
-      color: #fff;
-      font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -.01em;
-    }
-    @media (max-width: 700px) {
-      #home.subhero { min-height: 38vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; }
-    }
-
-    /* ── Test card ── */
-    .test-card {
-      max-width: 600px;
-      margin: 0 auto;
-      background: var(--bg-white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem 2.25rem;
-      box-shadow: var(--card-shadow);
-      text-align: center;
-    }
-
-    /* Warning banner */
-    .test-warning {
-      display: flex;
-      align-items: flex-start;
-      gap: .6rem;
-      text-align: left;
-      background: rgba(245,158,11,.08);
-      border: 1px solid rgba(245,158,11,.35);
-      color: #92400e;
-      border-radius: 10px;
-      padding: .85rem 1rem;
-      font-size: .9rem;
-      line-height: 1.5;
-      font-weight: 600;
-      margin-bottom: 1.6rem;
-    }
-    .test-warning svg { flex-shrink: 0; margin-top: .1rem; color: #d97706; }
-
-    .test-desc {
-      font-size: .92rem;
-      color: var(--text-mid);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Submit button — matches site CTAs, tuned for the light card */
-    .btn-submit {
-      width: 100%;
-      justify-content: center;
-      background: var(--accent);
-      color: var(--bg-dark);
-      font-size: 1rem;
-      padding: .95rem 2rem;
-    }
-    .btn-submit:hover:not(:disabled) {
-      background: var(--accent-dark);
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,212,255,.28);
-    }
-    .btn-submit:disabled { opacity: .65; cursor: not-allowed; }
-    .btn-submit:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
-
-    /* Result box */
-    .test-result {
-      margin-top: 1.5rem;
-      text-align: left;
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-      font-size: .9rem;
-      line-height: 1.55;
-    }
-    .test-result-success {
-      background: rgba(0,212,255,.07);
-      border: 1px solid rgba(0,212,255,.4);
-      color: #0e7490;
-    }
-    .test-result-error {
-      background: rgba(220,38,38,.07);
-      border: 1px solid rgba(220,38,38,.35);
-      color: #b91c1c;
-    }
-    .test-result-head {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      font-weight: 800;
-      margin-bottom: .5rem;
-    }
-    .test-result-head svg { flex-shrink: 0; }
-    .test-result dl {
-      margin: 0;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: .25rem .75rem;
-    }
-    .test-result dt {
-      font-weight: 700;
-      color: var(--text-mid);
-      white-space: nowrap;
-    }
-    .test-result dd {
-      margin: 0;
-      color: var(--text-dark);
-      word-break: break-word;
-    }
-
-    @media (max-width: 540px) {
-      .test-card { padding: 1.75rem 1.35rem; }
-      .test-result dl { grid-template-columns: 1fr; gap: .05rem .75rem; }
-      .test-result dd { margin-bottom: .5rem; }
-    }
+    #sent { min-height: 70vh; display: flex; align-items: center; justify-content: center; background: var(--bg-dark); padding: calc(var(--nav-h) + 3rem) 1.5rem 4rem; position: relative; overflow: hidden; }
+    #sent::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+    #sent::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.12) 0%, transparent 70%); pointer-events: none; }
+    .sent-content { position: relative; z-index: 1; text-align: center; max-width: 640px; }
+    .sent-check { width: 84px; height: 84px; margin: 0 auto 1.6rem; border-radius: 50%; background: rgba(0,212,255,.14); border: 1px solid rgba(0,212,255,.45); color: var(--accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(0,212,255,.3); }
+    .sent-title { font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 800; color: #fff; margin-bottom: 1rem; letter-spacing: -.01em; }
+    .sent-message { color: rgba(255,255,255,.72); font-size: 1.05rem; line-height: 1.65; max-width: 500px; margin: 0 auto 2.2rem; }
+    .sent-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
   </style>
 
 </head>
-<body class="page-contact-test">
+<body class="page-register-success">
 
 <nav id="navbar" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -249,58 +96,26 @@
 
 
 <main id="main-content">
-
-<!-- ============================================================
-     SUB-PAGE HERO
-     ============================================================ -->
-<section id="home" class="subhero">
-  <div class="subhero-content">
-    <span class="subhero-eyebrow">Internal Tool</span>
-    <h1 class="subhero-title">Contact Form Health Check</h1>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     TEST PANEL
-     ============================================================ -->
-<section id="health-check">
-  <div class="container">
-
-    <div class="test-card fade-in">
-
-      <div class="test-warning" role="note">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+  <section id="sent">
+    <div class="sent-content">
+      <div class="sent-check" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>FOR INTERNAL USE — each click sends a real email.</span>
       </div>
-
-      <p class="test-desc">
-        Sends one live submission through the production Web3Forms endpoint to confirm the
-        contact pipeline is delivering. It uses a placeholder reply-to address
-        (<code>healthcheck@example.com</code>); delivery is routed to the team inbox by the
-        Web3Forms access key, and the message is safe to ignore.
-      </p>
-
-      <button id="testBtn" type="button" class="btn btn-submit">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
-        </svg>
-        <span class="btn-label">Send test submission</span>
-      </button>
-
-      <!-- Result (revealed by JS) -->
-      <div id="testResult" class="test-result" role="status" aria-live="polite" hidden></div>
-
+      <h1 class="sent-title">Registration received &#10003;</h1>
+      <p class="sent-message">Thanks — your team is registered. We'll review your submission and follow up by email; compute-resource and submission details are sent to your Point of Contact after we verify your team.</p>
+      <div class="sent-actions">
+        <a href="index.html" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146z"/>
+          </svg>
+          Back to Home
+        </a>
+      </div>
     </div>
-
-  </div>
-</section>
-
-
+  </section>
 </main>
 
 
@@ -372,88 +187,6 @@
 
 
 <script src="js/main.js" defer></script>
-
-<!-- Health-check submission logic -->
-<script>
-  (function () {
-    'use strict';
-    var btn    = document.querySelector('#testBtn');
-    var label  = btn ? btn.querySelector('.btn-label') : null;
-    var result = document.querySelector('#testResult');
-    if (!btn || !result) return;
-
-    var ICON_OK = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
-    var ICON_ERR = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
-
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-      });
-    }
-
-    function render(kind, title, rows) {
-      var icon = kind === 'success' ? ICON_OK : ICON_ERR;
-      var dl = rows.map(function (r) {
-        return '<dt>' + escapeHtml(r[0]) + '</dt><dd>' + escapeHtml(r[1]) + '</dd>';
-      }).join('');
-      result.className = 'test-result test-result-' + kind;
-      result.innerHTML =
-        '<div class="test-result-head">' + icon + '<span>' + escapeHtml(title) + '</span></div>' +
-        '<dl>' + dl + '</dl>';
-      result.hidden = false;
-    }
-
-    btn.addEventListener('click', async function () {
-      btn.disabled = true;
-      if (label) label.textContent = 'Sending...';
-      result.hidden = true;
-
-      var subject = '[OTHER] Automated health check at ' + new Date().toISOString();
-      var payload = {
-        access_key: '748f5c30-e7fd-49b0-9eb5-5c1c92f03f78',
-        from_name:  'EBiM Benchmark Health Check',
-        name:       'Health Check',
-        email:      'healthcheck@example.com',
-        category:   'Other / General',
-        subject:    subject,
-        message:    'Automated test from contact-test.html. Safe to ignore.'
-      };
-
-      try {
-        var res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-        var json = await res.json();
-        if (json.success) {
-          render('success', 'Submission delivered', [
-            ['Status', 'HTTP ' + res.status + ' · success'],
-            ['Web3Forms', json.message || 'OK'],
-            ['Subject', subject],
-            ['Sent at', new Date().toLocaleString()]
-          ]);
-        } else {
-          render('error', 'Submission rejected', [
-            ['Status', 'HTTP ' + res.status],
-            ['Web3Forms', json.message || 'Unknown error'],
-            ['Subject', subject]
-          ]);
-        }
-      } catch (err) {
-        render('error', 'Request failed', [
-          ['Error', (err && err.message) ? err.message : 'Network error — please try again.']
-        ]);
-      } finally {
-        btn.disabled = false;
-        if (label) label.textContent = 'Send test submission';
-      }
-    });
-  })();
-</script>
 
 </body>
 </html>

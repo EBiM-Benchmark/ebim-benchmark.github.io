@@ -24,7 +24,7 @@
     "compBenchmark": "The Benchmark",
     "compTasks": "Tasks",
     "compTestbeds": "Testbeds",
-    "compRegister": "Register Interest",
+    "compRegister": "Call for Participation",
     "compAwards": "Awards &amp; Prizes",
     "workshop": "Workshop",
     "ariaToggleWorkshop": "Toggle Workshop menu",
@@ -38,6 +38,7 @@
     "organizers": "Organizers",
     "partners": "Partners",
     "contact": "Contact",
+    "register": "Register",
     "ariaLanguage": "Language"
   },
 
@@ -57,6 +58,7 @@
     "participateCompete": "Compete",
     "participateSubmitPoster": "Submit Poster",
     "participateContact": "Contact Us",
+    "participateRegister": "Register",
     "linkContactForm": "Contact form",
     "linkGithub": "GitHub",
     "linkDiscord": "Discord",

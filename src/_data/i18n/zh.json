@@ -24,7 +24,7 @@
     "compBenchmark": "基准测试",
     "compTasks": "任务",
     "compTestbeds": "测试平台",
-    "compRegister": "登记意向",
+    "compRegister": "参与征集",
     "compAwards": "奖项与奖金",
     "workshop": "研讨会",
     "ariaToggleWorkshop": "切换研讨会菜单",
@@ -38,6 +38,7 @@
     "organizers": "组织者",
     "partners": "合作伙伴",
     "contact": "联系我们",
+    "register": "报名",
     "ariaLanguage": "语言"
   },
 
@@ -57,6 +58,7 @@
     "participateCompete": "参赛",
     "participateSubmitPoster": "提交海报",
     "participateContact": "联系我们",
+    "participateRegister": "报名",
     "linkContactForm": "联系表单",
     "linkGithub": "GitHub",
     "linkDiscord": "Discord",

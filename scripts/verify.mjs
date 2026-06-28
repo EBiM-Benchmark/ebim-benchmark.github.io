@@ -44,8 +44,10 @@ const PAGES = [
   "competition.html",
   "workshop.html",
   "contact.html",
+  "register.html",
   "404.html",
   "contact-success.html",
+  "register-success.html",
   "contact-test.html",
 ];
 const JSONLD_PAGES = new Set(["index.html", "competition.html", "workshop.html", "contact.html"]);

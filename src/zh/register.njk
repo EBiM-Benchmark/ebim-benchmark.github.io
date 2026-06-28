@@ -1,0 +1,403 @@
+---
+permalink: "/zh/register.html"
+bodyClass: "page-register"
+title: "团队报名 · EBiM Benchmark"
+description: "报名参加 EBiM Benchmark（每队 1–6 人）——具身双臂操作基准。选择赛题、为测试平台排序并加入社区。"
+keywords: "EBiM Benchmark 报名, 团队报名, 具身双臂操作竞赛, 机器人基准报名"
+canonical: "https://ebim-benchmark.github.io/zh/register.html"
+headComments: true
+backToTop: true
+navActive: "register"
+i18nKey: register
+---
+{% extends "layouts/base.njk" %}
+
+{% block headStructured %}
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="EBiM Benchmark" />
+  <meta property="og:url"         content="https://ebim-benchmark.github.io/zh/register.html" />
+  <meta property="og:title"       content="团队报名 · EBiM Benchmark" />
+  <meta property="og:description" content="为 EBiM Benchmark 报名您的团队（每队 1–6 人）。" />
+  <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"   content="EBiM Benchmark — 迈向面向真实世界具身双臂操作的全球协同基准" />
+  <meta property="og:locale"      content="zh_CN" />
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="团队报名 · EBiM Benchmark" />
+  <meta name="twitter:description" content="为 EBiM Benchmark 报名您的团队（每队 1–6 人）。" />
+  <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta name="twitter:image:alt"   content="EBiM Benchmark — 迈向面向真实世界具身双臂操作的全球协同基准" />
+{% endblock %}
+{# NOTE: do NOT include jsonld.njk — register is not in the pageMeta/jsonLd whitelist, so the computed
+   bundles are undefined for it and base.njk falls back to this front-matter title/description. #}
+
+{% block headStyle %}{% raw %}
+  <style>
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* Active nav link for the current page (Register) */
+    .page-register .nav-links a[href="register.html"] { color: var(--accent); font-weight: 700; }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 1.5rem; width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent, #00d4ff); color: #0a0e1a; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: opacity .3s, visibility .3s, transform .3s, background .2s, box-shadow .2s;
+      z-index: 998; box-shadow: 0 4px 18px rgba(0,212,255,.35);
+    }
+    #back-to-top.visible { opacity: 1; visibility: visible; transform: none; }
+    #back-to-top:hover { background: #fff; box-shadow: 0 6px 24px rgba(0,212,255,.45); }
+    #back-to-top:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+    #back-to-top svg { pointer-events: none; }
+
+    /* ── Sub-page hero (copied from contact.njk) ── */
+    #home.subhero {
+      min-height: 32vh; display: flex; align-items: center; justify-content: center;
+      position: relative; background: var(--bg-dark); overflow: hidden;
+      padding: calc(var(--nav-h) + 2.5rem) 0 3rem; box-sizing: border-box;
+    }
+    #home.subhero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    #home.subhero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .subhero-content { position: relative; z-index: 1; text-align: center; max-width: 820px; padding: 1.25rem 1.5rem; }
+    .breadcrumb { display: inline-block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 1rem; }
+    .breadcrumb a { color: rgba(255,255,255,.55); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb-sep { margin: 0 .55rem; opacity: .5; }
+    .breadcrumb-current { color: var(--accent); }
+    .subhero-title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); color: #fff; font-weight: 800; line-height: 1.18; margin-bottom: .9rem; letter-spacing: -.01em; }
+    .subhero-subtitle { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,.72); margin-bottom: .8rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .subhero-note { font-size: .85rem; color: rgba(255,255,255,.5); max-width: 560px; margin: 0 auto; }
+    @media (max-width: 700px) { #home.subhero { min-height: 40vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
+
+    /* ── Card + form (form-field/label/input/select/textarea reused from the inlined global CSS) ── */
+    .reg-card { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); }
+    .reg-form { display: flex; flex-direction: column; gap: 1.6rem; }
+
+    .form-field { display: flex; flex-direction: column; gap: .4rem; }
+    .form-label { font-size: .85rem; font-weight: 700; color: var(--text-dark); letter-spacing: .005em; }
+    .form-label .req { color: #dc2626; margin-left: .15rem; }
+    .form-label-note { font-weight: 500; color: var(--text-muted); font-size: .78rem; margin-left: .15rem; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; font-family: inherit; font-size: .95rem; color: var(--text-dark);
+      background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px;
+      padding: .72rem .9rem; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: #64748b; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none; border-color: var(--accent); background: var(--bg-white); box-shadow: 0 0 0 3px rgba(0,212,255,.16);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    .form-select {
+      appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right .9rem center; cursor: pointer;
+    }
+    .form-select:invalid { color: #64748b; }
+    .form-select option { color: var(--text-dark); }
+
+    /* ── NEW controls: fieldset reset, checkbox rows, rank grid, member blocks ── */
+    fieldset.form-field { border: 0; margin: 0; padding: 0; min-width: 0; }
+    fieldset.form-field > legend { padding: 0; }                 /* legend styled via .form-label class */
+    .reg-checks { display: flex; flex-direction: column; gap: .55rem; margin-top: .5rem; }
+    .reg-check { display: flex; align-items: flex-start; gap: .6rem; font-size: .92rem; color: var(--text-dark); line-height: 1.45; cursor: pointer; }
+    .reg-check input[type="checkbox"] { margin-top: .15rem; width: 1.05rem; height: 1.05rem; accent-color: var(--accent-dark); flex-shrink: 0; }
+    .reg-check-other { margin-top: .3rem; }
+
+    .reg-rank-grid { display: grid; grid-template-columns: 1fr auto; gap: .55rem .9rem; align-items: center; margin-top: .5rem; }
+    .reg-rank-grid label { font-size: .92rem; color: var(--text-dark); font-weight: 600; }
+    .reg-rank-grid .form-select { width: 5.5rem; }
+
+    .reg-member { border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.15rem; display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; background: var(--bg-light); }
+    .reg-member > .reg-member-legend { grid-column: 1 / -1; font-size: .85rem; font-weight: 700; color: var(--text-dark); }
+    .reg-member > .reg-member-legend .req { color: #dc2626; margin-left: .15rem; }
+    .reg-member .form-input { background: var(--bg-white); }
+    @media (max-width: 560px) { .reg-member { grid-template-columns: 1fr; } }
+
+    .reg-optional-head { font-size: .9rem; font-weight: 700; color: var(--text-mid); margin: .2rem 0 -.4rem; }
+    .reg-optional { display: flex; flex-direction: column; gap: 1rem; }
+    .reg-optional .reg-member { border-style: dashed; opacity: .92; }
+
+    /* Teammate-finder callout (mirrors the contact discord-cta tone) */
+    .reg-teamfinder {
+      display: flex; align-items: flex-start; gap: .65rem; max-width: 760px; margin: 0 auto 1.5rem;
+      background: rgba(0,212,255,.06); border: 1px solid rgba(0,212,255,.28); border-radius: 12px;
+      padding: .9rem 1.1rem; font-size: .9rem; color: var(--text-mid); line-height: 1.55;
+    }
+    .reg-teamfinder svg { flex-shrink: 0; margin-top: .15rem; color: var(--accent-dark); }
+    .reg-teamfinder a { color: var(--accent-dark); font-weight: 600; }
+
+    /* Submit button */
+    .btn-submit { width: 100%; justify-content: center; background: var(--accent); color: var(--bg-dark); font-size: 1rem; padding: .95rem 2rem; margin-top: .25rem; }
+    .btn-submit:hover:not(:disabled) { background: var(--accent-dark); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,.28); }
+    .btn-submit:disabled { opacity: .65; cursor: not-allowed; }
+    .btn-submit:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
+
+    /* Inline error + success (same structure/classes as contact) */
+    .form-error[hidden] { display: none; }
+    .form-error { display: flex; align-items: flex-start; gap: .55rem; background: rgba(220,38,38,.07); border: 1px solid rgba(220,38,38,.3); color: #b91c1c; border-radius: 8px; padding: .75rem .9rem; font-size: .88rem; line-height: 1.5; }
+    .form-error svg { flex-shrink: 0; margin-top: .1rem; }
+    .form-success { text-align: center; padding: 1rem .5rem; }
+    .form-success-icon { width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%; background: rgba(0,212,255,.12); border: 1px solid rgba(0,212,255,.4); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
+    .form-success h2 { font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: .6rem; }
+    .form-success p { color: var(--text-mid); font-size: 1rem; line-height: 1.65; max-width: 440px; margin: 0 auto 1.5rem; }
+
+    .reg-noscript { max-width: 760px; margin: 1rem auto 0; text-align: center; font-size: .85rem; color: #b91c1c; }
+    .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+    @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
+  </style>
+{% endraw %}{% endblock %}
+
+{% block main %}{% raw %}
+<main id="main-content">
+
+<section id="home" class="subhero">
+  <div class="subhero-content">
+    <div class="hero-wordmark hero-wordmark-sm" role="img" aria-label="EBiM Benchmark">
+      <span class="hero-wordmark-mark">EBiM</span>
+      <span class="hero-wordmark-sub">Benchmark</span>
+    </div>
+    <div class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">首页</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">报名</span>
+    </div>
+    <h1 class="subhero-title">团队报名</h1>
+    <p class="subhero-subtitle">为 EBiM Benchmark 报名您的团队（每队 1–6 人）。可参与一个或多个赛题，并为四个跨大洲测试平台排序。</p>
+    <p class="subhero-note">成员一为团队联系人，将收到所有团队邮件——确认、算力与提交详情。</p>
+  </div>
+</section>
+
+<section id="register-form">
+  <div class="container">
+
+    <div class="reg-teamfinder fade-in">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.63 1.612-1.438 1.612Z"/>
+      </svg>
+      <span>还在找队友？欢迎加入我们的 <a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord <span aria-hidden="true">→</span></a> 社区（面向全球）。位于中国的参赛者也可加入 <a href="https://qr61.cn/oioUKl/qtksKk2?lid=9tng5pmfcn8tgrp0m&amp;rlid=9tng5pmfcn8tgrp0m" target="_blank" rel="noopener">上海测试平台微信群 <span aria-hidden="true">→</span></a>。</span>
+    </div>
+
+    <div class="reg-card fade-in">
+
+      <!-- Native Web3Forms registration form. AJAX-first (see register-form-script.njk);
+           hCaptcha is enforced server-side once enabled on the key, so JS is required to submit. -->
+      <form id="registerForm" action="https://api.web3forms.com/submit" method="POST"
+            data-msg-tasks="请至少选择一个赛题。"
+            data-msg-purpose="请至少选择一个参与目的（或填写&quot;其他&quot;）。"
+            data-msg-referral="请至少选择一种了解我们的渠道（或填写&quot;其他&quot;）。"
+            data-msg-ranks="请为每个测试平台分配 1–4 中各不相同的序号。"
+            data-msg-captcha="请先完成人机验证再提交。"
+            data-msg-generic="出现问题，请重试。"
+            data-msg-network="网络错误，请稍后重试。"
+            data-sending="提交中…"
+            data-submit-label="提交报名">
+
+        <div class="reg-form">
+
+          <!-- ── Team ── -->
+          <div class="form-field">
+            <label class="form-label" for="team_name">团队名称 <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="team_name" name="team_name" maxlength="120" required placeholder="您的团队名称" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="country">团队主要所在国家或地区 <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">即大多数成员所在地</span></label>
+            <input class="form-input" type="text" id="country" name="country" maxlength="120" required placeholder="例如：德国" />
+          </div>
+
+          <fieldset class="form-field">
+            <legend class="form-label">您参与哪些赛题？ <span class="req" aria-hidden="true">*</span></legend>
+            <div class="reg-checks">
+              <label class="reg-check"><input type="checkbox" name="tasks" value="Task 1 — Cable Routing & Plugging" /> <span>赛题一 — 线缆布线与插接</span></label>
+              <label class="reg-check"><input type="checkbox" name="tasks" value="Task 2 — Deformable Material Handling (Thermal Pad Placement)" /> <span>赛题二 — 可变形材料操作（导热垫放置）</span></label>
+              <label class="reg-check"><input type="checkbox" name="tasks" value="Task 3 — Assisted Living & Feeding" /> <span>赛题三 — 辅助生活与喂食</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-field">
+            <legend class="form-label">跨大洲测试平台偏好——请对全部四个排序 <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">1 = 最优先；每个序号仅用一次</span></legend>
+            <div class="reg-rank-grid">
+              <label for="rank_hamburg">汉堡</label>
+              <select class="form-select" id="rank_hamburg" name="testbed_rank_hamburg" required>
+                <option value="" disabled selected>—</option><option>1</option><option>2</option><option>3</option><option>4</option>
+              </select>
+              <label for="rank_munich">慕尼黑</label>
+              <select class="form-select" id="rank_munich" name="testbed_rank_munich" required>
+                <option value="" disabled selected>—</option><option>1</option><option>2</option><option>3</option><option>4</option>
+              </select>
+              <label for="rank_pittsburgh">匹兹堡</label>
+              <select class="form-select" id="rank_pittsburgh" name="testbed_rank_pittsburgh" required>
+                <option value="" disabled selected>—</option><option>1</option><option>2</option><option>3</option><option>4</option>
+              </select>
+              <label for="rank_shanghai">上海</label>
+              <select class="form-select" id="rank_shanghai" name="testbed_rank_shanghai" required>
+                <option value="" disabled selected>—</option><option>1</option><option>2</option><option>3</option><option>4</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <!-- ── Members ── -->
+          <fieldset class="reg-member">
+            <legend class="reg-member-legend">成员一 — 联系人 <span class="req" aria-hidden="true">*</span></legend>
+            <input class="form-input" type="text"  name="member1_name"        maxlength="120" required placeholder="姓名" />
+            <input class="form-input" type="email" name="member1_email"       maxlength="200" required placeholder="邮箱" />
+            <input class="form-input" type="text"  name="member1_affiliation" maxlength="200" required placeholder="单位（院校或机构）" />
+            <input class="form-input" type="text"  name="member1_role"        maxlength="120" placeholder="团队角色（选填）" />
+          </fieldset>
+
+          <div class="reg-optional-head">其他成员（选填）</div>
+          <div class="reg-optional">
+            <fieldset class="reg-member">
+              <legend class="reg-member-legend">成员二 <span class="form-label-note">（选填——团队人数较少请留空）</span></legend>
+              <input class="form-input" type="text"  name="member2_name"        maxlength="120" placeholder="姓名" />
+              <input class="form-input" type="email" name="member2_email"       maxlength="200" placeholder="邮箱" />
+              <input class="form-input" type="text"  name="member2_affiliation" maxlength="200" placeholder="单位" />
+              <input class="form-input" type="text"  name="member2_role"        maxlength="120" placeholder="角色（选填）" />
+            </fieldset>
+            <fieldset class="reg-member">
+              <legend class="reg-member-legend">成员三 <span class="form-label-note">（选填）</span></legend>
+              <input class="form-input" type="text"  name="member3_name"        maxlength="120" placeholder="姓名" />
+              <input class="form-input" type="email" name="member3_email"       maxlength="200" placeholder="邮箱" />
+              <input class="form-input" type="text"  name="member3_affiliation" maxlength="200" placeholder="单位" />
+              <input class="form-input" type="text"  name="member3_role"        maxlength="120" placeholder="角色（选填）" />
+            </fieldset>
+            <fieldset class="reg-member">
+              <legend class="reg-member-legend">成员四 <span class="form-label-note">（选填）</span></legend>
+              <input class="form-input" type="text"  name="member4_name"        maxlength="120" placeholder="姓名" />
+              <input class="form-input" type="email" name="member4_email"       maxlength="200" placeholder="邮箱" />
+              <input class="form-input" type="text"  name="member4_affiliation" maxlength="200" placeholder="单位" />
+              <input class="form-input" type="text"  name="member4_role"        maxlength="120" placeholder="角色（选填）" />
+            </fieldset>
+            <fieldset class="reg-member">
+              <legend class="reg-member-legend">成员五 <span class="form-label-note">（选填）</span></legend>
+              <input class="form-input" type="text"  name="member5_name"        maxlength="120" placeholder="姓名" />
+              <input class="form-input" type="email" name="member5_email"       maxlength="200" placeholder="邮箱" />
+              <input class="form-input" type="text"  name="member5_affiliation" maxlength="200" placeholder="单位" />
+              <input class="form-input" type="text"  name="member5_role"        maxlength="120" placeholder="角色（选填）" />
+            </fieldset>
+            <fieldset class="reg-member">
+              <legend class="reg-member-legend">成员六 <span class="form-label-note">（选填）</span></legend>
+              <input class="form-input" type="text"  name="member6_name"        maxlength="120" placeholder="姓名" />
+              <input class="form-input" type="email" name="member6_email"       maxlength="200" placeholder="邮箱" />
+              <input class="form-input" type="text"  name="member6_affiliation" maxlength="200" placeholder="单位" />
+              <input class="form-input" type="text"  name="member6_role"        maxlength="120" placeholder="角色（选填）" />
+            </fieldset>
+          </div>
+
+          <!-- ── About your participation ── -->
+          <fieldset class="form-field">
+            <legend class="form-label">参与目的 <span class="req" aria-hidden="true">*</span></legend>
+            <div class="reg-checks">
+              <label class="reg-check"><input type="checkbox" name="purpose" value="Research" /> <span>科研</span></label>
+              <label class="reg-check"><input type="checkbox" name="purpose" value="Education or learning" /> <span>教育或学习</span></label>
+              <label class="reg-check"><input type="checkbox" name="purpose" value="Benchmarking our own method" /> <span>评测我们自己的方法</span></label>
+              <label class="reg-check"><input type="checkbox" name="purpose" value="Industry or product" /> <span>产业或产品</span></label>
+              <label class="reg-check"><input type="checkbox" name="purpose" value="Recruiting or visibility" /> <span>招聘或曝光</span></label>
+              <label class="reg-check"><input type="checkbox" name="purpose" value="Competing for the leaderboard" /> <span>冲击排行榜</span></label>
+            </div>
+            <input class="form-input reg-check-other" type="text" name="purpose_other" maxlength="200" placeholder="其他（请注明）" />
+          </fieldset>
+
+          <fieldset class="form-field">
+            <legend class="form-label">您如何了解到我们？ <span class="req" aria-hidden="true">*</span></legend>
+            <div class="reg-checks">
+              <label class="reg-check"><input type="checkbox" name="referral" value="Discord" /> <span>Discord</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="WeChat" /> <span>微信</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Colleague or word of mouth" /> <span>同事或口碑</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="CoRL 2026 or a workshop" /> <span>CoRL 2026 或研讨会</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="X (Twitter)" /> <span>X（推特）</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="LinkedIn" /> <span>领英</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Mailing list" /> <span>邮件列表</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Search engine" /> <span>搜索引擎</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="The EBiM website" /> <span>EBiM 官网</span></label>
+            </div>
+            <input class="form-input reg-check-other" type="text" name="referral_other" maxlength="200" placeholder="其他（请注明）" />
+          </fieldset>
+
+          <div class="form-field">
+            <label class="form-label" for="notes">建议、问题或其他？ <span class="form-label-note">（选填）</span></label>
+            <textarea class="form-textarea" id="notes" name="notes" rows="4" maxlength="5000"></textarea>
+          </div>
+
+          <!-- ── Consent ── -->
+          <div class="form-field">
+            <label class="reg-check"><input type="checkbox" name="consent" value="agreed" required />
+              <span>我同意本表单所填信息仅用于组织 EBiM Benchmark，由 Web3Forms 处理，不会被出售、分享，也不会被加入任何邮件列表。 <span class="req" aria-hidden="true">*</span></span></label>
+          </div>
+
+          <!-- Hidden Web3Forms fields -->
+          <input type="hidden" name="access_key" value="25d4e3ca-4893-46c3-a81d-4101ded28d68" />
+          <input type="hidden" name="from_name" value="EBiM Benchmark — Team Registration" />
+          <input type="hidden" name="subject" value="[REGISTER] New team registration" />
+          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/zh/register-success.html" />
+
+          <!-- Honeypot -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <!-- hCaptcha (zero-config via web3forms client script, loaded in trailingScripts) -->
+          <div class="h-captcha" data-captcha="true"></div>
+
+          <div id="formError" class="form-error" role="alert" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="formErrorText">出现问题，请重试。</span>
+          </div>
+
+          <button type="submit" class="btn btn-submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
+            </svg>
+            <span class="btn-label">提交报名</span>
+          </button>
+
+          <noscript><p class="reg-noscript">完成报名需要启用 JavaScript（人机验证需要它）。如无法启用，请发送邮件至 <a href="mailto:ebim.benchmark@gmail.com">ebim.benchmark@gmail.com</a>。</p></noscript>
+
+        </div>
+      </form>
+
+      <div id="formSuccess" class="form-success" role="status" hidden>
+        <div class="form-success-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2>谢谢！</h2>
+        <p>您的团队已报名。我们将审核您的提交并通过邮件跟进；算力资源与作品提交的详情将在我们核实您的团队后发送至您的联系人。</p>
+        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">返回首页</a>
+      </div>
+
+    </div>
+
+    <p class="reg-privacy fade-in">我们仅将您的信息用于组织 EBiM Benchmark。我们不会出售或分享给第三方，也不会将您加入任何邮件列表。提交由 Web3Forms 处理。</p>
+
+  </div>
+</section>
+
+</main>
+{% endraw %}{% endblock %}
+
+{% block trailingScripts %}
+  {% include "register-form-script.njk" %}
+  <script src="https://web3forms.com/client/script.js" async defer></script>
+{% endblock %}

@@ -116,6 +116,16 @@ const PAGES = [
     enGone: "Contact Us",
     zhHas: "联系我们",
   },
+  {
+    key: "register",
+    file: "zh/register.html",
+    canonical: `${SITE_ORIGIN}/zh/register.html`,
+    enUrl: `${SITE_ORIGIN}/register.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/register.html`,
+    enToggleHref: "../register.html",
+    enGone: "Register Your Team",
+    zhHas: "团队报名",
+  },
 ];
 
 // The EN file each localized page mirrors (used for the hreflang sweep + the
@@ -125,6 +135,7 @@ const EN_FILE = {
   competition: "competition.html",
   workshop: "workshop.html",
   contact: "contact.html",
+  register: "register.html",
 };
 
 // The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every
@@ -416,6 +427,59 @@ function contactSuccessChecks() {
   return checks;
 }
 
+// The hidden /zh/ utility page for registration: the no-JS target of the zh
+// registration form's redirect (src/zh/register-success.njk). Same shape as
+// contactSuccessChecks — NO i18nKey, so it carries NO hreflang, NO language
+// toggle, and stays OUT of the sitemap; a plain noindex zh page (noindex from
+// the zhNoindex computed) mirroring the EN register-success.html, localized.
+function registerSuccessChecks() {
+  const file = "zh/register-success.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/register-success.html" />',
+    ),
+    "expected self canonical to /zh/register-success.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden utility page must emit no hreflang");
+  add(
+    "no language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden utility page must not render the language toggle",
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  return checks;
+}
+
 function main() {
   if (!process.argv.includes("--no-build")) {
     console.log(BOLD("Building site (eleventy)…"));
@@ -450,6 +514,17 @@ function main() {
   }
   console.log("");
 
+  // ── hidden /zh/ utility page (register-success) ──
+  console.log(BOLD("• zh/register-success.html  (HIDDEN UTILITY)"));
+  for (const c of registerSuccessChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/register-success.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
+
   // ── site-wide ──
   console.log(BOLD("• site-wide"));
   const sitemap = exists("sitemap.xml") ? read("sitemap.xml") : "";
@@ -480,18 +555,23 @@ function main() {
       );
     }
   }
-  const expectedTotal = 4 + expectedZhUrls;
+  const expectedTotal = PAGES.length + expectedZhUrls;
   siteAdd(
-    `sitemap has ${expectedTotal} URLs (4 EN + ${expectedZhUrls} zh)`,
+    `sitemap has ${expectedTotal} URLs (${PAGES.length} EN + ${expectedZhUrls} zh)`,
     locCount === expectedTotal,
     `expected ${expectedTotal} <loc>, found ${locCount}`,
   );
 
-  // The hidden zh utility page must never be listed in the sitemap.
+  // The hidden zh utility pages must never be listed in the sitemap.
   siteAdd(
     "sitemap excludes /zh/contact-success.html (hidden utility)",
     !sitemap.includes("/zh/contact-success.html"),
     "/zh/contact-success.html must not appear in sitemap.xml",
+  );
+  siteAdd(
+    "sitemap excludes /zh/register-success.html (hidden utility)",
+    !sitemap.includes("/zh/register-success.html"),
+    "/zh/register-success.html must not appear in sitemap.xml",
   );
 
   // hreflang sweep: exactly the published localized pairs (EN + /zh/), nothing else.
