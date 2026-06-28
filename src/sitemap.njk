@@ -2,15 +2,17 @@
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 # Locale-aware sitemap, gated PER PAGE on site.zhPublished[pair] (the i18nKey
-# map in src/_data/site.json). The four EN URLs are always listed. A /zh/ URL is
+# map in src/_data/site.json). The five EN URLs are always listed. A /zh/ URL is
 # listed iff its pair's flag is true; an EN URL gets <xhtml:link> hreflang
-# alternates iff its pair's flag is true. With all four pairs published as of
-# Phase 2c: 8 URLs (4 EN + 4 /zh/), each pair carrying reciprocal
-# en/zh-Hans/x-default alternates on both its EN and /zh/ rows. (Return a flag to
-# false and that /zh/ row drops out and its pair's alternates disappear.)
+# alternates iff its pair's flag is true. With all five pairs published
+# (index/competition/workshop/contact since Phase 2c, register since): 10 URLs
+# (5 EN + 5 /zh/), each pair carrying reciprocal en/zh-Hans/x-default alternates
+# on both its EN and /zh/ rows. (Return a flag to false and that /zh/ row drops
+# out and its pair's alternates disappear.)
 # The xhtml namespace is emitted whenever any page is published. The alternate
 # hrefs mirror HREFLANG_PAIRS in src/_data/eleventyComputed.js. 404 /
-# contact-success (EN + /zh/) / contact-test are intentionally excluded.
+# contact-success (EN + /zh/) / register-success (EN + /zh/) / contact-test are
+# intentionally excluded.
 sitemap:
   urls:
     - { loc: "https://ebim-benchmark.github.io/", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0", pair: "index" }
