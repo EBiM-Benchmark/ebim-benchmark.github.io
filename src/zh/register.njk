@@ -212,8 +212,9 @@ i18nKey: register
 
           <!-- ── Team ── -->
           <div class="form-field">
-            <label class="form-label" for="team_name">团队名称 <span class="req" aria-hidden="true">*</span></label>
-            <input class="form-input" type="text" id="team_name" name="team_name" maxlength="120" required placeholder="您的团队名称" />
+            <label class="form-label" for="team_name">团队名称 <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">仅限英文（公开展示）</span></label>
+            <input class="form-input" type="text" id="team_name" name="team_name" maxlength="120" required pattern="[A-Za-z0-9 .,'&amp;()/+-]+" title="请仅使用英文（拉丁）字母、数字和基本标点——团队名称将公开展示。" placeholder="您的团队名称" />
           </div>
 
           <div class="form-field">
