@@ -1755,11 +1755,13 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 }
 .partners-tier.tier-platinum .partner-card { flex: 0 1 auto; max-width: calc(50% - 0.75rem); }
 
-/* Bronze per-logo size overrides: enlarge VRB / RIG / HHRI, shrink Galbot.
-   Targeted by src so Lightwheel / ManipulationNet keep the tier default. */
+/* Bronze per-logo size overrides: enlarge VRB / RIG / HHRI / Computational
+   Freedom, shrink Galbot. Targeted by src so Lightwheel / ManipulationNet
+   keep the tier default. */
 .partners-tier.tier-bronze .partner-logo-img[src*="vrb"],
 .partners-tier.tier-bronze .partner-logo-img[src*="rig"],
-.partners-tier.tier-bronze .partner-logo-img[src*="hhri"] { max-height: 62px; }
+.partners-tier.tier-bronze .partner-logo-img[src*="hhri"],
+.partners-tier.tier-bronze .partner-logo-img[src*="computational"] { max-height: 62px; }
 .partners-tier.tier-bronze .partner-logo-img[src*="galbot"] { max-height: 24px; }
 
 @media (max-width: 600px) {
