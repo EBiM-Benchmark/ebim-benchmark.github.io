@@ -1,14 +1,15 @@
 // /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b added
-// workshop + contact as drafts; Phase 2c published them — all four /zh/ pages
-// are now live).
+// workshop + contact as drafts; Phase 2c published them; register shipped
+// published later — all five /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the FOUR pages we now ship: /zh/index.html,
-// /zh/competition.html, /zh/workshop.html, /zh/contact.html. It also covers the
-// hidden /zh/contact-success.html utility page (the no-JS target of the zh
-// contact form's redirect) — a plain noindex zh page with no hreflang/toggle and
-// out of the sitemap (see contactSuccessChecks below).
+// is actually localized, for the FIVE pages we now ship: /zh/index.html,
+// /zh/competition.html, /zh/workshop.html, /zh/contact.html, /zh/register.html.
+// It also covers the hidden /zh/contact-success.html and /zh/register-success.html
+// utility pages (the no-JS targets of the zh contact/register form redirects) —
+// plain noindex zh pages with no hreflang/toggle and out of the sitemap (see
+// contactSuccessChecks / registerSuccessChecks below).
 //
 // Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
 // by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
@@ -44,7 +45,7 @@
 //
 // Site-wide it checks (per-page gated):
 //   sitemap      — each PUBLISHED page's /zh/ url is present; each DRAFT's is
-//                  absent. Total = 4 EN + (number of published zh).
+//                  absent. Total = 5 EN + (number of published zh).
 //   hreflang     — emitted ONLY on the published localized pairs (EN + /zh/);
 //                  never on a draft pair, and never on the EN-only utility pages.
 //
@@ -69,7 +70,7 @@ const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.jso
 const PUB = SITE_DATA.zhPublished || {};
 const isPub = (key) => PUB[key] === true;
 
-// The four localized pages. `key` is the i18nKey (the publish-flag key).
+// The five localized pages. `key` is the i18nKey (the publish-flag key).
 // `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
 // advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
 // is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
@@ -373,7 +374,7 @@ function pageChecks(p) {
 }
 
 // The hidden /zh/ utility page: the no-JS target of the zh contact form's
-// redirect (src/zh/contact-success.njk). It is NOT one of the four localized
+// redirect (src/zh/contact-success.njk). It is NOT one of the five localized
 // PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
 // and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
 // the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN

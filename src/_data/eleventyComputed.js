@@ -41,17 +41,19 @@ const isZh = (data) => (data.lang || "en") === "zh";
 // Per-page publish gate. site.zhPublished is a map keyed by i18nKey (see
 // src/_data/site.json); a localized page is PUBLISHED iff its own key's flag is
 // true. Drives zhNoindex / hreflangAlternates / localeToggle so each page's SEO
-// surface (noindex, hreflang, sitemap, toggle) lights up independently — all
+// surface (noindex, hreflang, sitemap, toggle) lights up independently — the
 // four content pages (index, competition, workshop, contact) are published as of
-// Phase 2c (set a flag back to false to return that page to a draft).
+// Phase 2c and the registration page since, so all five localized pages are
+// published (set a flag back to false to return that page to a draft).
 const isPublished = (data) => {
   const map = (data.site && data.site.zhPublished) || {};
   return map[data.i18nKey] === true;
 };
 
 // The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
-// and the jsonld.* strings). `i18nKey` (all four content pages as of Phase 2b —
-// each has a localized /zh/ counterpart) doubles as this key; `pageKey` is the
+// and the jsonld.* strings). `i18nKey` (the four content pages as of Phase 2b,
+// plus the registration page added later — each has a localized /zh/ counterpart)
+// doubles as this key; `pageKey` is the
 // EN-only equivalent for a page that draws from the shared data WITHOUT
 // participating in localization (the Phase 2a state of workshop/contact, before
 // their /zh/ counterparts shipped). localeToggle/hreflangAlternates stay keyed on
@@ -65,10 +67,10 @@ const pageDataKey = (data) => data.i18nKey || data.pageKey;
 // the EN page (used on a /zh/ page, linking back to English), `zh` is the path
 // to the /zh/ page (used on the EN page, linking out to 中文). These are the
 // SAME page pairs the reciprocal hreflang advertises — kept here as nav-relative
-// links (hreflangAlternates emits the absolute forms). All four localized pages
-// have a row; the toggle only RENDERS where isPublished is true — all four as of
-// Phase 2c (a page returned to draft would silently drop its toggle, no template
-// change).
+// links (hreflangAlternates emits the absolute forms). All five localized pages
+// have a row; the toggle only RENDERS where isPublished is true — all five
+// published (index/competition/workshop/contact since Phase 2c, register since)
+// (a page returned to draft would silently drop its toggle, no template change).
 const TOGGLE_HREFS = {
   index: { en: "../", zh: "zh/" },
   competition: { en: "../competition.html", zh: "zh/competition.html" },
@@ -143,8 +145,8 @@ export default {
   // so these must MATCH the body links for each page (do NOT auto-flip on the
   // publish flag, or the navbar would diverge from the still-hardcoded body).
   // EN keeps the exact current relative filenames (byte-identical render). All
-  // four /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
-  // + competition), so every zh chrome link is localized — relative, resolving
+  // five /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
+  // + competition; register added since), so every zh chrome link is localized — relative, resolving
   // under /zh/. The hardcoded zh bodies were repointed to match in the same
   // commit (../workshop.html → workshop.html, ../contact.html → contact.html,
   // preserving every #anchor and ?topic= suffix). The only cross-locale link left
@@ -206,7 +208,8 @@ export default {
   // In-page language toggle, consumed by navbar.njk. Present ONLY on a PUBLISHED
   // localized page — its i18nKey is in TOGGLE_HREFS AND its own zhPublished[key]
   // flag is true, so the toggle is visible exactly where the reciprocal hreflang
-  // is emitted (all four localized pairs as of Phase 2c). Returns null everywhere
+  // is emitted (all five localized pairs — the four content pages plus register).
+  // Returns null everywhere
   // else, so the navbar renders with NO toggle (byte-identical to the pre-toggle
   // output on the EN-only utility pages, and on any /zh/ page returned to draft).
   // Shape:
