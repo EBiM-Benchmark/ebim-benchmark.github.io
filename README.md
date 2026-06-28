@@ -374,7 +374,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - Net page-weight savings: ~10.7 MB → ~49 KB combined for the two photos when WebP is served.
 
 ### Partner logos
-- Arranged in ICRA-style tiers (Platinum · Gold · Silver · Bronze) with descending logo prominence; per-tier sizing lives in `css/style.css` under `/* ---------- Partners (ICRA-style tiered) ---------- */`, with a few per-logo overrides (e.g. Google shrunk, AMD nudged up via `transform: scale`, VRB/RIG/HHRI enlarged, Galbot shrunk).
+- Arranged in ICRA-style tiers (Platinum · Gold · Silver · Bronze) with descending logo prominence; per-tier sizing lives in `css/style.css` under `/* ---------- Partners (ICRA-style tiered) ---------- */`, with a few per-logo overrides (e.g. Google shrunk, AMD nudged up via `transform: scale`, VRB/RIG/HHRI/Computational Freedom enlarged, Galbot shrunk).
 - SVGs render at native resolution; for raster logos `width`/`height` attrs match the source-file dimensions for CLS prevention.
 - All partner logos use `loading="lazy"` and `decoding="async"`. (The folder stays `img/sponsors/` so asset paths remain stable.)
 - A partner with no link is rendered as a `<div class="partner-card">` (no `href`) instead of an `<a>`; the hover/lift affordance is scoped to `a.partner-card` in CSS, so a non-anchor card is styled identically but stays inert (e.g. Synrise).
