@@ -336,7 +336,8 @@ i18nKey: contact
       <!-- Web3Forms-powered contact form.
            AJAX-first (see <script> below); falls back to a native POST +
            redirect to contact-success.html when JavaScript is unavailable. -->
-      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST"
+            data-msg-captcha="Please complete the captcha before submitting.">
 
         <div class="contact-form">
 
@@ -372,7 +373,6 @@ i18nKey: contact
             <select class="form-select" id="category" name="category" required>
               <option value="" disabled selected>Select a category</option>
               <option value="Competition Question" data-slug="competition">Competition Question</option>
-              <option value="Competition — Register Interest" data-slug="register">Competition — Register Interest</option>
               <option value="Workshop / Poster Submission" data-slug="workshop">Workshop / Poster Submission</option>
               <option value="Partnership Inquiry" data-slug="partner">Partnership — Hardware, Funding &amp; Compute</option>
               <option value="Media / Press" data-slug="media">Media / Press</option>
@@ -418,6 +418,9 @@ i18nKey: contact
           <!-- Honeypot (spam trap) — Web3Forms auto-discards if this is checked -->
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
+          <!-- hCaptcha (zero-config via the web3forms client script in trailingScripts) -->
+          <div class="h-captcha" data-captcha="true"></div>
+
           <!-- Inline error message (revealed by JS on failure) -->
           <div id="formError" class="form-error" role="alert" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
@@ -433,6 +436,8 @@ i18nKey: contact
             </svg>
             <span class="btn-label">Send Message</span>
           </button>
+
+          <noscript><p style="text-align:center;font-size:.85rem;color:#b91c1c;margin-top:1rem;">JavaScript is required to send this message (the spam check needs it). If you can't enable it, email <a href="mailto:ebim.benchmark@gmail.com">ebim.benchmark@gmail.com</a>.</p></noscript>
 
         </div>
       </form>
@@ -469,4 +474,4 @@ i18nKey: contact
    deep-link) is single-sourced in _includes/contact-form-script.njk and shared
    verbatim with src/zh/contact.njk — the JS is language-agnostic (keys off each
    option's data-slug, never the visible label). #}
-{% block trailingScripts %}{% include "contact-form-script.njk" %}{% endblock %}
+{% block trailingScripts %}{% include "contact-form-script.njk" %}<script src="https://web3forms.com/client/script.js" async defer></script>{% endblock %}

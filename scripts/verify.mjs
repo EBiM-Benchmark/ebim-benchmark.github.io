@@ -198,7 +198,6 @@ function checkContactSpecific() {
   // 1) data-slug present + correct on each real option (placeholder excluded).
   const expectSlug = {
     "Competition Question": "competition",
-    "Competition — Register Interest": "register",
     "Workshop / Poster Submission": "workshop",
     "Partnership Inquiry": "partner",
     "Media / Press": "media",
@@ -233,7 +232,7 @@ function checkContactSpecific() {
   // 3) inline script slug-keyed as specified.
   const js = inlineScriptBody(built) || "";
   const must = [
-    [/var DISCORD_TOPICS = \['competition', 'register', 'workshop'\]/, "DISCORD_TOPICS slug array"],
+    [/var DISCORD_TOPICS = \['competition', 'workshop'\]/, "DISCORD_TOPICS slug array"],
     [/dataset\.slug/, "reads option dataset.slug"],
     [/prefixMap\[slug\]\s*\|\|\s*'\[CONTACT\] '/, "subject = prefixMap[slug] || [CONTACT]"],
     [/headers:\s*\{\s*'Accept':\s*'application\/json'\s*\}/, "AJAX Accept: application/json header"],
@@ -259,7 +258,6 @@ function checkContactSpecific() {
   };
   const expectPrefix = {
     competition: "[COMPETITION] ",
-    register: "[REGISTER] ",
     workshop: "[WORKSHOP] ",
     partner: "[PARTNERSHIP] ",
     media: "[MEDIA] ",
@@ -268,7 +266,6 @@ function checkContactSpecific() {
     other: "[OTHER] ",
   };
   const expectTopic = {
-    register: "register",
     competition: "competition",
     partner: "partner",
     workshop: "workshop",
