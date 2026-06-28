@@ -333,9 +333,8 @@ i18nKey: contact
 
     <div class="contact-card fade-in">
 
-      <!-- Web3Forms-powered contact form.
-           AJAX-first (see <script> below); falls back to a native POST +
-           redirect to contact-success.html when JavaScript is unavailable. -->
+      <!-- Web3Forms-powered contact form. AJAX-first (see contact-form-script.njk);
+           hCaptcha is enforced server-side once enabled on the key, so JS is required to submit. -->
       <form id="contactForm" action="https://api.web3forms.com/submit" method="POST"
             data-msg-captcha="Please complete the captcha before submitting.">
 
