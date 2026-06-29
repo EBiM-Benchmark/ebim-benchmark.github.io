@@ -210,28 +210,30 @@ backToTop: true
         <p class="china-note-block"><span class="china-note">中国大陆团队请注意：</span>在中国大陆通常无法直接访问 Google Cloud（防火墙会拦截 Google 登录与 API 域名），需借助 VPN——建议中国大陆团队使用下方可在中国大陆访问的资源。</p>
       </div>
 
-      <!-- Computational Freedom — TENTATIVE -->
-      <div class="resource-card is-tentative">
-        <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge tentative">待定——尚未开放申请</span></h3>
-        <p>二选一：30 小时 Nvidia RTX 4090，或 15 小时 Nvidia L40S，均含开箱即用环境。<strong>仅限位于中国大陆的团队。</strong>仿真阶段使用（6/29–8/3）。<br>
+      <!-- Computational Freedom — OPEN -->
+      <div class="resource-card">
+        <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge open">现已开放申请</span></h3>
+        <p>二选一：40 小时 Nvidia RTX 4090，或 25 小时 Nvidia L40S，均含开箱即用环境。<strong>仅限位于中国大陆的团队。</strong>仿真阶段使用（6/29–8/3）。<br>
         <span class="china-note">访问要求：</span>RTX 4090 服务器仅可通过中国大陆 IP 访问；4090 与 L40S 的注册均需中国大陆手机号。</p>
       </div>
 
-      <!-- AMD MI300X — TENTATIVE -->
-      <div class="resource-card is-tentative">
-        <h3>AMD Instinct MI300X <span class="status-badge tentative">待定——方案确定中</span></h3>
+      <!-- AMD MI300X — OPEN -->
+      <div class="resource-card">
+        <h3>AMD Instinct MI300X <span class="status-badge open">现已开放申请</span></h3>
         <p>共享 8 卡 MI300X 服务器，位于<strong>台北</strong>，可从中国大陆访问。每张 GPU 配备 <strong>192 GB HBM3</strong>——这是其在内存受限任务上的突出优势，可容纳在较小显卡上放不下的模型与批量。作为一个粗略且取决于工作负载的参考，MI300X 在许多任务上与 Nvidia H200 大致相当——在内存受限和 FP32/FP64 任务上更强，在 CUDA 优化的推理吞吐与时延上稍逊（<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X 与 H200 对比</a>）。基于 ROCm 的通用训练/开发算力。面向所有团队。使用窗口 7/1–7/31。<br>
         规则：每个作业 1 张 GPU，单个作业最长 12 小时，每队同一时间仅一个运行中的作业（仅当没有排队或未完成的作业时方可提交），按先到先服务调度。</p>
       </div>
 
     </div>
 
-    <p class="apply-note fade-in">目前仅 <strong>Google Cloud</strong> 开放申请。其他资源确认后将在此开放申请——请稍后查看或留意我们的邮件通知。</p>
+    <p class="apply-note fade-in">请在下方选择您要申请的资源。Computational Freedom 仅限位于中国大陆的团队，资格将在开通时核验。</p>
 
     <div class="reg-card fade-in">
       <form id="computeForm" action="https://api.web3forms.com/submit" method="POST"
             data-msg-generic="出现问题，请重试。"
             data-msg-network="网络错误，请稍后重试。"
+            data-msg-resources="请至少选择一项资源。"
+            data-msg-cfone="Computational Freedom 请只选择一项——RTX 4090 或 L40S。"
             data-sending="提交中…" data-submit-label="提交申请">
         <div class="reg-form">
 
@@ -250,9 +252,12 @@ backToTop: true
           <fieldset class="form-field">
             <legend class="form-label">您申请哪些算力资源？ <span class="req" aria-hidden="true">*</span></legend>
             <div class="reg-checks">
-              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" required /> <span>Google Cloud — Nvidia GPU（所有团队；最高 1,000 美元；使用窗口 7/15–7/20）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPU（所有团队；最高 1,000 美元；使用窗口 7/15–7/20）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 40h RTX 4090" /> <span>Computational Freedom — 40 小时 RTX 4090（仅限中国大陆团队）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 25h L40S" /> <span>Computational Freedom — 25 小时 L40S（仅限中国大陆团队）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — 共享 8 卡 MI300X（所有团队）</span></label>
             </div>
-            <span class="form-label-note">其他资源确认后将在此开放申请。</span>
+            <span class="form-label-note">Computational Freedom 二选一（RTX 4090 或 L40S），且仅限位于中国大陆的团队。</span>
           </fieldset>
 
           <div class="form-field">

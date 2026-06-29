@@ -211,28 +211,30 @@ backToTop: true
         <p class="china-note-block"><span class="china-note">Note for mainland-China-based teams:</span> Google Cloud is generally unreachable from mainland China without a VPN (the Great Firewall blocks Google sign-in and API domains), so mainland-China-based teams should rely on the mainland-China-accessible options below.</p>
       </div>
 
-      <!-- Computational Freedom — TENTATIVE -->
-      <div class="resource-card is-tentative">
-        <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge tentative">Tentative — not yet open</span></h3>
-        <p>Choose one: 30 hrs Nvidia RTX 4090, or 15 hrs Nvidia L40S, with a ready-to-use environment. <strong>Mainland-China-based teams only.</strong> Usage during the simulation phase (Jun 29 – Aug 3).<br>
+      <!-- Computational Freedom — OPEN -->
+      <div class="resource-card">
+        <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge open">Open for applications</span></h3>
+        <p>Choose one: 40 hrs Nvidia RTX 4090, or 25 hrs Nvidia L40S, with a ready-to-use environment. <strong>Mainland-China-based teams only.</strong> Usage during the simulation phase (Jun 29 – Aug 3).<br>
         <span class="china-note">Access requirements:</span> the RTX 4090 servers are reachable only from a mainland-China IP address, and registration for both the 4090 and the L40S requires a mainland-China phone number.</p>
       </div>
 
-      <!-- AMD MI300X — TENTATIVE -->
-      <div class="resource-card is-tentative">
-        <h3>AMD Instinct MI300X <span class="status-badge tentative">Tentative — plan being finalized</span></h3>
+      <!-- AMD MI300X — OPEN -->
+      <div class="resource-card">
+        <h3>AMD Instinct MI300X <span class="status-badge open">Open for applications</span></h3>
         <p>A shared 8× MI300X server, hosted in <strong>Taipei</strong> and accessible from mainland China. Each GPU carries <strong>192 GB of HBM3</strong> — its standout strength for memory-bound work, letting you fit models and batches that won't fit on a smaller card. As a rough, workload-dependent reference, an MI300X is broadly comparable to an Nvidia H200 on many tasks — stronger on memory-bound and FP32/FP64 work, behind on CUDA-optimized inference throughput and latency (<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X vs H200 comparison</a>). General training/dev compute on a ROCm environment. All teams. Usage Jul 1–31.<br>
         Rules: one GPU per job, a 12-hour maximum per job, one running job per team at a time (you may submit only when you have no queued or unfinished job), scheduled first-come, first-served.</p>
       </div>
 
     </div>
 
-    <p class="apply-note fade-in">Applications are currently open for <strong>Google Cloud</strong> only. The other resources will open for application here once confirmed — check back, or watch for an email.</p>
+    <p class="apply-note fade-in">Select the resource(s) you're applying for below. Computational Freedom is limited to mainland-China-based teams; eligibility is verified during provisioning.</p>
 
     <div class="reg-card fade-in">
       <form id="computeForm" action="https://api.web3forms.com/submit" method="POST"
             data-msg-generic="Something went wrong. Please try again."
             data-msg-network="Network error — please try again later."
+            data-msg-resources="Please select at least one resource."
+            data-msg-cfone="For Computational Freedom, choose just one option — RTX 4090 or L40S."
             data-sending="Submitting…" data-submit-label="Submit Application">
         <div class="reg-form">
 
@@ -251,9 +253,12 @@ backToTop: true
           <fieldset class="form-field">
             <legend class="form-label">Which resource(s) are you applying for? <span class="req" aria-hidden="true">*</span></legend>
             <div class="reg-checks">
-              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" required /> <span>Google Cloud — Nvidia GPUs (all teams; up to US$1,000; usage Jul 15–20)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPUs (all teams; up to US$1,000; usage Jul 15–20)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 40h RTX 4090" /> <span>Computational Freedom — 40 hrs RTX 4090 (mainland-China-based teams)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 25h L40S" /> <span>Computational Freedom — 25 hrs L40S (mainland-China-based teams)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — shared 8× MI300X (all teams)</span></label>
             </div>
-            <span class="form-label-note">Other resources above will open for application once confirmed.</span>
+            <span class="form-label-note">Computational Freedom: choose one of the two (RTX 4090 or L40S), and only mainland-China-based teams are eligible.</span>
           </fieldset>
 
           <div class="form-field">
