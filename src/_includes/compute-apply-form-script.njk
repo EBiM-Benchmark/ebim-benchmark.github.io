@@ -16,6 +16,11 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       errorBox.hidden = true;
+      // Require at least one resource; allow at most one Computational Freedom tier.
+      var picked = Array.prototype.slice.call(form.querySelectorAll('input[name="resources"]:checked'));
+      if (picked.length === 0) { showError(d.msgResources); return; }
+      var cfPicked = picked.filter(function (c) { return c.value.indexOf('Computational Freedom') === 0; });
+      if (cfPicked.length > 1) { showError(d.msgCfone); return; }
       // "Email to receive redemption details" is optional — default it to the PoC email when left blank.
       var redemption = form.querySelector('#redemption_email');
       var poc = form.querySelector('#poc_email');
