@@ -7,9 +7,12 @@
 // is actually localized, for the FIVE pages we now ship: /zh/index.html,
 // /zh/competition.html, /zh/workshop.html, /zh/contact.html, /zh/register.html.
 // It also covers the hidden /zh/contact-success.html and /zh/register-success.html
-// utility pages (the no-JS targets of the zh contact/register form redirects) —
-// plain noindex zh pages with no hreflang/toggle and out of the sitemap (see
-// contactSuccessChecks / registerSuccessChecks below).
+// utility pages (the no-JS targets of the zh contact/register form redirects) and
+// the UNLISTED /zh/compute-apply.html + its /zh/compute-success.html target (the
+// compute-resource application emailed privately to registered teams) — all plain
+// noindex zh pages with no hreflang/toggle and out of the sitemap (see
+// contactSuccessChecks / registerSuccessChecks / computeApplyChecks /
+// computeSuccessChecks below).
 //
 // Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
 // by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
@@ -481,6 +484,114 @@ function registerSuccessChecks() {
   return checks;
 }
 
+// The hidden /zh/ UNLISTED compute-resource application page
+// (src/zh/compute-apply.njk). Same shape as the success-page checks — NO
+// i18nKey, so it carries NO hreflang, NO language toggle, and stays OUT of the
+// sitemap; a plain noindex zh page (noindex from the zhNoindex computed). Its URL
+// is emailed privately to each registered team's PoC, never linked in the site
+// chrome. Living under src/zh/ gives it lang="zh-Hans", ../ assets, and the zh
+// navbar/footer.
+function computeApplyChecks() {
+  const file = "zh/compute-apply.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/compute-apply.html" />',
+    ),
+    "expected self canonical to /zh/compute-apply.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden unlisted page must emit no hreflang");
+  add(
+    "no language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden unlisted page must not render the language toggle",
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  return checks;
+}
+
+// The hidden /zh/ UNLISTED utility page for the compute application: the no-JS
+// target of the zh compute form's redirect (src/zh/compute-success.njk). Same
+// shape as registerSuccessChecks — NO i18nKey, so NO hreflang, NO language
+// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the zhNoindex
+// computed) mirroring the EN compute-success.html, localized.
+function computeSuccessChecks() {
+  const file = "zh/compute-success.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/compute-success.html" />',
+    ),
+    "expected self canonical to /zh/compute-success.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden utility page must emit no hreflang");
+  add(
+    "no language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden utility page must not render the language toggle",
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  return checks;
+}
+
 function main() {
   if (!process.argv.includes("--no-build")) {
     console.log(BOLD("Building site (eleventy)…"));
@@ -522,6 +633,28 @@ function main() {
     if (!c.ok) {
       allOk = false;
       fails.push(`zh/register-success.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
+
+  // ── hidden /zh/ UNLISTED compute application page ──
+  console.log(BOLD("• zh/compute-apply.html  (HIDDEN UNLISTED)"));
+  for (const c of computeApplyChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/compute-apply.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
+
+  // ── hidden /zh/ utility page (compute-success) ──
+  console.log(BOLD("• zh/compute-success.html  (HIDDEN UTILITY)"));
+  for (const c of computeSuccessChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/compute-success.html — ${c.name}: ${c.msg}`);
     }
   }
   console.log("");
@@ -573,6 +706,16 @@ function main() {
     "sitemap excludes /zh/register-success.html (hidden utility)",
     !sitemap.includes("/zh/register-success.html"),
     "/zh/register-success.html must not appear in sitemap.xml",
+  );
+  siteAdd(
+    "sitemap excludes /zh/compute-apply.html (hidden unlisted)",
+    !sitemap.includes("/zh/compute-apply.html"),
+    "/zh/compute-apply.html must not appear in sitemap.xml",
+  );
+  siteAdd(
+    "sitemap excludes /zh/compute-success.html (hidden utility)",
+    !sitemap.includes("/zh/compute-success.html"),
+    "/zh/compute-success.html must not appear in sitemap.xml",
   );
 
   // hreflang sweep: exactly the published localized pairs (EN + /zh/), nothing else.
