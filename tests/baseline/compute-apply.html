@@ -157,6 +157,19 @@
     .status-badge.open { background: rgba(0,212,255,.14); color: var(--accent-dark); border: 1px solid rgba(0,212,255,.4); }
     .status-badge.tentative { background: rgba(148,163,184,.16); color: var(--text-muted); border: 1px solid var(--border); }
     .apply-note { max-width: 760px; margin: 0 auto 1.25rem; font-size: .86rem; color: var(--text-muted); }
+
+    /* ── Collapsible GPU menu + quota codes (Google Cloud card) ── */
+    .resource-details { margin: .6rem 0 .2rem; }
+    .resource-details > summary { cursor: pointer; font-size: .85rem; font-weight: 700; color: var(--accent-dark); list-style: none; }
+    .resource-details > summary::-webkit-details-marker { display: none; }
+    .resource-details > summary::before { content: "▸ "; }
+    .resource-details[open] > summary::before { content: "▾ "; }
+    .resource-details .rd-tier-label { font-size: .82rem; font-weight: 700; color: var(--text-dark); margin: .6rem 0 .25rem; }
+    .resource-details .rd-list { margin: 0 0 .3rem; padding-left: 1.1rem; }
+    .resource-details .rd-list li { font-size: .85rem; color: var(--text-mid); line-height: 1.5; margin-bottom: .15rem; }
+    .resource-details .rd-list code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8em; background: var(--bg-light); border: 1px solid var(--border); border-radius: 4px; padding: .05rem .3rem; word-break: break-all; }
+    .resource-details .rd-note { font-size: .82rem; color: var(--text-muted); font-style: italic; margin: .4rem 0 0; }
+    .china-note-block { margin-top: .55rem; }
   </style>
 
 </head>
@@ -246,22 +259,42 @@
 
       <!-- Google Cloud — OPEN -->
       <div class="resource-card">
-        <h3>Google Cloud — Nvidia A100 <span class="status-badge open">Open for applications</span></h3>
-        <p>Up to US$1,000 of credit on 16× Nvidia A100 40GB. All teams. Usage window: <strong>Jul 15–20</strong> — apply by <strong>~Jul 8</strong> so credits are provisioned before it starts (provisioning takes 3–5 working days).<br>
-        <span class="china-note">Note for China-based teams:</span> Google Cloud is generally unreachable from mainland China without a VPN (the Great Firewall blocks Google sign-in and API domains), so China-based teams should rely on the China-accessible options below.</p>
+        <h3>Google Cloud — Nvidia GPUs <span class="status-badge open">Open for applications</span></h3>
+        <p>Apply your credit toward any GPU in Google Cloud's <a href="https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones" target="_blank" rel="noopener">GPU regions &amp; zones list</a>. Each team has a <strong>US$1,000 maximum</strong> — estimate your cost with the <a href="https://cloud.google.com/products/calculator" target="_blank" rel="noopener">Google Cloud Pricing Calculator</a> before committing. Usage window <strong>Jul 15–20</strong>; apply by <strong>~Jul 8</strong> so provisioning (3–5 working days) finishes in time.</p>
+        <details class="resource-details">
+          <summary>Which GPUs can I use?</summary>
+          <p class="rd-tier-label">Ready out of the box — no quota request needed:</p>
+          <ul class="rd-list">
+            <li>V100 — up to 8 (any listed region)</li>
+            <li>T4 — up to 8</li>
+            <li>T4 VWS — up to 4</li>
+            <li>L4 — up to 16</li>
+            <li>L4 VWS — up to 16</li>
+            <li>A100 40GB — up to 16 (confirmed)</li>
+          </ul>
+          <p class="rd-tier-label">Tested, but blocked by default quota — you'd need a quota increase that may not clear within the 5-day window (not recommended):</p>
+          <ul class="rd-list">
+            <li>A100 80GB — request the per-SKU quota <code>NVIDIA-A100-80GB-GPUS-per-project-region</code></li>
+            <li>RTX PRO 6000 (compute) — request the family quota <code>gpu_family=NVIDIA_RTX_PRO_6000</code></li>
+            <li>RTX PRO 6000 VWS — request the family quota <code>gpu_family=NVIDIA_RTX_PRO_6000_VWS_GPUS</code></li>
+            <li>H100 (on-demand), H100 MEGA, B200, H200 — request the matching <code>gpu_family</code> quota; very likely needs Google Cloud account-team involvement</li>
+          </ul>
+          <p class="rd-note">Any other GPU on the list may require a quota application that might not be approved — with only 5 days of usage, we don't recommend pursuing those.</p>
+        </details>
+        <p class="china-note-block"><span class="china-note">Note for mainland-China-based teams:</span> Google Cloud is generally unreachable from mainland China without a VPN (the Great Firewall blocks Google sign-in and API domains), so mainland-China-based teams should rely on the mainland-China-accessible options below.</p>
       </div>
 
       <!-- Computational Freedom — TENTATIVE -->
       <div class="resource-card is-tentative">
         <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge tentative">Tentative — not yet open</span></h3>
-        <p>Choose one: 30 hrs Nvidia RTX 4090, or 15 hrs Nvidia L40S, with a ready-to-use environment. <strong>China-based teams only.</strong> Usage during the simulation phase (Jun 29 – Aug 3).<br>
-        <span class="china-note">Access requirements:</span> the RTX 4090 servers are reachable only from a China IP address, and registration for both the 4090 and the L40S requires a Chinese phone number.</p>
+        <p>Choose one: 30 hrs Nvidia RTX 4090, or 15 hrs Nvidia L40S, with a ready-to-use environment. <strong>Mainland-China-based teams only.</strong> Usage during the simulation phase (Jun 29 – Aug 3).<br>
+        <span class="china-note">Access requirements:</span> the RTX 4090 servers are reachable only from a mainland-China IP address, and registration for both the 4090 and the L40S requires a mainland-China phone number.</p>
       </div>
 
       <!-- AMD MI300X — TENTATIVE -->
       <div class="resource-card is-tentative">
         <h3>AMD Instinct MI300X <span class="status-badge tentative">Tentative — plan being finalized</span></h3>
-        <p>A shared 8× MI300X server, hosted in Germany and accessible from China. General training/dev compute on a ROCm environment. All teams. Usage Jul 1–31.<br>
+        <p>A shared 8× MI300X server, hosted in <strong>Taipei</strong> and accessible from mainland China. Each GPU carries <strong>192 GB of HBM3</strong> — its standout strength for memory-bound work, letting you fit models and batches that won't fit on a smaller card. As a rough, workload-dependent reference, an MI300X is broadly comparable to an Nvidia H200 on many tasks — stronger on memory-bound and FP32/FP64 work, behind on CUDA-optimized inference throughput and latency (<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X vs H200 comparison</a>). General training/dev compute on a ROCm environment. All teams. Usage Jul 1–31.<br>
         Rules: one GPU per job, a 12-hour maximum per job, one running job per team at a time (you may submit only when you have no queued or unfinished job), scheduled first-come, first-served.</p>
       </div>
 
@@ -291,7 +324,7 @@
           <fieldset class="form-field">
             <legend class="form-label">Which resource(s) are you applying for? <span class="req" aria-hidden="true">*</span></legend>
             <div class="reg-checks">
-              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — up to $1000 on 16x A100 40GB" required /> <span>Google Cloud — up to US$1,000 on 16× Nvidia A100 40GB (all teams; usage Jul 15–20)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" required /> <span>Google Cloud — Nvidia GPUs (all teams; up to US$1,000; usage Jul 15–20)</span></label>
             </div>
             <span class="form-label-note">Other resources above will open for application once confirmed.</span>
           </fieldset>
@@ -304,12 +337,12 @@
 
           <div class="form-field">
             <label class="form-label" for="intended_use">Intended use / estimated needs <span class="form-label-note">(optional)</span></label>
-            <textarea class="form-textarea" id="intended_use" name="intended_use" rows="4" maxlength="2000"></textarea>
+            <textarea class="form-textarea" id="intended_use" name="intended_use" rows="4" maxlength="2000" placeholder="e.g. which GPUs and roughly how many GPU-hours"></textarea>
           </div>
 
           <div class="form-field">
             <label class="reg-check"><input type="checkbox" name="acknowledge" value="yes" required />
-              <span>I understand provisioning takes 3–5 working days, I should apply early, and each resource may only be used within its stated window. <span class="req" aria-hidden="true">*</span></span></label>
+              <span>I understand provisioning takes 3–5 working days, I should apply early, each resource may only be used within its stated window, and — for Google Cloud — I must estimate my cost with the pricing calculator and keep total usage within US$1,000. <span class="req" aria-hidden="true">*</span></span></label>
           </div>
           <div class="form-field">
             <label class="reg-check"><input type="checkbox" name="consent" value="agreed" required />
