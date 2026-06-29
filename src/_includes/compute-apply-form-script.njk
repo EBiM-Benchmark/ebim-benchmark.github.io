@@ -16,6 +16,10 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       errorBox.hidden = true;
+      // "Email to receive redemption details" is optional — default it to the PoC email when left blank.
+      var redemption = form.querySelector('#redemption_email');
+      var poc = form.querySelector('#poc_email');
+      if (redemption && poc && !redemption.value.trim()) redemption.value = poc.value.trim();
       var submitBtn = form.querySelector('button[type=submit]');
       var submitLabel = submitBtn.querySelector('.btn-label') || submitBtn;
       submitBtn.disabled = true; submitLabel.textContent = d.sending;
