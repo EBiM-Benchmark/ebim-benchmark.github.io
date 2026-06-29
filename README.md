@@ -44,6 +44,7 @@ The site is a **multi-page** static site, built with [Eleventy](https://www.11ty
 | **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
 | **Register** | `register.html` | Team registration — native Web3Forms form (team of 1–6, task selection, testbed ranking, consent; + `register-success.html` no-JS fallback). Own access key, separate from Contact |
 | **Contact** | `contact.html` | Categorized Web3Forms contact form (+ `contact-success.html` no-JS fallback, `contact-test.html` internal health check) |
+| **Compute** *(unlisted)* | `compute-apply.html` | Registered-team compute-resource application — own Web3Forms key, honeypot-only (no hCaptcha). URL emailed privately to each team's PoC, so it is kept out of nav/footer/sitemap (`noindex`; + `compute-success.html` no-JS fallback). Both mirrored under `/zh/` |
 | **404** | `404.html` | Branded not-found page (`noindex`). Emits **root-absolute** asset/nav/CTA URLs so it renders correctly when GitHub Pages serves the single `/404.html` for a miss at any depth; a tiny client-side script localizes its copy + CTAs when the missed path is under `/zh/` |
 
 ### Why the split
@@ -86,7 +87,8 @@ ebim-benchmark.github.io/
 │   │   ├── footer.njk                   # Shared footer (single source; labels via i18n)
 │   │   ├── jsonld.njk                   # Renders the index/competition/workshop/contact JSON-LD from _data
 │   │   ├── contact-form-script.njk      # Single-sourced contact-form JS (shared by EN + zh contact)
-│   │   └── register-form-script.njk     # Single-sourced registration-form JS — validation + AJAX submit (shared by EN + zh register)
+│   │   ├── register-form-script.njk     # Single-sourced registration-form JS — validation + AJAX submit (shared by EN + zh register)
+│   │   └── compute-apply-form-script.njk # Single-sourced compute-application JS — AJAX submit (honeypot only; shared by EN + zh compute-apply)
 │   ├── index.njk                        # Landing page (funnel to sub-pages)
 │   ├── competition.njk                  # The EBiM Competition
 │   ├── workshop.njk                     # Workshop Program
@@ -95,6 +97,8 @@ ebim-benchmark.github.io/
 │   ├── contact-test.njk                 # Internal contact-form health check (not linked)
 │   ├── register.njk                     # Team registration (native Web3Forms form; JS via shared include)
 │   ├── register-success.njk             # No-JS POST fallback success page (EN; localized sibling at zh/register-success.njk)
+│   ├── compute-apply.njk                # UNLISTED compute-resource application (own Web3Forms key; JS via shared include) — noindex, not in nav/footer/sitemap
+│   ├── compute-success.njk              # No-JS POST fallback success page (EN; localized sibling at zh/compute-success.njk)
 │   ├── 404.njk                          # Branded 404 (noindex; absoluteUrls → root-absolute URLs so it works at any depth; client-side zh variant)
 │   ├── zh/                              # Simplified-Chinese locale (1b; index/competition PUBLISHED 1d, workshop/contact PUBLISHED 2c, register PUBLISHED since)
 │   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
@@ -104,7 +108,9 @@ ebim-benchmark.github.io/
 │   │   ├── contact.njk                  #   → /zh/contact.html (published; form JS via shared include)
 │   │   ├── contact-success.njk          #   → /zh/contact-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh contact form's no-JS redirect target)
 │   │   ├── register.njk                 #   → /zh/register.html (published: hreflang/sitemap/toggle)
-│   │   └── register-success.njk         #   → /zh/register-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh registration form's no-JS redirect target)
+│   │   ├── register-success.njk         #   → /zh/register-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh registration form's no-JS redirect target)
+│   │   ├── compute-apply.njk            #   → /zh/compute-apply.html (hidden noindex UNLISTED page; no i18nKey ⇒ no hreflang/toggle/sitemap; the compute application emailed to registered teams)
+│   │   └── compute-success.njk          #   → /zh/compute-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh compute form's no-JS redirect target)
 │   ├── css/style.css                    # All shared styles + @font-face — minified & inlined into <head> (also passthrough-copied to /css/, now unreferenced)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── fonts/                           # Self-hosted Inter woff2 (latin + latin-ext, 5 weights) → passthrough to /fonts/
@@ -137,9 +143,9 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 `node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. It runs on every PR via `.github/workflows/verify.yml`.
 
-**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 9 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
+**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 11 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
-`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all five pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (10 URLs total) with `hreflang` on all five EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. It also covers the hidden `/zh/contact-success.html` and `/zh/register-success.html` utility pages — `<html lang="zh-Hans">`, a single `noindex`, no `hreflang`/toggle, out of the sitemap, CJK body, `../` assets. CI runs both harnesses on every PR.
+`node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all five pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (10 URLs total) with `hreflang` on all five EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. It also covers the hidden `/zh/contact-success.html` and `/zh/register-success.html` utility pages, plus the unlisted `/zh/compute-apply.html` + `/zh/compute-success.html` — `<html lang="zh-Hans">`, a single `noindex`, no `hreflang`/toggle, out of the sitemap, CJK body, `../` assets. CI runs both harnesses on every PR.
 
 ### GitHub Pages deployment
 
@@ -349,7 +355,7 @@ Each content page (`index`, `competition`, `workshop`) carries:
 
 `404.html` is intentionally `noindex` and has no OG tags.
 
-`sitemap.xml` is rendered from `src/sitemap.njk` (per-page gated on `zhPublished`): the 5 EN URLs (home, competition, workshop, contact, register) plus a `/zh/` URL for each **published** page — all five are published, so **10 URLs** (5 EN + 5 `/zh/`) with `xhtml:link` hreflang alternates on all five pairs. (The success/utility pages — `contact-success`, `register-success`, `contact-test`, `404` — are intentionally excluded.) It is referenced from `robots.txt`.
+`sitemap.xml` is rendered from `src/sitemap.njk` (per-page gated on `zhPublished`): the 5 EN URLs (home, competition, workshop, contact, register) plus a `/zh/` URL for each **published** page — all five are published, so **10 URLs** (5 EN + 5 `/zh/`) with `xhtml:link` hreflang alternates on all five pairs. (The success/utility + unlisted pages — `contact-success`, `register-success`, `contact-test`, `404`, `compute-apply`, `compute-success` — are intentionally excluded.) It is referenced from `robots.txt`.
 
 ### Heading hierarchy
 
@@ -400,7 +406,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
 - [x] Partners (ICRA-style tiers): Platinum (Agile Robots, Franka Robotics, Google, AMD), Gold (Mech-Mind, vivo), Silver (Taipei Computer Association, RobotGym, Synrise), Bronze (Virtual Research Building/AICO, Robotics Institute Germany, Hon Hai Research Institute, Galbot, Lightwheel, ManipulationNet, Computational Freedom); site-wide "Sponsors → Partners" rename with `#partners` anchor + backward-compatible `#sponsors` alias span
 - [x] Franka Community: Community Resources callout on competition.html + footer link (the inline note under the Franka card was dropped in the tier redesign)
-- [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (all 9 pages), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
+- [x] Discord integration: invite (`discord.gg/pGwRbMRjuH`) wired into the shared footer (every page), a category-conditional "faster path" CTA on `contact.html` (shown after the Category field for competition/workshop topics), and the competition Community pillar (Discord + GitHub linked; Docs + Cloud Access left bare pending public URLs)
 - [x] 4-testbed coverage: Hamburg (University of Hamburg robotics lab, venue TBA), Munich, Pittsburgh, Shanghai (Franka Robotics branch office; card links to the testbed WeChat group)
 - [x] Competition timeline: Simulation Release Jun 29 → Simulation End Aug 3 → Results Announced Aug 8 → Phase II two-window (team hands-on bench testing Aug 10–19; organizer-run testing & evaluation Aug 20–31, with code submission staying open — not a freeze); workshop date & Final Results TBD
 - [x] Competition awards (per task): Real-World Excellence — 1st $1,500 / 2nd $1,000 / 3rd $500 cash, each + a Franka Robotics purchase voucher (US$3,750 / $2,500 / $1,250 value) + trophy/gift; Simulation Prize (AMD) $300 / $200 / $100; + in-kind AMD dev hardware (US/DE/Asia). PRIZE_HEADLINE "Up to $5,250 in prizes per task — cash + purchase voucher, trophy & gift" propagated to the home hero, Two-Ways badge, Competition hero + Awards intro, and SEO meta. The label always reads "cash + purchase voucher" (never implies $5,250 is pure cash).
