@@ -35,7 +35,7 @@ The `data-slug` — not the option `value` — is the key shared across these pl
 
 ## Architecture overview
 
-The site is a **multi-page** static site, built with [Eleventy](https://www.11ty.dev/) — Nunjucks templates in `src/` compile to static HTML in `_site/`. Three primary content pages, a registration form, a contact form, and a 404:
+The site is a **multi-page** static site, built with [Eleventy](https://www.11ty.dev/) — Nunjucks templates in `src/` compile to static HTML in `_site/`. Three primary content pages, a registration form, a contact form, an FAQ page, and a 404:
 
 | Page | URL | Purpose |
 |---|---|---|
@@ -44,6 +44,7 @@ The site is a **multi-page** static site, built with [Eleventy](https://www.11ty
 | **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
 | **Register** | `register.html` | Team registration — native Web3Forms form (team of 1–6, task selection, testbed ranking, consent; + `register-success.html` no-JS fallback). Own access key, separate from Contact |
 | **Contact** | `contact.html` | Categorized Web3Forms contact form (+ `contact-success.html` no-JS fallback, `contact-test.html` internal health check) |
+| **FAQ** | `faq.html` | Bilingual FAQ — 5 groups / 14 Q&As (getting started, competition, compute, AMD Solution Award, staying connected). Published & indexed, nav-linked (before Contact), in the sitemap + hreflang-paired. Mirrored under `/zh/` |
 | **Compute** *(unlisted)* | `compute-apply.html` | Registered-team compute-resource application — own Web3Forms key, honeypot-only (no hCaptcha). URL emailed privately to each team's PoC, so it is kept out of nav/footer/sitemap (`noindex`; + `compute-success.html` no-JS fallback). Both mirrored under `/zh/` |
 | **404** | `404.html` | Branded not-found page (`noindex`). Emits **root-absolute** asset/nav/CTA URLs so it renders correctly when GitHub Pages serves the single `/404.html` for a miss at any depth; a tiny client-side script localizes its copy + CTAs when the missed path is under `/zh/` |
 
@@ -92,6 +93,7 @@ ebim-benchmark.github.io/
 │   ├── index.njk                        # Landing page (funnel to sub-pages)
 │   ├── competition.njk                  # The EBiM Competition
 │   ├── workshop.njk                     # Workshop Program
+│   ├── faq.njk                          # Bilingual FAQ (published/indexed; nav + sitemap + hreflang) — localized sibling at zh/faq.njk
 │   ├── contact.njk                      # Categorized Web3Forms contact form (JS via shared include)
 │   ├── contact-success.njk              # No-JS POST fallback success page (EN; localized sibling at zh/contact-success.njk)
 │   ├── contact-test.njk                 # Internal contact-form health check (not linked)
@@ -105,6 +107,7 @@ ebim-benchmark.github.io/
 │   │   ├── index.njk                    #   → /zh/ (self-canonical; hreflang ⇄ EN when published)
 │   │   ├── competition.njk              #   → /zh/competition.html (published)
 │   │   ├── workshop.njk                 #   → /zh/workshop.html (published: hreflang/sitemap/toggle)
+│   │   ├── faq.njk                      #   → /zh/faq.html (published: hreflang/sitemap/toggle)
 │   │   ├── contact.njk                  #   → /zh/contact.html (published; form JS via shared include)
 │   │   ├── contact-success.njk          #   → /zh/contact-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh contact form's no-JS redirect target)
 │   │   ├── register.njk                 #   → /zh/register.html (published: hreflang/sitemap/toggle)
@@ -117,7 +120,7 @@ ebim-benchmark.github.io/
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
-│   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 5 EN + the published /zh/ URLs)
+│   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 6 EN + the published /zh/ URLs)
 │   └── .nojekyll                        # Disable Jekyll on GitHub Pages
 ├── _site/                               # Build output (gitignored) — this is what gets deployed
 └── README.md
@@ -143,7 +146,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 `node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. It runs on every PR via `.github/workflows/verify.yml`.
 
-**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 11 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
+**Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 12 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
 `node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all five pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (10 URLs total) with `hreflang` on all five EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. It also covers the hidden `/zh/contact-success.html` and `/zh/register-success.html` utility pages, plus the unlisted `/zh/compute-apply.html` + `/zh/compute-success.html` — `<html lang="zh-Hans">`, a single `noindex`, no `hreflang`/toggle, out of the sitemap, CJK body, `../` assets. CI runs both harnesses on every PR.
 
@@ -414,7 +417,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Panel: three confirmed panelists — Stefan Schaal (Intrinsic), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row + panel cards; kept in `event.json` as reference data for the date-gated workshop Event, not in current JSON-LD). Kenny Kimble (NIST) withdrew and was removed from the page and the `event.json` reference data.
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
-- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), locale-aware sitemap (5 EN + 5 zh URLs published), alt text + width/height on every img
+- [x] SEO: per-page meta tags, JSON-LD (Event + Organization + BreadcrumbList), locale-aware sitemap (6 EN + 6 zh URLs published), alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)

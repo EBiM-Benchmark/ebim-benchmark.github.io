@@ -37,6 +37,7 @@
     "wsDissemination": "成果传播",
     "organizers": "组织者",
     "partners": "合作伙伴",
+    "faq": "常见问题",
     "contact": "联系我们",
     "register": "报名",
     "ariaLanguage": "语言"
@@ -58,6 +59,7 @@
     "participateCompete": "参赛",
     "participateSubmitPoster": "提交海报",
     "participateContact": "联系我们",
+    "participateFaq": "常见问题",
     "participateRegister": "报名",
     "linkContactForm": "联系表单",
     "linkGithub": "GitHub",

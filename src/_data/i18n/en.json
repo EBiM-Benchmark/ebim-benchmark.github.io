@@ -37,6 +37,7 @@
     "wsDissemination": "Dissemination",
     "organizers": "Organizers",
     "partners": "Partners",
+    "faq": "FAQ",
     "contact": "Contact",
     "register": "Register",
     "ariaLanguage": "Language"
@@ -58,6 +59,7 @@
     "participateCompete": "Compete",
     "participateSubmitPoster": "Submit Poster",
     "participateContact": "Contact Us",
+    "participateFaq": "FAQ",
     "participateRegister": "Register",
     "linkContactForm": "Contact form",
     "linkGithub": "GitHub",

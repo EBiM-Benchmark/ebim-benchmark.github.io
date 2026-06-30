@@ -75,6 +75,7 @@ const TOGGLE_HREFS = {
   index: { en: "../", zh: "zh/" },
   competition: { en: "../competition.html", zh: "zh/competition.html" },
   workshop: { en: "../workshop.html", zh: "zh/workshop.html" },
+  faq: { en: "../faq.html", zh: "zh/faq.html" },
   contact: { en: "../contact.html", zh: "zh/contact.html" },
   register: { en: "../register.html", zh: "zh/register.html" },
 };
@@ -91,6 +92,10 @@ const HREFLANG_PAIRS = {
   workshop: {
     en: "https://ebim-benchmark.github.io/workshop.html",
     zh: "https://ebim-benchmark.github.io/zh/workshop.html",
+  },
+  faq: {
+    en: "https://ebim-benchmark.github.io/faq.html",
+    zh: "https://ebim-benchmark.github.io/zh/faq.html",
   },
   contact: {
     en: "https://ebim-benchmark.github.io/contact.html",
@@ -164,6 +169,7 @@ export default {
           index: "/index.html",
           competition: "/competition.html",
           workshop: "/workshop.html",
+          faq: "/faq.html",
           contact: "/contact.html",
           register: "/register.html",
         }
@@ -172,6 +178,7 @@ export default {
             index: "index.html",
             competition: "competition.html",
             workshop: "workshop.html",
+            faq: "faq.html",
             contact: "contact.html",
             register: "register.html",
           }
@@ -179,6 +186,7 @@ export default {
             index: "index.html",
             competition: "competition.html",
             workshop: "workshop.html",
+            faq: "faq.html",
             contact: "contact.html",
             register: "register.html",
           },

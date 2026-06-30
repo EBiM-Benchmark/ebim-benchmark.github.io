@@ -2,11 +2,11 @@
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 # Locale-aware sitemap, gated PER PAGE on site.zhPublished[pair] (the i18nKey
-# map in src/_data/site.json). The five EN URLs are always listed. A /zh/ URL is
+# map in src/_data/site.json). The six EN URLs are always listed. A /zh/ URL is
 # listed iff its pair's flag is true; an EN URL gets <xhtml:link> hreflang
-# alternates iff its pair's flag is true. With all five pairs published
-# (index/competition/workshop/contact since Phase 2c, register since): 10 URLs
-# (5 EN + 5 /zh/), each pair carrying reciprocal en/zh-Hans/x-default alternates
+# alternates iff its pair's flag is true. With all six pairs published
+# (index/competition/workshop/contact since Phase 2c, register since, faq since): 12 URLs
+# (6 EN + 6 /zh/), each pair carrying reciprocal en/zh-Hans/x-default alternates
 # on both its EN and /zh/ rows. (Return a flag to false and that /zh/ row drops
 # out and its pair's alternates disappear.)
 # The xhtml namespace is emitted whenever any page is published. The alternate
@@ -20,11 +20,13 @@ sitemap:
     - { loc: "https://ebim-benchmark.github.io/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop" }
     - { loc: "https://ebim-benchmark.github.io/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6", pair: "contact" }
     - { loc: "https://ebim-benchmark.github.io/register.html", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8", pair: "register" }
+    - { loc: "https://ebim-benchmark.github.io/faq.html", lastmod: "2026-07-01", changefreq: "monthly", priority: "0.6", pair: "faq" }
     - { loc: "https://ebim-benchmark.github.io/zh/", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0", pair: "index", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/competition.html", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9", pair: "competition", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6", pair: "contact", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/register.html", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8", pair: "register", zh: true }
+    - { loc: "https://ebim-benchmark.github.io/zh/faq.html", lastmod: "2026-07-01", changefreq: "monthly", priority: "0.6", pair: "faq", zh: true }
   alternates:
     index:
       - { hreflang: "en", href: "https://ebim-benchmark.github.io/" }
@@ -46,9 +48,13 @@ sitemap:
       - { hreflang: "en", href: "https://ebim-benchmark.github.io/register.html" }
       - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/register.html" }
       - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/register.html" }
+    faq:
+      - { hreflang: "en", href: "https://ebim-benchmark.github.io/faq.html" }
+      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/faq.html" }
+      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/faq.html" }
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.contact or site.zhPublished.register %}
+{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.faq or site.zhPublished.contact or site.zhPublished.register %}
 {%- if anyPublished %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">

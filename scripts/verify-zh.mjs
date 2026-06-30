@@ -4,8 +4,8 @@
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the FIVE pages we now ship: /zh/index.html,
-// /zh/competition.html, /zh/workshop.html, /zh/contact.html, /zh/register.html.
+// is actually localized, for the SIX pages we now ship: /zh/index.html,
+// /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html, /zh/register.html.
 // It also covers the hidden /zh/contact-success.html and /zh/register-success.html
 // utility pages (the no-JS targets of the zh contact/register form redirects) and
 // the UNLISTED /zh/compute-apply.html + its /zh/compute-success.html target (the
@@ -73,7 +73,7 @@ const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.jso
 const PUB = SITE_DATA.zhPublished || {};
 const isPub = (key) => PUB[key] === true;
 
-// The five localized pages. `key` is the i18nKey (the publish-flag key).
+// The six localized pages. `key` is the i18nKey (the publish-flag key).
 // `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
 // advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
 // is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
@@ -111,6 +111,16 @@ const PAGES = [
     zhHas: "暂定日程",
   },
   {
+    key: "faq",
+    file: "zh/faq.html",
+    canonical: `${SITE_ORIGIN}/zh/faq.html`,
+    enUrl: `${SITE_ORIGIN}/faq.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/faq.html`,
+    enToggleHref: "../faq.html",
+    enGone: "Frequently Asked Questions",
+    zhHas: "常见问题",
+  },
+  {
     key: "contact",
     file: "zh/contact.html",
     canonical: `${SITE_ORIGIN}/zh/contact.html`,
@@ -138,6 +148,7 @@ const EN_FILE = {
   index: "index.html",
   competition: "competition.html",
   workshop: "workshop.html",
+  faq: "faq.html",
   contact: "contact.html",
   register: "register.html",
 };
