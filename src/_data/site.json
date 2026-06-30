@@ -4,6 +4,7 @@
     "index": true,
     "competition": true,
     "workshop": true,
+    "faq": true,
     "contact": true,
     "register": true
   },
