@@ -102,6 +102,10 @@ navActive: "faq"
     #faq .faq-card-h { display: flex; align-items: center; gap: .6rem; padding: .85rem 1.1rem; border-bottom: 1px solid var(--border); }
     #faq .faq-card-h h2 { font-size: .95rem; font-weight: 800; color: var(--text-dark); margin: 0; flex: 1; }
     #faq .faq-card-c { font-size: .72rem; color: var(--text-muted); }
+    #faq .faq-ico { flex-shrink: 0; }
+    #faq .faq-cat .faq-ico { width: 17px; height: 17px; color: var(--text-muted); transition: color var(--transition); }
+    #faq .faq-cat.is-active .faq-ico { color: var(--accent); }
+    #faq .faq-card-h .faq-ico { width: 18px; height: 18px; color: var(--accent); }
     #faq .faq-qa { border-bottom: 1px solid var(--border); }
     #faq .faq-qa:last-child { border-bottom: 0; }
     #faq .faq-q { width: 100%; display: flex; align-items: center; gap: .7rem; padding: .8rem 1.1rem; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: var(--text-dark); font-size: .9rem; font-weight: 700; border-left: 2px solid transparent; transition: background .16s; }
@@ -125,7 +129,7 @@ navActive: "faq"
       #faq .faq-cat.is-active { border-color: var(--accent); }
     }
     @media (prefers-reduced-motion: reduce) {
-      #faq .faq-a, #faq .faq-chev, #faq .faq-cat, #faq .faq-q { transition: none; }
+      #faq .faq-a, #faq .faq-chev, #faq .faq-cat, #faq .faq-q, #faq .faq-ico { transition: none; }
     }
   </style>
 {% endraw %}{% endblock %}
@@ -159,16 +163,16 @@ navActive: "faq"
       <div class="faq-grid">
         <nav class="faq-rail" aria-label="常见问题分类">
           <p class="faq-rail-h">分类</p>
-          <button class="faq-cat is-active" data-target="faq-g1"><span class="faq-cat-n">入门</span><span class="faq-cat-c">4</span></button>
-          <button class="faq-cat" data-target="faq-g2"><span class="faq-cat-n">赛事</span><span class="faq-cat-c">6</span></button>
-          <button class="faq-cat" data-target="faq-g3"><span class="faq-cat-n">算力</span><span class="faq-cat-c">2</span></button>
-          <button class="faq-cat" data-target="faq-g4"><span class="faq-cat-n">AMD Solution Award</span><span class="faq-cat-c">1</span></button>
-          <button class="faq-cat" data-target="faq-g5"><span class="faq-cat-n">联系与更新</span><span class="faq-cat-c">1</span></button>
+          <button class="faq-cat is-active" data-target="faq-g1"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v18"/><path d="M5 4h13l-3 4 3 4H5z"/></svg><span class="faq-cat-n">入门</span><span class="faq-cat-c">4</span></button>
+          <button class="faq-cat" data-target="faq-g2"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span class="faq-cat-n">赛事</span><span class="faq-cat-c">6</span></button>
+          <button class="faq-cat" data-target="faq-g3"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 2v2"/><path d="M15 2v2"/><path d="M9 20v2"/><path d="M15 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg><span class="faq-cat-n">算力</span><span class="faq-cat-c">2</span></button>
+          <button class="faq-cat" data-target="faq-g4"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/></svg><span class="faq-cat-n">AMD Solution Award</span><span class="faq-cat-c">1</span></button>
+          <button class="faq-cat" data-target="faq-g5"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span class="faq-cat-n">联系与更新</span><span class="faq-cat-c">1</span></button>
         </nav>
 
         <div class="faq-cards">
           <section class="faq-card" id="faq-g1">
-            <div class="faq-card-h"><h2>入门</h2><span class="faq-card-c">4 个问题</span></div>
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v18"/><path d="M5 4h13l-3 4 3 4H5z"/></svg><h2>入门</h2><span class="faq-card-c">4 个问题</span></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">如何报名？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>在<a href="register.html">报名页</a>注册 1–6 人的团队。Member 1 为联系人，接收全部团队邮件。</p></div></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">是否涉及报名费？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>不收费——参赛免费。</p></div></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">可以单人参赛吗？需要自己组队吗？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>每队 1–6 人，允许单人参赛，且由你自行组队。找队友可用 <a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord</a>，中国大陆参赛者可加入<a href="https://qr61.cn/oioUKl/qtksKk2" target="_blank" rel="noopener">上海测试平台微信群</a>。</p></div></div>
@@ -176,7 +180,7 @@ navActive: "faq"
           </section>
 
           <section class="faq-card" id="faq-g2">
-            <div class="faq-card-h"><h2>赛事</h2><span class="faq-card-c">6 个问题</span></div>
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><h2>赛事</h2><span class="faq-card-c">6 个问题</span></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">有哪些赛题？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>三个独立赛题——Task 1：Cable Routing &amp; Plugging；Task 2：Deformable Material Handling（Thermal Pad Placement）；Task 3：Assisted Living &amp; Feeding。可任选一个或多个，各赛题独立排名。</p></div></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">使用哪些仿真器？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>NVIDIA Isaac Sim 与 MuJoCo。Task 2 的 MuJoCo 版本暂不随发布分发（可变形物体精度尚未达标）；如自行搭建仍然有效。</p></div></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">提供哪些遥操作接口？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Teleoperation Toolkit 提供 <a href="https://franka.de/de/gello" target="_blank" rel="noopener">Franka Duo GELLO</a>、键盘控制、脚踏板控制与 VR 控制。</p></div></div>
@@ -186,18 +190,18 @@ navActive: "faq"
           </section>
 
           <section class="faq-card" id="faq-g3">
-            <div class="faq-card-h"><h2>算力</h2><span class="faq-card-c">2 个问题</span></div>
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 2v2"/><path d="M15 2v2"/><path d="M9 20v2"/><path d="M15 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg><h2>算力</h2><span class="faq-card-c">2 个问题</span></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">有哪些算力、如何申请？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>三个算力计划现已开放，可前往<a href="compute-apply.html">申请页</a>申请——Google Cloud（最高 1,000 美元 A100）、Computational Freedom（RTX 4090 / L40S；仅限中国大陆团队）、AMD Instinct MI300X（位于台北的共享 8 卡 MI300X）。中国大陆团队建议使用 Computational Freedom 或 MI300X。</p></div></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">必须自备 GPU 吗？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>不一定——上述算力计划旨在覆盖算力需求。</p></div></div>
           </section>
 
           <section class="faq-card" id="faq-g4">
-            <div class="faq-card-h"><h2>AMD Solution Award</h2><span class="faq-card-c">1 个问题</span></div>
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/></svg><h2>AMD Solution Award</h2><span class="faq-card-c">1 个问题</span></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">什么是 AMD Solution Award？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>面向每个 Task 的 Top 3 团队的一项奖：需在 AMD ROCm 生态完成数据处理、训练、推理与官方测试，并通过 Docker 镜像和官方 AMD 评测环境验证。该奖项可选，不影响总排名。</p></div></div>
           </section>
 
           <section class="faq-card" id="faq-g5">
-            <div class="faq-card-h"><h2>联系与更新</h2><span class="faq-card-c">1 个问题</span></div>
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><h2>联系与更新</h2><span class="faq-card-c">1 个问题</span></div>
             <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">如何获取帮助与最新信息？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p><a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord</a>、官网，以及面向中国大陆参赛者的<a href="https://qr61.cn/oioUKl/qtksKk2" target="_blank" rel="noopener">微信群</a>。</p></div></div>
           </section>
         </div>
