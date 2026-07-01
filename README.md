@@ -102,7 +102,7 @@ ebim-benchmark.github.io/
 │   ├── compute-apply.njk                # UNLISTED compute-resource application (own Web3Forms key; JS via shared include) — noindex, not in nav/footer/sitemap
 │   ├── compute-success.njk              # No-JS POST fallback success page (EN; localized sibling at zh/compute-success.njk)
 │   ├── 404.njk                          # Branded 404 (noindex; absoluteUrls → root-absolute URLs so it works at any depth; client-side zh variant)
-│   ├── zh/                              # Simplified-Chinese locale (1b; index/competition PUBLISHED 1d, workshop/contact PUBLISHED 2c, register PUBLISHED since)
+│   ├── zh/                              # Simplified-Chinese locale (1b; index/competition PUBLISHED 1d, workshop/contact PUBLISHED 2c, register + faq PUBLISHED since)
 │   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
 │   │   ├── index.njk                    #   → /zh/ (self-canonical; hreflang ⇄ EN when published)
 │   │   ├── competition.njk              #   → /zh/competition.html (published)
