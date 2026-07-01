@@ -42,6 +42,13 @@
 
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 1rem); font-size: 16px; }
 
+/* Reduced-motion: single site-wide gate for CSS-driven smooth scrolling.
+   Anchor jumps, scroll-padding navigation, and any scrollIntoView that defers
+   to CSS (i.e. omits an explicit `behavior`) all become instant here. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   font-family: var(--font-main);
   color: var(--text-dark);
