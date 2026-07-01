@@ -26,6 +26,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        # Full history so `git log` can date each page's last content change for
+        # the FAQ "Last updated" stamp (gitDateISO filter). A shallow clone would
+        # only see the deploy commit and silently degrade every stamp to it.
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
