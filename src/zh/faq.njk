@@ -115,8 +115,8 @@ navActive: "faq"
     #faq .faq-chev { flex-shrink: 0; color: var(--text-muted); transition: transform .25s, color .25s; }
     #faq .faq-qa.is-open > .faq-q { border-left-color: var(--accent); color: var(--faq-link); }
     #faq .faq-qa.is-open .faq-chev { transform: rotate(180deg); color: var(--accent); }
-    #faq .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
-    #faq .faq-qa.is-open .faq-a { max-height: 560px; }
+    #faq .faq-a { max-height: 0; overflow: hidden; visibility: hidden; transition: max-height .3s ease, visibility 0s .3s; }
+    #faq .faq-qa.is-open .faq-a { max-height: 560px; visibility: visible; transition: max-height .3s ease, visibility 0s 0s; }
     #faq .faq-a p { margin: 0; padding: .1rem 1.1rem 1rem 2rem; font-size: .86rem; line-height: 1.62; color: var(--text-mid); }
     #faq .faq-a a { color: var(--faq-link); text-decoration: none; border-bottom: 1px solid rgba(14,116,144,.32); }
     #faq .faq-a a:hover { border-bottom-color: var(--faq-link); }
@@ -227,7 +227,7 @@ navActive: "faq"
       cats.forEach(function(c){c.classList.remove('is-active');});
       cat.classList.add('is-active');
       var t=document.getElementById(cat.getAttribute('data-target'));
-      if(t){t.scrollIntoView({behavior:'smooth',block:'start'});var f=t.querySelector('.faq-qa');if(f&&!f.classList.contains('is-open')){f.classList.add('is-open');f.querySelector('.faq-q').setAttribute('aria-expanded','true');}}
+      if(t){var _rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;t.scrollIntoView({behavior:_rm?'auto':'smooth',block:'start'});var f=t.querySelector('.faq-qa');if(f&&!f.classList.contains('is-open')){f.classList.add('is-open');f.querySelector('.faq-q').setAttribute('aria-expanded','true');}}
     });
   });
   if('IntersectionObserver' in window){
