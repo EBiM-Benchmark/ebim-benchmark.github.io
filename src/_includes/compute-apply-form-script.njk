@@ -10,8 +10,8 @@
     var successEl = document.querySelector('#formSuccess');
     var d = form.dataset;
 
-    function showError(msg) { errorText.textContent = msg || d.msgGeneric; errorBox.hidden = false; errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-    function showSuccess() { form.hidden = true; successEl.hidden = false; successEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    function showError(msg) { errorText.textContent = msg || d.msgGeneric; errorBox.hidden = false; errorBox.scrollIntoView({ block: 'center' }); }
+    function showSuccess() { form.hidden = true; successEl.hidden = false; successEl.scrollIntoView({ block: 'center' }); }
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();

@@ -47,7 +47,7 @@
     function showError(msg) {
       errorText.textContent = msg || 'Something went wrong. Please try again.';
       errorBox.hidden = false;
-      errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      errorBox.scrollIntoView({ block: 'center' });
     }
 
     function hideError() {
@@ -57,7 +57,7 @@
     function showSuccess() {
       form.hidden = true;
       successEl.hidden = false;
-      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      successEl.scrollIntoView({ block: 'center' });
     }
 
     // Native HTML5 validation guards the no-JS POST fallback and also blocks
@@ -138,7 +138,7 @@
         // (Use getElementById, not form.name — form.name is the form's own
         //  name property, not the Name <input>.)
         var card = document.querySelector('.contact-card') || categoryEl;
-        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        card.scrollIntoView({ block: 'start' });
         var nameEl = document.getElementById('name');
         if (nameEl && nameEl.focus) {
           nameEl.focus({ preventScroll: true });
