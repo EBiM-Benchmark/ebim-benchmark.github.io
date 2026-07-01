@@ -1,6 +1,6 @@
 // /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b added
 // workshop + contact as drafts; Phase 2c published them; register shipped
-// published later — all five /zh/ pages are now live).
+// published later; the FAQ page was added and published since — all six /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
@@ -48,7 +48,7 @@
 //
 // Site-wide it checks (per-page gated):
 //   sitemap      — each PUBLISHED page's /zh/ url is present; each DRAFT's is
-//                  absent. Total = 5 EN + (number of published zh).
+//                  absent. Total = 6 EN + (number of published zh).
 //   hreflang     — emitted ONLY on the published localized pairs (EN + /zh/);
 //                  never on a draft pair, and never on the EN-only utility pages.
 //
@@ -388,7 +388,7 @@ function pageChecks(p) {
 }
 
 // The hidden /zh/ utility page: the no-JS target of the zh contact form's
-// redirect (src/zh/contact-success.njk). It is NOT one of the five localized
+// redirect (src/zh/contact-success.njk). It is NOT one of the six localized
 // PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
 // and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
 // the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN

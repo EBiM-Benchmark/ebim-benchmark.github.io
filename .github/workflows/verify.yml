@@ -5,8 +5,8 @@ name: Build & EN parity
 # (see scripts/verify.mjs). The second step verifies the /zh/ Simplified-Chinese
 # locale against the _site the first step built — its assertions are gated PER
 # PAGE on site.zhPublished[i18nKey], so each page is checked against its own flag.
-# As of Phase 2c the four content /zh/ pages are published — and the registration
-# page since — so each of the five localized /zh/ pages is asserted against the
+# As of Phase 2c the four content /zh/ pages are published — the registration
+# and FAQ pages since — so each of the six localized /zh/ pages is asserted against the
 # published invariants (no noindex, reciprocal hreflang, /zh/ in sitemap,
 # language toggle); the harness stays dual-state, so returning any flag to false
 # re-asserts that page's draft invariants (see scripts/verify-zh.mjs). Runs on
