@@ -95,6 +95,12 @@ const removeComments = (html) => html.replace(COMMENT_RE, "");
 // Empty every <script>…</script> body (run AFTER removeComments so a "<script>"
 // appearing inside a comment can't fool the matcher).
 const stripScriptBodies = (html) => html.replace(/(<script\b[^>]*>)[^]*?(<\/script>)/g, "$1$2");
+// The FAQ "Last updated" stamp is git-derived, so it varies with the build (a
+// rebuild dates to a newer commit than the baselined snapshot). Mask both the
+// datetime="" attribute and the visible text before the golden diff so faq.html
+// stays stable. Harmless on other pages — only faq.html has a <time> here.
+const maskFaqDate = (h) =>
+  h.replace(/(<time datetime=")[^"]*("[^>]*>)Last updated [^<]*(<\/time>)/g, "$1DATE$2Last updated DATE$3");
 
 const fmt = (html) => prettier.format(html, { parser: "html" });
 // Drop blank lines + trailing whitespace ("insignificant whitespace" per spec).
@@ -155,7 +161,7 @@ function inlineScriptBody(html) {
 // ─────────────────────────────────────────────────────────────── checks ──
 
 async function checkStructure(file) {
-  const prep = (html) => stripScriptBodies(removeComments(html));
+  const prep = (html) => stripScriptBodies(removeComments(maskFaqDate(html)));
   const fo = collapse(await fmt(prep(getBaseline(file))));
   const fb = collapse(await fmt(prep(getBuilt(file))));
   return fo === fb ? { ok: true } : { ok: false, detail: firstDiff(fo, fb) };

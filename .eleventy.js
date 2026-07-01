@@ -10,6 +10,26 @@
 // rendered from src/sitemap.njk (locale-aware, per-page gated on the
 // site.zhPublished map).
 import { EleventyI18nPlugin } from "@11ty/eleventy";
+import { execFileSync } from "node:child_process";
+
+// Last commit date (YYYY-MM-DD) that touched a given source file, or null if git
+// is unavailable / the file is untracked. Used for the FAQ "Last updated" stamp,
+// so the date reflects real content changes with zero manual upkeep. NOTE: this
+// reads committed history — the deploy checkout must use fetch-depth: 0, else
+// git only sees the latest commit and the stamp degrades to the deploy date.
+// inputPath is passed as a literal argv entry (no shell), so paths with spaces
+// or metacharacters are handled safely.
+function gitISO(inputPath) {
+  try {
+    return (
+      execFileSync("git", ["log", "-1", "--format=%cs", "--", inputPath], {
+        encoding: "utf8",
+      }).trim() || null
+    );
+  } catch {
+    return null;
+  }
+}
 
 export default function (eleventyConfig) {
   // i18n plugin (ships with Eleventy core). EN is the default language and
@@ -18,6 +38,22 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(EleventyI18nPlugin, {
     defaultLanguage: "en",
     errorMode: "allow-fallback",
+  });
+
+  // "Last updated" support (FAQ page): gitDateISO reads the last commit date for
+  // a page's own source; humanDate localizes an ISO date (en-GB / zh-CN). The
+  // ISO string is stamped into <time datetime="…"> and masked in the golden
+  // diff (scripts/verify.mjs) so a rebuild's date never fails EN parity.
+  eleventyConfig.addFilter("gitDateISO", (p) => gitISO(p));
+  eleventyConfig.addFilter("humanDate", (iso, locale) => {
+    if (!iso) return "";
+    const d = new Date(iso + "T00:00:00Z");
+    return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(d);
   });
 
   // Passthrough copy — object form pins the exact output path regardless of
