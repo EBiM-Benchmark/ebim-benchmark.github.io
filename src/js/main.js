@@ -107,7 +107,7 @@
   if (btt) {
     const toggleBtt = () => btt.classList.toggle('visible', window.scrollY > 500);
     window.addEventListener('scroll', toggleBtt, { passive: true });
-    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
   }
 
   /* ── Intersection Observer fade-in ── */
