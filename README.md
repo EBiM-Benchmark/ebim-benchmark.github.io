@@ -144,7 +144,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 ### Parity harness
 
-`node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. It runs on every PR via `.github/workflows/verify.yml`.
+`node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. The FAQ's build-variable git-derived "Last updated" date is masked on both sides before the structure diff, so a rebuild on a newer commit never trips parity. It runs on every PR via `.github/workflows/verify.yml`.
 
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 12 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
@@ -152,7 +152,7 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 
 ### GitHub Pages deployment
 
-`.github/workflows/deploy.yml` builds the site and deploys `_site/` to GitHub Pages on every push to `main`. This takes effect once the repo's Pages source is set to **GitHub Actions** (Settings → Pages → "Build and deployment" → Source).
+`.github/workflows/deploy.yml` builds the site and deploys `_site/` to GitHub Pages on every push to `main`. This takes effect once the repo's Pages source is set to **GitHub Actions** (Settings → Pages → "Build and deployment" → Source). Its checkout uses **`fetch-depth: 0`** (full history) so the FAQ page's git-derived "Last updated" stamp — the `gitDateISO` filter in `.eleventy.js`, which reads each page's last content-change commit from `page.inputPath` — resolves to the real date rather than silently degrading to the deploy commit under a shallow clone.
 
 ---
 
