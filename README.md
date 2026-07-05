@@ -455,6 +455,6 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 
 ## License
 
-Website code MIT licensed. Workshop content © 2026 the respective authors.
+Website code: Apache-2.0 (see [LICENSE](LICENSE)). Site content (text, images, workshop materials): CC-BY-4.0.
 
 Flag SVGs from flag-icons (https://github.com/lipis/flag-icons), MIT.
