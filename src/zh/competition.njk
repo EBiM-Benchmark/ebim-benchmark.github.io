@@ -297,6 +297,27 @@ i18nKey: competition
       border-color: var(--accent);
       box-shadow: 0 4px 20px rgba(0,212,255,.08);
     }
+
+    /* ── Submission section ── */
+    #submission { background: var(--bg-white); }
+    #submission .submit-wrap { max-width: 720px; margin: 0 auto; }
+    #submission .submit-cta { text-align: center; margin-bottom: 2rem; }
+    #submission .submit-cta .btn { text-decoration: none; }
+    #submission .submit-note { font-size: .82rem; color: var(--text-muted); margin: .75rem auto 0; max-width: 520px; }
+    #submission .submit-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); padding: 1.5rem 1.6rem; margin-bottom: 1.3rem; }
+    #submission .submit-card-h { font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin: 0 0 1.1rem; }
+    #submission .submit-req { display: flex; gap: 1rem; align-items: flex-start; }
+    #submission .submit-req + .submit-req { margin-top: 1rem; }
+    #submission .submit-req-ico { flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: rgba(0,212,255,.1); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
+    #submission .submit-req-ico svg { width: 19px; height: 19px; }
+    #submission .submit-req-t { margin: 0; font-weight: 700; color: var(--text-dark); font-size: .92rem; }
+    #submission .submit-req-d { margin: .15rem 0 0; color: var(--text-mid); font-size: .85rem; }
+    #submission .submit-card-foot { border-top: 1px solid var(--border); margin-top: 1.2rem; padding-top: 1rem; }
+    #submission .submit-card-foot p { margin: 0; color: var(--text-mid); font-size: .85rem; line-height: 1.62; }
+    #submission .submit-verify { border-left: 3px solid var(--accent); background: var(--bg-light); border-radius: 0 8px 8px 0; padding: .95rem 1.25rem; }
+    #submission .submit-verify p { margin: 0; color: var(--text-mid); font-size: .83rem; line-height: 1.65; }
+    #submission .submit-card-foot strong, #submission .submit-verify strong { color: var(--text-dark); }
+    @media (max-width: 560px) { #submission .submit-card, #submission .submit-verify { padding-left: 1.1rem; padding-right: 1.1rem; } }
   </style>
 {% endraw %}{% endblock %}
 
@@ -355,6 +376,7 @@ i18nKey: competition
     <li><a href="#testbeds">跨大洲测试平台</a></li>
     <li><a href="#architecture">竞赛架构</a></li>
     <li><a href="#call-for-participation">参与邀请</a></li>
+    <li><a href="#submission">作品提交</a></li>
     <li><a href="#awards">奖项与奖金</a></li>
     <li><a href="#partners">合作伙伴</a></li>
   </ul>
@@ -1120,6 +1142,45 @@ i18nKey: competition
     <div class="cfp-contact fade-in">
       对竞赛有疑问？
       <a href="contact.html">联系我们 &rarr;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SUBMISSION
+     ============================================================ -->
+<section id="submission">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">作品提交</h2>
+      <p class="section-subtitle">如何提交贵队的作品。</p>
+    </div>
+    <div class="submit-wrap fade-in">
+      <div class="submit-cta">
+        <a href="https://github.com/EBiM-Benchmark/submissions/issues/new/choose" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          提交作品 &rarr;
+        </a>
+        <p class="submit-note">每队每项任务提交一个 issue。截止日期前可随时更新提交：新开一个 issue 替代旧的即可。</p>
+      </div>
+      <div class="submit-card">
+        <p class="submit-card-h">一个公开的 GitHub 仓库，其中包含</p>
+        <div class="submit-req">
+          <span class="submit-req-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.89 1.45l8 4A2 2 0 0 1 22 7.24v9.53a2 2 0 0 1-1.11 1.79l-8 4a2 2 0 0 1-1.79 0l-8-4a2 2 0 0 1-1.11-1.79V7.24a2 2 0 0 1 1.11-1.79l8-4a2 2 0 0 1 1.79 0z"/><polyline points="2.32 6.16 12 11 21.68 6.16"/><line x1="12" y1="22.76" x2="12" y2="11"/></svg></span>
+          <div><p class="submit-req-t">Dockerfile</p><p class="submit-req-d">封装贵队的工作。</p></div>
+        </div>
+        <div class="submit-req">
+          <span class="submit-req-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+          <div><p class="submit-req-t">README</p><p class="submit-req-d">说明如何运行。</p></div>
+        </div>
+        <div class="submit-card-foot">
+          <p><strong>无需提供源代码。</strong> 可选择性附上补充材料（如 Hugging Face 模型权重或数据集）&mdash;&mdash;如附上，README 中须包含清晰的集成说明。</p>
+        </div>
+      </div>
+      <div class="submit-verify">
+        <p>提交将依据报名信息核验（<strong>团队名称 + 联系人邮箱</strong>）；未报名的提交不予评测。基准仓库中的评测代码仅为开发辅助&mdash;&mdash;正式评分以本页规则为准，由组委会运行。<strong>提交截止日期请见上方赛程说明。</strong></p>
+      </div>
     </div>
   </div>
 </section>
