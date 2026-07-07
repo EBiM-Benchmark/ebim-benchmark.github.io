@@ -304,9 +304,9 @@ i18nKey: competition
     #submission .submit-wrap { max-width: 720px; margin: 0 auto; }
     #submission .submit-cta { text-align: center; margin-bottom: 2rem; }
     #submission .submit-cta .btn { text-decoration: none; }
-    #submission .submit-note { font-size: .82rem; color: var(--text-muted); margin: .75rem auto 0; max-width: 520px; }
+    #submission .submit-note { font-size: .82rem; color: var(--text-mid); margin: .75rem auto 0; max-width: 520px; }
     #submission .submit-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); padding: 1.5rem 1.6rem; margin-bottom: 1.3rem; }
-    #submission .submit-card-h { font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin: 0 0 1.1rem; }
+    #submission .submit-card-h { font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-mid); font-weight: 700; margin: 0 0 1.1rem; }
     #submission .submit-req { display: flex; gap: 1rem; align-items: flex-start; }
     #submission .submit-req + .submit-req { margin-top: 1rem; }
     #submission .submit-req-ico { flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: rgba(0,212,255,.1); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
@@ -319,6 +319,18 @@ i18nKey: competition
     #submission .submit-verify p { margin: 0; color: var(--text-mid); font-size: .83rem; line-height: 1.65; }
     #submission .submit-card-foot strong, #submission .submit-verify strong { color: var(--text-dark); }
     @media (max-width: 560px) { #submission .submit-card, #submission .submit-verify { padding-left: 1.1rem; padding-right: 1.1rem; } }
+
+    /* ── Get the Benchmark section ── */
+    #get-benchmark { background: var(--bg-light); }
+    #get-benchmark .getbench-wrap { max-width: 680px; margin: 0 auto; }
+    #get-benchmark .getbench-lead { color: var(--text-mid); font-size: 1rem; line-height: 1.6; margin: 0 auto 1.5rem; text-align: center; }
+    #get-benchmark .getbench-cta { text-align: center; margin-bottom: 1.5rem; }
+    #get-benchmark .getbench-cta .btn { text-decoration: none; }
+    #get-benchmark .getbench-note { border-left: 3px solid var(--accent); background: var(--bg-white); border-radius: 0 8px 8px 0; padding: .95rem 1.25rem; margin: 0 0 1.3rem; }
+    #get-benchmark .getbench-note p { margin: 0; color: var(--text-mid); font-size: .84rem; line-height: 1.6; }
+    #get-benchmark .getbench-note strong { color: var(--text-dark); }
+    #get-benchmark .getbench-note a { color: #0e7490; font-weight: 700; text-decoration: underline; }
+    #get-benchmark .getbench-coming { color: var(--text-mid); font-size: .82rem; line-height: 1.6; margin: 0; }
   </style>
 {% endraw %}{% endblock %}
 
@@ -377,6 +389,7 @@ i18nKey: competition
     <li><a href="#testbeds">Cross-Continent Testbeds</a></li>
     <li><a href="#architecture">Competition Architecture</a></li>
     <li><a href="#call-for-participation">Call for Participation</a></li>
+    <li><a href="#get-benchmark">Get the Code</a></li>
     <li><a href="#submission">Submission</a></li>
     <li><a href="#awards">Awards &amp; Prizes</a></li>
     <li><a href="#partners">Partners</a></li>
@@ -1154,6 +1167,32 @@ i18nKey: competition
     <div class="cfp-contact fade-in">
       Questions about the competition?
       <a href="contact.html">Contact us &rarr;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     GET THE BENCHMARK
+     ============================================================ -->
+<section id="get-benchmark">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Get the Code</h2>
+      <p class="section-subtitle">Clone the repo and start building.</p>
+    </div>
+    <div class="getbench-wrap fade-in">
+      <p class="getbench-lead">The EBiM Benchmark is available now as a <strong>developer preview</strong> &mdash; framework, simulation environments, robot assets, and task environments.</p>
+      <div class="getbench-cta">
+        <a href="https://github.com/EBiM-Benchmark/benchmark" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub &rarr;
+        </a>
+      </div>
+      <div class="getbench-note">
+        <p><strong>Check STATUS before you build:</strong> <a href="https://github.com/EBiM-Benchmark/benchmark/blob/main/STATUS.md" target="_blank" rel="noopener">STATUS.md &rarr;</a> lists which task and simulator combinations are usable today. The preview is under active development and may contain bugs, incomplete features, or API changes.</p>
+      </div>
+      <p class="getbench-coming">Still coming, released incrementally: the Teleoperation Toolkit (Keyboard / GELLO / Foot Pedal / VR), baseline models, tutorials and documentation, real-world datasets, and additional assets. The benchmark is open source &mdash; bug reports and contributions are welcome.</p>
     </div>
   </div>
 </section>

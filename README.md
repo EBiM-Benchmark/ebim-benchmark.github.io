@@ -199,6 +199,8 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
 | Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
+| Get the Code | `#get-benchmark` | Developer-preview CTA (→ benchmark repo) + STATUS.md check-before-build note + roadmap of what's still coming |
+| Submission | `#submission` | GitHub issue-form submission CTA + requirements card (Dockerfile + README) + verify-against-registration note |
 | Awards & Prizes | `#awards` | Per-task prizes in two tracks — Real-World Excellence (cash + purchase voucher) + Simulation Prize (AMD) — up to $5,250/task; + in-kind AMD hardware support |
 | Partners | `#partners` (empty `#sponsors` span kept as alias) | Same ICRA-style tiers as Home, plus a Community Resources callout (Franka Community) |
 | Workshop callout | (banner) | "Looking for the Workshop?" → workshop.html |
@@ -267,7 +269,7 @@ Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible l
 
 - **EBiM Benchmark** brand → `index.html`
 - **Home** dropdown → 5 sub-items linking to home sections (incl. Maturity Roadmap)
-- **Competition** dropdown → 8 sub-items linking to competition sections
+- **Competition** dropdown → 10 sub-items linking to competition sections
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Organizers** → `index.html#organizers`
 - **Partners** → `index.html#partners`
