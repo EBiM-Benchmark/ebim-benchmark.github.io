@@ -199,7 +199,7 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 | Cross-Continent Testbeds | `#testbeds` | 4 site cards (Hamburg, Munich, Pittsburgh, Shanghai) |
 | Competition Architecture | `#architecture` | End-to-end pipeline (Sim → Cross-Site Validation → Real-World) + 5 pillars + Infrastructure & Simulation Stack |
 | Call for Participation | `#call-for-participation` | Phase I / Phase II / Eligibility cards + key dates |
-| Get the Benchmark | `#get-benchmark` | Developer-preview CTA (→ benchmark repo) + STATUS.md check-before-build note + roadmap of what's still coming |
+| Get the Code | `#get-benchmark` | Developer-preview CTA (→ benchmark repo) + STATUS.md check-before-build note + roadmap of what's still coming |
 | Submission | `#submission` | GitHub issue-form submission CTA + requirements card (Dockerfile + README) + verify-against-registration note |
 | Awards & Prizes | `#awards` | Per-task prizes in two tracks — Real-World Excellence (cash + purchase voucher) + Simulation Prize (AMD) — up to $5,250/task; + in-kind AMD hardware support |
 | Partners | `#partners` (empty `#sponsors` span kept as alias) | Same ICRA-style tiers as Home, plus a Community Resources callout (Franka Community) |
