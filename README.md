@@ -44,7 +44,7 @@ The site is a **multi-page** static site, built with [Eleventy](https://www.11ty
 | **Workshop** | `workshop.html` | The EBiM Benchmark workshop program — schedule, invited talks, panel, posters, dissemination |
 | **Register** | `register.html` | Team registration — native Web3Forms form (team of 1–6, task selection, testbed ranking, consent; + `register-success.html` no-JS fallback). Own access key, separate from Contact |
 | **Contact** | `contact.html` | Categorized Web3Forms contact form (+ `contact-success.html` no-JS fallback, `contact-test.html` internal health check) |
-| **FAQ** | `faq.html` | Bilingual FAQ — 5 groups / 14 Q&As (getting started, competition, compute, AMD Solution Award, staying connected). Published & indexed, nav-linked (before Contact), in the sitemap + hreflang-paired. Mirrored under `/zh/` |
+| **FAQ** | `faq.html` | Bilingual FAQ — 5 groups / 16 Q&As (getting started, competition, compute, AMD Solution Award, staying connected). Published & indexed, nav-linked (before Contact), in the sitemap + hreflang-paired. Mirrored under `/zh/` |
 | **Compute** *(unlisted)* | `compute-apply.html` | Registered-team compute-resource application — own Web3Forms key, honeypot-only (no hCaptcha). URL emailed privately to each team's PoC, so it is kept out of nav/footer/sitemap (`noindex`; + `compute-success.html` no-JS fallback). Both mirrored under `/zh/` |
 | **404** | `404.html` | Branded not-found page (`noindex`). Emits **root-absolute** asset/nav/CTA URLs so it renders correctly when GitHub Pages serves the single `/404.html` for a miss at any depth; a tiny client-side script localizes its copy + CTAs when the missed path is under `/zh/` |
 
