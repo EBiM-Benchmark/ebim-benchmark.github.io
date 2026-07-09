@@ -190,7 +190,7 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 
 | Section | ID | Purpose |
 |---|---|---|
-| Sub-hero | `#home` | 40vh hero with breadcrumb + Register CTA (→ `register.html`) |
+| Sub-hero | `#home` | 40vh hero with breadcrumb + Register CTA (→ `register.html`) + Get the Code CTA (→ `#get-benchmark`) |
 | Why This Benchmark | `#why` | Motivation copy |
 | Three-Phase Mechanism | `#overview` | Pipeline diagram with link to Workshop page for Phase III |
 | Mobile FR3 Duo | `#platform` | Platform specs grid + 2 photos (WebP + PNG fallback) |
