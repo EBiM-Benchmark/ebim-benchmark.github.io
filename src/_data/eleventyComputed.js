@@ -254,8 +254,17 @@ export default {
     if (!j || !ev || typeof ev.startDate !== "string") return undefined;
 
     if (key === "index") {
-      return [
-        {
+      // Event withheld until a firm, non-past date is published: a past-dated
+      // EventScheduled is flagged stale/invalid for rich results while the schedule
+      // is being revised. Organization stays. To restore the Event, add
+      // ev.eventPublishStartDate (the revised startDate) to _data/event.json and set
+      // endDate/eventStatus there to match — Sam's call (real dates, or
+      // EventPostponed + previousStartDate). Mirrors the workshop gate. Refs #83.
+      const blocks = [
+        { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
+      ];
+      if (typeof ev.eventPublishStartDate === "string") {
+        blocks.unshift({
           comment: "Structured data: Event schema",
           data: {
             "@context": "https://schema.org",
@@ -263,7 +272,7 @@ export default {
             name: j.eventNameIndex,
             alternateName: j.eventAlternateName,
             description: j.eventDescriptionIndex,
-            startDate: ev.startDate,
+            startDate: ev.eventPublishStartDate,
             endDate: ev.endDate,
             eventStatus: ev.eventStatus,
             eventAttendanceMode: ev.eventAttendanceMode,
@@ -273,35 +282,15 @@ export default {
             image: ev.image,
             sponsor: ev.sponsors,
           },
-        },
-        { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
-      ];
+        });
+      }
+      return blocks;
     }
 
     if (key === "competition") {
-      return [
-        {
-          comment: "Structured data: Competition Event",
-          data: {
-            "@context": "https://schema.org",
-            "@type": "Event",
-            name: j.eventNameCompetition,
-            description: j.eventDescriptionCompetition,
-            startDate: ev.startDate,
-            endDate: ev.endDate,
-            eventStatus: ev.eventStatus,
-            eventAttendanceMode: ev.eventAttendanceMode,
-            location: ev.testbedAddresses.map((address, i) => ({
-              "@type": "Place",
-              name: j.testbedNames[i],
-              address,
-            })),
-            organizer: ev.organizersCompetition,
-            url: data.canonical,
-            image: ev.image,
-            sponsor: ev.sponsors,
-          },
-        },
+      // Event withheld until a firm date is published (see the index branch note and
+      // the workshop gate). Organization + BreadcrumbList stay. Refs #83.
+      const blocks = [
         { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
         {
           comment: "Structured data: Breadcrumbs",
@@ -315,6 +304,31 @@ export default {
           },
         },
       ];
+      if (typeof ev.eventPublishStartDate === "string") {
+        blocks.unshift({
+          comment: "Structured data: Competition Event",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: j.eventNameCompetition,
+            description: j.eventDescriptionCompetition,
+            startDate: ev.eventPublishStartDate,
+            endDate: ev.endDate,
+            eventStatus: ev.eventStatus,
+            eventAttendanceMode: ev.eventAttendanceMode,
+            location: ev.testbedAddresses.map((address, i) => ({
+              "@type": "Place",
+              name: j.testbedNames[i],
+              address,
+            })),
+            organizer: ev.organizersCompetition,
+            url: data.canonical,
+            image: ev.image,
+            sponsor: ev.sponsors,
+          },
+        });
+      }
+      return blocks;
     }
 
     if (key === "workshop") {
