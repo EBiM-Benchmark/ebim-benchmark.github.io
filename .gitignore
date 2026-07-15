@@ -1,2 +1,7 @@
 node_modules/
 _site/
+
+# Playwright MCP scratch output (page snapshots, console logs, screenshots).
+# Written into the repo root when the navbar/layout is measured in a real
+# browser; never part of the site.
+.playwright-mcp/

@@ -1,0 +1,78 @@
+{% raw %}
+<!-- Open Day RSVP form: client validation (≥1 referral or "other"; captcha) + AJAX submit -->
+<script>
+  (function () {
+    'use strict';
+    var form = document.querySelector('#openDayForm');
+    if (!form) return;
+
+    var errorBox  = document.querySelector('#formError');
+    var errorText = document.querySelector('#formErrorText');
+    var successEl = document.querySelector('#formSuccess');
+    var d = form.dataset;
+
+    function showError(msg) {
+      errorText.textContent = msg || d.msgGeneric;
+      errorBox.hidden = false;
+      errorBox.scrollIntoView({ block: 'center' });
+    }
+    function hideError() { errorBox.hidden = true; }
+    function showSuccess() {
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.scrollIntoView({ block: 'center' });
+    }
+
+    function anyChecked(name) {
+      return !!form.querySelector('input[name="' + name + '"]:checked');
+    }
+    function val(name) {
+      var el = form.querySelector('[name="' + name + '"]');
+      return (el && el.value || '').trim();
+    }
+
+    // Returns an error string, or null when valid. Runs AFTER native HTML5 validation
+    // (the submit event only fires once the required fields and radio groups are set).
+    function validate() {
+      if (!anyChecked('referral') && !val('referral_other')) return d.msgReferral;
+      var hc = form.querySelector('textarea[name="h-captcha-response"]');
+      if (hc && !hc.value) return d.msgCaptcha;   // null hc = widget not loaded; let Web3Forms decide
+      return null;
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      hideError();
+
+      var problem = validate();
+      if (problem) { showError(problem); return; }
+
+      var submitBtn = form.querySelector('button[type=submit]');
+      var submitLabel = submitBtn.querySelector('.btn-label') || submitBtn;
+      submitBtn.disabled = true;
+      submitLabel.textContent = d.sending;
+
+      try {
+        var res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        var json = await res.json();
+        if (json.success) {
+          showSuccess();
+        } else {
+          showError(json.message || d.msgGeneric);
+          if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+        }
+      } catch (err) {
+        showError(d.msgNetwork);
+        if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+      } finally {
+        submitBtn.disabled = false;
+        submitLabel.textContent = d.submitLabel;
+      }
+    });
+  })();
+</script>
+{% endraw %}

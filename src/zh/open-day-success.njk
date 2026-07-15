@@ -1,0 +1,56 @@
+---
+permalink: "/zh/open-day-success.html"
+bodyClass: "page-open-day-success"
+title: "报名已收到 · EBiM 开放日 · 汉堡"
+description: "您报名参加 EBiM 开放日（汉堡）的信息已收到。"
+canonical: "https://ebim-benchmark.github.io/zh/open-day-success.html"
+# Hidden zh UTILITY page (no-JS target of the /zh/ Open Day RSVP form's redirect):
+# deliberately NO i18nKey, so it gets no hreflang, no language toggle, and is not
+# listed in the sitemap. noindex is emitted automatically by the zhNoindex
+# computed (an unpublished zh page — no i18nKey ⇒ not published), so no `robots`
+# front-matter is set here (that would emit a duplicate meta — see
+# src/zh/register-success.njk). Living under src/zh/ gives it lang="zh-Hans",
+# assetBase "../" and the zh navbar/footer.
+---
+{% extends "layouts/base.njk" %}
+
+{% block headStyle %}{% raw %}
+  <style>
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    #sent { min-height: 70vh; display: flex; align-items: center; justify-content: center; background: var(--bg-dark); padding: calc(var(--nav-h) + 3rem) 1.5rem 4rem; position: relative; overflow: hidden; }
+    #sent::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+    #sent::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.12) 0%, transparent 70%); pointer-events: none; }
+    .sent-content { position: relative; z-index: 1; text-align: center; max-width: 640px; }
+    .sent-check { width: 84px; height: 84px; margin: 0 auto 1.6rem; border-radius: 50%; background: rgba(0,212,255,.14); border: 1px solid rgba(0,212,255,.45); color: var(--accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(0,212,255,.3); }
+    .sent-title { font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 800; color: #fff; margin-bottom: 1rem; letter-spacing: -.01em; }
+    .sent-message { color: rgba(255,255,255,.72); font-size: 1.05rem; line-height: 1.65; max-width: 500px; margin: 0 auto 2.2rem; }
+    .sent-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  </style>
+{% endraw %}{% endblock %}
+
+{% block main %}{% raw %}
+<main id="main-content">
+  <section id="sent">
+    <div class="sent-content">
+      <div class="sent-check" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h1 class="sent-title">报名已收到 &#10003;</h1>
+      <p class="sent-message">谢谢——我们已收到您参加 EBiM 开放日（汉堡）的报名。确认邮件随后发出；席位需经我们确认后方才保留，因此请勿仅凭本页面安排行程。</p>
+      <div class="sent-actions">
+        <a href="open-day-hamburg.html" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+          </svg>
+          返回开放日页面
+        </a>
+        <a href="index.html" class="btn btn-outline">返回首页</a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endraw %}{% endblock %}

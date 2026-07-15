@@ -49,5 +49,26 @@
     { "@type": "Person", "name": "Stefan Schaal", "affiliation": { "@type": "Organization", "name": "Intrinsic" } },
     { "@type": "Person", "name": "Sven Parusel", "affiliation": { "@type": "Organization", "name": "Franka Robotics" } },
     { "@type": "Person", "name": "Shaowei Cui", "affiliation": { "@type": "Organization", "name": "SCUT" } }
-  ]
+  ],
+
+  "_commentOpenDayHamburg": "Neutral facts for the Hamburg Open Day Event JSON-LD on open-day-hamburg.html, DATE-GATED on openDayHamburgStartDate in the same way as the workshop gate — but unlike the workshop and the index/competition Events, this one has a REAL date and a REAL venue, so the gate is open and a valid Event is emitted today. This is independent of the index/competition Event gate (eventPublishStartDate), which stays closed pending the revised-schedule decision — do not couple them. Talk-level subEvents are deliberately omitted: talk titles are TBA, and an Event node without a real name/startDate/location is an invalid rich result (same reasoning that dropped the workshop's placeholder subEvents). Add real dated subEvents only once titles are confirmed. Translatable strings (event name/description, breadcrumb) live in i18n/<lang>.json jsonld.*.",
+  "openDayHamburgStartDate": "2026-08-17T10:30:00+02:00",
+  "openDayHamburgEndDate": "2026-08-17T17:00:00+02:00",
+  "openDayHamburgEventStatus": "https://schema.org/EventScheduled",
+  "openDayHamburgEventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "openDayHamburgLocation": {
+    "@type": "Place",
+    "name": "Google Germany GmbH — Hamburg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ABC-Straße 19",
+      "addressLocality": "Hamburg",
+      "postalCode": "20354",
+      "addressCountry": "DE"
+    }
+  },
+  "openDayHamburgOrganizers": [
+    { "@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/" }
+  ],
+  "openDayHamburgUrl": "https://ebim-benchmark.github.io/open-day-hamburg.html"
 }

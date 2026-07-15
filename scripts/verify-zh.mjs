@@ -1,18 +1,21 @@
 // /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b added
 // workshop + contact as drafts; Phase 2c published them; register shipped
-// published later; the FAQ page was added and published since — all six /zh/ pages are now live).
+// published later; the FAQ page was added and published since, then the Hamburg
+// Open Day page — all seven /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the SIX pages we now ship: /zh/index.html,
-// /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html, /zh/register.html.
-// It also covers the hidden /zh/contact-success.html and /zh/register-success.html
-// utility pages (the no-JS targets of the zh contact/register form redirects) and
+// is actually localized, for the SEVEN pages we now ship: /zh/index.html,
+// /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html,
+// /zh/register.html, /zh/open-day-hamburg.html.
+// It also covers the hidden /zh/contact-success.html, /zh/register-success.html and
+// /zh/open-day-success.html utility pages (the no-JS targets of the zh
+// contact/register/Open Day form redirects) and
 // the UNLISTED /zh/compute-apply.html + its /zh/compute-success.html target (the
 // compute-resource application emailed privately to registered teams) — all plain
 // noindex zh pages with no hreflang/toggle and out of the sitemap (see
-// contactSuccessChecks / registerSuccessChecks / computeApplyChecks /
-// computeSuccessChecks below).
+// contactSuccessChecks / registerSuccessChecks / openDaySuccessChecks /
+// computeApplyChecks / computeSuccessChecks below).
 //
 // Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
 // by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
@@ -48,7 +51,7 @@
 //
 // Site-wide it checks (per-page gated):
 //   sitemap      — each PUBLISHED page's /zh/ url is present; each DRAFT's is
-//                  absent. Total = 6 EN + (number of published zh).
+//                  absent. Total = 7 EN + (number of published zh).
 //   hreflang     — emitted ONLY on the published localized pairs (EN + /zh/);
 //                  never on a draft pair, and never on the EN-only utility pages.
 //
@@ -73,7 +76,7 @@ const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.jso
 const PUB = SITE_DATA.zhPublished || {};
 const isPub = (key) => PUB[key] === true;
 
-// The six localized pages. `key` is the i18nKey (the publish-flag key).
+// The seven localized pages. `key` is the i18nKey (the publish-flag key).
 // `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
 // advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
 // is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
@@ -140,6 +143,16 @@ const PAGES = [
     enGone: "Register Your Team",
     zhHas: "团队报名",
   },
+  {
+    key: "openDayHamburg",
+    file: "zh/open-day-hamburg.html",
+    canonical: `${SITE_ORIGIN}/zh/open-day-hamburg.html`,
+    enUrl: `${SITE_ORIGIN}/open-day-hamburg.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/open-day-hamburg.html`,
+    enToggleHref: "../open-day-hamburg.html",
+    enGone: "What this day is",
+    zhHas: "这一天是什么",
+  },
 ];
 
 // The EN file each localized page mirrors (used for the hreflang sweep + the
@@ -151,6 +164,7 @@ const EN_FILE = {
   faq: "faq.html",
   contact: "contact.html",
   register: "register.html",
+  openDayHamburg: "open-day-hamburg.html",
 };
 
 // The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every
@@ -388,7 +402,7 @@ function pageChecks(p) {
 }
 
 // The hidden /zh/ utility page: the no-JS target of the zh contact form's
-// redirect (src/zh/contact-success.njk). It is NOT one of the six localized
+// redirect (src/zh/contact-success.njk). It is NOT one of the seven localized
 // PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
 // and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
 // the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN
@@ -491,6 +505,74 @@ function registerSuccessChecks() {
   );
 
   add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  return checks;
+}
+
+// The hidden /zh/ utility page for the Hamburg Open Day: the no-JS target of the
+// zh RSVP form's redirect (src/zh/open-day-success.njk). Same shape as
+// registerSuccessChecks — NO i18nKey, so it carries NO hreflang, NO language
+// toggle, and stays OUT of the sitemap; a plain noindex zh page (noindex from the
+// zhNoindex computed) mirroring the EN open-day-success.html, localized. The
+// redirect assertion pins the zh form at the /zh/ target: the EN and zh forms share
+// one access_key, so a copy-paste of the EN redirect would silently land zh
+// registrants on the English confirmation.
+function openDaySuccessChecks() {
+  const file = "zh/open-day-success.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/open-day-success.html" />',
+    ),
+    "expected self canonical to /zh/open-day-success.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden utility page must emit no hreflang");
+  add(
+    "no language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden utility page must not render the language toggle",
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  // The zh RSVP form must redirect to THIS page, not the EN one (shared access_key).
+  const applyFile = "zh/open-day-hamburg.html";
+  if (exists(applyFile)) {
+    add(
+      "zh Open Day form redirect → /zh/open-day-success.html",
+      read(applyFile).includes(
+        'name="redirect" value="https://ebim-benchmark.github.io/zh/open-day-success.html"',
+      ),
+      "zh/open-day-hamburg.html must redirect to the zh success page",
+    );
+  }
 
   return checks;
 }
@@ -648,6 +730,17 @@ function main() {
   }
   console.log("");
 
+  // ── hidden /zh/ utility page (open-day-success) ──
+  console.log(BOLD("• zh/open-day-success.html  (HIDDEN UTILITY)"));
+  for (const c of openDaySuccessChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/open-day-success.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
+
   // ── hidden /zh/ UNLISTED compute application page ──
   console.log(BOLD("• zh/compute-apply.html  (HIDDEN UNLISTED)"));
   for (const c of computeApplyChecks()) {
@@ -717,6 +810,11 @@ function main() {
     "sitemap excludes /zh/register-success.html (hidden utility)",
     !sitemap.includes("/zh/register-success.html"),
     "/zh/register-success.html must not appear in sitemap.xml",
+  );
+  siteAdd(
+    "sitemap excludes /zh/open-day-success.html (hidden utility)",
+    !sitemap.includes("/zh/open-day-success.html"),
+    "/zh/open-day-success.html must not appear in sitemap.xml",
   );
   siteAdd(
     "sitemap excludes /zh/compute-apply.html (hidden unlisted)",

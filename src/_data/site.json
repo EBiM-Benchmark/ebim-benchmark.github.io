@@ -1,13 +1,16 @@
 {
-  "_comment": "Site-wide flags. zhPublished is a PER-PAGE map (keyed by i18nKey) gating each Simplified-Chinese /zh/ page independently. For a page whose flag is false (DRAFT): its /zh/ page is noindex, no hreflang is emitted on either side of the pair, the /zh/ url stays out of sitemap.xml, and no language toggle renders. For a page whose flag is true (PUBLISHED): its /zh/ page drops noindex, the EN+/zh/ pair carries reciprocal hreflang (en/zh-Hans/x-default), the /zh/ url is listed in sitemap.xml with per-pair xhtml:link alternates, and the navbar language toggle renders. index + competition were published in Phase 1d; workshop + contact were published in Phase 2c (their drafts shipped in Phase 2b); register shipped published in both locales; the FAQ page was added and published since — all six /zh/ pages are now live. Flip a flag back to false to return that page to a draft. Consumed by src/_data/eleventyComputed.js (zhNoindex/hreflangAlternates/localeToggle) and src/sitemap.njk.",
+  "_comment": "Site-wide flags. zhPublished is a PER-PAGE map (keyed by i18nKey) gating each Simplified-Chinese /zh/ page independently. For a page whose flag is false (DRAFT): its /zh/ page is noindex, no hreflang is emitted on either side of the pair, the /zh/ url stays out of sitemap.xml, and no language toggle renders. For a page whose flag is true (PUBLISHED): its /zh/ page drops noindex, the EN+/zh/ pair carries reciprocal hreflang (en/zh-Hans/x-default), the /zh/ url is listed in sitemap.xml with per-pair xhtml:link alternates, and the navbar language toggle renders. index + competition were published in Phase 1d; workshop + contact were published in Phase 2c (their drafts shipped in Phase 2b); register shipped published in both locales; the FAQ page was added and published since; the Hamburg Open Day page shipped published in both locales — all seven /zh/ pages are now live. Flip a flag back to false to return that page to a draft. Consumed by src/_data/eleventyComputed.js (zhNoindex/hreflangAlternates/localeToggle) and src/sitemap.njk.",
   "zhPublished": {
     "index": true,
     "competition": true,
     "workshop": true,
     "faq": true,
     "contact": true,
-    "register": true
+    "register": true,
+    "openDayHamburg": true
   },
+  "_commentOpenDayRegistration": "State of the Hamburg Open Day registration form on src/open-day-hamburg.njk (EN + /zh/). 'open' renders the live RSVP form; 'waitlist' renders the same form with a waitlist banner and the hidden list=waitlist field, for use once the 80 seats are gone; 'closed' renders a closed panel with no form, for use after the 14 Aug 10:30 CEST cutoff. Web3Forms cannot count submissions, so this is a MANUAL flip: change the value, rebuild, re-baseline open-day-hamburg.html, merge. Consumed by src/open-day-hamburg.njk and src/zh/open-day-hamburg.njk.",
+  "openDayRegistration": "open",
   "_commentGsc": "Additive, order-independent list of Google Search Console HTML-tag verification tokens — one per verifying owner. Rendered as Google site-verification <meta> tags (by src/_includes/layouts/base.njk) on pages whose front matter sets siteVerification: true (currently index, competition, workshop). Add a token to register a new owner; never remove an existing one or you un-verify that owner.",
   "googleSiteVerification": [
     "-6Ks2ufYwQEMK_F0Erqoj6Fbw5qLqbhbwywmAgTgJJA",
