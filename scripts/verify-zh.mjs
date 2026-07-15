@@ -402,7 +402,7 @@ function pageChecks(p) {
 }
 
 // The hidden /zh/ utility page: the no-JS target of the zh contact form's
-// redirect (src/zh/contact-success.njk). It is NOT one of the six localized
+// redirect (src/zh/contact-success.njk). It is NOT one of the seven localized
 // PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
 // and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
 // the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN
