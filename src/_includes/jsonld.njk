@@ -1,9 +1,11 @@
 {#- Renders the JSON-LD blocks for the data-driven pages (index, competition,
-    workshop, contact) from shared data (see _data/eleventyComputed.js `jsonLd`,
-    sourced from _data/event.json + _data/i18n/<lang>.json). Each block is
-    deep-equal to the hand-authored English block (locales differ only in the
-    translatable strings) — EXCEPT workshop, whose Event is date-gated on
-    ev.workshopStartDate, so today it emits only Organization + BreadcrumbList. -#}
+    workshop, contact, open-day-hamburg) from shared data (see
+    _data/eleventyComputed.js `jsonLd`, sourced from _data/event.json +
+    _data/i18n/<lang>.json). Each block is deep-equal to the hand-authored English
+    block (locales differ only in the translatable strings) — EXCEPT the date-gated
+    Events: index, competition and workshop each gate their Event on a date key that
+    is currently absent, so they emit only Organization (+ BreadcrumbList), while
+    open-day-hamburg's gate is open (real date + venue) and emits its Event. -#}
 {%- for block in jsonLd %}
   <!-- {{ block.comment }} -->
   <script type="application/ld+json">

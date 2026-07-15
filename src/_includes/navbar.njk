@@ -53,6 +53,7 @@
           <li><a href="{{ links.workshop }}#dissemination">{{ t.nav.wsDissemination | safe }}</a></li>
         </ul>
       </li>
+      <li><a href="{{ links.openDayHamburg }}"{% if navActive == "openDayHamburg" %} aria-current="page"{% endif %}>{{ t.nav.openDay | safe }}</a></li>
       <li><a href="{{ links.register }}"{% if navActive == "register" %} aria-current="page"{% endif %}>{{ t.nav.register | safe }}</a></li>
       <li><a href="{{ links.index }}#organizers">{{ t.nav.organizers | safe }}</a></li>
       <li><a href="{{ links.index }}#partners">{{ t.nav.partners | safe }}</a></li>

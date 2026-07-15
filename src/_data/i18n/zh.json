@@ -42,6 +42,7 @@
     "faq": "常见问题",
     "contact": "联系我们",
     "register": "报名",
+    "openDay": "开放日",
     "ariaLanguage": "语言"
   },
 
@@ -54,6 +55,7 @@
     "pagesHome": "首页",
     "pagesCompetition": "竞赛",
     "pagesWorkshop": "研讨会",
+    "pagesOpenDay": "开放日",
     "peopleHeading": "人员",
     "peopleOrganizers": "组织者",
     "peoplePartners": "合作伙伴",
@@ -125,6 +127,9 @@
     "talkTitleTba": "报告题目待公布",
     "panelName": "圆桌讨论：具身机器人的基准化标准",
     "breadcrumbWorkshop": "研讨会",
+    "eventNameOpenDayHamburg": "EBiM Benchmark 开放日 · 汉堡",
+    "eventDescriptionOpenDayHamburg": "EBiM Benchmark 于 Google 汉堡办公室举办的一日线下开放日：特邀讲座、参观 EBiM 评测中心，以及汉堡大学实验室参访。免费，需报名。IJCAI-ECAI 2026 同期活动。",
+    "breadcrumbOpenDayHamburg": "开放日 · 汉堡",
     "contactPageName": "联系我们 · EBiM Benchmark",
     "contactPageDescription": "EBiM Benchmark 具身双臂操作计划的联系表单。",
     "breadcrumbContact": "联系"
