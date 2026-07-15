@@ -141,6 +141,12 @@ section:nth-child(even) { background: var(--bg-light); }
   font-weight: 500;
   color: rgba(255,255,255,.8);
   letter-spacing: .03em;
+  /* The top-level bar is a nowrap row, like .nav-dropdown a and .nav-logo above.
+     Without this, `.nav-links` (a flex item with the default flex-shrink: 1) folds
+     any multi-word label the moment the row is even 1px over the .nav-inner box —
+     and the whole shortfall lands on that one label. See the navbar note in
+     README.md before adding a top-level item. */
+  white-space: nowrap;
   transition: color var(--transition);
 }
 .nav-links a:hover { color: var(--accent); }

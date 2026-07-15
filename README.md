@@ -276,24 +276,40 @@ Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible l
 ### Navbar items
 
 - **EBiM Benchmark** brand → `index.html`
-- **Home** dropdown → 5 sub-items linking to home sections (incl. Maturity Roadmap)
+- **Home** dropdown → 6 sub-items linking to home sections: Overview, Two Ways to Engage, Key Themes, Maturity Roadmap, Important Dates, **Organizers**
 - **Competition** dropdown → 10 sub-items linking to competition sections
 - **Workshop** dropdown → 7 sub-items linking to workshop sections
 - **Open Day** → `open-day-hamburg.html`
 - **Register** → `register.html`
-- **Organizers** → `index.html#organizers`
 - **Partners** → `index.html#partners`
 - **FAQ** → `faq.html`
 - **Contact** → https://ebim-benchmark.github.io/contact.html
 - **Language toggle** (EN ⇄ 中文) → shown **only** on pages with a published localized counterpart (currently all seven — index, competition, workshop, faq, contact, register, open-day-hamburg — EN and `/zh/`). The current locale is a non-interactive chip (`aria-current`); the other is a link to its counterpart (`hreflang`/`lang` set). Driven by the `localeToggle` helper, it lives inside `.nav-links` so it rides into the mobile drawer, and extends automatically to any newly-localized page.
 
-> **⚠️ The top-level bar is over-full — the EN "Open Day" label wraps.** Measured (Chromium, self-hosted Inter): the 9 items + the 中文 toggle want **1099px** (logo 153 + items 947), but `.nav-inner` is capped at `max-width: 1100px` and spends 48px on padding, leaving a **1052px** content box — a **47px shortfall that no viewport can cure**, since the cap binds at every width ≥1100. `.nav-links` is a flex item with the default `flex-shrink: 1` and `.nav-links a` has no `white-space: nowrap`, so the row shrinks and the entire shortfall lands on the only item that *can* fold — **"Open Day", the first two-word top-level label the nav has ever had** (every other label is one word). It renders on two lines at **every** desktop width ≥769px, taking the 中文 toggle with it and pushing the dropdown carets below their labels; at ~1024px the toggle additionally clips ~3px past the viewport.
->
-> Per-item natural widths: Home 86 · Competition 131 · Workshop 117 · **Open Day 97** · Register 86 · Organizers 105 · Partners 88 · FAQ 56 · Contact 83 · 中文 98. Before the Open Day item the row wanted 1002px and **fit the cap with 50px to spare** (tightening only below a ~1050px viewport); the 97px item is what pushed it past the cap.
->
-> Scope: only the **seven published localized EN pages carry the toggle**, and those are the ones that always wrap. The EN-only utility pages (404, contact-test, the three `*-success` pages) have no toggle, so they want ~1001px and still fit down to a ~1049px viewport. Below 768px the hamburger drawer takes over and everything is fine, and `/zh/` is unaffected throughout (CJK labels are compact — the zh row has zero overflow).
->
-> **Do not add a 10th top-level item without first fixing the row.** Options, all of which edit `src/css/style.css` and therefore re-baseline every EN fixture: raise the `.nav-inner` cap to ≥1147px **and** add `white-space: nowrap` (nowrap alone just converts the fold into horizontal overflow, and the cap raise alone still wraps below a 1147px viewport); trim the `.85rem` link padding (~4px/side across 10 items ≈ 40px, nearly enough on its own); shorten a label; or demote an item into a dropdown (reclaims its full width).
+**Organizers is not top-level** — it was demoted into Home ▾ when the Open Day item landed. `#organizers` is an index-page anchor and Home ▾ *is* the index-anchor menu, so a top-level entry duplicated that dropdown's job; it sits last in the dropdown because `#organizers` is section 6 of 7 in `src/index.njk` document order (right after `#dates`). Its label key moved `nav.organizers` → **`nav.homeOrganizers`**, matching the `nav.home*` prefix the other five sub-items use — that prefix documents which dropdown a label belongs to. (The footer's `footer.peopleOrganizers` is a different key and is unaffected.)
+
+#### The top-level row is a width budget — read this before adding an item
+
+**The geometry.** `.nav-inner` is capped at `max-width: 1100px` and spends 48px on padding, so the row gets a **1052px content box** at any viewport ≥1100. `.nav-links` is a flex item with the default `flex-shrink: 1`, and a flex item cannot shrink below its **min-content** width (`min-width: auto`) — so once the row's min-content exceeds the box, the excess has to go *somewhere*.
+
+**What went wrong (and why the rule exists).** Adding **Open Day** — the first *two-word* top-level label the nav had ever carried; every other label is one word — pushed the row to **~1100px**, ~48px past the box. Because `.nav-links a` was the only nav text without `white-space: nowrap` (`.nav-logo` and `.nav-dropdown a` have always had it), the shortfall landed entirely on the one item that *could* fold: "Open Day" rendered on two lines at **every** desktop width, taking the 中文 toggle with it and pushing the dropdown carets below their labels.
+
+**The fix, both halves needed.** *Organizers demoted* into Home ▾ reclaims its ~106px, bringing the row to **~994px → ~58px headroom** at the cap. *`white-space: nowrap` on `.nav-links a`* removes the folding failure mode itself — without it the demotion alone still folds "Open Day" the moment the box is even 1px short (verified: it still folds at 900px). Neither half suffices alone.
+
+**Measured now** (Chromium, self-hosted Inter, min-content via a detached `width: max-content` clone — *not* `scrollWidth`, which reports the post-shrink width and will mislead you): logo 152.7 + items 841.3 = **row 994.0** in a **1052** box → **+58.0px headroom**. Per-item: Home 86.4 · Competition 131.1 · Workshop 116.6 · **Open Day 96.6** · Register 86.0 · Partners 87.8 · FAQ 55.8 · Contact 83.2 · 中文 97.9. Nothing folds at any width; `/zh/` has more headroom still (CJK labels are compact).
+
+> **⚠️ Residual, pre-existing: the row has no responsive strategy between 769px and ~1046px.** The drawer only engages at ≤768px, so between those widths the row simply does not fit and the rightmost items (the language toggle first) run past the viewport with **no horizontal scroll to reach them**. This predates the Open Day work — `main` does the same below a ~961px viewport — but `nowrap` changes the symptom and the threshold: `main` degraded by *folding* 中文 to 中/文 (ugly, still clickable) down to ~961px, whereas the row now stays rigid and pushes the toggle **off-screen below a ~1018px viewport**. So this branch is **cleaner at 1018–1045px** (where `main` folded) and **worse at 962–1017px** (where `main` folded but stayed reachable). A 1024px-wide screen sits in that band. Fixing it properly means giving the row an intermediate breakpoint — raise the drawer to ~1046px, or demote another item — and is a **separate decision**, not part of the Open Day work.
+
+**The budget rule: ~58px of headroom, and "Open Day" cost ~97px — so the next top-level item does not fit.** Levers, correctly costed:
+
+| Lever | Buys | Cost |
+|---|---|---|
+| Demote **Partners** into Home ▾ | ~+88px | **No CSS** — `navbar.njk` + i18n only. But Partners is sponsor-facing surface (TÜV Rheinland, DroidUp, compute providers), so it is Cecil's call, not a refactor |
+| Trim the `.85rem` link padding | ~8px per item | Edits `style.css` → re-baselines every EN golden |
+| Shorten a label | varies | Copy change, may need zh parity |
+| ~~Raise the `.nav-inner` cap~~ | — | **Don't, in isolation.** 1100px is shared with `.container`, `.footer-inner` and `.arch-pillars`; raising only the nav desyncs it from the content column on every page |
+
+Demotion is the cheapest lever and needs no CSS — do not reach for the cap.
 
 ### Footer columns
 
