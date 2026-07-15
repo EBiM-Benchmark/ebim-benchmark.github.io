@@ -296,20 +296,24 @@ Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible l
 
 **The fix, both halves needed.** *Organizers demoted* into Home ▾ reclaims its ~106px, bringing the row to **~994px → ~58px headroom** at the cap. *`white-space: nowrap` on `.nav-links a`* removes the folding failure mode itself — without it the demotion alone still folds "Open Day" the moment the box is even 1px short (verified: it still folds at 900px). Neither half suffices alone.
 
-**Measured now** (Chromium, self-hosted Inter, min-content via a detached `width: max-content` clone — *not* `scrollWidth`, which reports the post-shrink width and will mislead you): logo 152.7 + items 841.3 = **row 994.0** in a **1052** box → **+58.0px headroom**. Per-item: Home 86.4 · Competition 131.1 · Workshop 116.6 · **Open Day 96.6** · Register 86.0 · Partners 87.8 · FAQ 55.8 · Contact 83.2 · 中文 97.9. Nothing folds at any width; `/zh/` has more headroom still (CJK labels are compact).
+**Measured now** (Chromium, self-hosted Inter): logo 152.7 + items 841.3 = **row 994.0** in a **1052** box → **+58.0px headroom**. Per-item: Home 86.4 · Competition 131.1 · Workshop 116.6 · **Open Day 96.6** · Register 86.0 · Partners 87.8 · FAQ 55.8 · Contact 83.2 · 中文 97.9. Nothing folds at any width; `/zh/` has more headroom still (CJK labels are compact).
 
-> **⚠️ Residual, pre-existing: the row has no responsive strategy between 769px and ~1046px.** The drawer only engages at ≤768px, so between those widths the row simply does not fit and the rightmost items (the language toggle first) run past the viewport with **no horizontal scroll to reach them**. This predates the Open Day work — `main` does the same below a ~961px viewport — but `nowrap` changes the symptom and the threshold: `main` degraded by *folding* 中文 to 中/文 (ugly, still clickable) down to ~961px, whereas the row now stays rigid and pushes the toggle **off-screen below a ~1018px viewport**. So this branch is **cleaner at 1018–1045px** (where `main` folded) and **worse at 962–1017px** (where `main` folded but stayed reachable). A 1024px-wide screen sits in that band. Fixing it properly means giving the row an intermediate breakpoint — raise the drawer to ~1046px, or demote another item — and is a **separate decision**, not part of the Open Day work.
+**How to measure this without fooling yourself** — two traps, both of which produced wrong numbers during the Open Day work:
+- **Never `scrollWidth` on the live `.nav-links`.** It is a shrunk flex item, so you get the *post*-shrink width. Tell-tale: deleting a 98px item moves it by 2px. Use a detached clone with the dropdowns removed and an explicit `width`.
+- **`max-content` and `min-content` answer different questions.** `max-content` (994.0) is what the row *wants* — use it for "does it fit the 1052px box". `min-content` is the floor a flex item cannot shrink past (`min-width: auto`) — use it for "at what viewport does it start overflowing". With `white-space: nowrap` the two are now **identical** (994.0), which is precisely why the row overflows rather than folds; without nowrap min-content drops to ~898 because labels and 中文 can break.
+
+> **⚠️ Residual, pre-existing: the row has no responsive strategy between 769px and ~1042px.** The drawer only engages at ≤768px, so between those widths the row does not fit and the rightmost items (the language toggle first) run past the viewport with **no horizontal scroll to reach them**. Measured thresholds (viewport width): **≥1042** fully clean; **1018–1041** the row eats into `.nav-inner`'s 24px right padding but everything stays visible; **<1018** the toggle goes **off-screen**. This predates the Open Day work — `main` goes off-screen below ~961px — but `nowrap` changes the symptom and the threshold: `main` degraded by *folding* 中文 to 中/文 (ugly, still clickable), whereas the row now stays rigid. So this branch is **cleaner at 1018–1041px** (where `main` folded) and **worse at 962–1017px** (where `main` folded but stayed reachable). A 1024px-wide screen sits in that band. Fixing it properly means giving the row an intermediate breakpoint — raise the drawer to ~1042px, or demote another item — and is a **separate decision**, not part of the Open Day work. (Exempting `.lang-opt` from the nowrap so 中文 can fold again is *not* a fix: measured, it buys 12px — the floor moves 994 → 981, off-screen 1018 → 1006.)
 
 **The budget rule: ~58px of headroom, and "Open Day" cost ~97px — so the next top-level item does not fit.** Levers, correctly costed:
 
-| Lever | Buys | Cost |
+| Lever | Buys (measured) | Cost |
 |---|---|---|
-| Demote **Partners** into Home ▾ | ~+88px | **No CSS** — `navbar.njk` + i18n only. But Partners is sponsor-facing surface (TÜV Rheinland, DroidUp, compute providers), so it is Cecil's call, not a refactor |
-| Trim the `.85rem` link padding | ~8px per item | Edits `style.css` → re-baselines every EN golden |
-| Shorten a label | varies | Copy change, may need zh parity |
-| ~~Raise the `.nav-inner` cap~~ | — | **Don't, in isolation.** 1100px is shared with `.container`, `.footer-inner` and `.arch-pillars`; raising only the nav desyncs it from the content column on every page |
+| Demote **Partners** into Home ▾ | **+87.8px** → row 906.2, headroom 145.8 | **No CSS** — `navbar.njk` + i18n only. But Partners is sponsor-facing surface (TÜV Rheinland, DroidUp, compute providers), so it is Cecil's call, not a refactor |
+| Trim link padding `.85rem` → `.6rem` | **+64.1px** → row 929.9, headroom 122.1 | Edits `style.css` → re-baselines every EN golden |
+| Shorten a label | varies | Copy change, needs zh parity |
+| ~~Raise the `.nav-inner` cap~~ | — | **Don't, in isolation.** 1100px is shared with `.container`, `.footer-inner` and `.arch-pillars` (style.css ~85/114/2131/2262); raising only the nav desyncs it from the content column on every page |
 
-Demotion is the cheapest lever and needs no CSS — do not reach for the cap.
+Demotion is the cheapest lever and needs no CSS — do not reach for the cap. Each figure above was measured by applying the change and re-reading the row, not derived.
 
 ### Footer columns
 
