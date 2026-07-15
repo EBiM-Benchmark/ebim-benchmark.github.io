@@ -363,7 +363,7 @@ In-page navigation lands the user on a section two ways: the navbar dropdowns (H
 
 All smooth scrolling honors `prefers-reduced-motion: reduce`. The global `html { scroll-behavior: smooth }` rule — which drives anchor jumps, `scroll-padding` navigation, and any `scrollIntoView` that omits `behavior` — is gated by one media query, `@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }`, so those scrolls become instant when the user requests reduced motion.
 
-An explicit `behavior: 'smooth'` on a scroll call **overrides** CSS `scroll-behavior`, so the form-error scrolls (contact / register / compute-apply, in `_includes/*-form-script.njk`) deliberately **omit** `behavior` and inherit the gate above — don't re-add it. The two scrolls that do pass an explicit `behavior` — back-to-top (`js/main.js`) and the FAQ category rail (`faq.njk` / `zh/faq.njk`) — self-gate in JS instead, checking `window.matchMedia('(prefers-reduced-motion: reduce)')` and passing `behavior: 'auto'` when it matches.
+An explicit `behavior: 'smooth'` on a scroll call **overrides** CSS `scroll-behavior`, so the form-error scrolls (contact / register / open-day / compute-apply, in `_includes/*-form-script.njk`) deliberately **omit** `behavior` and inherit the gate above — don't re-add it. The two scrolls that do pass an explicit `behavior` — back-to-top (`js/main.js`) and the FAQ category rail (`faq.njk` / `zh/faq.njk`) — self-gate in JS instead, checking `window.matchMedia('(prefers-reduced-motion: reduce)')` and passing `behavior: 'auto'` when it matches.
 
 ---
 
