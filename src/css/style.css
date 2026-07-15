@@ -136,7 +136,13 @@ section:nth-child(even) { background: var(--bg-light); }
 }
 .nav-links a {
   display: block;
-  padding: .45rem .85rem;
+  /* .7rem (not .85rem) buys MARGIN, not fit: the row's width is soft by ~±10px
+     because the ▾ caret (U+25BE) is outside every Inter unicode-range above, so a
+     system font supplies it and its width differs per machine. At .85rem a real
+     1024px window cleared the language toggle by ~1px — i.e. the outcome depended
+     on which system font the visitor had. The trim buys ~40px, ~4× that variance.
+     Desktop only: the ≤768px drawer re-declares its own padding below. */
+  padding: .45rem .7rem;
   font-size: .88rem;
   font-weight: 500;
   color: rgba(255,255,255,.8);
