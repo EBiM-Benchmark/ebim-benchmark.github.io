@@ -269,11 +269,11 @@ export default {
     if (!j || !ev || typeof ev.startDate !== "string") return undefined;
 
     if (key === "index") {
-      // Event withheld until a firm, non-past date is published: a past-dated
-      // EventScheduled is flagged stale/invalid for rich results while the schedule
-      // is being revised. Organization stays. To restore the Event, add
-      // ev.eventPublishStartDate (the revised startDate) to _data/event.json and set
-      // endDate/eventStatus there to match. Opened 2026-07-22 with the locked revised
+      // Event date-gated on ev.eventPublishStartDate: emitted only while that key
+      // exists, so a past-dated EventScheduled can never be published (Google flags
+      // stale dates as invalid rich results). Organization always stays. To withhold
+      // the Event again, delete the key; to publish it, set it in _data/event.json
+      // with endDate/eventStatus to match. Opened 2026-07-22 with the locked revised
       // schedule: real dates, EventScheduled. Mirrors the workshop gate. Refs #83.
       const blocks = [
         { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
@@ -303,8 +303,9 @@ export default {
     }
 
     if (key === "competition") {
-      // Event withheld until a firm date is published (see the index branch note and
-      // the workshop gate). Organization + BreadcrumbList stay. Refs #83.
+      // Event date-gated on ev.eventPublishStartDate — open since 2026-07-22 (see the
+      // index branch note and the workshop gate). Organization + BreadcrumbList always
+      // stay. Refs #83.
       const blocks = [
         { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
         {
