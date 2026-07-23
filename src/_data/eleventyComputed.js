@@ -270,11 +270,15 @@ export default {
 
     if (key === "index") {
       // Event date-gated on ev.eventPublishStartDate: emitted only while that key
-      // exists, so a past-dated EventScheduled can never be published (Google flags
-      // stale dates as invalid rich results). Organization always stays. To withhold
-      // the Event again, delete the key; to publish it, set it in _data/event.json
-      // with endDate/eventStatus to match. Opened 2026-07-22 with the locked revised
-      // schedule: real dates, EventScheduled. Mirrors the workshop gate. Refs #83.
+      // exists, so a SUPERSEDED schedule can never sit published as a live
+      // EventScheduled (the PR #93 failure — 2026-06-29/2026-08-31 for a schedule
+      // that had already been abandoned; Google flags stale dates as invalid rich
+      // results). A past startDate with a future endDate is fine — that is an event
+      // in progress, which is what ships today. Organization always stays. To
+      // withhold the Event again, delete the key; to publish it, set it in
+      // _data/event.json with endDate/eventStatus to match. Opened 2026-07-22 with
+      // the locked revised schedule: real dates, EventScheduled. Mirrors the
+      // workshop gate. Refs #83.
       const blocks = [
         { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
       ];
@@ -400,7 +404,7 @@ export default {
       // IS emitted today. The gate is kept anyway so the Event can be withheld by
       // deleting one key if the day is ever postponed to an unknown date, and so the
       // page degrades to Organization + BreadcrumbList rather than emitting a stale,
-      // past-dated EventScheduled (the failure the index/competition gate exists to
+      // superseded EventScheduled (the failure the index/competition gate exists to
       // prevent — see those branches). This gate is INDEPENDENT of
       // ev.eventPublishStartDate: the index/competition Events stayed withheld while this
       // one published, and opened separately on 2026-07-22 when the revised schedule was
