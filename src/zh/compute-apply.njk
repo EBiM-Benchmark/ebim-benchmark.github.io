@@ -146,6 +146,7 @@ backToTop: true
     .status-badge { font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 999px; white-space: nowrap; }
     .status-badge.open { background: rgba(0,212,255,.14); color: var(--accent-dark); border: 1px solid rgba(0,212,255,.4); }
     .status-badge.tentative { background: rgba(148,163,184,.16); color: var(--text-muted); border: 1px solid var(--border); }
+    .status-badge.closed { background: rgba(148,163,184,.16); color: var(--text-muted); border: 1px solid var(--border); }
     .apply-note { max-width: 760px; margin: 0 auto 1.25rem; font-size: .86rem; color: var(--text-muted); }
 
     /* ── Collapsible GPU menu + quota codes (Google Cloud card) ── */
@@ -185,8 +186,8 @@ backToTop: true
 
       <!-- Google Cloud — OPEN -->
       <div class="resource-card">
-        <h3>Google Cloud — Nvidia GPU <span class="status-badge open">现已开放申请</span></h3>
-        <p>可将额度用于 Google Cloud <a href="https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones" target="_blank" rel="noopener">GPU 区域与可用区列表</a> 中的任意 GPU。每队上限 <strong>1,000 美元</strong>——提交申请前请用 <a href="https://cloud.google.com/products/calculator" target="_blank" rel="noopener">Google Cloud 价格计算器</a> 估算费用。使用窗口 <strong>7/15–7/20</strong>；请尽早申请——授权将在窗口开放前发放。</p>
+        <h3>Google Cloud — Nvidia GPU <span class="status-badge closed">第一阶段配额已结束</span></h3>
+        <p><strong>第一阶段 Google Cloud 配额已结束。</strong>获得第一阶段授权的团队每队最高发放 <strong>6,000 美元</strong>。<strong>第二阶段</strong>将另行提供 Google Cloud 配额 —— 额度、使用窗口以及是否需要重新申请仍在确认中，细则将在此页公布。您可通过下方表单登记意向。额度可用于 Google Cloud <a href="https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones" target="_blank" rel="noopener">GPU 区域与可用区列表</a> 中的任意 GPU；请用 <a href="https://cloud.google.com/products/calculator" target="_blank" rel="noopener">Google Cloud 价格计算器</a> 估算费用。</p>
         <details class="resource-details">
           <summary>我可以使用哪些 GPU？</summary>
           <p class="rd-tier-label">开箱即用——无需申请配额：</p>
@@ -198,14 +199,14 @@ backToTop: true
             <li>L4 VWS — 最多 16 张</li>
             <li>A100 40GB — 最多 16 张（已确认）</li>
           </ul>
-          <p class="rd-tier-label">已测试，但受默认配额限制——需申请配额增加，而这可能无法在 5 天窗口内获批（不建议）：</p>
+          <p class="rd-tier-label">已测试，但受默认配额限制——需申请配额增加，而这可能无法在较短的使用窗口内获批（不建议）：</p>
           <ul class="rd-list">
             <li>A100 80GB — 申请单 SKU 配额 <code>NVIDIA-A100-80GB-GPUS-per-project-region</code></li>
             <li>RTX PRO 6000（计算）— 申请系列配额 <code>gpu_family=NVIDIA_RTX_PRO_6000</code></li>
             <li>RTX PRO 6000 VWS — 申请系列配额 <code>gpu_family=NVIDIA_RTX_PRO_6000_VWS_GPUS</code></li>
             <li>H100（按需）、H100 MEGA、B200、H200 — 申请对应的 <code>gpu_family</code> 配额，很可能需要 Google Cloud 客户团队介入</li>
           </ul>
-          <p class="rd-note">列表中的其他 GPU 可能需要额外申请配额，且未必获批——鉴于仅有 5 天使用时间，我们不建议申请。</p>
+          <p class="rd-note">列表中的其他 GPU 可能需要额外申请配额，且未必获批——鉴于使用窗口较短，我们不建议申请。</p>
         </details>
         <p class="china-note-block"><span class="china-note">中国大陆团队请注意：</span>在中国大陆通常无法直接访问 Google Cloud（防火墙会拦截 Google 登录与 API 域名），需借助 VPN——建议中国大陆团队使用下方可在中国大陆访问的资源。</p>
       </div>
@@ -213,14 +214,14 @@ backToTop: true
       <!-- Computational Freedom — OPEN -->
       <div class="resource-card">
         <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge open">现已开放申请</span></h3>
-        <p>二选一：40 小时 Nvidia RTX 4090，或 25 小时 Nvidia L40S，均含开箱即用环境。<strong>仅限位于中国大陆的团队。</strong>仿真阶段可用（赛程以竞赛页面为准）。<br>
+        <p>二选一：40 小时 Nvidia RTX 4090，或 25 小时 Nvidia L40S，均含开箱即用环境。<strong>仅限位于中国大陆的团队。</strong>整个竞赛期间均可申请。<br>
         <span class="china-note">访问要求：</span>RTX 4090 服务器仅可通过中国大陆 IP 访问；4090 与 L40S 的注册均需中国大陆手机号。</p>
       </div>
 
       <!-- AMD MI300X — OPEN -->
       <div class="resource-card">
         <h3>AMD Instinct MI300X <span class="status-badge open">现已开放申请</span></h3>
-        <p>共享 8 卡 MI300X 服务器，位于<strong>台北</strong>，可从中国大陆访问。每张 GPU 配备 <strong>192 GB HBM3</strong>——这是其在内存受限任务上的突出优势，可容纳在较小显卡上放不下的模型与批量。作为一个粗略且取决于工作负载的参考，MI300X 在许多任务上与 Nvidia H200 大致相当——在内存受限和 FP32/FP64 任务上更强，在 CUDA 优化的推理吞吐与时延上稍逊（<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X 与 H200 对比</a>）。基于 ROCm 的通用训练/开发算力。面向所有团队。使用窗口 7/1–7/31。<br>
+        <p>共享 8 卡 MI300X 服务器，位于<strong>台北</strong>，可从中国大陆访问。每张 GPU 配备 <strong>192 GB HBM3</strong>——这是其在内存受限任务上的突出优势，可容纳在较小显卡上放不下的模型与批量。作为一个粗略且取决于工作负载的参考，MI300X 在许多任务上与 Nvidia H200 大致相当——在内存受限和 FP32/FP64 任务上更强，在 CUDA 优化的推理吞吐与时延上稍逊（<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X 与 H200 对比</a>）。基于 ROCm 的通用训练/开发算力。面向所有团队。使用窗口：至 2026 年 8 月 31 日止。<br>
         规则：每个作业 1 张 GPU，单个作业最长 12 小时，每队同一时间仅一个运行中的作业（仅当没有排队或未完成的作业时方可提交），按先到先服务调度。</p>
       </div>
 
@@ -252,10 +253,10 @@ backToTop: true
           <fieldset class="form-field">
             <legend class="form-label">您申请哪些算力资源？ <span class="req" aria-hidden="true">*</span></legend>
             <div class="reg-checks">
-              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPU（所有团队；最高 1,000 美元；使用窗口 7/15–7/20）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPU（第一阶段已结束；可登记第二阶段配额意向）</span></label>
               <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 40h RTX 4090" /> <span>Computational Freedom — 40 小时 RTX 4090（仅限中国大陆团队）</span></label>
               <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 25h L40S" /> <span>Computational Freedom — 25 小时 L40S（仅限中国大陆团队）</span></label>
-              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — 共享 8 卡 MI300X（所有团队）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — 共享 8 卡 MI300X（所有团队；至 2026 年 8 月 31 日）</span></label>
             </div>
             <span class="form-label-note">Computational Freedom 二选一（RTX 4090 或 L40S），且仅限位于中国大陆的团队。</span>
           </fieldset>

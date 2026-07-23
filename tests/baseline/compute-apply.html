@@ -156,6 +156,7 @@
     .status-badge { font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 999px; white-space: nowrap; }
     .status-badge.open { background: rgba(0,212,255,.14); color: var(--accent-dark); border: 1px solid rgba(0,212,255,.4); }
     .status-badge.tentative { background: rgba(148,163,184,.16); color: var(--text-muted); border: 1px solid var(--border); }
+    .status-badge.closed { background: rgba(148,163,184,.16); color: var(--text-muted); border: 1px solid var(--border); }
     .apply-note { max-width: 760px; margin: 0 auto 1.25rem; font-size: .86rem; color: var(--text-muted); }
 
     /* ── Collapsible GPU menu + quota codes (Google Cloud card) ── */
@@ -263,8 +264,8 @@
 
       <!-- Google Cloud — OPEN -->
       <div class="resource-card">
-        <h3>Google Cloud — Nvidia GPUs <span class="status-badge open">Open for applications</span></h3>
-        <p>Apply your credit toward any GPU in Google Cloud's <a href="https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones" target="_blank" rel="noopener">GPU regions &amp; zones list</a>. Each team has a <strong>US$1,000 maximum</strong> — estimate your cost with the <a href="https://cloud.google.com/products/calculator" target="_blank" rel="noopener">Google Cloud Pricing Calculator</a> before committing. Usage window <strong>Jul 15–20</strong>; apply as early as possible — grants are issued right before the window opens.</p>
+        <h3>Google Cloud — Nvidia GPUs <span class="status-badge closed">Phase I allocation closed</span></h3>
+        <p>The <strong>Phase I Google Cloud allocation has closed.</strong> Teams that received a Phase I grant were issued up to <strong>US$6,000</strong> each. A further Google Cloud allocation will be available in <strong>Phase II</strong> — amount, window, and whether re-application is required are still being confirmed, and details will follow here. You can register interest using the form below. Credits apply to any GPU in Google Cloud's <a href="https://docs.cloud.google.com/compute/docs/regions-zones/gpu-regions-zones" target="_blank" rel="noopener">GPU regions &amp; zones list</a>; estimate cost with the <a href="https://cloud.google.com/products/calculator" target="_blank" rel="noopener">Google Cloud Pricing Calculator</a>.</p>
         <details class="resource-details">
           <summary>Which GPUs can I use?</summary>
           <p class="rd-tier-label">Ready out of the box — no quota request needed:</p>
@@ -276,14 +277,14 @@
             <li>L4 VWS — up to 16</li>
             <li>A100 40GB — up to 16 (confirmed)</li>
           </ul>
-          <p class="rd-tier-label">Tested, but blocked by default quota — you'd need a quota increase that may not clear within the 5-day window (not recommended):</p>
+          <p class="rd-tier-label">Tested, but blocked by default quota — you'd need a quota increase that may not clear within a short usage window (not recommended):</p>
           <ul class="rd-list">
             <li>A100 80GB — request the per-SKU quota <code>NVIDIA-A100-80GB-GPUS-per-project-region</code></li>
             <li>RTX PRO 6000 (compute) — request the family quota <code>gpu_family=NVIDIA_RTX_PRO_6000</code></li>
             <li>RTX PRO 6000 VWS — request the family quota <code>gpu_family=NVIDIA_RTX_PRO_6000_VWS_GPUS</code></li>
             <li>H100 (on-demand), H100 MEGA, B200, H200 — request the matching <code>gpu_family</code> quota; very likely needs Google Cloud account-team involvement</li>
           </ul>
-          <p class="rd-note">Any other GPU on the list may require a quota application that might not be approved — with only 5 days of usage, we don't recommend pursuing those.</p>
+          <p class="rd-note">Any other GPU on the list may require a quota application that might not be approved — with a short usage window, we don't recommend pursuing those.</p>
         </details>
         <p class="china-note-block"><span class="china-note">Note for mainland-China-based teams:</span> Google Cloud is generally unreachable from mainland China without a VPN (the Great Firewall blocks Google sign-in and API domains), so mainland-China-based teams should rely on the mainland-China-accessible options below.</p>
       </div>
@@ -291,14 +292,14 @@
       <!-- Computational Freedom — OPEN -->
       <div class="resource-card">
         <h3>Computational Freedom — RTX 4090 / L40S <span class="status-badge open">Open for applications</span></h3>
-        <p>Choose one: 40 hrs Nvidia RTX 4090, or 25 hrs Nvidia L40S, with a ready-to-use environment. <strong>Mainland-China-based teams only.</strong> Usable during the simulation phase (see the schedule on the competition page).<br>
+        <p>Choose one: 40 hrs Nvidia RTX 4090, or 25 hrs Nvidia L40S, with a ready-to-use environment. <strong>Mainland-China-based teams only.</strong> Open for applications throughout the competition.<br>
         <span class="china-note">Access requirements:</span> the RTX 4090 servers are reachable only from a mainland-China IP address, and registration for both the 4090 and the L40S requires a mainland-China phone number.</p>
       </div>
 
       <!-- AMD MI300X — OPEN -->
       <div class="resource-card">
         <h3>AMD Instinct MI300X <span class="status-badge open">Open for applications</span></h3>
-        <p>A shared 8× MI300X server, hosted in <strong>Taipei</strong> and accessible from mainland China. Each GPU carries <strong>192 GB of HBM3</strong> — its standout strength for memory-bound work, letting you fit models and batches that won't fit on a smaller card. As a rough, workload-dependent reference, an MI300X is broadly comparable to an Nvidia H200 on many tasks — stronger on memory-bound and FP32/FP64 work, behind on CUDA-optimized inference throughput and latency (<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X vs H200 comparison</a>). General training/dev compute on a ROCm environment. All teams. Usage Jul 1–31.<br>
+        <p>A shared 8× MI300X server, hosted in <strong>Taipei</strong> and accessible from mainland China. Each GPU carries <strong>192 GB of HBM3</strong> — its standout strength for memory-bound work, letting you fit models and batches that won't fit on a smaller card. As a rough, workload-dependent reference, an MI300X is broadly comparable to an Nvidia H200 on many tasks — stronger on memory-bound and FP32/FP64 work, behind on CUDA-optimized inference throughput and latency (<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X vs H200 comparison</a>). General training/dev compute on a ROCm environment. All teams. Usage window: through Aug 31, 2026.<br>
         Rules: one GPU per job, a 12-hour maximum per job, one running job per team at a time (you may submit only when you have no queued or unfinished job), scheduled first-come, first-served.</p>
       </div>
 
@@ -330,10 +331,10 @@
           <fieldset class="form-field">
             <legend class="form-label">Which resource(s) are you applying for? <span class="req" aria-hidden="true">*</span></legend>
             <div class="reg-checks">
-              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPUs (all teams; up to US$1,000; usage Jul 15–20)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPUs (Phase I closed; register interest for the Phase II allocation)</span></label>
               <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 40h RTX 4090" /> <span>Computational Freedom — 40 hrs RTX 4090 (mainland-China-based teams)</span></label>
               <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 25h L40S" /> <span>Computational Freedom — 25 hrs L40S (mainland-China-based teams)</span></label>
-              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — shared 8× MI300X (all teams)</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — shared 8× MI300X (all teams; through Aug 31, 2026)</span></label>
             </div>
             <span class="form-label-note">Computational Freedom: choose one of the two (RTX 4090 or L40S), and only mainland-China-based teams are eligible.</span>
           </fieldset>

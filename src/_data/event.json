@@ -1,8 +1,11 @@
 {
   "_comment": "Language-NEUTRAL structured-data facts, single source of truth for the index + competition + workshop + contact JSON-LD. Values are copied verbatim from the live JSON-LD blocks; do not 'improve' them. Translatable strings (names/descriptions/labels) live in _data/i18n/<lang>.json.",
 
-  "startDate": "2026-06-29",
-  "endDate": "2026-08-31",
+  "_commentEventDates": "startDate and eventPublishStartDate MUST be kept identical. eleventyComputed.js emits the index/competition Event using eventPublishStartDate; startDate is the neutral fact and the proxy guard. Changing one without the other silently publishes a stale date. Adding eventPublishStartDate is what OPENS the index/competition Event gate; removing it re-closes it.",
+
+  "startDate": "2026-07-06",
+  "eventPublishStartDate": "2026-07-06",
+  "endDate": "2026-09-10",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
 
@@ -51,7 +54,7 @@
     { "@type": "Person", "name": "Shaowei Cui", "affiliation": { "@type": "Organization", "name": "SCUT" } }
   ],
 
-  "_commentOpenDayHamburg": "Neutral facts for the Hamburg Open Day Event JSON-LD on open-day-hamburg.html, DATE-GATED on openDayHamburgStartDate in the same way as the workshop gate — but unlike the workshop and the index/competition Events, this one has a REAL date and a REAL venue, so the gate is open and a valid Event is emitted today. This is independent of the index/competition Event gate (eventPublishStartDate), which stays closed pending the revised-schedule decision — do not couple them. Talk-level subEvents are deliberately omitted: talk titles are TBA, and an Event node without a real name/startDate/location is an invalid rich result (same reasoning that dropped the workshop's placeholder subEvents). Add real dated subEvents only once titles are confirmed. Translatable strings (event name/description, breadcrumb) live in i18n/<lang>.json jsonld.*.",
+  "_commentOpenDayHamburg": "Neutral facts for the Hamburg Open Day Event JSON-LD on open-day-hamburg.html, DATE-GATED on openDayHamburgStartDate in the same way as the workshop gate — but unlike the workshop and the index/competition Events, this one has a REAL date and a REAL venue, so the gate is open and a valid Event is emitted today. This is independent of the index/competition Event gate (eventPublishStartDate), which opened on 2026-07-22 when the revised schedule was locked — do not couple them. Talk-level subEvents are deliberately omitted: talk titles are TBA, and an Event node without a real name/startDate/location is an invalid rich result (same reasoning that dropped the workshop's placeholder subEvents). Add real dated subEvents only once titles are confirmed. Translatable strings (event name/description, breadcrumb) live in i18n/<lang>.json jsonld.*.",
   "openDayHamburgStartDate": "2026-08-17T10:30:00+02:00",
   "openDayHamburgEndDate": "2026-08-17T17:00:00+02:00",
   "openDayHamburgEventStatus": "https://schema.org/EventScheduled",

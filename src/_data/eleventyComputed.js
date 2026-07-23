@@ -273,8 +273,8 @@ export default {
       // EventScheduled is flagged stale/invalid for rich results while the schedule
       // is being revised. Organization stays. To restore the Event, add
       // ev.eventPublishStartDate (the revised startDate) to _data/event.json and set
-      // endDate/eventStatus there to match — Sam's call (real dates, or
-      // EventPostponed + previousStartDate). Mirrors the workshop gate. Refs #83.
+      // endDate/eventStatus there to match. Opened 2026-07-22 with the locked revised
+      // schedule: real dates, EventScheduled. Mirrors the workshop gate. Refs #83.
       const blocks = [
         { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
       ];
@@ -401,8 +401,9 @@ export default {
       // page degrades to Organization + BreadcrumbList rather than emitting a stale,
       // past-dated EventScheduled (the failure the index/competition gate exists to
       // prevent — see those branches). This gate is INDEPENDENT of
-      // ev.eventPublishStartDate: the index/competition Events stay withheld while this
-      // one publishes, so do NOT couple them. Talk-level subEvents are deliberately
+      // ev.eventPublishStartDate: the index/competition Events stayed withheld while this
+      // one published, and opened separately on 2026-07-22 when the revised schedule was
+      // locked — so do NOT couple them. Talk-level subEvents are deliberately
       // omitted while the talk titles are TBA (an Event node without a real
       // name/startDate/location is an invalid rich result — the same reasoning that
       // dropped the workshop's placeholder subEvents). `offers` advertises the free
