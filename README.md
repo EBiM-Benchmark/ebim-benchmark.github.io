@@ -123,8 +123,10 @@ ebim-benchmark.github.io/
 │   ├── css/style.css                    # All shared styles + @font-face — minified & inlined into <head> (also passthrough-copied to /css/, now unreferenced)
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── fonts/                           # Self-hosted Inter woff2 (latin + latin-ext, 5 weights) → passthrough to /fonts/
-│   ├── img/                             # favicon, OG cover, platform photos, sponsor logos
+│   ├── img/                             # favicon, OG cover, platform photos, sponsor logos, people photos
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
+│   │                                    #   organizers/ = people holding an EBiM role (committee, advisory, support team)
+│   │                                    #   speakers/   = external Open Day / Workshop speakers with no EBiM role
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
 │   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 7 EN + the published /zh/ URLs)
 │   └── .nojekyll                        # Disable Jekyll on GitHub Pages
