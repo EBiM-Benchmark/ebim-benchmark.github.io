@@ -5,12 +5,20 @@ name: Build & EN parity
 # (see scripts/verify.mjs). The second step verifies the /zh/ Simplified-Chinese
 # locale against the _site the first step built — its assertions are gated PER
 # PAGE on site.zhPublished[i18nKey], so each page is checked against its own flag.
-# As of Phase 2c the four content /zh/ pages are published — the registration
-# and FAQ pages since — so each of the six localized /zh/ pages is asserted against the
-# published invariants (no noindex, reciprocal hreflang, /zh/ in sitemap,
+# As of Phase 2c the four content /zh/ pages are published — the registration,
+# FAQ and Open Day pages since — so each of the seven localized /zh/ pages is
+# asserted against the published invariants (no noindex, reciprocal hreflang, /zh/ in sitemap,
 # language toggle); the harness stays dual-state, so returning any flag to false
-# re-asserts that page's draft invariants (see scripts/verify-zh.mjs). Runs on
-# every PR and on pushes to main.
+# re-asserts that page's draft invariants (see scripts/verify-zh.mjs). Both of
+# those are PARITY harnesses: they compare built HTML against the golden fixtures
+# and the /zh/ invariants, which leaves them blind to whether a referenced FILE is
+# actually present on disk — delete an asset a page still points at and every
+# golden stays byte-identical, parity passes, and the reference 404s in production
+# (PR #97 was exactly that shape). The third and fourth steps close that gap with
+# scripts/check-links.mjs, an EXISTENCE check over every local reference in _site/.
+# Its self-test runs FIRST, deliberately: it seeds known-broken references and
+# asserts they are caught, so a checker that silently parses nothing cannot
+# masquerade as a clean site. Runs on every PR and on pushes to main.
 
 on:
   pull_request:
@@ -41,3 +49,9 @@ jobs:
 
       - name: Verify /zh/ locale (per-page gated on zhPublished — hreflang/sitemap/noindex/toggle/CJK)
         run: node scripts/verify-zh.mjs --no-build
+
+      - name: Self-test the reference checker (prove it can fail before trusting it)
+        run: node scripts/check-links.mjs --self-test
+
+      - name: Verify every local reference resolves in _site/
+        run: node scripts/check-links.mjs --no-build
