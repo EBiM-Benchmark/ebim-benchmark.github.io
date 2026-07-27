@@ -57,7 +57,9 @@ const BOLD = (s) => `\x1b[1m${s}\x1b[0m`;
 
 // Floors. Same discipline as check-links.mjs: an orphan checker that finds no
 // orphans because it parsed nothing is the same trap in the other direction.
-// The site ships 80 non-HTML files and ~1750 references as of PR #101.
+// The site ships 80 non-HTML files and ~1900 references as of PR #101. That count
+// is higher than check-links.mjs reports for the same build because this tool also
+// reads sitemap.xml, robots.txt and shipped CSS as reference sources.
 // Raise these as the site grows; never lower them to make a run pass.
 const MIN_FILES = 60;
 const MIN_REFS = 1200;
@@ -88,7 +90,10 @@ const rel = (abs) => path.relative(SITE, abs).split(path.sep).join("/");
 const normalize = (raw) => {
   let s = String(raw).trim();
   if (!s || s.startsWith("#")) return null;
-  if (s.startsWith(ORIGIN)) s = s.slice(ORIGIN.length) || "/";
+  // Match the origin on a path boundary: a bare startsWith would also swallow a
+  // look-alike host such as ebim-benchmark.github.io.example.com and resolve its
+  // path locally, which could mark a file "referenced" and hide a real orphan.
+  if (s === ORIGIN || s.startsWith(ORIGIN + "/")) s = s.slice(ORIGIN.length) || "/";
   else if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(s)) return null; // external / data: / mailto:
   s = s.split("#")[0].split("?")[0];
   return s || null;

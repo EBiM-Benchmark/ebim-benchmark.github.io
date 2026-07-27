@@ -22,7 +22,9 @@
 #      truth. A wrong fact about a real person is caught only by a human who knows
 #      the person; treat any supplied affiliation as unverified until someone does.
 #
-#   2. It makes NO cross-page assertion, by design. Per README.md:177 the /zh/ mirror
+#   2. It makes NO cross-page assertion, by design. Per the "zh terminology — the
+#      published mirror wins" rule in README.md (cited by title, not line number,
+#      because line numbers drift every time the README grows), the /zh/ mirror
 #      is deliberately internally mixed: the same university legitimately renders as
 #      "University of Hamburg" on /zh/index and 汉堡大学 on /zh/open-day-hamburg, and
 #      that mix is documented as intentional and explicitly not a bug to fix in
