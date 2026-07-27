@@ -69,10 +69,11 @@ ebim-benchmark.github.io/
 ├── package.json / package-lock.json     # Eleventy + clean-css deps (+ Prettier, @fontsource/inter, dev) — `npm ci`
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
-│   └── verify.yml                       # CI gate: EN parity + /zh/ locale (verify.mjs + verify-zh.mjs)
+│   └── verify.yml                       # CI gate: EN parity + /zh/ locale + local-reference existence (verify.mjs + verify-zh.mjs + check-links.mjs)
 ├── scripts/
 │   ├── verify.mjs                       # Asserts the build matches the golden EN baseline
-│   └── verify-zh.mjs                    # Asserts the /zh/ locale, per-page gated on zhPublished (hreflang/sitemap/noindex/CJK)
+│   ├── verify-zh.mjs                    # Asserts the /zh/ locale, per-page gated on zhPublished (hreflang/sitemap/noindex/CJK)
+│   └── check-links.mjs                  # Asserts every local reference in _site/ resolves to a file that exists (+ --self-test)
 ├── tests/baseline/                      # Golden EN HTML fixtures (the parity baseline)
 ├── src/
 │   ├── _data/
@@ -157,6 +158,8 @@ npm run serve     # local dev server with live reload (eleventy --serve)
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 14 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
 
 `node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run both) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all seven pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (14 URLs total) with `hreflang` on all seven EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. It also covers the hidden `/zh/contact-success.html`, `/zh/register-success.html` and `/zh/open-day-success.html` utility pages, plus the unlisted `/zh/compute-apply.html` + `/zh/compute-success.html` — `<html lang="zh-Hans">`, a single `noindex`, no `hreflang`/toggle, out of the sitemap, CJK body, `../` assets. The Open Day check additionally pins the zh RSVP redirect at the `/zh/` success page (EN and zh share one access key, so a copy-pasted EN redirect would silently land zh registrants on the English confirmation). CI runs both harnesses on every PR.
+
+`node scripts/check-links.mjs` (aliases `npm run check:links` and `npm run check:links:self`; both stages are folded into `npm run verify:all`) is an **existence** check, not a parity check — and that is precisely the gap it fills. The two harnesses above compare built HTML against the goldens and the `/zh/` invariants, so neither can see whether a referenced *file* is still on disk: delete an asset that a page points at and every golden stays byte-identical, parity goes green, and the reference 404s in production (PR #97, the orphan-sponsor prune, was exactly that shape). It walks every `.html` in `_site/`, extracts local references from `src`, `href`, `srcset`, `url()`, the `og:image`/`twitter:image` metas and JSON-LD `image`/`logo`/`url`, strips `#fragments` and `?queries`, resolves root-absolute paths from the site root and relative ones from the referring page, treats a directory as satisfied by its `index.html`, and skips external schemes. `--self-test` copies `_site/`, seeds one broken reference per resolution mode, and asserts exactly those are caught — CI runs it **before** the real check so a harness that quietly parses nothing cannot masquerade as a clean site. The `MIN_PAGES` / `MIN_REFS` floors exist for the same reason: a checker that finds zero references also reports zero broken ones. Raise them as the site grows; **never lower them to make a run pass.**
 
 ### GitHub Pages deployment
 
@@ -505,10 +508,25 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 
 | Folder | Format | Recommended size |
 |---|---|---|
-| `organizers/` | JPG or PNG | 300 × 300 px |
-| `sponsors/` | SVG preferred (or PNG with transparent bg) | ~400 × 160 px |
+| `organizers/` | JPG or PNG | **600 × 600 px, square.** Square matters: `.org-photo` uses `object-fit: cover`, so a non-square file is centre-cropped and can clip the subject |
+| `speakers/` | JPG or PNG | Same as `organizers/` — external Open Day / Workshop speakers who hold no EBiM role |
+| `sponsors/` | SVG preferred (or PNG with transparent bg) | No fixed pixel size — logo aspect ratios vary widely. Keep `width`/`height` attrs matching the source dimensions (see the partner-logo rule above) |
 | `platform/` | WebP primary + PNG fallback | 1600 × 900 px (WebP), keep originals as PNG |
 | OG cover | PNG (or JPG) | 1200 × 630 px |
+
+**Colour profiles.** Before stripping an ICC profile from an image, check what it is. A plain `sRGB IEC61966-2.1` profile is safe to drop — an absent profile means "assume sRGB", which is what the pixels already are. A **wide-gamut profile (Display P3 and similar) must be *converted* to sRGB, never dropped**: dropping it leaves P3 pixel values to be reinterpreted as sRGB, which desaturates the image. This is not hypothetical — it happened to `jeff-ichnowski.jpg` in PR #100 and had to be corrected before merge.
+
+Five images in `src/img/organizers/` currently carry Display P3 profiles (all with the same `rXYZ` signature, `0.5151`):
+
+```
+yu-hsiang-huang.jpeg   ~190 KB
+wen-yu-chien.jpg       ~144 KB
+yuyang-tu.jpg          ~122 KB
+fatma-dhaoui.jpeg       ~81 KB
+shiqun-qiguan.jpg       ~42 KB
+```
+
+They render **correctly today** — `src/img` is passthrough-copied byte-verbatim with no image-processing plugin, so the embedded profiles survive to production — which means the risk is **manual only**, i.e. someone re-encoding one of these files. The first three are among the largest headshots on the site and are therefore exactly what a weight-optimisation pass would target; that is precisely how the PR #100 error occurred.
 
 ---
 

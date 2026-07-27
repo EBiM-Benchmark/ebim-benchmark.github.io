@@ -9,7 +9,9 @@
     "serve": "eleventy --serve",
     "verify": "node scripts/verify.mjs",
     "verify:zh": "node scripts/verify-zh.mjs --no-build",
-    "verify:all": "node scripts/verify.mjs && node scripts/verify-zh.mjs --no-build"
+    "check:links": "node scripts/check-links.mjs --no-build",
+    "check:links:self": "node scripts/check-links.mjs --self-test",
+    "verify:all": "node scripts/verify.mjs && node scripts/verify-zh.mjs --no-build && node scripts/check-links.mjs --self-test && node scripts/check-links.mjs --no-build"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.0",
