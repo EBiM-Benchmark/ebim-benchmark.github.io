@@ -157,6 +157,8 @@ npm run build     # compile src/ → _site/
 npm run serve     # local dev server with live reload (eleventy --serve)
 ```
 
+**CSS is the one exception to live reload.** The dev server picks up edits to templates, includes and data files, but **not** to `src/css/style.css`: `_data/inlineCss.js` reads it once with `readFileSync`, and Eleventy's dependency graph cannot see a runtime file read. **Restart the server after a CSS edit.** This is long-standing, not a consequence of dropping the `src/css` passthrough — that passthrough only ever refreshed an unreferenced copy at `_site/css/style.css`, never the inlined `<style>` the pages actually render.
+
 ### Parity harness
 
 `node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. The FAQ's build-variable git-derived "Last updated" date is masked on both sides before the structure diff, so a rebuild on a newer commit never trips parity. It runs on every PR via `.github/workflows/verify.yml`.
