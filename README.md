@@ -67,6 +67,8 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 ebim-benchmark.github.io/
 ├── .eleventy.js                         # Eleventy config (input src/ → output _site/)
 ├── package.json / package-lock.json     # Eleventy + clean-css deps (+ Prettier, @fontsource/inter, dev) — `npm ci`
+├── .gitattributes                       # Line endings pinned to LF (`* text=auto eol=lf`) — a Windows checkout then matches the LF blobs CI builds from
+├── .gitignore                           # node_modules/, _site/, .playwright-mcp/, __pycache__/
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
 │   └── verify.yml                       # CI gate: EN parity + /zh/ locale + local-reference existence (verify.mjs + verify-zh.mjs + check-links.mjs)
@@ -125,7 +127,7 @@ ebim-benchmark.github.io/
 │   │   ├── open-day-success.njk         #   → /zh/open-day-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh RSVP form's no-JS redirect target)
 │   │   ├── compute-apply.njk            #   → /zh/compute-apply.html (hidden noindex UNLISTED page; no i18nKey ⇒ no hreflang/toggle/sitemap; the compute application emailed to registered teams)
 │   │   └── compute-success.njk          #   → /zh/compute-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh compute form's no-JS redirect target)
-│   ├── css/style.css                    # All shared styles + @font-face — minified & inlined into <head> (also passthrough-copied to /css/, now unreferenced)
+│   ├── css/style.css                    # All shared styles + @font-face — BUILD INPUT ONLY: minified by _data/inlineCss.js & inlined into every <head>; deliberately NOT copied to _site/, so there is no /css/ in the output
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── fonts/                           # Self-hosted Inter woff2 (latin + latin-ext, 5 weights) → passthrough to /fonts/
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos, people photos

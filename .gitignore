@@ -5,3 +5,8 @@ _site/
 # Written into the repo root when the navbar/layout is measured in a real
 # browser; never part of the site.
 .playwright-mcp/
+
+# Python bytecode cache. scripts/*.py are run directly (which creates none), but
+# importing one — or a py_compile check — writes __pycache__ beside the source.
+__pycache__/
+*.pyc
