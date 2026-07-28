@@ -67,6 +67,8 @@ The home page used to contain everything — schedule, benchmark spec, platform 
 ebim-benchmark.github.io/
 ├── .eleventy.js                         # Eleventy config (input src/ → output _site/)
 ├── package.json / package-lock.json     # Eleventy + clean-css deps (+ Prettier, @fontsource/inter, dev) — `npm ci`
+├── .gitattributes                       # Line endings pinned to LF (`* text=auto eol=lf`) — a Windows checkout then matches the LF blobs CI builds from
+├── .gitignore                           # node_modules/, _site/, .playwright-mcp/, __pycache__/
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
 │   └── verify.yml                       # CI gate: EN parity + /zh/ locale + local-reference existence (verify.mjs + verify-zh.mjs + check-links.mjs)
@@ -125,7 +127,7 @@ ebim-benchmark.github.io/
 │   │   ├── open-day-success.njk         #   → /zh/open-day-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh RSVP form's no-JS redirect target)
 │   │   ├── compute-apply.njk            #   → /zh/compute-apply.html (hidden noindex UNLISTED page; no i18nKey ⇒ no hreflang/toggle/sitemap; the compute application emailed to registered teams)
 │   │   └── compute-success.njk          #   → /zh/compute-success.html (hidden noindex utility; no i18nKey ⇒ no hreflang/toggle/sitemap; the zh compute form's no-JS redirect target)
-│   ├── css/style.css                    # All shared styles + @font-face — minified & inlined into <head> (also passthrough-copied to /css/, now unreferenced)
+│   ├── css/style.css                    # All shared styles + @font-face — BUILD INPUT ONLY: minified by _data/inlineCss.js & inlined into every <head>; deliberately NOT copied to _site/, so there is no /css/ in the output
 │   ├── js/main.js                       # Navbar/scroll/dropdown/fade-in behavior (passthrough)
 │   ├── fonts/                           # Self-hosted Inter woff2 (latin + latin-ext, 5 weights) → passthrough to /fonts/
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos, people photos
@@ -155,11 +157,15 @@ npm run build     # compile src/ → _site/
 npm run serve     # local dev server with live reload (eleventy --serve)
 ```
 
+**CSS is the one exception to live reload.** The dev server picks up edits to templates, includes and data files, but **not** to `src/css/style.css`: `_data/inlineCss.js` reads it once with `readFileSync`, and Eleventy's dependency graph cannot see a runtime file read. **Restart the server after a CSS edit.** This is long-standing, not a consequence of dropping the `src/css` passthrough — that passthrough only ever refreshed an unreferenced copy at `_site/css/style.css`, never the inlined `<style>` the pages actually render.
+
 ### Parity harness
 
 `node scripts/verify.mjs` (alias `npm run verify`) builds the site and asserts the English output is byte/semantically identical to the golden fixtures committed in `tests/baseline/` — markup structure (Prettier-normalized), HTML comments, JSON-LD (deep-equal, order-insensitive), and the contact-form internals. The FAQ's build-variable git-derived "Last updated" date is masked on both sides before the structure diff, so a rebuild on a newer commit never trips parity. It runs on every PR via `.github/workflows/verify.yml`.
 
 **Changing English output on purpose** means the baseline must be regenerated in the same commit — otherwise the net correctly goes red. Run `npm run build`, then copy the 14 `_site/*.html` into `tests/baseline/`. The fixtures are kept byte-for-byte faithful to the build, so this straight copy is the whole procedure — never hand-edit a fixture.
+
+Because `.gitattributes` pins every text file to LF, a checkout made after it landed builds LF output over LF fixtures, so the copy is byte-clean and `git status` lists only the goldens whose content genuinely changed. A clone made **before** it still holds CRLF working copies, which build mixed-ending output and make that same copy report spurious modifications on goldens you never touched — the trap behind the old "re-baseline dirties unrelated fixtures" advice. Normalize such a clone once with `git rm --cached -r . && git reset --hard` (commit or stash first — `reset --hard` discards uncommitted work; it rewrites working-tree line endings only, never committed content).
 
 `node scripts/verify-zh.mjs` (alias `npm run verify:zh`, or `npm run verify:all` to run every stage) checks the `/zh/` locale against the same build, with every gated assertion reading `site.zhPublished` so it is correct in either state. Always: each `/zh/` page is `<html lang="zh-Hans">`, has a self-referential `/zh/` canonical, links all four localized targets relative under `/zh/`, and contains translated CJK text. Published (the current state for all seven pages): no `noindex`, the reciprocal `en` / `zh-Hans` / `x-default` hreflang cluster, `/zh/` present in `sitemap.xml` (14 URLs total) with `hreflang` on all seven EN + `/zh/` pairs, and the navbar **language toggle** rendering with 中文 active + an "EN" link to the EN counterpart. Unpublished: `noindex`, no `hreflang` anywhere, `/zh/` absent from the sitemap, and no toggle. It also covers the hidden `/zh/contact-success.html`, `/zh/register-success.html` and `/zh/open-day-success.html` utility pages, plus the unlisted `/zh/compute-apply.html` + `/zh/compute-success.html` — `<html lang="zh-Hans">`, a single `noindex`, no `hreflang`/toggle, out of the sitemap, CJK body, `../` assets. The Open Day check additionally pins the zh RSVP redirect at the `/zh/` success page (EN and zh share one access key, so a copy-pasted EN redirect would silently land zh registrants on the English confirmation). CI runs every harness on every PR.
 

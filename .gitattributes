@@ -1,0 +1,14 @@
+# Normalize line endings. Without this, eol behaviour depends on each contributor's
+# local core.autocrlf setting: a Windows checkout produces CRLF working files while
+# the index stays LF, so byte-level measurements of text files disagree with what CI
+# builds and Pages serves. `text=auto` lets git detect binaries, so images and fonts
+# are untouched.
+* text=auto eol=lf
+
+# Explicitly binary — never normalize, never diff as text.
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.webp binary
+*.ico  binary
+*.woff2 binary

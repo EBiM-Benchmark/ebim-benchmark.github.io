@@ -5,10 +5,11 @@
 // footer, back-to-top, script tags) now lives in _includes/; each page is a
 // thin .njk template that extends _includes/layouts/base.njk.
 //
-// Static assets (css/js/img + robots.txt/.nojekyll) are copied through verbatim,
-// preserving their exact output paths (css/…, js/…, img/…). sitemap.xml is
-// rendered from src/sitemap.njk (locale-aware, per-page gated on the
-// site.zhPublished map).
+// Static assets (js/img/fonts + robots.txt/.nojekyll) are copied through verbatim,
+// preserving their exact output paths (js/…, img/…, fonts/…). src/css/style.css is
+// deliberately NOT copied: it is a build input, minified by _data/inlineCss.js and
+// inlined into every page's <head>, so no page requests it. sitemap.xml is rendered
+// from src/sitemap.njk (locale-aware, per-page gated on the site.zhPublished map).
 import { EleventyI18nPlugin } from "@11ty/eleventy";
 import { execFileSync } from "node:child_process";
 
@@ -58,7 +59,6 @@ export default function (eleventyConfig) {
 
   // Passthrough copy — object form pins the exact output path regardless of
   // the input directory, so assets land at _site/<name> (not _site/src/<name>).
-  eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/fonts": "fonts" });
