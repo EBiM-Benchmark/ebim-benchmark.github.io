@@ -128,8 +128,9 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
 
-    /* Active nav link for the current page (Open Day) */
-    .page-open-day .nav-links a[href="open-day-hamburg.html"] { color: var(--accent); font-weight: 700; }
+    /* Active nav link for the current page (Open Day → the hub, which this page
+       lives under; the navbar item points at open-day.html, not at this page) */
+    .page-open-day .nav-links a[href="open-day.html"] { color: var(--accent); font-weight: 700; }
 
     /* Back to top */
     #back-to-top {
@@ -371,7 +372,7 @@
           <li><a href="workshop.html#dissemination">Dissemination</a></li>
         </ul>
       </li>
-      <li><a href="open-day-hamburg.html" aria-current="page">Open Day</a></li>
+      <li><a href="open-day.html" aria-current="page">Open Day</a></li>
       <li><a href="register.html">Register</a></li>
       <li><a href="index.html#partners">Partners</a></li>
       <li><a href="faq.html">FAQ</a></li>
@@ -973,6 +974,10 @@
     </p>
 
     <p class="od-contact-line fade-in">
+      The EBiM Benchmark holds Open Days at several of its testbed sites. <a href="open-day.html">See all Open Days</a>, including <a href="open-day-shanghai.html">Shanghai on 21 August 2026</a>.
+    </p>
+
+    <p class="od-contact-line fade-in">
       Questions about the Open Day? <a href="contact.html">Get in touch <span aria-hidden="true">→</span></a>
     </p>
   </div>
@@ -1002,7 +1007,7 @@
           <a href="index.html">Home</a>
           <a href="competition.html">Competition</a>
           <a href="workshop.html">Workshop</a>
-          <a href="open-day-hamburg.html">Open Day</a>
+          <a href="open-day.html">Open Day</a>
         </div>
         <div class="footer-nav-col">
           <div class="footer-nav-heading">People</div>

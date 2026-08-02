@@ -1,0 +1,481 @@
+---
+permalink: "open-day-shanghai.html"
+bodyClass: "page-open-day"
+title: "Open Day · Shanghai — EBiM Benchmark"
+description: "EBiM Open Day, Shanghai — Friday 21 August 2026. Talks on Physical AI and AI in healthcare, and a live visit to the Mobile FR3 Duo competition floor. By invitation."
+keywords: "EBiM Open Day, Shanghai, embodied bimanual manipulation, robotics benchmark, Mobile FR3 Duo, Physical AI, Tongji University"
+canonical: "https://ebim-benchmark.github.io/open-day-shanghai.html"
+headComments: true
+backToTop: true
+navActive: "openDayShanghai"
+i18nKey: openDayShanghai
+---
+{% extends "layouts/base.njk" %}
+
+{% block headStructured %}
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="EBiM Benchmark" />
+  <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day-shanghai.html" />
+  <meta property="og:title"       content="Open Day · Shanghai — EBiM Benchmark" />
+  <meta property="og:description" content="EBiM Open Day, Shanghai — Friday 21 August 2026 at Franka Robotics, Shanghai. By invitation." />
+  <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+  <meta property="og:locale"      content="en_US" />
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Open Day · Shanghai — EBiM Benchmark" />
+  <meta name="twitter:description" content="EBiM Open Day, Shanghai — Friday 21 August 2026 at Franka Robotics, Shanghai. By invitation." />
+  <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta name="twitter:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+{% include "jsonld.njk" %}
+{% endblock %}
+{# NOTE: like open-day-hamburg, this page IS in the jsonLd whitelist (see
+   _data/eleventyComputed.js) — its Event is date-gated on ev.openDayShanghaiStartDate,
+   which is REAL, so the Event is emitted. It carries NO `offers` node: the day is
+   invitation-only, and an Offer would signal open public admission. It has no
+   meta.<key> entry, so pageMeta is undefined and base.njk falls back to the
+   front-matter title/description above. #}
+
+{% block headStyle %}{% raw %}
+  <style>
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* Active nav link for the current page (Open Day → the hub) */
+    .page-open-day .nav-links a[href="open-day.html"] { color: var(--accent); font-weight: 700; }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 1.5rem; width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent, #00d4ff); color: #0a0e1a; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: opacity .3s, visibility .3s, transform .3s, background .2s, box-shadow .2s;
+      z-index: 998; box-shadow: 0 4px 18px rgba(0,212,255,.35);
+    }
+    #back-to-top.visible { opacity: 1; visibility: visible; transform: none; }
+    #back-to-top:hover { background: #fff; box-shadow: 0 6px 24px rgba(0,212,255,.45); }
+    #back-to-top:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+    #back-to-top svg { pointer-events: none; }
+
+    /* ── Sub-page hero (copied from open-day-hamburg.njk) ── */
+    #home.subhero {
+      min-height: 32vh; display: flex; align-items: center; justify-content: center;
+      position: relative; background: var(--bg-dark); overflow: hidden;
+      padding: calc(var(--nav-h) + 2.5rem) 0 3rem; box-sizing: border-box;
+    }
+    #home.subhero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    #home.subhero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .subhero-content { position: relative; z-index: 1; text-align: center; max-width: 820px; padding: 1.25rem 1.5rem; }
+    .breadcrumb { display: inline-block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 1rem; }
+    .breadcrumb a { color: rgba(255,255,255,.55); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb-sep { margin: 0 .55rem; opacity: .5; }
+    .breadcrumb-current { color: var(--accent); }
+    .subhero-title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); color: #fff; font-weight: 800; line-height: 1.18; margin-bottom: .9rem; letter-spacing: -.01em; }
+    .subhero-subtitle { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,.72); margin-bottom: .8rem; max-width: 660px; margin-left: auto; margin-right: auto; }
+    .subhero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.4rem; }
+    @media (max-width: 700px) { #home.subhero { min-height: 46vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
+
+    /* Hero eyebrow + fact line. Unlike open-day-hamburg.njk the eyebrow forces
+       its OWN line: the pill is shrink-to-fit and the breadcrumb above it is
+       inline-block, so a SHORT eyebrow ("Open Day · Shanghai") rides up beside
+       the breadcrumb and renders the label twice on one cramped line. Hamburg
+       only escapes that because its eyebrow text is long enough to wrap on its
+       own. block + max-content keeps the pill hugging its text AND breaks the line. */
+    .od-eyebrow {
+      display: block; width: max-content; max-width: 100%;
+      margin: 0 auto 1rem; padding: .3rem .9rem; border-radius: 100px;
+      background: rgba(0,212,255,.10); border: 1px solid rgba(0,212,255,.35);
+      font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+    }
+    .od-hero-meta { font-size: .95rem; font-weight: 600; color: rgba(255,255,255,.9); margin-bottom: .9rem; }
+
+    /* Invitation notice — this day has no public registration form */
+    .od-notice {
+      display: flex; align-items: flex-start; gap: .65rem; max-width: 860px; margin: 2.5rem auto 0;
+      background: rgba(0,212,255,.06); border: 1px solid rgba(0,212,255,.28); border-radius: 12px;
+      padding: 1rem 1.2rem; font-size: .95rem; color: var(--text-mid); line-height: 1.65;
+    }
+    .od-notice svg { flex-shrink: 0; margin-top: .15rem; color: var(--accent-dark); }
+
+    /* Clarifier callout — this is NOT the Phase III workshop */
+    .od-callout {
+      display: flex; align-items: flex-start; gap: .7rem; max-width: 860px; margin: 1.5rem auto 0;
+      background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.32); border-radius: 12px;
+      padding: 1rem 1.2rem; font-size: .92rem; color: var(--text-mid); line-height: 1.6;
+    }
+    .od-callout svg { flex-shrink: 0; margin-top: .15rem; color: #b45309; }
+
+    /* ── #program — schedule note + speaker cards (sched-* / talk-card conventions) ── */
+    .od-sched-note { max-width: 860px; margin: 1.25rem auto 0; text-align: center; font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+    .talks-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .talk-card {
+      background: #fff; border: 1px solid rgba(10,14,26,.08); border-radius: 14px;
+      padding: 1.6rem 1.25rem 1.4rem; text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .talk-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,.45); box-shadow: 0 10px 30px rgba(10,14,26,.08); }
+    .talk-card .org-avatar, .talk-card .org-photo { margin-bottom: .9rem; }
+    .talk-speaker-name { font-size: 1.02rem; font-weight: 800; color: var(--bg-dark); margin-bottom: .25rem; }
+    .talk-speaker-affil { font-size: .82rem; color: var(--text-muted); margin-bottom: .9rem; line-height: 1.4; }
+    .talk-title { font-size: .95rem; font-weight: 600; line-height: 1.5; color: var(--accent-dark); font-style: italic; margin-top: auto; }
+    .od-speakers-head { max-width: 860px; margin: 3.5rem auto 0; text-align: center; }
+    .od-speakers-head h3 { font-size: 1.3rem; font-weight: 800; color: var(--bg-dark); }
+
+    /* ── #venue ── */
+    .od-venue-card {
+      max-width: 860px; margin: 2.5rem auto 0; background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem 2rem; box-shadow: var(--card-shadow);
+    }
+    .od-venue-list { display: flex; flex-direction: column; gap: 1.1rem; }
+    .od-venue-item { display: flex; align-items: flex-start; gap: .8rem; font-size: .95rem; line-height: 1.65; color: var(--text-mid); }
+    .od-venue-item svg { flex-shrink: 0; margin-top: .2rem; color: var(--accent-dark); }
+    .od-venue-item strong { color: var(--text-dark); }
+    /* The address in Chinese, rendered on BOTH locales: an English transliteration is
+       not enough to reach the building by taxi or ride-hailing app in Shanghai. */
+    .od-venue-zh { display: block; margin-top: .35rem; font-weight: 600; color: var(--text-dark); }
+    @media (max-width: 540px) { .od-venue-card { padding: 1.5rem 1.25rem; } }
+
+    .od-contact-line { max-width: 760px; margin: 2.5rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
+    .od-contact-line a { color: var(--accent-dark); font-weight: 600; }
+  </style>
+{% endraw %}{% endblock %}
+
+{% block main %}
+{% raw %}
+<main id="main-content">
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="home" class="subhero">
+  <div class="subhero-content">
+    <div class="hero-wordmark hero-wordmark-sm" role="img" aria-label="EBiM Benchmark">
+      <span class="hero-wordmark-mark">EBiM</span>
+      <span class="hero-wordmark-sub">Benchmark</span>
+    </div>
+
+    <div class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Open Day · Shanghai</span>
+    </div>
+
+    <div class="od-eyebrow">Open Day · Shanghai</div>
+
+    <h1 class="subhero-title">EBiM Open Day &mdash; Shanghai</h1>
+    <p class="od-hero-meta">Friday, 21 August 2026 · 14:00&ndash;17:00 CST · Shanghai · By invitation</p>
+    <p class="subhero-subtitle">An afternoon at the EBiM Shanghai testbed during Phase II&rsquo;s hands-on bench-testing window: talks on physical AI and embodied AI in healthcare, and a live visit to the Mobile FR3 Duo competition floor while teams are running. Hosted by Franka Robotics at their Shanghai office, where the testbed is installed.</p>
+
+    <div class="subhero-actions">
+      <a href="#program" class="btn btn-outline">View the program</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHAT THIS DAY IS
+     ============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">What this day is</h2>
+      <p class="section-subtitle">
+        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, Pittsburgh, and Shanghai. The Shanghai Open Day opens the Shanghai site for an afternoon &mdash; the platform, the evaluation setup, and the teams competing on it. The site is hosted by Franka Robotics, whose FR3 arms the competition platform is built on, so the visit goes straight from the talks to the robots without leaving the building.
+      </p>
+    </div>
+
+    <div class="od-notice fade-in">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <span>This event is by invitation. Invitations will be sent to the team leaders of teams advancing to Phase II, following the Phase I results on 15 August 2026, and to EBiM partners, sponsors, and accredited local press. There is no public registration form, and we cannot admit guests who are not on the invitation list.</span>
+    </div>
+
+    <div class="od-callout fade-in">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+      <span>This is not the EBiM Phase III workshop. The workshop &mdash; invited talks, panel, posters, and the awards ceremony &mdash; is a separate event; its date and venue are still to be announced.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAM
+     ============================================================ -->
+<section id="program">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Program</h2>
+      <p class="section-subtitle">Friday, 21 August 2026 · 14:00&ndash;17:00 CST · all times China Standard Time</p>
+    </div>
+
+    <!-- Legend -->
+    <div class="sched-legend fade-in" aria-label="Schedule legend">
+      <span class="sched-legend-item legend-opening">
+        <span class="legend-dot"></span>Opening
+      </span>
+      <span class="sched-legend-item legend-talk">
+        <span class="legend-dot"></span>Talk
+      </span>
+      <span class="sched-legend-item legend-poster">
+        <span class="legend-dot"></span>Break
+      </span>
+      <span class="sched-legend-item legend-competition">
+        <span class="legend-dot"></span>Site Visit
+      </span>
+      <span class="sched-legend-item legend-lunch">
+        <span class="legend-dot"></span>Dinner
+      </span>
+    </div>
+
+    <div class="sched-timeline fade-in">
+
+      <!-- 14:00 Opening keynote -->
+      <div class="sched-row sched-opening">
+        <div class="sched-time-col">
+          <span class="sched-t-start">14:00</span>
+          <span class="sched-t-end">14:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-opening">Opening</span>
+            <span class="sched-dur">30 min</span>
+          </div>
+          <div class="sched-session">Opening keynote</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Shang-Ching Liu</span> · University of Hamburg
+          </div>
+        </div>
+      </div>
+
+      <!-- 14:30 Talk 1 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">14:30</span>
+          <span class="sched-t-end">14:50</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">20 min</span>
+          </div>
+          <div class="sched-session">Physical AI</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Dr. Jan Harder</span> · Chinesisch-Deutsches Hochschulkolleg (CDHK), Tongji University
+          </div>
+        </div>
+      </div>
+
+      <!-- 14:50 Break -->
+      <div class="sched-row sched-poster">
+        <div class="sched-time-col">
+          <span class="sched-t-start">14:50</span>
+          <span class="sched-t-end">15:00</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-break">Break</span>
+            <span class="sched-dur">10 min</span>
+          </div>
+          <div class="sched-session">Break</div>
+        </div>
+      </div>
+
+      <!-- 15:00 Competition floor visit -->
+      <div class="sched-row sched-competition">
+        <div class="sched-time-col">
+          <span class="sched-t-start">15:00</span>
+          <span class="sched-t-end">16:00</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-competition">Site Visit</span>
+            <span class="sched-dur">60 min</span>
+          </div>
+          <div class="sched-session">Mobile FR3 Duo &mdash; live competition floor visit</div>
+          <div class="sched-speaker">With catering</div>
+        </div>
+      </div>
+
+      <!-- 16:00 Talk 2 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:00</span>
+          <span class="sched-t-end">16:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">30 min</span>
+          </div>
+          <div class="sched-session">AI in Healthcare</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Shi Yunlei</span> · RobotGym (Shanghai Rushen Robotics Co., Ltd.)
+          </div>
+        </div>
+      </div>
+
+      <!-- 16:30 TBA -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:30</span>
+          <span class="sched-t-end">17:00</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">30 min</span>
+          </div>
+          <div class="sched-session sched-tbd">To be announced</div>
+        </div>
+      </div>
+
+      <!-- 17:30 Academic dinner -->
+      <div class="sched-row sched-lunch">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-lunch">Dinner</span>
+          </div>
+          <div class="sched-session">Academic dinner</div>
+          <div class="sched-speaker">Optional; venue and details to follow in the invitation</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="od-sched-note fade-in">Program subject to update.</p>
+
+    <div class="od-speakers-head fade-in">
+      <h3>Speakers</h3>
+    </div>
+
+    <div class="talks-grid fade-in">
+
+      <article class="talk-card">
+        <img class="org-photo" src="img/organizers/shang-ching-liu.jpg" alt="Shang-Ching Liu" width="88" height="88" loading="lazy" decoding="async" />
+        <h3 class="talk-speaker-name">Shang-Ching Liu</h3>
+        <div class="talk-speaker-affil">University of Hamburg</div>
+        <div class="talk-title">Opening keynote</div>
+      </article>
+
+      <article class="talk-card">
+        <div class="org-avatar" style="--sp-hue:210; --av-size:88px;">JH</div>
+        <h3 class="talk-speaker-name">Dr. Jan Harder</h3>
+        <div class="talk-speaker-affil">Chinesisch-Deutsches Hochschulkolleg (CDHK), Tongji University</div>
+        <div class="talk-title">Physical AI</div>
+      </article>
+
+      <article class="talk-card">
+        <div class="org-avatar" style="--sp-hue:25; --av-size:88px;">SY</div>
+        <h3 class="talk-speaker-name">Shi Yunlei</h3>
+        <div class="talk-speaker-affil">RobotGym (Shanghai Rushen Robotics Co., Ltd.)</div>
+        <div class="talk-title">AI in Healthcare</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VENUE
+     ============================================================ -->
+<section id="venue">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Venue</h2>
+      <p class="section-subtitle">
+        The Shanghai Open Day is hosted by Franka Robotics at their Shanghai office. The EBiM Shanghai testbed is in the same building, so the afternoon runs end to end without a transfer.
+      </p>
+    </div>
+
+    <div class="od-venue-card fade-in">
+      <div class="od-venue-list">
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+          </svg>
+          <span>
+            <strong>Franka Robotics &mdash; Shanghai Office</strong><br />
+            Room 1, Building 5, Phase II, SCE Plaza, Lane 1588 Shenchang Road, Minhang District, Shanghai, China
+            <span class="od-venue-zh" lang="zh-Hans">上海市闵行区申长路1588弄中骏广场二期5号楼1#会议室</span>
+          </span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+          </svg>
+          <span>Venue access details will be sent with the invitation.</span>
+        </div>
+
+      </div>
+    </div>
+{% endraw %}
+
+    <p class="od-contact-line fade-in">
+      The EBiM Benchmark holds Open Days at several of its testbed sites. <a href="{{ links.openDay }}">See all Open Days</a>, including <a href="{{ links.openDayHamburg }}">Hamburg on 17 August 2026</a>.
+    </p>
+
+    <p class="od-contact-line fade-in">
+      Questions about the Open Day? <a href="{{ links.contact }}">Get in touch <span aria-hidden="true">&rarr;</span></a>
+    </p>
+  </div>
+</section>
+
+</main>
+{% endblock %}

@@ -130,6 +130,10 @@
     "eventNameOpenDayHamburg": "EBiM Benchmark 开放日 · 汉堡",
     "eventDescriptionOpenDayHamburg": "EBiM Benchmark 于 Google 汉堡办公室举办的一日线下开放日：特邀讲座、参观 EBiM 评测中心，以及汉堡大学实验室参访。免费，需报名。IJCAI-ECAI 2026 同期活动。",
     "breadcrumbOpenDayHamburg": "开放日 · 汉堡",
+    "eventNameOpenDayShanghai": "EBiM Benchmark 开放日 · 上海",
+    "eventDescriptionOpenDayShanghai": "EBiM Benchmark 于上海举办的半日开放日：关于物理 AI 与医疗健康 AI 的讲座，以及 Mobile FR3 Duo 比赛现场参观。凭邀请参加。",
+    "breadcrumbOpenDay": "开放日",
+    "breadcrumbOpenDayShanghai": "开放日 · 上海",
     "contactPageName": "联系我们 · EBiM Benchmark",
     "contactPageDescription": "EBiM Benchmark 具身双臂操作计划的联系表单。",
     "breadcrumbContact": "联系"
