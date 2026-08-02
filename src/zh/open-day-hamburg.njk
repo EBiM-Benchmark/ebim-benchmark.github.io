@@ -42,8 +42,9 @@ i18nKey: openDayHamburg
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
 
-    /* Active nav link for the current page (Open Day) */
-    .page-open-day .nav-links a[href="open-day-hamburg.html"] { color: var(--accent); font-weight: 700; }
+    /* Active nav link for the current page (Open Day → the hub, which this page
+       lives under; the navbar item points at open-day.html, not at this page) */
+    .page-open-day .nav-links a[href="open-day.html"] { color: var(--accent); font-weight: 700; }
 
     /* Back to top */
     #back-to-top {
@@ -841,6 +842,10 @@ i18nKey: openDayHamburg
 
     <p class="od-colocation fade-in">
       EBiM 开放日 · 汉堡是 <a href="https://2026.ijcai.org/" target="_blank" rel="noopener">IJCAI-ECAI 2026 <span aria-hidden="true">→</span></a> 的同期活动。IJCAI-ECAI 2026 即第 35 届国际人工智能联合会议，于 2026 年 8 月 15–21 日在德国不来梅举行。
+    </p>
+
+    <p class="od-contact-line fade-in">
+      EBiM Benchmark 在多个测试地点举办开放日。<a href="{{ links.openDay }}">查看全部开放日</a>，包括 2026 年 8 月 21 日的<a href="{{ links.openDayShanghai }}">上海开放日</a>。
     </p>
 
     <p class="od-contact-line fade-in">

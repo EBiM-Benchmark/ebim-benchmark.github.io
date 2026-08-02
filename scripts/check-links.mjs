@@ -57,7 +57,8 @@ const GREEN = (s) => `\x1b[32m${s}\x1b[0m`;
 const RED = (s) => `\x1b[31m${s}\x1b[0m`;
 const BOLD = (s) => `\x1b[1m${s}\x1b[0m`;
 
-// Floors. The site is 14 EN + 12 zh pages and ~1750 local refs as of PR #100.
+// Floors. The site is 16 EN + 14 zh pages and ~2000 local refs as of the Open Day
+// hub + Shanghai PR (was 14 EN + 12 zh and ~1750 refs as of PR #100).
 // These are deliberately below current reality but far above zero.
 const MIN_PAGES = 20;
 const MIN_REFS = 1200;

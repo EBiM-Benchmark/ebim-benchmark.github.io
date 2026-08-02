@@ -1,13 +1,15 @@
 // /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b added
 // workshop + contact as drafts; Phase 2c published them; register shipped
 // published later; the FAQ page was added and published since, then the Hamburg
-// Open Day page — all seven /zh/ pages are now live).
+// Open Day page, then the Open Day hub + the Shanghai Open Day page — all nine
+// /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the SEVEN pages we now ship: /zh/index.html,
+// is actually localized, for the NINE pages we now ship: /zh/index.html,
 // /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html,
-// /zh/register.html, /zh/open-day-hamburg.html.
+// /zh/register.html, /zh/open-day.html, /zh/open-day-hamburg.html,
+// /zh/open-day-shanghai.html.
 // It also covers the hidden /zh/contact-success.html, /zh/register-success.html and
 // /zh/open-day-success.html utility pages (the no-JS targets of the zh
 // contact/register/Open Day form redirects) and
@@ -51,7 +53,7 @@
 //
 // Site-wide it checks (per-page gated):
 //   sitemap      — each PUBLISHED page's /zh/ url is present; each DRAFT's is
-//                  absent. Total = 7 EN + (number of published zh).
+//                  absent. Total = 9 EN + (number of published zh).
 //   hreflang     — emitted ONLY on the published localized pairs (EN + /zh/);
 //                  never on a draft pair, and never on the EN-only utility pages.
 //
@@ -76,7 +78,7 @@ const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.jso
 const PUB = SITE_DATA.zhPublished || {};
 const isPub = (key) => PUB[key] === true;
 
-// The seven localized pages. `key` is the i18nKey (the publish-flag key).
+// The nine localized pages. `key` is the i18nKey (the publish-flag key).
 // `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
 // advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
 // is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
@@ -144,12 +146,32 @@ const PAGES = [
     zhHas: "团队报名",
   },
   {
+    key: "openDay",
+    file: "zh/open-day.html",
+    canonical: `${SITE_ORIGIN}/zh/open-day.html`,
+    enUrl: `${SITE_ORIGIN}/open-day.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/open-day.html`,
+    enToggleHref: "../open-day.html",
+    enGone: "EBiM Open Days",
+    zhHas: "即将举行的开放日",
+  },
+  {
     key: "openDayHamburg",
     file: "zh/open-day-hamburg.html",
     canonical: `${SITE_ORIGIN}/zh/open-day-hamburg.html`,
     enUrl: `${SITE_ORIGIN}/open-day-hamburg.html`,
     zhUrl: `${SITE_ORIGIN}/zh/open-day-hamburg.html`,
     enToggleHref: "../open-day-hamburg.html",
+    enGone: "What this day is",
+    zhHas: "这一天是什么",
+  },
+  {
+    key: "openDayShanghai",
+    file: "zh/open-day-shanghai.html",
+    canonical: `${SITE_ORIGIN}/zh/open-day-shanghai.html`,
+    enUrl: `${SITE_ORIGIN}/open-day-shanghai.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/open-day-shanghai.html`,
+    enToggleHref: "../open-day-shanghai.html",
     enGone: "What this day is",
     zhHas: "这一天是什么",
   },
@@ -164,7 +186,9 @@ const EN_FILE = {
   faq: "faq.html",
   contact: "contact.html",
   register: "register.html",
+  openDay: "open-day.html",
   openDayHamburg: "open-day-hamburg.html",
+  openDayShanghai: "open-day-shanghai.html",
 };
 
 // The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every
