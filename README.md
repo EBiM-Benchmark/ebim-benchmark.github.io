@@ -141,7 +141,7 @@ ebim-benchmark.github.io/
 │   │                                    #   organizers/ = people holding an EBiM role (committee, advisory, support team)
 │   │                                    #   speakers/   = external Open Day / Workshop speakers with no EBiM role
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
-│   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 7 EN + the published /zh/ URLs)
+│   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 9 EN + the published /zh/ URLs)
 │   └── .nojekyll                        # Disable Jekyll on GitHub Pages
 ├── _site/                               # Build output (gitignored) — this is what gets deployed
 └── README.md
@@ -512,7 +512,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] OG cover image — EBiM-branded `og-cover.png` at 1200×630 spec (rasterized from `og-cover.svg`)
 - [x] Panel: three confirmed panelists — Stefan Schaal (Intrinsic), Sven Parusel (Franka Robotics), Shaowei Cui (SCUT); host TBA (mirrored across the schedule row + panel cards; kept in `event.json` as reference data for the date-gated workshop Event, not in current JSON-LD). Kenny Kimble (NIST) withdrew and was removed from the page and the `event.json` reference data.
 - [x] Google Search Console verified for `https://ebim-benchmark.github.io/`
-- [x] SEO: per-page meta tags, JSON-LD (Event [index/competition date-gated & **emitting**; workshop date-gated & withheld; Open Day date-gated & **emitting**] + Organization + BreadcrumbList), locale-aware sitemap (7 EN + 7 zh URLs published), alt text + width/height on every img
+- [x] SEO: per-page meta tags, JSON-LD (Event [index/competition date-gated & **emitting**; workshop date-gated & withheld; both dated Open Days date-gated & **emitting**; the Open Day hub carries no Event by design] + Organization + BreadcrumbList), locale-aware sitemap (9 EN + 9 zh URLs published), alt text + width/height on every img
 - [x] Heading hierarchy fixed (no h2 → h4 skips)
 - [x] Mobile nav: scrollable drawer + collapsible dropdowns
 - [x] Sticky on-page TOC sidebar on sub-pages (≥1400px)
