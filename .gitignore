@@ -10,3 +10,11 @@ _site/
 # importing one — or a py_compile check — writes __pycache__ beside the source.
 __pycache__/
 *.pyc
+
+# Claude Code per-machine settings (local permissions, the C:\src\EBiM add-dir
+# bridge). Tracked here rather than in .git/info/exclude because that file is
+# never cloned: every fresh clone made for a verification session would otherwise
+# see this as untracked and be one `git add -A` away from committing one
+# machine's paths. Only the .local.json is ignored — .claude/settings.json is the
+# shared project config and stays committable.
+.claude/settings.local.json

@@ -70,7 +70,7 @@ ebim-benchmark.github.io/
 ├── .eleventy.js                         # Eleventy config (input src/ → output _site/)
 ├── package.json / package-lock.json     # Eleventy + clean-css deps (+ Prettier, @fontsource/inter, dev) — `npm ci`
 ├── .gitattributes                       # Line endings pinned to LF (`* text=auto eol=lf`) — a Windows checkout then matches the LF blobs CI builds from
-├── .gitignore                           # node_modules/, _site/, .playwright-mcp/, __pycache__/
+├── .gitignore                           # node_modules/, _site/, .playwright-mcp/, __pycache__/, .claude/settings.local.json (per-machine Claude Code settings; .claude/settings.json stays committable)
 ├── .github/workflows/
 │   ├── deploy.yml                       # Build + deploy _site/ to Pages (GitHub Actions)
 │   └── verify.yml                       # CI gate: EN parity + /zh/ locale + local-reference existence (verify.mjs + verify-zh.mjs + check-links.mjs)
