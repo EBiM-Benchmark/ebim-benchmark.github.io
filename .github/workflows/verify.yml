@@ -2,8 +2,8 @@ name: Build & EN parity
 
 # Permanent guard: builds the Eleventy site and asserts the English output is
 # semantically identical to the golden fixtures in tests/baseline/
-# (see scripts/verify.mjs). The second step verifies the /zh/ Simplified-Chinese
-# locale against the _site the first step built — its assertions are gated PER
+# (see scripts/verify.mjs). The second stage verifies the /zh/ Simplified-Chinese
+# locale against the _site the first stage built — its assertions are gated PER
 # PAGE on site.zhPublished[i18nKey], so each page is checked against its own flag.
 # As of Phase 2c the four content /zh/ pages are published — the registration,
 # FAQ and the three Open Day pages (hub + Hamburg + Shanghai) since — so each of
@@ -15,11 +15,14 @@ name: Build & EN parity
 # and the /zh/ invariants, which leaves them blind to whether a referenced FILE is
 # actually present on disk — delete an asset a page still points at and every
 # golden stays byte-identical, parity passes, and the reference 404s in production
-# (PR #97 was exactly that shape). The third and fourth steps close that gap with
+# (PR #97 was exactly that shape). The third and fourth stages close that gap with
 # scripts/check-links.mjs, an EXISTENCE check over every local reference in _site/.
 # Its self-test runs FIRST, deliberately: it seeds known-broken references and
 # asserts they are caught, so a checker that silently parses nothing cannot
 # masquerade as a clean site. Runs on every PR and on pushes to main.
+#
+# All four stages are defined ONCE, in package.json as `scripts.verify:all`, and
+# invoked here as a single step — see the comment on that step below.
 
 on:
   pull_request:
@@ -45,14 +48,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build + verify EN parity against the committed baseline
-        run: node scripts/verify.mjs
-
-      - name: Verify /zh/ locale (per-page gated on zhPublished — hreflang/sitemap/noindex/toggle/CJK)
-        run: node scripts/verify-zh.mjs --no-build
-
-      - name: Self-test the reference checker (prove it can fail before trusting it)
-        run: node scripts/check-links.mjs --self-test
-
-      - name: Verify every local reference resolves in _site/
-        run: node scripts/check-links.mjs --no-build
+      # ONE definition of the pipeline, in package.json. This step used to inline
+      # the four stages as four separate `run:` steps, which meant the sequence
+      # existed twice — here and in `scripts.verify:all` — with nothing asserting
+      # they matched. They did match, but only by hand: edit one and the other
+      # silently disagrees, and because CI is what gates, the failure mode is a
+      # green run locally against a different check in CI, undetectable from
+      # either file alone. Reading `npm run verify:all` costs one hop and removes
+      # the drift class. The stage that failed is still named in the log — each
+      # script prints its own banner and the `&&` chain stops at the first failure.
+      - name: Verify (EN parity, /zh/ locale, reference self-test, reference existence)
+        run: npm run verify:all
