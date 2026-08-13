@@ -35,6 +35,18 @@
 #
 #   3. It only sees pages that carry speaker cards (Open Day and Workshop). Organizer
 #      and support-team cards on the index have no second rendering to compare against.
+#
+#   4. Both sides are keyed BY NAME, and the comparison iterates cards and skips any
+#      name with no agenda row (see mismatches_on: `if name in agenda`). So it cannot
+#      see a ONE-SIDED person at all — a card with no agenda row, or an agenda row
+#      with no card, is silently skipped rather than reported, and the run is green.
+#      That is exactly the shape of a half-applied ADD, REMOVE, or RENAME — most of
+#      what the MANUAL TOOL note above prescribes this tool for. Verified by
+#      deleting one speaker card while leaving its agenda row: "0 mismatch(es)",
+#      exit 0, on a visibly broken page. For an add/remove/rename its green is NOT
+#      evidence: compare the SET of agenda-row names against the SET of speaker-card
+#      names per page and locale and assert set EQUALITY (not equal counts — one
+#      added plus one dropped leaves the count unchanged). Affiliations only.
 
 import glob
 import os
