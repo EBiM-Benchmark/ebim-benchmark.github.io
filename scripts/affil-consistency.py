@@ -47,6 +47,12 @@
 #      evidence: compare the SET of agenda-row names against the SET of speaker-card
 #      names per page and locale and assert set EQUALITY (not equal counts — one
 #      added plus one dropped leaves the count unchanged). Affiliations only.
+#      When you run that set check, exclude UNFILLED-ROLE placeholders first: the
+#      workshop panel host is a speaker-name span reading "To be announced" (待公布
+#      on /zh/) with no card by design, so a raw set compare reports it as a
+#      one-sided person on workshop.html. Only a placeholder inside a speaker-name
+#      span matters: the Open Day pages carry none (Hamburg's "to be announced"
+#      sits in talk TITLES, which the name sets never read), so they compare equal.
 
 import glob
 import os
