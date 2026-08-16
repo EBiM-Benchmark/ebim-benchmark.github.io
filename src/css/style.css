@@ -1340,6 +1340,12 @@ section:nth-child(even) { background: var(--bg-light); }
   color: var(--text-dark);
   line-height: 1.35;
 }
+/* Placeholder styling for a schedule row whose title is not yet announced.
+   CURRENTLY UNUSED: every Open Day slot now carries a confirmed title, so no
+   template applies this class (`grep -rn "sched-tbd" src/` returns this rule
+   only). Retained for the next unannounced slot. Deleting it is a DECLARATION
+   edit, so it re-baselines all 16 EN fixtures — do that in its own commit, not
+   as a drive-by. */
 .sched-tbd {
   color: var(--text-muted);
   font-style: italic;
