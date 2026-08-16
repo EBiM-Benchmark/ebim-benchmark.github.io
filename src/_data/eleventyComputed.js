@@ -460,9 +460,12 @@ export default {
       // ev.eventPublishStartDate: the index/competition Events stayed withheld while this
       // one published, and opened separately on 2026-07-22 when the revised schedule was
       // locked — so do NOT couple them. Talk-level subEvents are deliberately
-      // omitted while the talk titles are TBA (an Event node without a real
-      // name/startDate/location is an invalid rich result — the same reasoning that
-      // dropped the workshop's placeholder subEvents). `offers` advertises the free
+      // omitted, but NOT for want of titles: every talk on both Open Day pages now
+      // has a confirmed title and a named speaker, so this is a standing editorial
+      // choice rather than a data gap (see event.json _commentOpenDayHamburg). Adding
+      // them means a real name/startDate/endDate/location each — an Event node
+      // without those is an invalid rich result, the same reasoning that dropped the
+      // workshop's placeholder subEvents. `offers` advertises the free
       // seats, flipping to SoldOut off the same site.openDayRegistration flag the page
       // body branches on, so the structured data can never claim seats the form no
       // longer takes.
@@ -521,9 +524,13 @@ export default {
       // the day is ever postponed to an unknown date, degrading the page to
       // Organization + BreadcrumbList rather than a stale EventScheduled. This gate
       // is INDEPENDENT of both the Hamburg gate and ev.eventPublishStartDate — do
-      // NOT couple them. Talk-level subEvents are omitted while the 16:30 slot is
-      // TBA (an Event node without a real name is an invalid rich result — the same
-      // reasoning as Hamburg and the workshop).
+      // NOT couple them. Talk-level subEvents are omitted as a standing editorial
+      // choice, NOT for want of data: every slot carries a confirmed name and each
+      // of the four talks a named speaker, and there is no 16:30 slot at all since
+      // the revised program — the rationale this comment used to give. Adding them
+      // means a real name/startDate/endDate/location each, since an Event node
+      // without those is an invalid rich result (the same constraint as Hamburg and
+      // the workshop, though only the workshop still lacks the data).
       //   NO `offers` node, and that is the one deliberate difference from Hamburg:
       // Shanghai is INVITATION-ONLY. Hamburg's Offer advertises free public seats
       // off site.openDayRegistration; an Offer here — even price "0" / InStock —

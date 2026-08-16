@@ -51,8 +51,11 @@
 #      workshop panel host is a speaker-name span reading "To be announced" (待公布
 #      on /zh/) with no card by design, so a raw set compare reports it as a
 #      one-sided person on workshop.html. Only a placeholder inside a speaker-name
-#      span matters: the Open Day pages carry none (Hamburg's "to be announced"
-#      sits in talk TITLES, which the name sets never read), so they compare equal.
+#      span matters: the Open Day pages carry none, so they compare equal. The
+#      "to be announced" wording still on those pages sits in the prose disclaiming
+#      the separate Phase III workshop's date and venue, which the name sets never
+#      read. Their talk titles were a second such site until every Open Day slot
+#      got a confirmed title; no Open Day page has a sched-tbd row left.
 
 import glob
 import os
