@@ -255,6 +255,7 @@ i18nKey: openDayHamburg
     <p class="subhero-subtitle">用一天时间，实地了解一个全球协同的机器人基准在实践中究竟是什么样子：由来自产业界与学术界的特邀讲者带来讲座，参观 EBiM 评测中心，并走访汉堡大学的实验室。您还将见到本基准实际运行所用的 Mobile FR3 Duo 平台。</p>
 
     <div class="subhero-actions">
+{% endraw %}{%- if site.openDayRegistration != "closed" %}{% raw %}
       <a href="#register" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
@@ -262,6 +263,9 @@ i18nKey: openDayHamburg
         报名——共 80 个席位
       </a>
       <a href="#program" class="btn btn-outline">查看日程</a>
+{% endraw %}{%- else %}{% raw %}
+      <a href="#program" class="btn btn-primary">查看日程</a>
+{% endraw %}{%- endif %}{% raw %}
     </div>
   </div>
 </section>
@@ -285,7 +289,7 @@ i18nKey: openDayHamburg
       </div>
       <div class="who-card">
         <h3>IJCAI-ECAI 2026 参会者</h3>
-        <p>从不来梅到汉堡乘火车约一小时。我们为 IJCAI-ECAI 参会者预留了一部分席位——请在出发前完成报名，现场恕不接待未报名者。</p>
+        <p>从不来梅到汉堡乘火车约一小时。我们为 IJCAI-ECAI 参会者预留了一部分席位{% endraw %}{% if site.openDayRegistration != "closed" %}{% raw %}——请在出发前完成报名，现场恕不接待未报名者{% endraw %}{% endif %}{% raw %}。</p>
       </div>
       <div class="who-card">
         <h3>产业界与合作伙伴</h3>

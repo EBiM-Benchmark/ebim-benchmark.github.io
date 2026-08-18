@@ -255,6 +255,7 @@ i18nKey: openDayHamburg
     <p class="subhero-subtitle">A one-day, in-person look at what a globally coordinated robot benchmark looks like in practice: talks from invited speakers across industry and academia, a visit to the EBiM Evaluation Center, and lab tours at the University of Hamburg. You&rsquo;ll see the Mobile FR3 Duo platform the benchmark actually runs on.</p>
 
     <div class="subhero-actions">
+{% endraw %}{%- if site.openDayRegistration != "closed" %}{% raw %}
       <a href="#register" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
@@ -262,6 +263,9 @@ i18nKey: openDayHamburg
         Register — 80 seats
       </a>
       <a href="#program" class="btn btn-outline">View the program</a>
+{% endraw %}{%- else %}{% raw %}
+      <a href="#program" class="btn btn-primary">View the program</a>
+{% endraw %}{%- endif %}{% raw %}
     </div>
   </div>
 </section>
@@ -285,7 +289,7 @@ i18nKey: openDayHamburg
       </div>
       <div class="who-card">
         <h3>IJCAI-ECAI 2026 attendees</h3>
-        <p>Bremen to Hamburg is about an hour by train. A block of seats is reserved for IJCAI-ECAI attendees — register before you travel, since we cannot admit walk-ins.</p>
+        <p>Bremen to Hamburg is about an hour by train. A block of seats is reserved for IJCAI-ECAI attendees{% endraw %}{% if site.openDayRegistration != "closed" %}{% raw %} — register before you travel, since we cannot admit walk-ins{% endraw %}{% endif %}{% raw %}.</p>
       </div>
       <div class="who-card">
         <h3>Industry &amp; partners</h3>
