@@ -56,6 +56,16 @@
 #      the separate Phase III workshop's date and venue, which the name sets never
 #      read. Their talk titles were a second such site until every Open Day slot
 #      got a confirmed title; no Open Day page has a sched-tbd row left.
+#
+#   5. The "N page(s) checked" total counts PAGES, not people. A page qualifies on
+#      `class="talk-speaker-affil"`, but AGENDA needs a `name · affiliation` row — and
+#      the workshop pages print agenda speakers with no affiliation, so both count as
+#      checked while contributing zero comparisons — every person actually compared
+#      sits on one of the four Open Day pages. Do not read the page count as a
+#      coverage number, and do not hardcode the real figure in the docs: it moves with
+#      every speaker edit — one speaker added or dropped moves it by two, because such
+#      an edit is always mirrored in both locales. Derive it when you need it: the
+#      names AGENDA and CARD share, per page.
 
 import glob
 import os
