@@ -5,7 +5,7 @@
 
   "startDate": "2026-07-06",
   "eventPublishStartDate": "2026-07-06",
-  "endDate": "2026-09-12",
+  "endDate": "2026-10-01",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
 
@@ -36,7 +36,6 @@
   "testbedAddresses": [
     { "@type": "PostalAddress", "addressLocality": "Hamburg", "addressCountry": "DE" },
     { "@type": "PostalAddress", "addressLocality": "Munich", "addressCountry": "DE" },
-    { "@type": "PostalAddress", "addressLocality": "Pittsburgh", "addressRegion": "PA", "addressCountry": "US" },
     { "@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN" }
   ],
 

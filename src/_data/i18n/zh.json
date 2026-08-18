@@ -82,11 +82,11 @@
     },
     "competition": {
       "title": "EBiM 竞赛 · 跨大洲机器人基准",
-      "description": "每项任务最高可赢取 $5,250（现金 + 购买代金券）：在 Mobile FR3 Duo 上完成线缆布线、可变形物体操作与辅助生活，覆盖四个测试平台。",
+      "description": "每项任务最高可赢取 $5,250（现金 + 购买代金券）：在 Mobile FR3 Duo 上完成线缆布线、可变形物体操作与辅助生活，覆盖三个测试平台。",
       "ogTitle": "EBiM 竞赛 · 跨大洲机器人基准",
-      "ogDescription": "开放仿真基准，并在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。",
+      "ogDescription": "开放仿真基准，并在汉堡、慕尼黑和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。",
       "twitterTitle": "EBiM 竞赛 · 跨大洲机器人基准",
-      "twitterDescription": "开放仿真基准，并在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。"
+      "twitterDescription": "开放仿真基准，并在汉堡、慕尼黑和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。涵盖线缆、可变形物体与辅助生活。"
     },
     "workshop": {
       "title": "EBiM Benchmark 研讨会 · 具身双臂操作",
@@ -111,12 +111,11 @@
     "eventAlternateName": "EBiM Benchmark",
     "eventDescriptionIndex": "面向真实世界具身双臂操作的全球协同基准计划，包含跨大洲真实机器人验证与社区研讨会。",
     "eventNameCompetition": "EBiM 竞赛：跨大洲双臂操作基准",
-    "eventDescriptionCompetition": "开放仿真基准，随后在汉堡、慕尼黑、匹兹堡和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。任务包括线缆布线、可变形导热垫放置，以及辅助生活与喂食。",
-    "locationNameIndex": "跨大洲测试平台（汉堡、慕尼黑、匹兹堡、上海）",
+    "eventDescriptionCompetition": "开放仿真基准，随后在汉堡、慕尼黑和上海的 Mobile FR3 Duo 平台上进行真实机器人验证。任务包括线缆布线、可变形导热垫放置，以及辅助生活与喂食。",
+    "locationNameIndex": "跨大洲测试平台（汉堡、慕尼黑、上海）",
     "testbedNames": [
       "University of Hamburg · TAMS Group",
       "Agile Robots SE",
-      "Carnegie Mellon University",
       "Franka Robotics · 上海分公司"
     ],
     "contactType": "一般咨询",

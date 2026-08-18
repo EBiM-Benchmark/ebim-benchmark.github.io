@@ -82,11 +82,11 @@
     },
     "competition": {
       "title": "The EBiM Competition · Cross-Continent Robot Benchmark",
-      "description": "Compete for up to $5,250 per task (cash + purchase voucher): cable routing, deformable handling & assisted living on Mobile FR3 Duo across four testbeds.",
+      "description": "Compete for up to $5,250 per task (cash + purchase voucher): cable routing, deformable handling & assisted living on Mobile FR3 Duo across three testbeds.",
       "ogTitle": "The EBiM Competition · Cross-Continent Robot Benchmark",
-      "ogDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living.",
+      "ogDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, and Shanghai. Cable, deformable, assisted living.",
       "twitterTitle": "The EBiM Competition · Cross-Continent Robot Benchmark",
-      "twitterDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Cable, deformable, assisted living."
+      "twitterDescription": "Open simulation benchmark plus real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, and Shanghai. Cable, deformable, assisted living."
     },
     "workshop": {
       "title": "EBiM Benchmark Workshop · Embodied Bimanual Manipulation",
@@ -111,12 +111,11 @@
     "eventAlternateName": "EBiM Benchmark",
     "eventDescriptionIndex": "A globally coordinated benchmarking initiative for real-world embodied bimanual manipulation, featuring cross-continent real-robot validation and a community workshop.",
     "eventNameCompetition": "EBiM Competition: Cross-Continent Bimanual Manipulation Benchmark",
-    "eventDescriptionCompetition": "Open simulation benchmark followed by real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, Pittsburgh, and Shanghai. Tasks include cable routing, deformable thermal-pad placement, and assisted living and feeding.",
-    "locationNameIndex": "Cross-continent testbeds (Hamburg, Munich, Pittsburgh, Shanghai)",
+    "eventDescriptionCompetition": "Open simulation benchmark followed by real-robot validation on Mobile FR3 Duo platforms in Hamburg, Munich, and Shanghai. Tasks include cable routing, deformable thermal-pad placement, and assisted living and feeding.",
+    "locationNameIndex": "Cross-continent testbeds (Hamburg, Munich, Shanghai)",
     "testbedNames": [
       "University of Hamburg · TAMS Group",
       "Agile Robots SE",
-      "Carnegie Mellon University",
       "Franka Robotics · Shanghai branch office"
     ],
     "contactType": "general inquiries",
