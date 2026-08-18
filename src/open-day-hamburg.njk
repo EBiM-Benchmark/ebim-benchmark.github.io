@@ -255,6 +255,7 @@ i18nKey: openDayHamburg
     <p class="subhero-subtitle">A one-day, in-person look at what a globally coordinated robot benchmark looks like in practice: talks from invited speakers across industry and academia, a visit to the EBiM Evaluation Center, and lab tours at the University of Hamburg. You&rsquo;ll see the Mobile FR3 Duo platform the benchmark actually runs on.</p>
 
     <div class="subhero-actions">
+{% endraw %}{%- if site.openDayRegistration != "closed" %}{% raw %}
       <a href="#register" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
@@ -262,6 +263,9 @@ i18nKey: openDayHamburg
         Register — 80 seats
       </a>
       <a href="#program" class="btn btn-outline">View the program</a>
+{% endraw %}{%- else %}{% raw %}
+      <a href="#program" class="btn btn-primary">View the program</a>
+{% endraw %}{%- endif %}{% raw %}
     </div>
   </div>
 </section>
@@ -274,7 +278,7 @@ i18nKey: openDayHamburg
     <div class="text-center fade-in">
       <h2 class="section-title">What this day is</h2>
       <p class="section-subtitle">
-        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, Pittsburgh, and Shanghai. The Hamburg Open Day opens that work up to the wider community for a day — the tasks, the evaluation protocol, the hardware, and the people running it.
+        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, and Shanghai. The Hamburg Open Day opens that work up to the wider community for a day — the tasks, the evaluation protocol, the hardware, and the people running it.
       </p>
     </div>
 
@@ -285,11 +289,11 @@ i18nKey: openDayHamburg
       </div>
       <div class="who-card">
         <h3>IJCAI-ECAI 2026 attendees</h3>
-        <p>Bremen to Hamburg is about an hour by train. A block of seats is reserved for IJCAI-ECAI attendees — register before you travel, since we cannot admit walk-ins.</p>
+        <p>Bremen to Hamburg is about an hour by train. A block of seats is reserved for IJCAI-ECAI attendees{% endraw %}{% if site.openDayRegistration != "closed" %}{% raw %} — register before you travel, since we cannot admit walk-ins{% endraw %}{% endif %}{% raw %}.</p>
       </div>
       <div class="who-card">
         <h3>Industry &amp; partners</h3>
-        <p>See the standardized platform and the evaluation setup that four testbeds are running in parallel.</p>
+        <p>See the standardized platform and the evaluation setup that three testbeds are running in parallel.</p>
       </div>
     </div>
 
@@ -600,7 +604,7 @@ i18nKey: openDayHamburg
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
           </svg>
-          <span><strong>Afternoon transfers:</strong> details for the EBiM Evaluation Center and the University of Hamburg lab visits will be sent to registered guests by email.</span>
+          <span><strong>Afternoon transfers:</strong> details for the EBiM Evaluation Center and the University of Hamburg lab visits are sent to registered guests by email.</span>
         </div>
 
       </div>
@@ -829,6 +833,8 @@ i18nKey: openDayHamburg
 {% endblock %}
 
 {% block trailingScripts %}
+{%- if site.openDayRegistration != "closed" %}
   {% include "open-day-form-script.njk" %}
   <script src="https://web3forms.com/client/script.js" async defer></script>
+{%- endif %}
 {% endblock %}

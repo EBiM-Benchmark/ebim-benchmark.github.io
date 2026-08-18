@@ -170,7 +170,7 @@ i18nKey: competition
     /* ── Testbed Locations grid ── */
     .testbed-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
       margin-top: 2.5rem;
     }
@@ -406,7 +406,7 @@ i18nKey: competition
       <h2 class="section-title">为何需要此基准</h2>
     </div>
     <p class="fade-in">
-      如今的双臂操作基准是碎片化的。有些仅在仿真中评估算法；另一些只在单一实验室的单台机器人上测试。两者都无法回答最关键的问题：这些方法能否在不同平台、环境与操作者之间泛化？EBiM 竞赛引入一个全球协同的基准，将开放仿真阶段与在相同 Mobile FR3 Duo 平台上的跨大洲真实机器人验证相结合。通过在汉堡、慕尼黑、匹兹堡和上海的真实硬件上验证顶尖仿真方法，我们为具身双臂操作构建首个可复现、跨实验室的基准。
+      如今的双臂操作基准是碎片化的。有些仅在仿真中评估算法；另一些只在单一实验室的单台机器人上测试。两者都无法回答最关键的问题：这些方法能否在不同平台、环境与操作者之间泛化？EBiM 竞赛引入一个全球协同的基准，将开放仿真阶段与在相同 Mobile FR3 Duo 平台上的跨大洲真实机器人验证相结合。通过在汉堡、慕尼黑和上海的真实硬件上验证顶尖仿真方法，我们为具身双臂操作构建首个可复现、跨实验室的基准。
     </p>
   </div>
 </section>
@@ -475,7 +475,7 @@ i18nKey: competition
           <div class="phase-label">第二阶段</div>
           <h3 class="phase-title">跨大洲真实世界验证</h3>
           <p class="phase-desc">
-            从仿真晋级的团队将在汉堡、慕尼黑、匹兹堡和上海的合作实验室，于真实的 Mobile FR3 Duo 机器人上进行验证。仿真结果公布后（8 月 18 日），晋级团队将获得在真实平台上的实操台架测试窗口（8 月 19–31 日，按当地时间）。代码仓库提交现已开放（自开发者预览版发布起）；组织方的仿真评估可能随时开始。9 月 1 日至 9 月 12 日，所有真实机器人的台架测试与评估均由组织方运行 —— 以确保跨站点可比性。第二阶段提交截止时间为 2026 年 9 月 12 日（AoE）。
+            从仿真晋级的团队将在汉堡、慕尼黑和上海的合作实验室，于真实的 Mobile FR3 Duo 机器人上进行验证。仿真结果公布后（8 月 24 日），晋级团队将获得在真实平台上的实操台架测试窗口（8 月 25 日 – 9 月 3 日，按当地时间）。代码仓库提交现已开放（自开发者预览版发布起）；组织方的仿真评估可能随时开始。9 月 4 日至 9 月 12 日，所有真实机器人的台架测试与评估均由组织方运行 —— 以确保跨站点可比性。第二阶段提交截止时间为 2026 年 9 月 12 日（AoE）。
           </p>
         </div>
 
@@ -569,7 +569,7 @@ i18nKey: competition
       <!-- Right: description + specs + attribution -->
       <div class="platform-info-col">
         <p class="platform-desc">
-          Mobile FR3 Duo 通过将 FR3 Duo 参考平台与触觉移动机器人（TMR）集成，将其拓展到移动环境中。它将双臂操作、丰富感知与全向移动能力融合为单一的具身智能系统 —— 使数据采集与策略执行得以超越固定工作单元。汉堡、慕尼黑、匹兹堡和上海的所有竞赛测试平台均采用完全相同的 Mobile FR3 Duo 平台，以确保跨站点可复现性。
+          Mobile FR3 Duo 通过将 FR3 Duo 参考平台与触觉移动机器人（TMR）集成，将其拓展到移动环境中。它将双臂操作、丰富感知与全向移动能力融合为单一的具身智能系统 —— 使数据采集与策略执行得以超越固定工作单元。汉堡、慕尼黑和上海的所有竞赛测试平台均采用完全相同的 Mobile FR3 Duo 平台，以确保跨站点可复现性。
         </p>
 
         <div class="platform-specs-grid">
@@ -842,7 +842,7 @@ i18nKey: competition
     <div class="text-center fade-in">
       <h2 class="section-title">跨大洲测试平台</h2>
       <p class="section-subtitle">
-        相同的 Mobile FR3 Duo 平台部署于横跨亚洲、欧洲与北美的四个合作实验室。
+        相同的 Mobile FR3 Duo 平台部署于横跨亚洲与欧洲的三个合作实验室。
       </p>
     </div>
 
@@ -860,13 +860,6 @@ i18nKey: competition
         <div class="testbed-city">慕尼黑</div>
         <div class="testbed-institution">Agile Robots SE</div>
         <p class="testbed-role">提供平台集成与部署支持的产业测试平台。</p>
-      </div>
-
-      <div class="testbed-card">
-        <img class="testbed-flag" src="../img/flags/us.svg" alt="" width="40" height="30" loading="lazy" decoding="async">
-        <div class="testbed-city">匹兹堡</div>
-        <div class="testbed-institution">Carnegie Mellon University</div>
-        <p class="testbed-role">设于卡内基梅隆大学的北美测试平台，用于跨大洲真实机器人验证。</p>
       </div>
 
       <div class="testbed-card">
@@ -983,7 +976,6 @@ i18nKey: competition
           <ul class="arch-pillar-list">
             <li>汉堡</li>
             <li>慕尼黑</li>
-            <li>匹兹堡</li>
             <li>上海</li>
           </ul>
         </div>
@@ -1077,7 +1069,7 @@ i18nKey: competition
           <li>在 EBiM 排行榜上开放报名</li>
           <li>发布三项基准任务，配套可复现环境</li>
           <li>在标准化指标下评估提交</li>
-          <li>提交截止：2026 年 8 月 15 日（AoE）</li>
+          <li>提交截止：2026 年 8 月 22 日（AoE）</li>
           <li>顶尖作品晋级第二阶段</li>
         </ul>
       </div>
@@ -1091,10 +1083,10 @@ i18nKey: competition
         </h3>
         <ul>
           <li>顶尖仿真作品晋级至 Mobile FR3 Duo 上的真实机器人验证</li>
-          <li>为晋级团队提供实操台架测试窗口（2026 年 8 月 19–31 日，按当地时间）</li>
-          <li>9 月 1 日 – 9 月 12 日：团队继续提交代码；所有真实机器人台架测试与评估均由组织方运行</li>
+          <li>为晋级团队提供实操台架测试窗口（2026 年 8 月 25 日 – 9 月 3 日，按当地时间）</li>
+          <li>9 月 4 日 – 9 月 12 日：团队继续提交代码；所有真实机器人台架测试与评估均由组织方运行</li>
           <li>提交截止：2026 年 9 月 12 日（AoE）</li>
-          <li>汉堡、慕尼黑、匹兹堡、上海采用相同平台；结果汇总至排行榜</li>
+          <li>汉堡、慕尼黑、上海采用相同平台；结果汇总至排行榜</li>
         </ul>
       </div>
 
@@ -1121,23 +1113,27 @@ i18nKey: competition
       </div>
       <div class="date-item" role="listitem">
         <div class="date-label">第一阶段 —— 仿真结束</div>
-        <div class="date-value">2026 年 8 月 15 日（AoE）</div>
+        <div class="date-value">2026 年 8 月 22 日（AoE）</div>
       </div>
       <div class="date-item" role="listitem">
         <div class="date-label">仿真结果公布</div>
-        <div class="date-value">2026 年 8 月 18 日</div>
+        <div class="date-value">2026 年 8 月 24 日</div>
       </div>
       <div class="date-item" role="listitem">
         <div class="date-label">第二阶段 —— 团队实操台架测试</div>
-        <div class="date-value">2026 年 8 月 19 日 – 8 月 31 日</div>
+        <div class="date-value">2026 年 8 月 25 日 – 9 月 3 日</div>
       </div>
       <div class="date-item" role="listitem">
         <div class="date-label">第二阶段 —— 组织方运行台架测试与评估</div>
-        <div class="date-value">2026 年 9 月 1 日 – 9 月 12 日</div>
+        <div class="date-value">2026 年 9 月 4 日 – 9 月 12 日</div>
       </div>
       <div class="date-item" role="listitem">
         <div class="date-label">第二阶段 —— 真实机器人验证提交截止 / 竞赛结束</div>
         <div class="date-value">2026 年 9 月 12 日（AoE）</div>
+      </div>
+      <div class="date-item" role="listitem">
+        <div class="date-label">最终结果公布</div>
+        <div class="date-value">2026 年 10 月 1 日</div>
       </div>
       <div class="date-item date-item-highlight" role="listitem">
         <div class="date-label">第三阶段 —— 研讨会与路线图</div>
@@ -1146,7 +1142,7 @@ i18nKey: competition
     </div>
 
     <p class="fade-in" style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:1rem;">
-      所有提交截止时间均以 <strong>Anywhere on Earth（AoE，UTC&minus;12）</strong> 为准。台架测试窗口按各测试点<strong>当地时间</strong>执行，不适用 AoE。第二阶段台架测试仅面向从 8 月 18 日仿真结果中晋级的团队。对时间安排有疑问？<a href="contact.html">联系我们 &rarr;</a>
+      所有提交截止时间均以 <strong>Anywhere on Earth（AoE，UTC&minus;12）</strong> 为准。台架测试窗口按各测试点<strong>当地时间</strong>执行，不适用 AoE。第二阶段台架测试仅面向从 8 月 24 日仿真结果中晋级的团队。对时间安排有疑问？<a href="contact.html">联系我们 &rarr;</a>
     </p>
 
     <div class="cfp-actions fade-in">
@@ -1353,7 +1349,7 @@ i18nKey: competition
       <div class="partners-logos">
         <a class="partner-card" href="https://www.agile-robots.com" target="_blank" rel="noopener">
           <img class="partner-logo-img" src="../img/sponsors/agile_robots.svg" alt="Agile Robots logo" width="641" height="101" loading="lazy" decoding="async" style="filter:brightness(0);">
-          <span class="partner-caption">测试平台硬件 · 汉堡、慕尼黑、匹兹堡与上海</span>
+          <span class="partner-caption">测试平台硬件 · 汉堡、慕尼黑与上海</span>
         </a>
         <a class="partner-card" href="https://franka.de" target="_blank" rel="noopener">
           <img class="partner-logo-img" src="../img/sponsors/franka_robotics.svg" alt="Franka Robotics logo" width="995" height="162" loading="lazy" decoding="async">

@@ -153,7 +153,7 @@ const PAGES = [
     zhUrl: `${SITE_ORIGIN}/zh/open-day.html`,
     enToggleHref: "../open-day.html",
     enGone: "EBiM Open Days",
-    zhHas: "即将举行的开放日",
+    zhHas: "2026 年开放日",
   },
   {
     key: "openDayHamburg",
@@ -587,15 +587,28 @@ function openDaySuccessChecks() {
   add("body has CJK", hasCJK(body), "body contains no CJK text");
 
   // The zh RSVP form must redirect to THIS page, not the EN one (shared access_key).
+  // The form is STATE-GATED on site.openDayRegistration: at "closed" the page renders
+  // a closed panel and carries no form, so there is no redirect to pin. Assert on the
+  // redirect only when one is present, and otherwise assert the form is genuinely gone
+  // — a form that lost its redirect field is a real bug and must still fail here.
   const applyFile = "zh/open-day-hamburg.html";
   if (exists(applyFile)) {
-    add(
-      "zh Open Day form redirect → /zh/open-day-success.html",
-      read(applyFile).includes(
-        'name="redirect" value="https://ebim-benchmark.github.io/zh/open-day-success.html"',
-      ),
-      "zh/open-day-hamburg.html must redirect to the zh success page",
-    );
+    const applyHtml = read(applyFile);
+    if (applyHtml.includes('name="redirect"')) {
+      add(
+        "zh Open Day form redirect → /zh/open-day-success.html",
+        applyHtml.includes(
+          'name="redirect" value="https://ebim-benchmark.github.io/zh/open-day-success.html"',
+        ),
+        "zh/open-day-hamburg.html must redirect to the zh success page",
+      );
+    } else {
+      add(
+        "zh Open Day form absent (registration closed) — no redirect to pin",
+        !applyHtml.includes("<form"),
+        "zh/open-day-hamburg.html carries a form but no redirect field",
+      );
+    }
   }
 
   return checks;
