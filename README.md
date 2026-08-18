@@ -140,6 +140,8 @@ ebim-benchmark.github.io/
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
 │   │                                    #   organizers/ = people holding an EBiM role (committee, advisory, support team)
 │   │                                    #   speakers/   = external Open Day / Workshop speakers with no EBiM role
+│   ├── docs/                            # Served documents → passthrough to /docs/ — the frozen, citable
+│   │                                    #   Rulebook PDF; version lives in the FILENAME, never replaced in place
 │   ├── robots.txt                       # Allow-all + sitemap pointer (passthrough)
 │   ├── sitemap.njk                      # Locale-aware sitemap (per-page gated on zhPublished; 9 EN + the published /zh/ URLs)
 │   └── .nojekyll                        # Disable Jekyll on GitHub Pages
@@ -285,6 +287,23 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 1. **Cable Routing & Plugging** — contact-rich, sequential
 2. **Deformable Material Handling (Thermal Pad Placement)** — deformable, precision
 3. **Assisted Living & Feeding** — human-centered, safety-critical
+
+The scoring rubric is served from this site as a frozen, citable PDF —
+[`/docs/Autonomous_Robot_Benchmark_Rulebook_1.0.pdf`](https://ebim-benchmark.github.io/docs/Autonomous_Robot_Benchmark_Rulebook_1.0.pdf).
+It is mirrored because Google Docs is unreachable from mainland China, where most participants are, and because a
+live Doc is mutable while a rubric must be quotable at a fixed revision. **The version stays in the filename and the
+file is never replaced in place** — a revision ships as a new `_1.1.pdf` beside it, or every citation of 1.0 silently
+starts pointing at different rules.
+
+⚠️ **The rubric's labels differ from this site's.** It calls the three tasks **Track 1/2/3** — "Cable Routing",
+"Thermal Pad Pick-and-Place", "Service Robot Challenge" — where the site says **Task 1/2/3** with the names above,
+and where "track" already means one of the two *prize* tracks. **No other surface in the organization uses "Track"** —
+the site, the `benchmark` repo (whose task directories are `task1_*`/`task2_*`/`task3_*`), and the `submissions`
+issue template all say `Task N`; the rubric is the sole outlier. The gap is widest where it costs most: a
+team scores itself under "Track 3 — Service Robot Challenge" and then files under the submission dropdown's "Task 3 —
+Assisted Living & Feeding", two names sharing no words. The substance agrees (metrics, formulas, the 30-minute Task 1
+limit, 4×4=16 staging, ranking order, "no overall aggregate"); only the labels diverge. Any page that links the PDF has
+to bridge that gap in its surrounding copy, or a reader will think it describes a different competition.
 
 ## Competition platform
 
@@ -519,6 +538,8 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Image optimization: platform PNGs → WebP (~99.5% reduction); OG cover resized + reformatted
 - [x] EBiM Maturity Roadmap (Alpha 2026 → Beta 2027 → Gamma, foreseeable future) strip on the home page, styled distinctly from the Phase I/II/III pipeline; links the PR2 Beta Program
 - [x] Partner logos wired with links: vivo (Gold), Galbot, Lightwheel, ManipulationNet (Bronze), Computational Freedom (Bronze → gpufree.cn), General Intelligence (Bronze → gilabs.xyz, egocentric cameras), TÜV Rheinland (Gold → tuv.com), DroidUp (Bronze → droidup.com, bionic mannequin heads) — files added under `img/sponsors/`. Synrise (Silver) added as a deliberately non-linked card (`<div class="partner-card">`). Both on Home + Competition (EN + zh).
+
+- [x] Autonomous Robot Benchmark Rulebook 1.0 mirrored as a served PDF at `/docs/Autonomous_Robot_Benchmark_Rulebook_1.0.pdf` (`src/docs/` passthrough; `*.pdf` marked `binary` in `.gitattributes` so it can never be eol-normalized). Deliberately **not linked from any page yet** — that is a content change and ships in its own PR, which is what let the mirror PR prove it moved no HTML goldens.
 
 ### Still needed
 - [ ] Confirm workshop date & venue (decoupled from any fixed conference; currently TBD)

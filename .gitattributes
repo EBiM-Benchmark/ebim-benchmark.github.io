@@ -12,3 +12,8 @@
 *.webp binary
 *.ico  binary
 *.woff2 binary
+# PDFs are served verbatim as citable artifacts, so never normalize them. Left to
+# text=auto, the decision rides on whether the file happens to contain a NUL byte
+# anywhere in it — true of today's Rulebook, but not guaranteed of a future
+# revision, and a CRLF-normalized PDF is a corrupted one.
+*.pdf  binary

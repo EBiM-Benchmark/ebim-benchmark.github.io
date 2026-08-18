@@ -5,11 +5,12 @@
 // footer, back-to-top, script tags) now lives in _includes/; each page is a
 // thin .njk template that extends _includes/layouts/base.njk.
 //
-// Static assets (js/img/fonts + robots.txt/.nojekyll) are copied through verbatim,
-// preserving their exact output paths (js/…, img/…, fonts/…). src/css/style.css is
-// deliberately NOT copied: it is a build input, minified by _data/inlineCss.js and
-// inlined into every page's <head>, so no page requests it. sitemap.xml is rendered
-// from src/sitemap.njk (locale-aware, per-page gated on the site.zhPublished map).
+// Static assets (js/img/fonts/docs + robots.txt/.nojekyll) are copied through
+// verbatim, preserving their exact output paths (js/…, img/…, fonts/…, docs/…).
+// src/css/style.css is deliberately NOT copied: it is a build input, minified by
+// _data/inlineCss.js and inlined into every page's <head>, so no page requests it.
+// sitemap.xml is rendered from src/sitemap.njk (locale-aware, per-page gated on
+// the site.zhPublished map).
 import { EleventyI18nPlugin } from "@11ty/eleventy";
 import { execFileSync } from "node:child_process";
 
@@ -62,6 +63,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/fonts": "fonts" });
+  // Served documents. The Rulebook is the frozen, citable scoring artifact, so
+  // its version number stays in the filename and the bytes must never change:
+  // *.pdf is marked binary in .gitattributes so eol=lf cannot rewrite them.
+  eleventyConfig.addPassthroughCopy({ "src/docs": "docs" });
   // sitemap.xml is rendered from src/sitemap.njk (locale-aware, per-page gated
   // on the site.zhPublished map) — not a static passthrough.
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });

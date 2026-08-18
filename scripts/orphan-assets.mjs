@@ -71,6 +71,10 @@ const ALLOWLIST = new Map([
   [".nojekyll", "GitHub Pages build marker; zero bytes, never referenced"],
   ["fonts/OFL.txt", "SIL Open Font License — required to ship alongside the Inter fonts"],
   ["img/og-cover.svg", "editable vector master for og-cover.png (documented in README)"],
+  [
+    "docs/Autonomous_Robot_Benchmark_Rulebook_1.0.pdf",
+    "citable Rulebook mirror, deliberately unlinked until the page-link PR lands — drop this entry then",
+  ],
 ]);
 
 // ────────────────────────────────────────────────────────────────── helpers ──
