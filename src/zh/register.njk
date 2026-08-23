@@ -119,6 +119,8 @@ i18nKey: register
     .reg-check input[type="checkbox"] { margin-top: .15rem; width: 1.05rem; height: 1.05rem; accent-color: var(--accent-dark); flex-shrink: 0; }
     .reg-check-other { margin-top: .3rem; }
 
+    .reg-testbed-note { max-width: 760px; margin: 0 0 .8rem; font-size: .85rem; color: var(--text-mid); line-height: 1.55; }
+
     .reg-rank-grid { display: grid; grid-template-columns: 1fr auto; gap: .55rem .9rem; align-items: center; margin-top: .5rem; }
     .reg-rank-grid label { font-size: .92rem; color: var(--text-dark); font-weight: 600; }
     .reg-rank-grid .form-select { width: 5.5rem; }
@@ -235,6 +237,7 @@ i18nKey: register
           <fieldset class="form-field">
             <legend class="form-label">跨大洲测试平台偏好——请对全部四个排序 <span class="req" aria-hidden="true">*</span>
               <span class="form-label-note">1 = 最优先；每个序号仅用一次</span></legend>
+            <p class="reg-testbed-note">匹兹堡不是 2026 年第二阶段的评测站点。该选项仍保留在此处；若您为其排序，该项将被移除，其余志愿顺次上移。</p>
             <div class="reg-rank-grid">
               <label for="rank_hamburg">汉堡</label>
               <select class="form-select" id="rank_hamburg" name="testbed_rank_hamburg" required>
