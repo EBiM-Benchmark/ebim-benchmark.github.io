@@ -180,6 +180,10 @@
     .fade-in > *:nth-child(6) { transition-delay: .40s; }
     /* Active nav link */
     .nav-links a.active { color: var(--accent) !important; }
+    /* InnoHub Special Award block: the only .prize-hardware card with a paragraph
+       after the pill list, and the only one with an in-prose link. */
+    .prize-hardware-list + .prize-hardware-desc { margin-top: .85rem; }
+    .prize-hardware-desc a { text-decoration: underline; }
     /* Back to top */
     #back-to-top {
       position: fixed; bottom: 2rem; right: 1.5rem;
@@ -1481,7 +1485,7 @@
 
 
 <!-- ============================================================
-     AWARDS & PRIZES — per-task cash prizes across two tracks
+     AWARDS & PRIZES — per-task cash prizes across two tracks, plus the InnoHub special award
      ============================================================ -->
 <section id="awards">
   <div class="container">
@@ -1490,13 +1494,15 @@
       <p class="section-subtitle">
         Up to <strong>$5,250 in prizes per task</strong> &mdash; cash + purchase voucher,
         trophy &amp; gift &mdash; awarded independently across all three benchmark tasks,
-        backed by AMD and our community partners.
+        backed by AMD, TÜV Rheinland, and our community partners.
       </p>
     </div>
 
     <p class="awards-pertask fade-in">
-      Every prize below is awarded <strong>per task</strong>, independently for each of the
-      <a href="#tasks">three benchmark tasks</a> &mdash; a team can place in every task.
+      Every prize in the two tracks below is awarded <strong>per task</strong>, independently
+      for each of the <a href="#tasks">three benchmark tasks</a> &mdash; a team can place in
+      every task. The InnoHub Special Award further down is scored separately; see that block
+      for its own terms.
     </p>
 
     <div class="prize-tracks fade-in">
@@ -1573,10 +1579,45 @@
       </ul>
     </div>
 
+    <!-- Special award: InnoHub by TÜV Rheinland — Task 3 only, one set overall -->
+    <div class="prize-hardware fade-in">
+      <span class="prize-hardware-eyebrow">Special Award &middot; InnoHub by TÜV Rheinland</span>
+      <h3 class="prize-hardware-title">InnoHub Special Award</h3>
+      <p class="prize-hardware-desc">
+        A robustness evaluation for <a href="#tasks">Task 3</a> only, open to teams that have advanced
+        to Phase II with a Task 3 entry. It is scored in simulation by the
+        organizers on the Phase II policy each team has already submitted &mdash;
+        <strong>no action is required from teams</strong>. Entries are scored out of 10 points:
+        4 for illumination robustness across four lighting profiles, and 6 for collision avoidance
+        against three obstacles. Scoring is independent of the main leaderboards and does not
+        affect main task rankings.
+      </p>
+      <p class="prize-hardware-desc">
+        Awarded as <strong>one set overall</strong>, not per task. This is separate from the
+        Simulation Prize above, which carries the same amounts on different criteria &mdash; a team
+        may win both. There is no tie-break: teams with the same total score share a rank and each
+        receives that rank's prize, a rank left vacant by a tie is not awarded, and teams scoring
+        zero are not ranked. Results are announced on 1 October 2026 alongside the main results.
+      </p>
+      <ul class="prize-hardware-list">
+        <li><strong>1st</strong> $300</li>
+        <li><strong>2nd</strong> $200</li>
+        <li><strong>3rd</strong> $100</li>
+      </ul>
+      <p class="prize-hardware-desc">
+        The lighting evaluation is designed with reference to IEC 62849; however, it assesses
+        performance only in a simulated environment. Real-world test results have not yet been
+        obtained, and this evaluation should not be considered equivalent to passing the lighting
+        assessment specified in the standard.
+        Full scoring rules: <a href="https://github.com/EBiM-Benchmark/benchmark/blob/main/docs/innohub_special_award.md" target="_blank" rel="noopener">InnoHub Special Award competition rules</a>.
+      </p>
+    </div>
+
     <div class="prize-notes fade-in">
       <p>
         <strong>Eligibility:</strong> Open to all teams participating in the
-        simulation and real-world phases. See
+        simulation and real-world phases. The InnoHub Special Award is limited to
+        Phase II teams with a Task 3 entry. See
         <a href="#call-for-participation">Call for Participation</a> for details.
       </p>
     </div>
