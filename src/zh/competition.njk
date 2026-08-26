@@ -45,6 +45,10 @@ i18nKey: competition
     .fade-in > *:nth-child(6) { transition-delay: .40s; }
     /* Active nav link */
     .nav-links a.active { color: var(--accent) !important; }
+    /* InnoHub Special Award block: the only .prize-hardware card with a paragraph
+       after the pill list, and the only one with an in-prose link. */
+    .prize-hardware-list + .prize-hardware-desc { margin-top: .85rem; }
+    .prize-hardware-desc a { text-decoration: underline; }
     /* Back to top */
     #back-to-top {
       position: fixed; bottom: 2rem; right: 1.5rem;
@@ -1274,8 +1278,7 @@ i18nKey: competition
 
     <p class="awards-pertask fade-in">
       下列两个奖项赛道之奖金均<strong>按任务</strong>颁发，针对
-      <a href="#tasks">三项基准任务</a>各自独立 &mdash; 一支团队可在每项任务中均获名次。
-      下方之 InnoHub 特别奖另行计分，其规则详见该区块。
+      <a href="#tasks">三项基准任务</a>各自独立 &mdash; 一支团队可在每项任务中均获名次。下方之 InnoHub 特别奖另行计分，其规则详见该区块。
     </p>
 
     <div class="prize-tracks fade-in">
@@ -1357,16 +1360,10 @@ i18nKey: competition
       <span class="prize-hardware-eyebrow">特别奖 &middot; InnoHub by TÜV Rheinland</span>
       <h3 class="prize-hardware-title">InnoHub 特别奖</h3>
       <p class="prize-hardware-desc">
-        仅限<a href="#tasks">任务三</a>之鲁棒性赛道，面向以任务三参赛条目晋级 Phase II 的队伍。
-        由主办方于仿真环境中，就各队已提交之 Phase II 策略进行评测 &mdash;
-        <strong>队伍无需进行任何操作</strong>。总分 10 分：光照鲁棒性 4 分（四组光照配置），
-        避障能力 6 分（三项障碍物）。评分完全独立于主赛道排行榜，不影响主任务排名。
+        仅限<a href="#tasks">任务三</a>之鲁棒性评测，面向以任务三参赛条目晋级 Phase II 的队伍。由主办方于仿真环境中，就各队已提交之 Phase II 策略进行评测 &mdash; <strong>队伍无需进行任何操作</strong>。总分 10 分：光照鲁棒性 4 分（四组光照配置），避障能力 6 分（三项障碍物）。评分完全独立于主赛道排行榜，不影响主任务排名。
       </p>
       <p class="prize-hardware-desc">
-        本奖项为<strong>全场共一套</strong>，非按任务分设。与上方仿真奖为两个独立奖项，金额相同但
-        评判标准不同 &mdash; 同一队伍可同时获得两者。不设并列决胜规则：总分相同之队伍并列同一名次，
-        且各自完整获得该名次之奖金；因并列而从缺之名次不予发放；总分为 0 之队伍不予排名。
-        结果将于 2026 年 10 月 1 日与主赛道结果一并公布。
+        本奖项为<strong>全场共一套</strong>，非按任务分设。与上方仿真奖为两个独立奖项，金额相同但评判标准不同 &mdash; 同一队伍可同时获得两者。不设并列决胜规则：总分相同之队伍并列同一名次，且各自完整获得该名次之奖金；因并列而从缺之名次不予发放；总分为 0 之队伍不予排名。结果将于 2026 年 10 月 1 日与主赛道结果一并公布。
       </p>
       <ul class="prize-hardware-list">
         <li><strong>第一名</strong> $300</li>
@@ -1374,15 +1371,13 @@ i18nKey: competition
         <li><strong>第三名</strong> $100</li>
       </ul>
       <p class="prize-hardware-desc">
-        光照评测参照 IEC 62849 标准设计，但仅考核仿真环境下的表现，暂未获取实测表现，
-        不等同于通过标准设计的光照考核。
+        光照评测参照 IEC 62849 标准设计，但仅考核仿真环境下的表现，暂未获取实测表现，不等同于通过标准设计的光照考核。完整评分规则：<a href="https://github.com/EBiM-Benchmark/benchmark/blob/main/docs/innohub_special_award.md">InnoHub 特别奖竞赛规则</a>。
       </p>
     </div>
 
     <div class="prize-notes fade-in">
       <p>
-        <strong>参赛资格：</strong>面向所有参加仿真与真实世界阶段的团队开放。InnoHub 特别奖
-        仅限具任务三参赛条目之 Phase II 队伍。详情请见
+        <strong>参赛资格：</strong>面向所有参加仿真与真实世界阶段的团队开放。InnoHub 特别奖仅限具任务三参赛条目之 Phase II 队伍。详情请见
         <a href="#call-for-participation">参与邀请</a>。
       </p>
     </div>

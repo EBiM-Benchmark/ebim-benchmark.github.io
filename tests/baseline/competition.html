@@ -180,6 +180,10 @@
     .fade-in > *:nth-child(6) { transition-delay: .40s; }
     /* Active nav link */
     .nav-links a.active { color: var(--accent) !important; }
+    /* InnoHub Special Award block: the only .prize-hardware card with a paragraph
+       after the pill list, and the only one with an in-prose link. */
+    .prize-hardware-list + .prize-hardware-desc { margin-top: .85rem; }
+    .prize-hardware-desc a { text-decoration: underline; }
     /* Back to top */
     #back-to-top {
       position: fixed; bottom: 2rem; right: 1.5rem;
@@ -1580,7 +1584,7 @@
       <span class="prize-hardware-eyebrow">Special Award &middot; InnoHub by TÜV Rheinland</span>
       <h3 class="prize-hardware-title">InnoHub Special Award</h3>
       <p class="prize-hardware-desc">
-        A robustness track for <a href="#tasks">Task 3</a> only, open to teams that have advanced
+        A robustness evaluation for <a href="#tasks">Task 3</a> only, open to teams that have advanced
         to Phase II with a Task 3 entry. It is scored in simulation by the
         organizers on the Phase II policy each team has already submitted &mdash;
         <strong>no action is required from teams</strong>. Entries are scored out of 10 points:
@@ -1605,6 +1609,7 @@
         performance only in a simulated environment. Real-world test results have not yet been
         obtained, and this evaluation should not be considered equivalent to passing the lighting
         assessment specified in the standard.
+        Full scoring rules: <a href="https://github.com/EBiM-Benchmark/benchmark/blob/main/docs/innohub_special_award.md">InnoHub Special Award competition rules</a>.
       </p>
     </div>
 
