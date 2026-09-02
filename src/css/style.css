@@ -1769,7 +1769,8 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 .partners-tier.tier-bronze .partner-caption { font-size: .72rem; }
 
 /* Platinum: two logos per row on wider screens
-   (Agile Robots + Franka Robotics, then Google + AMD). Cards size to their
+   (Agile Robots + Franka Robotics, then Google + AMD, then Foxconn
+   Industrial Internet alone on the third row). Cards size to their
    logo (no flex-grow), so a narrow logo gets a narrow card instead of a wide
    card with large side margins — card widths therefore vary within the tier.
    The per-card max-width (~half the row) keeps at most two per row: the
