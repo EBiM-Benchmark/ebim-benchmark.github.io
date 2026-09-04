@@ -1,14 +1,14 @@
 ---
-permalink: "open-day-hamburg.html"
+permalink: "open-day-munich.html"
 bodyClass: "page-open-day"
-title: "Open Day · Hamburg — EBiM Benchmark"
-description: "EBiM Open Day, Hamburg — Monday 17 August 2026, Google Hamburg. Co-located with IJCAI-ECAI 2026. Free; registration required. Talks, testbed and lab tours."
-keywords: "EBiM Open Day, Hamburg, IJCAI 2026, ECAI 2026, co-location event, embodied bimanual manipulation, robotics benchmark, Google Hamburg, University of Hamburg"
-canonical: "https://ebim-benchmark.github.io/open-day-hamburg.html"
+title: "Open Day · Munich — EBiM Benchmark"
+description: "EBiM Open Day, Munich — Thursday 10 September 2026, Agile Robots SE. Free; registration required. Talks, a testbed site visit in Augsburg, and dinner."
+keywords: "EBiM Open Day, Munich, Augsburg, embodied bimanual manipulation, robotics benchmark, Agile Robots, Franka Robotics, testbed visit"
+canonical: "https://ebim-benchmark.github.io/open-day-munich.html"
 headComments: true
 backToTop: true
-navActive: "openDayHamburg"
-i18nKey: openDayHamburg
+navActive: "openDayMunich"
+i18nKey: openDayMunich
 ---
 {% extends "layouts/base.njk" %}
 
@@ -16,9 +16,9 @@ i18nKey: openDayHamburg
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="EBiM Benchmark" />
-  <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day-hamburg.html" />
-  <meta property="og:title"       content="Open Day · Hamburg — EBiM Benchmark" />
-  <meta property="og:description" content="EBiM Open Day, Hamburg — Monday 17 August 2026, Google Hamburg. Co-located with IJCAI-ECAI 2026. Free; registration required." />
+  <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day-munich.html" />
+  <meta property="og:title"       content="Open Day · Munich — EBiM Benchmark" />
+  <meta property="og:description" content="EBiM Open Day, Munich — Thursday 10 September 2026, Agile Robots SE. Free; registration required." />
   <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
@@ -26,16 +26,16 @@ i18nKey: openDayHamburg
   <meta property="og:locale"      content="en_US" />
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Open Day · Hamburg — EBiM Benchmark" />
-  <meta name="twitter:description" content="EBiM Open Day, Hamburg — Monday 17 August 2026, Google Hamburg. Co-located with IJCAI-ECAI 2026. Free; registration required." />
+  <meta name="twitter:title"       content="Open Day · Munich — EBiM Benchmark" />
+  <meta name="twitter:description" content="EBiM Open Day, Munich — Thursday 10 September 2026, Agile Robots SE. Free; registration required." />
   <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
 {% include "jsonld.njk" %}
 {% endblock %}
-{# NOTE: unlike register, this page IS in the jsonLd whitelist (see _data/eleventyComputed.js) —
-   its Event is date-gated on ev.openDayHamburgStartDate, which is REAL, so the Event is emitted.
-   It has no meta.<key> entry, so pageMeta is undefined and base.njk falls back to the
-   front-matter title/description above. #}
+{# NOTE: like the other two dated Open Days, this page IS in the jsonLd whitelist (see
+   _data/eleventyComputed.js) — its Event is date-gated on ev.openDayMunichStartDate, which is
+   REAL, so the Event is emitted. It has no meta.<key> entry, so pageMeta is undefined and
+   base.njk falls back to the front-matter title/description above. #}
 
 {% block headStyle %}{% raw %}
   <style>
@@ -89,9 +89,15 @@ i18nKey: openDayHamburg
     .subhero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.4rem; }
     @media (max-width: 700px) { #home.subhero { min-height: 46vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
-    /* Hero eyebrow + fact line */
+    /* Hero eyebrow + fact line. Unlike open-day-hamburg.njk the eyebrow forces
+       its OWN line: the pill is shrink-to-fit and the breadcrumb above it is
+       inline-block, so a SHORT eyebrow ("Open Day · Munich") rides up beside
+       the breadcrumb and renders the label twice on one cramped line. Hamburg
+       only escapes that because its eyebrow text is long enough to wrap on its
+       own. block + max-content keeps the pill hugging its text AND breaks the line. */
     .od-eyebrow {
-      display: inline-block; margin-bottom: 1rem; padding: .3rem .9rem; border-radius: 100px;
+      display: block; width: max-content; max-width: 100%;
+      margin: 0 auto 1rem; padding: .3rem .9rem; border-radius: 100px;
       background: rgba(0,212,255,.10); border: 1px solid rgba(0,212,255,.35);
       font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
     }
@@ -185,7 +191,7 @@ i18nKey: openDayHamburg
     }
     .od-notice svg { flex-shrink: 0; margin-top: .15rem; color: var(--accent-dark); }
 
-    /* Waitlist banner (site.openDayRegistration == "waitlist") */
+    /* Waitlist banner (site.openDayMunichRegistration == "waitlist") */
     .od-waitlist {
       display: flex; align-items: flex-start; gap: .65rem; margin-bottom: 1.5rem;
       background: rgba(245,158,11,.09); border: 1px solid rgba(245,158,11,.4); border-radius: 12px;
@@ -193,7 +199,7 @@ i18nKey: openDayHamburg
     }
     .od-waitlist svg { flex-shrink: 0; margin-top: .15rem; }
 
-    /* Closed panel (site.openDayRegistration == "closed") — no form at all */
+    /* Closed panel (site.openDayMunichRegistration == "closed") — no form at all */
     .od-closed { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); text-align: center; }
     .od-closed-icon { width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%; background: rgba(100,116,139,.12); border: 1px solid rgba(100,116,139,.35); color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
     .od-closed h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: .6rem; }
@@ -219,11 +225,7 @@ i18nKey: openDayHamburg
     .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
     @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
 
-    /* ── #co-location ── */
-    #co-location { background: var(--bg-light); }
-    .od-colocation { max-width: 760px; margin: 0 auto; text-align: center; font-size: 1rem; line-height: 1.7; color: var(--text-mid); }
-    .od-colocation a { color: var(--accent-dark); font-weight: 600; }
-    .od-contact-line { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
+    .od-contact-line { max-width: 760px; margin: 2.5rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
     .od-contact-line a { color: var(--accent-dark); font-weight: 600; }
   </style>
 {% endraw %}{% endblock %}
@@ -245,22 +247,22 @@ i18nKey: openDayHamburg
     <div class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
       <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">Open Day · Hamburg</span>
+      <span class="breadcrumb-current">Open Day · Munich</span>
     </div>
 
-    <div class="od-eyebrow">Open Day · Hamburg · Co-located with IJCAI-ECAI 2026</div>
+    <div class="od-eyebrow">Open Day · Munich</div>
 
-    <h1 class="subhero-title">EBiM Open Day — Hamburg</h1>
-    <p class="od-hero-meta">Monday, 17 August 2026 · 10:30–17:00 CEST · Google Hamburg · Free · Registration required</p>
-    <p class="subhero-subtitle">A one-day, in-person look at what a globally coordinated robot benchmark looks like in practice: talks from invited speakers across industry and academia, a visit to the EBiM Evaluation Center, and lab tours at the University of Hamburg. You&rsquo;ll see the Mobile FR3 Duo platform the benchmark actually runs on.</p>
+    <h1 class="subhero-title">EBiM Open Day — Munich</h1>
+    <p class="od-hero-meta">Thursday, 10 September 2026 · 10:00–18:00 CEST · Agile Robots SE, Munich · Free · Registration required</p>
+    <p class="subhero-subtitle">A day at the German industry side of the benchmark: an optional morning visit to the EBiM Munich testbed in Augsburg, where Phase II real-robot evaluation is running, then an afternoon of talks at Agile Robots SE in Munich, and dinner. Shuttle transport is provided from Munich in the morning.</p>
 
     <div class="subhero-actions">
-{% endraw %}{%- if site.openDayRegistration != "closed" %}{% raw %}
+{% endraw %}{%- if site.openDayMunichRegistration != "closed" %}{% raw %}
       <a href="#register" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
         </svg>
-        Register — 80 seats
+        Register
       </a>
       <a href="#program" class="btn btn-outline">View the program</a>
 {% endraw %}{%- else %}{% raw %}
@@ -278,22 +280,22 @@ i18nKey: openDayHamburg
     <div class="text-center fade-in">
       <h2 class="section-title">What this day is</h2>
       <p class="section-subtitle">
-        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, and Shanghai. The Hamburg Open Day opens that work up to the wider community for a day — the tasks, the evaluation protocol, the hardware, and the people running it.
+        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, and Shanghai. The Munich Open Day opens the German industry testbed to the community for a day — the hardware, the evaluation floor, and the people running it.
       </p>
     </div>
 
     <div class="who-grid fade-in">
       <div class="who-card">
         <h3>Researchers &amp; students</h3>
-        <p>Manipulation, robot learning, VLA and foundation models, HRI — anyone who cares whether benchmark numbers survive contact with a real robot.</p>
-      </div>
-      <div class="who-card">
-        <h3>IJCAI-ECAI 2026 attendees</h3>
-        <p>Bremen to Hamburg is about an hour by train. A block of seats is reserved for IJCAI-ECAI attendees{% endraw %}{% if site.openDayRegistration != "closed" %}{% raw %} — register before you travel, since we cannot admit walk-ins{% endraw %}{% endif %}{% raw %}.</p>
+        <p>Manipulation, robot learning, VLA and foundation models — anyone who wants to see what a benchmark looks like when it has to survive contact with a real robot.</p>
       </div>
       <div class="who-card">
         <h3>Industry &amp; partners</h3>
-        <p>See the standardized platform and the evaluation setup that three testbeds are running in parallel.</p>
+        <p>See the standardized Mobile FR3 Duo platform and the evaluation setup three testbeds are running in parallel, at the site that integrates and deploys it.</p>
+      </div>
+      <div class="who-card">
+        <h3>Competition teams</h3>
+        <p>Phase II real-robot validation is running at this testbed through 12 September. Come and see the floor your policy runs on.</p>
       </div>
     </div>
 
@@ -302,7 +304,7 @@ i18nKey: openDayHamburg
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
       </svg>
-      <span>This is not the EBiM Phase III workshop. The workshop — invited talks, panel, posters, and the awards ceremony — is a separate event; its date and venue are still to be announced.</span>
+      <span>Open Days are not the EBiM Phase III workshop. The workshop &mdash; invited talks, panel, posters, and the awards ceremony &mdash; is a separate event; its date and venue are still to be announced.</span>
     </div>
   </div>
 </section>
@@ -314,38 +316,38 @@ i18nKey: openDayHamburg
   <div class="container">
     <div class="text-center fade-in">
       <h2 class="section-title">Program</h2>
-      <p class="section-subtitle">Monday, 17 August 2026 · 10:30–17:00 CEST · all times Central European Summer Time</p>
+      <p class="section-subtitle">Thursday, 10 September 2026 · 10:00–18:00 CEST · all times Central European Summer Time</p>
     </div>
 
     <!-- Legend -->
     <div class="sched-legend fade-in" aria-label="Schedule legend">
-      <span class="sched-legend-item legend-opening">
-        <span class="legend-dot"></span>Opening
-      </span>
-      <span class="sched-legend-item legend-talk">
-        <span class="legend-dot"></span>Talk
-      </span>
-      <span class="sched-legend-item legend-lunch">
-        <span class="legend-dot"></span>Lunch
-      </span>
       <span class="sched-legend-item legend-poster">
-        <span class="legend-dot"></span>Transfer
+        <span class="legend-dot"></span>Shuttle
       </span>
       <span class="sched-legend-item legend-competition">
         <span class="legend-dot"></span>Site Visit
       </span>
+      <span class="sched-legend-item legend-lunch">
+        <span class="legend-dot"></span>Lunch
+      </span>
+      <span class="sched-legend-item legend-opening">
+        <span class="legend-dot"></span>Break
+      </span>
+      <span class="sched-legend-item legend-talk">
+        <span class="legend-dot"></span>Talk
+      </span>
       <span class="sched-legend-item legend-panel">
-        <span class="legend-dot"></span>Lab Visits
+        <span class="legend-dot"></span>Dinner
       </span>
     </div>
 
     <div class="sched-timeline fade-in">
 
-      <!-- 10:30 Opening -->
-      <div class="sched-row sched-opening">
+      <!-- 10:00 Shuttle, boarding point 1 -->
+      <div class="sched-row sched-poster">
         <div class="sched-time-col">
-          <span class="sched-t-start">10:30</span>
-          <span class="sched-t-end">11:00</span>
+          <span class="sched-t-start">10:00</span>
+          <span class="sched-t-end">10:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
           <div class="sched-dot"></div>
@@ -353,21 +355,19 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-opening">Opening</span>
+            <span class="type-badge badge-break">Shuttle</span>
             <span class="sched-dur">30 min</span>
           </div>
-          <div class="sched-session">Opening</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Alexander Schröder</span> · Google Cloud
-          </div>
+          <div class="sched-session">Shuttle departs Munich Hbf — boarding point 1 (optional)</div>
+          <div class="sched-speaker">Meeting point emailed to registered guests</div>
         </div>
       </div>
 
-      <!-- 11:00 Talk 1 -->
-      <div class="sched-row sched-talk">
+      <!-- 10:30 Shuttle, boarding point 2 -->
+      <div class="sched-row sched-poster">
         <div class="sched-time-col">
-          <span class="sched-t-start">11:00</span>
-          <span class="sched-t-end">11:20</span>
+          <span class="sched-t-start">10:30</span>
+          <span class="sched-t-end">11:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
           <div class="sched-dot"></div>
@@ -375,21 +375,18 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-talk">Talk</span>
-            <span class="sched-dur">20 min</span>
+            <span class="type-badge badge-break">Shuttle</span>
+            <span class="sched-dur">60 min</span>
           </div>
-          <div class="sched-session">From Isaac Sim to Production Line: Autonomous Peeling and Pasting of Adhesive Sheets via AI</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Prof. Min-Chun Hu</span> · National Tsing Hua University
-          </div>
+          <div class="sched-session">Boarding point 2 — Agile Robots SE, then on to Augsburg</div>
         </div>
       </div>
 
-      <!-- 11:20 Talk 2 -->
-      <div class="sched-row sched-talk">
+      <!-- 11:30 Site visit -->
+      <div class="sched-row sched-competition">
         <div class="sched-time-col">
-          <span class="sched-t-start">11:20</span>
-          <span class="sched-t-end">11:40</span>
+          <span class="sched-t-start">11:30</span>
+          <span class="sched-t-end">12:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
           <div class="sched-dot"></div>
@@ -397,43 +394,18 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-talk">Talk</span>
-            <span class="sched-dur">20 min</span>
+            <span class="type-badge badge-competition">Site Visit</span>
+            <span class="sched-dur">60 min</span>
           </div>
-          <div class="sched-session">From Users to Tasks: A Practical Framework for Home Humanoid Robotics</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Dr. Hao Shao</span> · vivo Robotics Lab
-          </div>
+          <div class="sched-session">EBiM Munich testbed, Augsburg — site visit and live demonstration</div>
         </div>
       </div>
 
-      <!-- 11:40 Talk 3 -->
-      <div class="sched-row sched-talk">
-        <div class="sched-time-col">
-          <span class="sched-t-start">11:40</span>
-          <span class="sched-t-end">12:00</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-talk">Talk</span>
-            <span class="sched-dur">20 min</span>
-          </div>
-          <div class="sched-session">Franka Robotics - Reference Platforms for Mobile Bimanual Manipulation</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Sven Parusel</span> · Franka Robotics
-          </div>
-        </div>
-      </div>
-
-      <!-- 12:00 Lunch -->
+      <!-- 12:30 Lunch -->
       <div class="sched-row sched-lunch">
         <div class="sched-time-col">
-          <span class="sched-t-start">12:00</span>
-          <span class="sched-t-end">14:00</span>
+          <span class="sched-t-start">12:30</span>
+          <span class="sched-t-end">14:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
           <div class="sched-dot"></div>
@@ -444,52 +416,14 @@ i18nKey: openDayHamburg
             <span class="type-badge badge-lunch">Lunch</span>
             <span class="sched-dur">2 hrs</span>
           </div>
-          <div class="sched-session">Lunch, hosted by Google</div>
+          <div class="sched-session">Lunch at the testbed</div>
         </div>
       </div>
 
-      <!-- 14:00 Transfer -->
+      <!-- 14:30 Return shuttle -->
       <div class="sched-row sched-poster">
-        <div class="sched-time-col">
-          <span class="sched-t-start">14:00</span>
-          <span class="sched-t-end">14:30</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-break">Transfer</span>
-            <span class="sched-dur">30 min</span>
-          </div>
-          <div class="sched-session">Transfer</div>
-        </div>
-      </div>
-
-      <!-- 14:30 Evaluation Center -->
-      <div class="sched-row sched-competition">
         <div class="sched-time-col">
           <span class="sched-t-start">14:30</span>
-          <span class="sched-t-end">15:00</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-competition">Site Visit</span>
-            <span class="sched-dur">30 min</span>
-          </div>
-          <div class="sched-session">EBiM Evaluation Center — site visit</div>
-        </div>
-      </div>
-
-      <!-- 15:00 Transfer -->
-      <div class="sched-row sched-poster">
-        <div class="sched-time-col">
-          <span class="sched-t-start">15:00</span>
           <span class="sched-t-end">15:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
@@ -498,18 +432,18 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-break">Transfer</span>
-            <span class="sched-dur">30 min</span>
+            <span class="type-badge badge-break">Shuttle</span>
+            <span class="sched-dur">60 min</span>
           </div>
-          <div class="sched-session">Transfer</div>
+          <div class="sched-session">Shuttle departs Augsburg for Agile Robots SE</div>
         </div>
       </div>
 
-      <!-- 15:30 Lab visits -->
-      <div class="sched-row sched-panel">
+      <!-- 15:30 Arrival and coffee -->
+      <div class="sched-row sched-opening">
         <div class="sched-time-col">
           <span class="sched-t-start">15:30</span>
-          <span class="sched-t-end">17:00</span>
+          <span class="sched-t-end">16:20</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
           <div class="sched-dot"></div>
@@ -517,17 +451,118 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-panel">Lab Visits</span>
-            <span class="sched-dur">90 min</span>
+            <span class="type-badge badge-opening">Break</span>
+            <span class="sched-dur">50 min</span>
           </div>
-          <div class="sched-session">University of Hamburg lab visits</div>
-          <div class="sched-speaker">TAMS, WTM, and HCI, in small-group rotation</div>
+          <div class="sched-session">Arrival, check-in and coffee</div>
+        </div>
+      </div>
+
+      <!-- 16:20 Talk 1 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:20</span>
+          <span class="sched-t-end">16:45</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">Title to be announced</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Sven Parusel</span> · Franka Robotics
+          </div>
+        </div>
+      </div>
+
+      <!-- 16:45 Talk 2 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:45</span>
+          <span class="sched-t-end">17:10</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">Title to be announced</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Marian Körber</span> · Agile Robots
+          </div>
+        </div>
+      </div>
+
+      <!-- 17:10 Talk 3 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:10</span>
+          <span class="sched-t-end">17:35</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">To be announced</div>
+          <div class="sched-speaker">Speaker to be announced</div>
+        </div>
+      </div>
+
+      <!-- 17:35 Talk 4 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:35</span>
+          <span class="sched-t-end">18:00</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">To be announced</div>
+          <div class="sched-speaker">Speaker to be announced</div>
+        </div>
+      </div>
+
+      <!-- 18:30 Dinner — no end time (optional and open-ended), so no
+           sched-t-end and no sched-dur, exactly like the Shanghai dinner row -->
+      <div class="sched-row sched-panel">
+        <div class="sched-time-col">
+          <span class="sched-t-start">18:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-panel">Dinner</span>
+          </div>
+          <div class="sched-session">Dinner at Agile Robots SE (optional), hosted by Agile Robots</div>
         </div>
       </div>
 
     </div>
 
-    <p class="od-sched-note fade-in">Program subject to update.</p>
+    <p class="od-sched-note fade-in">Each talk is 20 minutes plus 5 minutes of Q&amp;A. The morning site visit and the dinner are optional — the talks are the core of the day. Program subject to update.</p>
 
     <div class="od-speakers-head fade-in">
       <h3>Speakers</h3>
@@ -536,31 +571,17 @@ i18nKey: openDayHamburg
     <div class="talks-grid fade-in">
 
       <article class="talk-card">
-        <img class="org-photo" src="img/organizers/alexander-schroder.jpeg" alt="Alexander Schröder" width="88" height="88" loading="lazy" decoding="async" />
-        <h3 class="talk-speaker-name">Alexander Schröder</h3>
-        <div class="talk-speaker-affil">Google Cloud</div>
-        <div class="talk-title">Opening</div>
-      </article>
-
-      <article class="talk-card">
-        <img class="org-photo" src="img/organizers/min-chun-hu.jpg" alt="Prof. Min-Chun Hu" width="88" height="88" loading="lazy" decoding="async" />
-        <h3 class="talk-speaker-name">Prof. Min-Chun Hu</h3>
-        <div class="talk-speaker-affil">National Tsing Hua University</div>
-        <div class="talk-title">From Isaac Sim to Production Line: Autonomous Peeling and Pasting of Adhesive Sheets via AI</div>
-      </article>
-
-      <article class="talk-card">
-        <img class="org-photo" src="img/speakers/hao-shao.jpg" alt="Dr. Hao Shao" width="88" height="88" loading="lazy" decoding="async" />
-        <h3 class="talk-speaker-name">Dr. Hao Shao</h3>
-        <div class="talk-speaker-affil">vivo Robotics Lab</div>
-        <div class="talk-title">From Users to Tasks: A Practical Framework for Home Humanoid Robotics</div>
-      </article>
-
-      <article class="talk-card">
         <img class="org-photo" src="img/organizers/sven-parusel.jpg" alt="Sven Parusel" width="88" height="88" loading="lazy" decoding="async" />
         <h3 class="talk-speaker-name">Sven Parusel</h3>
         <div class="talk-speaker-affil">Franka Robotics</div>
-        <div class="talk-title">Franka Robotics - Reference Platforms for Mobile Bimanual Manipulation</div>
+        <div class="talk-title">Title to be announced</div>
+      </article>
+
+      <article class="talk-card">
+        <img class="org-photo" src="img/organizers/marian-korber.jpg" alt="Marian Körber" width="88" height="88" loading="lazy" decoding="async" />
+        <h3 class="talk-speaker-name">Marian Körber</h3>
+        <div class="talk-speaker-affil">Agile Robots</div>
+        <div class="talk-title">Title to be announced</div>
       </article>
 
     </div>
@@ -568,12 +589,12 @@ i18nKey: openDayHamburg
 </section>
 
 <!-- ============================================================
-     VENUE & GETTING THERE
+     GETTING THERE AND BACK
      ============================================================ -->
 <section id="venue">
   <div class="container">
     <div class="text-center fade-in">
-      <h2 class="section-title">Venue &amp; getting there</h2>
+      <h2 class="section-title">Getting there and back</h2>
     </div>
 
     <div class="od-venue-card fade-in">
@@ -583,7 +604,7 @@ i18nKey: openDayHamburg
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
           </svg>
-          <span><strong>Google Germany GmbH, ABC-Straße 19, 20354 Hamburg (ABC-Bogen)</strong> — top-floor event hall.</span>
+          <span><strong>Talks and dinner:</strong> Agile Robots SE, Plinganserstraße 134, 81369 München.</span>
         </div>
 
         <div class="od-venue-item">
@@ -597,14 +618,21 @@ i18nKey: openDayHamburg
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 0c-2.5 0-5 .5-5 3v7.5A2.5 2.5 0 0 0 5.5 13l-.5.5V14h1l1-1h2l1 1h1v-.5l-.5-.5A2.5 2.5 0 0 0 13 10.5V3c0-2.5-2.5-3-5-3zM5.5 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM12 7H4V4h8v3z"/>
           </svg>
-          <span><strong>Coming from IJCAI-ECAI 2026 in Bremen:</strong> Bremen Hbf to Hamburg Hbf is roughly one hour by ICE, then a short walk or U-Bahn ride to ABC-Straße. Book ahead for the best fares.</span>
+          <span><strong>Two boarding points for the morning shuttle:</strong> Munich Hbf at 10:00, and Agile Robots SE at 10:30. Be there five minutes early — the shuttle cannot wait.</span>
         </div>
 
         <div class="od-venue-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
           </svg>
-          <span><strong>Afternoon transfers:</strong> details for the EBiM Evaluation Center and the University of Hamburg lab visits are sent to registered guests by email.</span>
+          <span><strong>The testbed visit is in Augsburg.</strong> The shuttle is the only transport we arrange for it; details go to registered guests by email.</span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0c-2.5 0-5 .5-5 3v7.5A2.5 2.5 0 0 0 5.5 13l-.5.5V14h1l1-1h2l1 1h1v-.5l-.5-.5A2.5 2.5 0 0 0 13 10.5V3c0-2.5-2.5-3-5-3zM5.5 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM12 7H4V4h8v3z"/>
+          </svg>
+          <span><strong>The return shuttle goes to Agile Robots SE only, arriving 15:30.</strong> After the talks and the dinner, please arrange your own way back into the city.</span>
         </div>
 
       </div>
@@ -614,9 +642,11 @@ i18nKey: openDayHamburg
 {% endraw %}
 
 <!-- ============================================================
-     REGISTER — state-gated on site.openDayRegistration
+     REGISTER — state-gated on site.openDayMunichRegistration
      ("open" → live RSVP form | "waitlist" → form + banner + list=waitlist
       | "closed" → no form, closed panel). See _data/site.json.
+     This is the MUNICH key; site.openDayRegistration is Hamburg's and is not
+     read here. The two days run on independent flags.
      ============================================================ -->
 <section id="register">
   <div class="container">
@@ -624,7 +654,7 @@ i18nKey: openDayHamburg
       <h2 class="section-title">Register</h2>
     </div>
 
-{%- if site.openDayRegistration == "closed" %}
+{%- if site.openDayMunichRegistration == "closed" %}
 
     <div class="od-closed fade-in">
       <div class="od-closed-icon" aria-hidden="true">
@@ -633,7 +663,7 @@ i18nKey: openDayHamburg
           <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
       </div>
-      <h3>Registration for the Hamburg Open Day is closed.</h3>
+      <h3>Registration for the Munich Open Day is closed.</h3>
       <p>If you have a question about the day, please <a href="{{ links.contact }}">get in touch</a>.</p>
     </div>
 
@@ -644,19 +674,19 @@ i18nKey: openDayHamburg
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
       </svg>
-      <span>Free to attend. A block of seats is reserved for IJCAI-ECAI 2026 attendees. Registration is open until the program begins on Monday 17 August. The venue seats 80, so seats are limited. Register before you travel — we cannot admit walk-ins. Your seat is confirmed by email; a submitted form is not yet a seat.</span>
+      <span>Free to attend. The shuttle has 60 seats, allocated in registration order — if the shuttle is full when you register, you are still very welcome for the talks and the dinner. Registration stays open until the program begins on Thursday 10 September. Register before you travel — we cannot admit walk-ins. Your place is confirmed by email; a submitted form is not yet a place.</span>
     </div>
 
     <div class="reg-card fade-in">
 
-{%- if site.openDayRegistration == "waitlist" %}
+{%- if site.openDayMunichRegistration == "waitlist" %}
       <div class="od-waitlist">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
           <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
         </svg>
-        <span>All 80 seats are taken. You can still join the waitlist — we will email you if a place opens up.</span>
+        <span>All 60 shuttle seats are taken. You can still register for the talks and dinner, and we'll email you if a seat opens up.</span>
       </div>
 {%- endif %}
 
@@ -668,7 +698,7 @@ i18nKey: openDayHamburg
             data-msg-generic="Something went wrong. Please try again."
             data-msg-network="Network error — please try again later."
             data-sending="Submitting…"
-            data-submit-label="Reserve my seat">
+            data-submit-label="Reserve my place">
 
         <div class="reg-form">
 
@@ -686,7 +716,7 @@ i18nKey: openDayHamburg
 
           <div class="form-field">
             <label class="form-label" for="affiliation">Affiliation (institution / company) <span class="req" aria-hidden="true">*</span></label>
-            <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200" required placeholder="e.g. University of Hamburg" />
+            <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200" required placeholder="e.g. Technical University of Munich" />
           </div>
 
           <div class="form-field">
@@ -695,24 +725,25 @@ i18nKey: openDayHamburg
           </div>
 
           <fieldset class="form-field">
-            <legend class="form-label">Are you attending IJCAI-ECAI 2026 in Bremen? <span class="req" aria-hidden="true">*</span></legend>
+            <legend class="form-label">How will you join the morning site visit? <span class="req" aria-hidden="true">*</span></legend>
             <div class="od-radios">
-              <label class="reg-check"><input type="radio" name="ijcai_attendee" value="Yes" required /> <span>Yes</span></label>
-              <label class="reg-check"><input type="radio" name="ijcai_attendee" value="No" /> <span>No</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="Shuttle from Munich Hbf (10:00)" required /> <span>Shuttle from Munich Hbf (10:00)</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="Shuttle from Agile Robots SE (10:30)" /> <span>Shuttle from Agile Robots SE (10:30)</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="I'll skip the site visit and come for the talks" /> <span>I'll skip the site visit and come for the talks</span></label>
             </div>
           </fieldset>
 
           <fieldset class="form-field">
-            <legend class="form-label">Will you join the afternoon site and lab visits? <span class="req" aria-hidden="true">*</span>
-              <span class="form-label-note">EBiM Evaluation Center + University of Hamburg labs, 14:00–17:00</span></legend>
+            <legend class="form-label">Will you stay for dinner at Agile Robots SE? <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">hosted by Agile Robots, from 18:30</span></legend>
             <div class="od-radios">
-              <label class="reg-check"><input type="radio" name="afternoon_visits" value="Yes" required /> <span>Yes</span></label>
-              <label class="reg-check"><input type="radio" name="afternoon_visits" value="No" /> <span>No</span></label>
+              <label class="reg-check"><input type="radio" name="dinner" value="Yes" required /> <span>Yes</span></label>
+              <label class="reg-check"><input type="radio" name="dinner" value="No" /> <span>No</span></label>
             </div>
           </fieldset>
 
           <div class="form-field">
-            <label class="form-label" for="dietary">Dietary requirements <span class="form-label-note">(optional — lunch is hosted by Google)</span></label>
+            <label class="form-label" for="dietary">Dietary requirements <span class="form-label-note">(optional — lunch and dinner are hosted)</span></label>
             <input class="form-input" type="text" id="dietary" name="dietary" maxlength="200" placeholder="e.g. vegetarian, nut allergy" />
           </div>
 
@@ -722,7 +753,6 @@ i18nKey: openDayHamburg
               <label class="reg-check"><input type="checkbox" name="referral" value="Discord" /> <span>Discord</span></label>
               <label class="reg-check"><input type="checkbox" name="referral" value="WeChat" /> <span>WeChat</span></label>
               <label class="reg-check"><input type="checkbox" name="referral" value="Colleague or word of mouth" /> <span>Colleague or word of mouth</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="IJCAI-ECAI 2026" /> <span>IJCAI-ECAI 2026</span></label>
               <label class="reg-check"><input type="checkbox" name="referral" value="X (Twitter)" /> <span>X (Twitter)</span></label>
               <label class="reg-check"><input type="checkbox" name="referral" value="LinkedIn" /> <span>LinkedIn</span></label>
               <label class="reg-check"><input type="checkbox" name="referral" value="Mailing list" /> <span>Mailing list</span></label>
@@ -737,7 +767,7 @@ i18nKey: openDayHamburg
             <div class="reg-checks">
               <label class="reg-check">
                 <input type="checkbox" name="consent_guestlist" value="Yes" required />
-                <span>I consent to my name and affiliation being shared with Google Germany GmbH for building access. (Required — the venue cannot admit unlisted guests.) <span class="req" aria-hidden="true">*</span></span>
+                <span>I consent to my name and affiliation being shared with Agile Robots SE for building access. (Required — the venue cannot admit unlisted guests.) <span class="req" aria-hidden="true">*</span></span>
               </label>
               <label class="reg-check">
                 <input type="checkbox" name="consent_media_notice" value="Yes" required />
@@ -751,11 +781,11 @@ i18nKey: openDayHamburg
           </div>
 
           <!-- Hidden Web3Forms fields -->
-          <input type="hidden" name="access_key" value="d6f9fc0c-13e6-473f-b8a1-adc21f267e6b" />
-          <input type="hidden" name="from_name" value="EBiM Benchmark — Open Day Hamburg" />
-          <input type="hidden" name="subject" value="[OPEN DAY HAMBURG] New registration" />
-          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/open-day-success.html" />
-{%- if site.openDayRegistration == "waitlist" %}
+          <input type="hidden" name="access_key" value="c4af1beb-1263-4551-ba15-86647ce43ddb" />
+          <input type="hidden" name="from_name" value="EBiM Benchmark — Open Day Munich" />
+          <input type="hidden" name="subject" value="[OPEN DAY MUNICH] New registration" />
+          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/open-day-munich-success.html" />
+{%- if site.openDayMunichRegistration == "waitlist" %}
           <input type="hidden" name="list" value="waitlist" />
 {%- endif %}
 
@@ -777,7 +807,7 @@ i18nKey: openDayHamburg
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
             </svg>
-            <span class="btn-label">Reserve my seat</span>
+            <span class="btn-label">Reserve my place</span>
           </button>
 
           <noscript><p class="reg-noscript">JavaScript is required to complete registration (the spam check needs it). If you can't enable it, email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</p></noscript>
@@ -793,38 +823,22 @@ i18nKey: openDayHamburg
           </svg>
         </div>
         <h2>Thanks!</h2>
-        <p>We have your RSVP. A confirmation email follows; your seat is only held once we confirm it, so please don't travel on this page alone.</p>
+        <p>We have your registration. A confirmation email follows; your place is only held once we confirm it, so please don't travel on this page alone.</p>
         <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">Back to Home</a>
       </div>
 
     </div>
 
-    <p class="reg-privacy fade-in">We use your information only to organize the EBiM Open Day — including sharing your name and affiliation with Google Germany GmbH for building access. We don't sell it or add you to any mailing list. Submissions are processed by Web3Forms.</p>
+    <p class="reg-privacy fade-in">We use your information only to organize the EBiM Open Day — including sharing your name and affiliation with Agile Robots SE for building access. We don't sell it or add you to any mailing list. Submissions are processed by Web3Forms.</p>
 
 {%- endif %}
 
-  </div>
-</section>
-
-<!-- ============================================================
-     CO-LOCATION
-     ============================================================ -->
-<section id="co-location">
-  <div class="container">
-    <div class="text-center fade-in">
-      <h2 class="section-title">A co-location event of IJCAI-ECAI 2026</h2>
-    </div>
-
-    <p class="od-colocation fade-in">
-      The EBiM Open Day — Hamburg is a co-location event of <a href="https://2026.ijcai.org/" target="_blank" rel="noopener">IJCAI-ECAI 2026 <span aria-hidden="true">→</span></a>, the 35th International Joint Conference on Artificial Intelligence, held in Bremen, Germany, 15–21 August 2026.
+    <p class="od-contact-line fade-in">
+      The EBiM Benchmark holds Open Days at several of its testbed sites. <a href="{{ links.openDay }}">See all Open Days</a>, including <a href="{{ links.openDayHamburg }}">Hamburg on 17 August 2026</a> and <a href="{{ links.openDayShanghai }}">Shanghai on 21 August 2026</a>.
     </p>
 
     <p class="od-contact-line fade-in">
-      The EBiM Benchmark holds Open Days at several of its testbed sites. <a href="{{ links.openDay }}">See all Open Days</a>, including <a href="{{ links.openDayShanghai }}">Shanghai on 21 August 2026</a> and <a href="{{ links.openDayMunich }}">Munich on 10 September 2026</a>.
-    </p>
-
-    <p class="od-contact-line fade-in">
-      Questions about the Open Day? <a href="{{ links.contact }}">Get in touch <span aria-hidden="true">→</span></a>
+      Questions about the Open Day? <a href="{{ links.contact }}">Get in touch <span aria-hidden="true">&rarr;</span></a>
     </p>
   </div>
 </section>
@@ -833,7 +847,7 @@ i18nKey: openDayHamburg
 {% endblock %}
 
 {% block trailingScripts %}
-{%- if site.openDayRegistration != "closed" %}
+{%- if site.openDayMunichRegistration != "closed" %}
   {% include "open-day-form-script.njk" %}
   <script src="https://web3forms.com/client/script.js" async defer></script>
 {%- endif %}

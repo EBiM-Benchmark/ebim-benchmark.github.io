@@ -93,5 +93,26 @@
   "openDayShanghaiOrganizers": [
     { "@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/" }
   ],
-  "openDayShanghaiUrl": "https://ebim-benchmark.github.io/open-day-shanghai.html"
+  "openDayShanghaiUrl": "https://ebim-benchmark.github.io/open-day-shanghai.html",
+
+  "_commentOpenDayMunich": "Neutral facts for the Munich Open Day Event JSON-LD on open-day-munich.html, DATE-GATED on openDayMunichStartDate in the same way as the Hamburg and Shanghai gates, and INDEPENDENT of both of them and of the index/competition gate (eventPublishStartDate) — do not couple them. Times are Central European Summer Time (UTC+02:00). Three standing decisions live here. (1) openDayMunichEndDate is 18:00, when the last talk ends, NOT 18:30 or later. The dinner that follows is OPTIONAL and open-ended — it has no published end time, and the page's own schedule row deliberately carries no sched-t-end for it. An Event endDate is a factual claim about when the event stops; extending it to cover an optional social slot with no known end would be inventing data. Do not 'fix' the apparent gap between the 18:00 endDate and the 18:30 dinner row. (2) The morning site visit at the EBiM Munich testbed in AUGSBURG is deliberately NOT modelled — not as a second location, and not as a subEvent. schema.org location on a single Event is the place the event is held; a two-element location array would claim the day happens in both cities at once, and Augsburg is a half-day excursion from the Munich venue, not a co-equal site. Talk-level and segment-level subEvents are omitted site-wide as a standing editorial choice, not a data gap — the same position the Hamburg and Shanghai keys hold. If subEvents are ever added, each needs a real name/startDate/endDate/location, and tests/baseline/open-day-munich.html must be re-cut in the same commit; that one fixture only, since the /zh/ mirror has no golden (verify-zh asserts invariants, not goldens). (3) organizer is the EBiM lead organizing institution (University of Hamburg), exactly as on the other two Open Days. Agile Robots SE HOSTS the venue and is named in openDayMunichLocation.name — hosting a venue is not organizing the event, so do not move Agile Robots SE into organizer, by analogy with Google Germany GmbH at Hamburg and Franka Robotics at Shanghai. Unlike Shanghai this event DOES emit an offers node: the day is public and free, so a price-0 Offer is accurate rather than misleading, and its availability tracks site.openDayMunichRegistration (InStock only at 'open'; 'waitlist' and 'closed' both map to SoldOut). Translatable strings (event name/description, breadcrumb) live in i18n/<lang>.json jsonld.*.",
+  "openDayMunichStartDate": "2026-09-10T10:00:00+02:00",
+  "openDayMunichEndDate": "2026-09-10T18:00:00+02:00",
+  "openDayMunichEventStatus": "https://schema.org/EventScheduled",
+  "openDayMunichEventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "openDayMunichLocation": {
+    "@type": "Place",
+    "name": "Agile Robots SE — Munich",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Plinganserstraße 134",
+      "addressLocality": "Munich",
+      "postalCode": "81369",
+      "addressCountry": "DE"
+    }
+  },
+  "openDayMunichOrganizers": [
+    { "@type": "Organization", "name": "University of Hamburg", "url": "https://www.uni-hamburg.de/" }
+  ],
+  "openDayMunichUrl": "https://ebim-benchmark.github.io/open-day-munich.html"
 }

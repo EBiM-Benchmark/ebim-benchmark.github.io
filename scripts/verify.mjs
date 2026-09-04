@@ -4,7 +4,7 @@
 // captured in tests/baseline/. This is the permanent guard for the invisible
 // i18n refactor (Phase 1a onward): the live English pages must never drift.
 //
-// For each of the 16 built pages it reads the committed baseline fixture
+// For each of the 18 built pages it reads the committed baseline fixture
 // (tests/baseline/<file>) and checks it against the freshly built _site/<file>
 // on four axes:
 //
@@ -15,7 +15,8 @@
 //   comments   — the ordered list of HTML comments is identical.
 //   json-ld    — every <script type="application/ld+json"> block is deep-equal
 //                (order-insensitive) to the baseline. [index/competition/
-//                workshop/contact/open-day/open-day-hamburg/open-day-shanghai]
+//                workshop/contact/open-day/open-day-hamburg/open-day-shanghai/
+//                open-day-munich]
 //   extra      — contact.html: data-slug values + slug-keyed inline script +
 //                untouched form internals. contact-test.html: inline behavior
 //                <script> is byte-for-byte unchanged.
@@ -24,7 +25,7 @@
 // output drifted — fix the template, never the baseline.
 //
 // To re-baseline after an INTENTIONAL English content change: rebuild the site
-// and copy the 16 _site/*.html into tests/baseline/ in the same commit. The
+// and copy the 18 _site/*.html into tests/baseline/ in the same commit. The
 // fixtures are byte-faithful to the build, so a straight copy is the whole
 // procedure — never hand-edit a fixture.
 //
@@ -49,10 +50,12 @@ const PAGES = [
   "open-day.html",
   "open-day-hamburg.html",
   "open-day-shanghai.html",
+  "open-day-munich.html",
   "404.html",
   "contact-success.html",
   "register-success.html",
   "open-day-success.html",
+  "open-day-munich-success.html",
   "contact-test.html",
   "compute-apply.html",
   "compute-success.html",
@@ -65,6 +68,7 @@ const JSONLD_PAGES = new Set([
   "open-day.html",
   "open-day-hamburg.html",
   "open-day-shanghai.html",
+  "open-day-munich.html",
 ]);
 const CONTACT = "contact.html";
 const SCRIPT_UNCHANGED = new Set(["contact-test.html"]);

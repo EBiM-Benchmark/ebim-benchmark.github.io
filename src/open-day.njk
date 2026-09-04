@@ -2,7 +2,7 @@
 permalink: "open-day.html"
 bodyClass: "page-open-day-hub"
 title: "Open Day — EBiM Benchmark"
-description: "EBiM Open Days bring the benchmark to the community in person — talks, live robot demonstrations, and lab visits. Hamburg on 17 August 2026; Shanghai on 21 August 2026."
+description: "EBiM Open Days bring the benchmark to the community in person — talks, live robot demonstrations, and lab visits. Hamburg on 17 August 2026; Shanghai on 21 August 2026; Munich on 10 September 2026."
 keywords: "EBiM Open Day, embodied bimanual manipulation, robotics benchmark, Hamburg, Shanghai, Munich"
 canonical: "https://ebim-benchmark.github.io/open-day.html"
 headComments: true
@@ -18,7 +18,7 @@ i18nKey: openDay
   <meta property="og:site_name"   content="EBiM Benchmark" />
   <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day.html" />
   <meta property="og:title"       content="Open Day — EBiM Benchmark" />
-  <meta property="og:description" content="EBiM Open Days bring the benchmark to the community in person. Hamburg on 17 August 2026; Shanghai on 21 August 2026." />
+  <meta property="og:description" content="EBiM Open Days bring the benchmark to the community in person. Hamburg on 17 August 2026; Shanghai on 21 August 2026; Munich on 10 September 2026." />
   <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
@@ -27,7 +27,7 @@ i18nKey: openDay
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Open Day — EBiM Benchmark" />
-  <meta name="twitter:description" content="EBiM Open Days bring the benchmark to the community in person. Hamburg on 17 August 2026; Shanghai on 21 August 2026." />
+  <meta name="twitter:description" content="EBiM Open Days bring the benchmark to the community in person. Hamburg on 17 August 2026; Shanghai on 21 August 2026; Munich on 10 September 2026." />
   <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
 {% include "jsonld.njk" %}
@@ -120,8 +120,6 @@ i18nKey: openDay
     .odh-link:hover { text-decoration: underline; }
     @media (max-width: 540px) { .odh-card { padding: 1.5rem 1.25rem; } }
 
-    .odh-more { max-width: 860px; margin: 2.25rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.65; }
-
     /* Clarifier callout — Open Days are NOT the Phase III workshop */
     .od-callout {
       display: flex; align-items: flex-start; gap: .7rem; max-width: 860px; margin: 2.5rem auto 0;
@@ -158,7 +156,7 @@ i18nKey: openDay
     <div class="od-eyebrow">Open Day</div>
 
     <h1 class="subhero-title">EBiM Open Days</h1>
-    <p class="subhero-subtitle">EBiM Open Days bring the benchmark to the community in person &mdash; talks from invited speakers and members of the benchmark team, live demonstrations on the Mobile FR3 Duo platform, and visits to the labs and evaluation centers where the real-robot work happens. Hamburg in August, Shanghai later the same month.</p>
+    <p class="subhero-subtitle">EBiM Open Days bring the benchmark to the community in person &mdash; talks from invited speakers and members of the benchmark team, live demonstrations on the Mobile FR3 Duo platform, and visits to the labs and evaluation centers where the real-robot work happens. Hamburg and Shanghai in August, Munich in September.</p>
   </div>
 </section>
 {% endraw %}
@@ -188,9 +186,14 @@ i18nKey: openDay
         <a class="odh-link" href="{{ links.openDayShanghai }}">Shanghai Open Day <span aria-hidden="true">&rarr;</span></a>
       </div>
 
-    </div>
+      <div class="odh-card">
+        <div class="odh-city">Munich &mdash; Thursday, 10 September 2026</div>
+        <div class="odh-meta">Agile Robots SE, Munich &middot; 10:00&ndash;18:00 CEST &middot; Free, registration required &middot; Testbed visit in Augsburg</div>
+        <p class="odh-desc">A site visit and live demonstration at the EBiM Munich testbed in Augsburg, an afternoon of talks at Agile Robots SE, and dinner. Shuttle transport from Munich.</p>
+        <a class="odh-link" href="{{ links.openDayMunich }}">Munich Open Day <span aria-hidden="true">&rarr;</span></a>
+      </div>
 
-    <p class="odh-more fade-in">Further Open Days are planned at the Munich testbed. Dates will be announced here.</p>
+    </div>
 
     <div class="od-callout fade-in">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
