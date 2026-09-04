@@ -10,14 +10,14 @@
 //             front-matter title/description.
 //   jsonLd  — the assembled JSON-LD block list (comment + object) for the
 //             index/competition/workshop/contact/openDay/openDayHamburg/
-//             openDayShanghai pages, rendered
+//             openDayShanghai/openDayMunich pages, rendered
 //             by _includes/jsonld.njk. Sourced from the language-neutral `event`
 //             data + translatable `t.jsonld` strings; deep-equal to the
 //             hand-authored blocks — EXCEPT the date-gated Events. index,
 //             competition and workshop each gate their Event on a date key that
 //             is currently ABSENT, so they emit only Organization (+
-//             BreadcrumbList), while openDayHamburg's and openDayShanghai's gates
-//             are OPEN (a real date and venue exist for each) and do emit their
+//             BreadcrumbList), while openDayHamburg's, openDayShanghai's and
+//             openDayMunich's gates are OPEN (a real date and venue exist for each) and do emit their
 //             Events. openDay is the Open Day HUB — a listing page, not an event —
 //             so it never emits one. Each gate is
 //             independent; see the per-key blocks below.
@@ -59,7 +59,7 @@ const isPublished = (data) => {
 
 // The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
 // and the jsonld.* strings). `i18nKey` (the four content pages as of Phase 2b,
-// plus the registration, FAQ and Hamburg Open Day pages added later — each has a
+// plus the registration, FAQ and the three dated Open Day pages added later — each has a
 // localized /zh/ counterpart) doubles as this key; `pageKey` is the
 // EN-only equivalent for a page that draws from the shared data WITHOUT
 // participating in localization (the Phase 2a state of workshop/contact, before
@@ -74,10 +74,10 @@ const pageDataKey = (data) => data.i18nKey || data.pageKey;
 // the EN page (used on a /zh/ page, linking back to English), `zh` is the path
 // to the /zh/ page (used on the EN page, linking out to 中文). These are the
 // SAME page pairs the reciprocal hreflang advertises — kept here as nav-relative
-// links (hreflangAlternates emits the absolute forms). All nine localized pages
-// have a row; the toggle only RENDERS where isPublished is true — all nine
+// links (hreflangAlternates emits the absolute forms). All ten localized pages
+// have a row; the toggle only RENDERS where isPublished is true — all ten
 // published (index/competition/workshop/contact since Phase 2c, register + faq since,
-// openDayHamburg since, openDay + openDayShanghai since) (a page returned to draft
+// openDayHamburg since, openDay + openDayShanghai since, openDayMunich since) (a page returned to draft
 // would silently drop its toggle, no template change).
 const TOGGLE_HREFS = {
   index: { en: "../", zh: "zh/" },
@@ -86,11 +86,12 @@ const TOGGLE_HREFS = {
   faq: { en: "../faq.html", zh: "zh/faq.html" },
   contact: { en: "../contact.html", zh: "zh/contact.html" },
   register: { en: "../register.html", zh: "zh/register.html" },
-  // The Open Day family: the hub (openDay) lists every Open Day; the two dated
-  // pages sit under it. All three are separate localized pairs.
+  // The Open Day family: the hub (openDay) lists every Open Day; the three dated
+  // pages sit under it. All four are separate localized pairs.
   openDay: { en: "../open-day.html", zh: "zh/open-day.html" },
   openDayHamburg: { en: "../open-day-hamburg.html", zh: "zh/open-day-hamburg.html" },
   openDayShanghai: { en: "../open-day-shanghai.html", zh: "zh/open-day-shanghai.html" },
+  openDayMunich: { en: "../open-day-munich.html", zh: "zh/open-day-munich.html" },
 };
 
 // Absolute en / zh URLs for each localized pair, the source of the reciprocal
@@ -129,6 +130,10 @@ const HREFLANG_PAIRS = {
   openDayShanghai: {
     en: "https://ebim-benchmark.github.io/open-day-shanghai.html",
     zh: "https://ebim-benchmark.github.io/zh/open-day-shanghai.html",
+  },
+  openDayMunich: {
+    en: "https://ebim-benchmark.github.io/open-day-munich.html",
+    zh: "https://ebim-benchmark.github.io/zh/open-day-munich.html",
   },
 };
 
@@ -175,9 +180,9 @@ export default {
   // so these must MATCH the body links for each page (do NOT auto-flip on the
   // publish flag, or the navbar would diverge from the still-hardcoded body).
   // EN keeps the exact current relative filenames (byte-identical render). All
-  // nine /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
+  // ten /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
   // + competition; register + faq added since, then the Hamburg Open Day, then the
-  // Open Day hub + the Shanghai Open Day), so every
+  // Open Day hub + the Shanghai Open Day, then the Munich Open Day), so every
   // zh chrome link is localized — relative, resolving
   // under /zh/. The hardcoded zh bodies were repointed to match in the same
   // commit (../workshop.html → workshop.html, ../contact.html → contact.html,
@@ -199,6 +204,7 @@ export default {
           openDay: "/open-day.html",
           openDayHamburg: "/open-day-hamburg.html",
           openDayShanghai: "/open-day-shanghai.html",
+          openDayMunich: "/open-day-munich.html",
           faq: "/faq.html",
           contact: "/contact.html",
           register: "/register.html",
@@ -211,6 +217,7 @@ export default {
             openDay: "open-day.html",
             openDayHamburg: "open-day-hamburg.html",
             openDayShanghai: "open-day-shanghai.html",
+            openDayMunich: "open-day-munich.html",
             faq: "faq.html",
             contact: "contact.html",
             register: "register.html",
@@ -222,6 +229,7 @@ export default {
             openDay: "open-day.html",
             openDayHamburg: "open-day-hamburg.html",
             openDayShanghai: "open-day-shanghai.html",
+            openDayMunich: "open-day-munich.html",
             faq: "faq.html",
             contact: "contact.html",
             register: "register.html",
@@ -252,8 +260,8 @@ export default {
   // In-page language toggle, consumed by navbar.njk. Present ONLY on a PUBLISHED
   // localized page — its i18nKey is in TOGGLE_HREFS AND its own zhPublished[key]
   // flag is true, so the toggle is visible exactly where the reciprocal hreflang
-  // is emitted (all nine localized pairs — the four content pages plus register,
-  // faq, the Open Day hub and the two dated Open Day pages).
+  // is emitted (all ten localized pairs — the four content pages plus register,
+  // faq, the Open Day hub and the three dated Open Day pages).
   // Returns null everywhere
   // else, so the navbar renders with NO toggle (byte-identical to the pre-toggle
   // output on the EN-only utility pages, and on any /zh/ page returned to draft).
@@ -283,7 +291,8 @@ export default {
   jsonLd: (data) => {
     const key = pageDataKey(data);
     if (
-      !["index", "competition", "workshop", "contact", "openDay", "openDayHamburg", "openDayShanghai"].includes(key)
+      !["index", "competition", "workshop", "contact", "openDay", "openDayHamburg", "openDayShanghai", "openDayMunich"]
+        .includes(key)
     )
       return undefined;
     const ev = data.event;
@@ -567,6 +576,73 @@ export default {
             organizer: ev.openDayShanghaiOrganizers,
             url: data.canonical,
             image: ev.image,
+          },
+        });
+      }
+      return blocks;
+    }
+
+    if (key === "openDayMunich") {
+      // The Munich Open Day Event, date-gated on ev.openDayMunichStartDate — the same
+      // shape as the Hamburg branch, and OPEN for the same reason: a real date
+      // (2026-09-10) and a real venue (Agile Robots SE, Munich) exist, so a valid Event
+      // IS emitted today. The gate is kept so the Event can be withheld by deleting one
+      // key if the day is ever postponed to an unknown date, degrading the page to
+      // Organization + BreadcrumbList rather than a stale EventScheduled. This gate is
+      // INDEPENDENT of the Hamburg gate, the Shanghai gate and ev.eventPublishStartDate
+      // — do NOT couple them.
+      //   Unlike Shanghai, this day KEEPS an `offers` node: Munich is public and free,
+      // exactly like Hamburg, so advertising a free Offer is accurate here. Its
+      // availability reads site.openDayMunichRegistration — the MUNICH flag, never
+      // site.openDayRegistration, which is Hamburg's and sat at "closed" while this day
+      // was still open. That independence is the whole reason the second key exists.
+      // Note the flag has three states but the Offer only two: "waitlist" maps to
+      // SoldOut alongside "closed", because at that point the 60 shuttle seats are gone
+      // and a structured InStock claim would overstate what the form can still take.
+      //   Talk-level subEvents are deliberately omitted, the same standing editorial
+      // choice as the other two Open Days — not a data gap, even though two of the four
+      // talks are still unassigned. Adding them means a real name/startDate/endDate/
+      // location each; an Event node without those is an invalid rich result.
+      const blocks = [
+        { comment: "Structured data: Organization schema", data: organizationSchema(ev, t) },
+        {
+          comment: "Structured data: Breadcrumbs",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: j.breadcrumbHome, item: ev.siteUrl },
+              { "@type": "ListItem", position: 2, name: j.breadcrumbOpenDayMunich, item: data.canonical },
+            ],
+          },
+        },
+      ];
+      if (typeof ev.openDayMunichStartDate === "string") {
+        blocks.unshift({
+          comment: "Structured data: Open Day Event",
+          data: {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: j.eventNameOpenDayMunich,
+            description: j.eventDescriptionOpenDayMunich,
+            startDate: ev.openDayMunichStartDate,
+            endDate: ev.openDayMunichEndDate,
+            eventStatus: ev.openDayMunichEventStatus,
+            eventAttendanceMode: ev.openDayMunichEventAttendanceMode,
+            location: ev.openDayMunichLocation,
+            organizer: ev.openDayMunichOrganizers,
+            url: data.canonical,
+            image: ev.image,
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "EUR",
+              url: ev.openDayMunichUrl,
+              availability:
+                ((data.site && data.site.openDayMunichRegistration) === "open")
+                  ? "https://schema.org/InStock"
+                  : "https://schema.org/SoldOut",
+            },
           },
         });
       }

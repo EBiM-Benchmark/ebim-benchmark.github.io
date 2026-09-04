@@ -1,23 +1,23 @@
 // /zh/ locale harness (Phase 1b → 1d published index/competition; Phase 2b added
 // workshop + contact as drafts; Phase 2c published them; register shipped
 // published later; the FAQ page was added and published since, then the Hamburg
-// Open Day page, then the Open Day hub + the Shanghai Open Day page — all nine
-// /zh/ pages are now live).
+// Open Day page, then the Open Day hub + the Shanghai Open Day page, then the
+// Munich Open Day page — all ten /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the NINE pages we now ship: /zh/index.html,
+// is actually localized, for the TEN pages we now ship: /zh/index.html,
 // /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html,
 // /zh/register.html, /zh/open-day.html, /zh/open-day-hamburg.html,
-// /zh/open-day-shanghai.html.
-// It also covers the hidden /zh/contact-success.html, /zh/register-success.html and
-// /zh/open-day-success.html utility pages (the no-JS targets of the zh
-// contact/register/Open Day form redirects) and
+// /zh/open-day-shanghai.html, /zh/open-day-munich.html.
+// It also covers the hidden /zh/contact-success.html, /zh/register-success.html,
+// /zh/open-day-success.html and /zh/open-day-munich-success.html utility pages
+// (the no-JS targets of the zh contact/register/Open Day form redirects) and
 // the UNLISTED /zh/compute-apply.html + its /zh/compute-success.html target (the
 // compute-resource application emailed privately to registered teams) — all plain
 // noindex zh pages with no hreflang/toggle and out of the sitemap (see
 // contactSuccessChecks / registerSuccessChecks / openDaySuccessChecks /
-// computeApplyChecks / computeSuccessChecks below).
+// openDayMunichSuccessChecks / computeApplyChecks / computeSuccessChecks below).
 //
 // Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
 // by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
@@ -175,6 +175,20 @@ const PAGES = [
     enGone: "What this day is",
     zhHas: "这一天是什么",
   },
+  {
+    // Munich deliberately does NOT reuse the "What this day is" / "这一天是什么" pair that
+    // Hamburg and Shanghai share: three pages on one discriminator means a half-translated
+    // Munich page could pass on a string it inherited from a sibling. "Getting there and
+    // back" / "如何前往与返回" is its own #venue heading and appears on no other page.
+    key: "openDayMunich",
+    file: "zh/open-day-munich.html",
+    canonical: `${SITE_ORIGIN}/zh/open-day-munich.html`,
+    enUrl: `${SITE_ORIGIN}/open-day-munich.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/open-day-munich.html`,
+    enToggleHref: "../open-day-munich.html",
+    enGone: "Getting there and back",
+    zhHas: "如何前往与返回",
+  },
 ];
 
 // The EN file each localized page mirrors (used for the hreflang sweep + the
@@ -189,6 +203,7 @@ const EN_FILE = {
   openDay: "open-day.html",
   openDayHamburg: "open-day-hamburg.html",
   openDayShanghai: "open-day-shanghai.html",
+  openDayMunich: "open-day-munich.html",
 };
 
 // The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every
@@ -614,6 +629,82 @@ function openDaySuccessChecks() {
   return checks;
 }
 
+// The hidden /zh/ utility page for the MUNICH Open Day: the no-JS target of that
+// day's zh RSVP form (src/zh/open-day-munich-success.njk). Identical in shape to
+// openDaySuccessChecks above, but pinned at the Munich pair — the two days have
+// SEPARATE success pages and SEPARATE Web3Forms access keys, so a copy-pasted
+// Hamburg redirect on the Munich form would land Munich registrants on the Hamburg
+// confirmation and must fail here. The redirect block is state-aware for the same
+// reason as Hamburg's, but reads site.openDayMunichRegistration: at "closed" the
+// Munich page renders a closed panel with no form and there is no redirect to pin.
+function openDayMunichSuccessChecks() {
+  const file = "zh/open-day-munich-success.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/open-day-munich-success.html" />',
+    ),
+    "expected self canonical to /zh/open-day-munich-success.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden utility page must emit no hreflang");
+  add(
+    "no language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden utility page must not render the language toggle",
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  const applyFile = "zh/open-day-munich.html";
+  if (exists(applyFile)) {
+    const applyHtml = read(applyFile);
+    if (applyHtml.includes('name="redirect"')) {
+      add(
+        "zh Munich Open Day form redirect → /zh/open-day-munich-success.html",
+        applyHtml.includes(
+          'name="redirect" value="https://ebim-benchmark.github.io/zh/open-day-munich-success.html"',
+        ),
+        "zh/open-day-munich.html must redirect to the zh Munich success page",
+      );
+    } else {
+      add(
+        "zh Munich Open Day form absent (registration closed) — no redirect to pin",
+        !applyHtml.includes("<form"),
+        "zh/open-day-munich.html carries a form but no redirect field",
+      );
+    }
+  }
+
+  return checks;
+}
+
 // The hidden /zh/ UNLISTED compute-resource application page
 // (src/zh/compute-apply.njk). Same shape as the success-page checks — NO
 // i18nKey, so it carries NO hreflang, NO language toggle, and stays OUT of the
@@ -778,6 +869,17 @@ function main() {
   }
   console.log("");
 
+  // ── hidden /zh/ utility page (open-day-munich-success) ──
+  console.log(BOLD("• zh/open-day-munich-success.html  (HIDDEN UTILITY)"));
+  for (const c of openDayMunichSuccessChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/open-day-munich-success.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
+
   // ── hidden /zh/ UNLISTED compute application page ──
   console.log(BOLD("• zh/compute-apply.html  (HIDDEN UNLISTED)"));
   for (const c of computeApplyChecks()) {
@@ -852,6 +954,11 @@ function main() {
     "sitemap excludes /zh/open-day-success.html (hidden utility)",
     !sitemap.includes("/zh/open-day-success.html"),
     "/zh/open-day-success.html must not appear in sitemap.xml",
+  );
+  siteAdd(
+    "sitemap excludes /zh/open-day-munich-success.html (hidden utility)",
+    !sitemap.includes("/zh/open-day-munich-success.html"),
+    "/zh/open-day-munich-success.html must not appear in sitemap.xml",
   );
   siteAdd(
     "sitemap excludes /zh/compute-apply.html (hidden unlisted)",

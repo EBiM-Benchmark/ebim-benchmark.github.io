@@ -131,8 +131,11 @@
     "breadcrumbOpenDayHamburg": "开放日 · 汉堡",
     "eventNameOpenDayShanghai": "EBiM Benchmark 开放日 · 上海",
     "eventDescriptionOpenDayShanghai": "EBiM Benchmark 于上海举办的半日开放日：关于机器人教育、医疗健康 AI 与 VLA 机器人真实落地的讲座，以及 Mobile FR3 Duo 比赛现场参观。凭邀请参加。",
+    "eventNameOpenDayMunich": "EBiM Benchmark 开放日 · 慕尼黑",
+    "eventDescriptionOpenDayMunich": "EBiM Benchmark 于 Agile Robots SE 举办的一日线下开放日：奥格斯堡 EBiM 慕尼黑测试台参访与实机演示、下午的特邀讲座，以及晚餐。免费，需报名。",
     "breadcrumbOpenDay": "开放日",
     "breadcrumbOpenDayShanghai": "开放日 · 上海",
+    "breadcrumbOpenDayMunich": "开放日 · 慕尼黑",
     "contactPageName": "联系我们 · EBiM Benchmark",
     "contactPageDescription": "EBiM Benchmark 具身双臂操作计划的联系表单。",
     "breadcrumbContact": "联系"

@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Day — EBiM Benchmark</title>
-  <meta name="description" content="EBiM Open Days bring the benchmark to the community in person — talks, live robot demonstrations, and lab visits. Hamburg on 17 August 2026; Shanghai on 21 August 2026; Munich on 10 September 2026." />
-  <meta name="keywords" content="EBiM Open Day, embodied bimanual manipulation, robotics benchmark, Hamburg, Shanghai, Munich" />
+  <title>Open Day · Munich — EBiM Benchmark</title>
+  <meta name="description" content="EBiM Open Day, Munich — Thursday 10 September 2026, Agile Robots SE. Free; registration required. Talks, a testbed site visit in Augsburg, and dinner." />
+  <meta name="keywords" content="EBiM Open Day, Munich, Augsburg, embodied bimanual manipulation, robotics benchmark, Agile Robots, Franka Robotics, testbed visit" />
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://ebim-benchmark.github.io/open-day.html" />
-  <link rel="alternate" hreflang="en" href="https://ebim-benchmark.github.io/open-day.html" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://ebim-benchmark.github.io/zh/open-day.html" />
-  <link rel="alternate" hreflang="x-default" href="https://ebim-benchmark.github.io/open-day.html" />
+  <link rel="canonical" href="https://ebim-benchmark.github.io/open-day-munich.html" />
+  <link rel="alternate" hreflang="en" href="https://ebim-benchmark.github.io/open-day-munich.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://ebim-benchmark.github.io/zh/open-day-munich.html" />
+  <link rel="alternate" hreflang="x-default" href="https://ebim-benchmark.github.io/open-day-munich.html" />
 
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="EBiM Benchmark" />
-  <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day.html" />
-  <meta property="og:title"       content="Open Day — EBiM Benchmark" />
-  <meta property="og:description" content="EBiM Open Days bring the benchmark to the community in person. Hamburg on 17 August 2026; Shanghai on 21 August 2026; Munich on 10 September 2026." />
+  <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day-munich.html" />
+  <meta property="og:title"       content="Open Day · Munich — EBiM Benchmark" />
+  <meta property="og:description" content="EBiM Open Day, Munich — Thursday 10 September 2026, Agile Robots SE. Free; registration required." />
   <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
@@ -26,10 +26,51 @@
   <meta property="og:locale"      content="en_US" />
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Open Day — EBiM Benchmark" />
-  <meta name="twitter:description" content="EBiM Open Days bring the benchmark to the community in person. Hamburg on 17 August 2026; Shanghai on 21 August 2026; Munich on 10 September 2026." />
+  <meta name="twitter:title"       content="Open Day · Munich — EBiM Benchmark" />
+  <meta name="twitter:description" content="EBiM Open Day, Munich — Thursday 10 September 2026, Agile Robots SE. Free; registration required." />
   <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta name="twitter:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+
+  <!-- Structured data: Open Day Event -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "EBiM Benchmark Open Day — Munich",
+  "description": "A one-day, in-person Open Day for the EBiM Benchmark at Agile Robots SE in Munich: a site visit and live demonstration at the EBiM Munich testbed in Augsburg, an afternoon of invited talks, and dinner. Free; registration required.",
+  "startDate": "2026-09-10T10:00:00+02:00",
+  "endDate": "2026-09-10T18:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "Agile Robots SE — Munich",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Plinganserstraße 134",
+      "addressLocality": "Munich",
+      "postalCode": "81369",
+      "addressCountry": "DE"
+    }
+  },
+  "organizer": [
+    {
+      "@type": "Organization",
+      "name": "University of Hamburg",
+      "url": "https://www.uni-hamburg.de/"
+    }
+  ],
+  "url": "https://ebim-benchmark.github.io/open-day-munich.html",
+  "image": "https://ebim-benchmark.github.io/img/og-cover.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "url": "https://ebim-benchmark.github.io/open-day-munich.html",
+    "availability": "https://schema.org/InStock"
+  }
+}
+  </script>
 
   <!-- Structured data: Organization schema -->
   <script type="application/ld+json">
@@ -65,8 +106,8 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Open Day",
-      "item": "https://ebim-benchmark.github.io/open-day.html"
+      "name": "Open Day · Munich",
+      "item": "https://ebim-benchmark.github.io/open-day-munich.html"
     }
   ]
 }
@@ -87,8 +128,9 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
 
-    /* Active nav link for the current page (Open Day → the hub) */
-    .page-open-day-hub .nav-links a[href="open-day.html"] { color: var(--accent); font-weight: 700; }
+    /* Active nav link for the current page (Open Day → the hub, which this page
+       lives under; the navbar item points at open-day.html, not at this page) */
+    .page-open-day .nav-links a[href="open-day.html"] { color: var(--accent); font-weight: 700; }
 
     /* Back to top */
     #back-to-top {
@@ -104,7 +146,7 @@
     #back-to-top:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
     #back-to-top svg { pointer-events: none; }
 
-    /* ── Sub-page hero (copied from open-day-hamburg.njk) ── */
+    /* ── Sub-page hero (copied from register.njk) ── */
     #home.subhero {
       min-height: 32vh; display: flex; align-items: center; justify-content: center;
       position: relative; background: var(--bg-dark); overflow: hidden;
@@ -130,41 +172,37 @@
     .breadcrumb-current { color: var(--accent); }
     .subhero-title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); color: #fff; font-weight: 800; line-height: 1.18; margin-bottom: .9rem; letter-spacing: -.01em; }
     .subhero-subtitle { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,.72); margin-bottom: .8rem; max-width: 660px; margin-left: auto; margin-right: auto; }
+    .subhero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.4rem; }
     @media (max-width: 700px) { #home.subhero { min-height: 46vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
-    /* Hero eyebrow. Unlike open-day-hamburg.njk this forces its OWN line: the
-       pill is shrink-to-fit and the breadcrumb above it is inline-block, so a
-       SHORT eyebrow ("Open Day") rides up beside the breadcrumb and renders as
-       "Home / Open Day [Open Day]" on one cramped line. Hamburg only escapes
-       that because its eyebrow text is long enough to wrap on its own.
-       block + max-content keeps the pill hugging its text AND breaks the line. */
+    /* Hero eyebrow + fact line. Unlike open-day-hamburg.njk the eyebrow forces
+       its OWN line: the pill is shrink-to-fit and the breadcrumb above it is
+       inline-block, so a SHORT eyebrow ("Open Day · Munich") rides up beside
+       the breadcrumb and renders the label twice on one cramped line. Hamburg
+       only escapes that because its eyebrow text is long enough to wrap on its
+       own. block + max-content keeps the pill hugging its text AND breaks the line. */
     .od-eyebrow {
       display: block; width: max-content; max-width: 100%;
       margin: 0 auto 1rem; padding: .3rem .9rem; border-radius: 100px;
       background: rgba(0,212,255,.10); border: 1px solid rgba(0,212,255,.35);
       font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
     }
+    .od-hero-meta { font-size: .95rem; font-weight: 600; color: rgba(255,255,255,.9); margin-bottom: .9rem; }
 
-    /* ── The Open Day cards ── */
-    .odh-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1.75rem; margin-top: 2.5rem;
+    /* ── #about — who should come ── */
+    .who-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; margin-top: 2.5rem;
     }
-    .odh-card {
-      display: flex; flex-direction: column; gap: .7rem;
-      background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px;
-      padding: 2rem 1.75rem; box-shadow: var(--card-shadow);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    .who-card {
+      background: var(--bg-white); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.5rem 1.35rem; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     }
-    .odh-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,.45); box-shadow: 0 10px 30px rgba(10,14,26,.08); }
-    .odh-city { font-size: 1.15rem; font-weight: 800; color: var(--bg-dark); line-height: 1.3; }
-    .odh-meta { font-size: .85rem; font-weight: 600; color: var(--accent-dark); line-height: 1.55; }
-    .odh-desc { font-size: .95rem; line-height: 1.65; color: var(--text-mid); }
-    .odh-link { margin-top: auto; padding-top: .6rem; font-size: .95rem; font-weight: 700; color: var(--accent-dark); }
-    .odh-link:hover { text-decoration: underline; }
-    @media (max-width: 540px) { .odh-card { padding: 1.5rem 1.25rem; } }
+    .who-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,.45); box-shadow: 0 10px 30px rgba(10,14,26,.08); }
+    .who-card h3 { font-size: 1.02rem; font-weight: 800; color: var(--bg-dark); margin-bottom: .5rem; }
+    .who-card p { font-size: .92rem; line-height: 1.6; color: var(--text-mid); }
 
-    /* Clarifier callout — Open Days are NOT the Phase III workshop */
+    /* Clarifier callout — this is NOT the Phase III workshop */
     .od-callout {
       display: flex; align-items: flex-start; gap: .7rem; max-width: 860px; margin: 2.5rem auto 0;
       background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.32); border-radius: 12px;
@@ -172,12 +210,113 @@
     }
     .od-callout svg { flex-shrink: 0; margin-top: .15rem; color: #b45309; }
 
+    /* ── #program — schedule note + speaker cards (sched-* / talk-card conventions) ── */
+    .od-sched-note { max-width: 860px; margin: 1.25rem auto 0; text-align: center; font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+    .talks-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .talk-card {
+      background: #fff; border: 1px solid rgba(10,14,26,.08); border-radius: 14px;
+      padding: 1.6rem 1.25rem 1.4rem; text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .talk-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,.45); box-shadow: 0 10px 30px rgba(10,14,26,.08); }
+    .talk-card .org-avatar, .talk-card .org-photo { margin-bottom: .9rem; }
+    .talk-speaker-name { font-size: 1.02rem; font-weight: 800; color: var(--bg-dark); margin-bottom: .25rem; }
+    .talk-speaker-affil { font-size: .82rem; color: var(--text-muted); margin-bottom: .9rem; line-height: 1.4; }
+    .talk-title { font-size: .95rem; font-weight: 600; line-height: 1.5; color: var(--accent-dark); font-style: italic; margin-top: auto; }
+    .od-speakers-head { max-width: 860px; margin: 3.5rem auto 0; text-align: center; }
+    .od-speakers-head h3 { font-size: 1.3rem; font-weight: 800; color: var(--bg-dark); }
+
+    /* ── #venue ── */
+    .od-venue-card {
+      max-width: 860px; margin: 2.5rem auto 0; background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem 2rem; box-shadow: var(--card-shadow);
+    }
+    .od-venue-list { display: flex; flex-direction: column; gap: 1.1rem; }
+    .od-venue-item { display: flex; align-items: flex-start; gap: .8rem; font-size: .95rem; line-height: 1.65; color: var(--text-mid); }
+    .od-venue-item svg { flex-shrink: 0; margin-top: .2rem; color: var(--accent-dark); }
+    .od-venue-item strong { color: var(--text-dark); }
+    @media (max-width: 540px) { .od-venue-card { padding: 1.5rem 1.25rem; } }
+
+    /* ── #register — card + form (reused from register.njk) ── */
+    .reg-card { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); }
+    .reg-form { display: flex; flex-direction: column; gap: 1.6rem; }
+
+    .form-field { display: flex; flex-direction: column; gap: .4rem; }
+    .form-label { font-size: .85rem; font-weight: 700; color: var(--text-dark); letter-spacing: .005em; }
+    .form-label .req { color: #dc2626; margin-left: .15rem; }
+    .form-label-note { font-weight: 500; color: var(--text-muted); font-size: .78rem; margin-left: .15rem; }
+    .form-input {
+      width: 100%; font-family: inherit; font-size: .95rem; color: var(--text-dark);
+      background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px;
+      padding: .72rem .9rem; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .form-input::placeholder { color: #64748b; }
+    .form-input:focus {
+      outline: none; border-color: var(--accent); background: var(--bg-white); box-shadow: 0 0 0 3px rgba(0,212,255,.16);
+    }
+
+    fieldset.form-field { border: 0; margin: 0; padding: 0; min-width: 0; }
+    fieldset.form-field > legend { padding: 0; }                 /* legend styled via .form-label class */
+    .reg-checks { display: flex; flex-direction: column; gap: .55rem; margin-top: .5rem; }
+    .reg-check { display: flex; align-items: flex-start; gap: .6rem; font-size: .92rem; color: var(--text-dark); line-height: 1.45; cursor: pointer; }
+    .reg-check input[type="checkbox"], .reg-check input[type="radio"] { margin-top: .15rem; width: 1.05rem; height: 1.05rem; accent-color: var(--accent-dark); flex-shrink: 0; }
+    .reg-check-other { margin-top: .3rem; }
+    /* Yes/No radio groups sit on one row */
+    .od-radios { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: .5rem; }
+    .od-radios .reg-check { font-weight: 600; }
+
+    /* Seats / registration notice above the form */
+    .od-notice {
+      display: flex; align-items: flex-start; gap: .65rem; max-width: 760px; margin: 0 auto 1.5rem;
+      background: rgba(0,212,255,.06); border: 1px solid rgba(0,212,255,.28); border-radius: 12px;
+      padding: .9rem 1.1rem; font-size: .9rem; color: var(--text-mid); line-height: 1.55;
+    }
+    .od-notice svg { flex-shrink: 0; margin-top: .15rem; color: var(--accent-dark); }
+
+    /* Waitlist banner (site.openDayMunichRegistration == "waitlist") */
+    .od-waitlist {
+      display: flex; align-items: flex-start; gap: .65rem; margin-bottom: 1.5rem;
+      background: rgba(245,158,11,.09); border: 1px solid rgba(245,158,11,.4); border-radius: 12px;
+      padding: .9rem 1.1rem; font-size: .92rem; color: #92400e; font-weight: 600; line-height: 1.55;
+    }
+    .od-waitlist svg { flex-shrink: 0; margin-top: .15rem; }
+
+    /* Closed panel (site.openDayMunichRegistration == "closed") — no form at all */
+    .od-closed { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); text-align: center; }
+    .od-closed-icon { width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%; background: rgba(100,116,139,.12); border: 1px solid rgba(100,116,139,.35); color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+    .od-closed h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: .6rem; }
+    .od-closed p { color: var(--text-mid); font-size: .98rem; line-height: 1.65; max-width: 460px; margin: 0 auto; }
+    .od-closed a { color: var(--accent-dark); font-weight: 600; }
+
+    /* Submit button */
+    .btn-submit { width: 100%; justify-content: center; background: var(--accent); color: var(--bg-dark); font-size: 1rem; padding: .95rem 2rem; margin-top: .25rem; }
+    .btn-submit:hover:not(:disabled) { background: var(--accent-dark); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,.28); }
+    .btn-submit:disabled { opacity: .65; cursor: not-allowed; }
+    .btn-submit:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
+
+    /* Inline error + success (same structure/classes as register) */
+    .form-error[hidden] { display: none; }
+    .form-error { display: flex; align-items: flex-start; gap: .55rem; background: rgba(220,38,38,.07); border: 1px solid rgba(220,38,38,.3); color: #b91c1c; border-radius: 8px; padding: .75rem .9rem; font-size: .88rem; line-height: 1.5; }
+    .form-error svg { flex-shrink: 0; margin-top: .1rem; }
+    .form-success { text-align: center; padding: 1rem .5rem; }
+    .form-success-icon { width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%; background: rgba(0,212,255,.12); border: 1px solid rgba(0,212,255,.4); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
+    .form-success h2 { font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: .6rem; }
+    .form-success p { color: var(--text-mid); font-size: 1rem; line-height: 1.65; max-width: 440px; margin: 0 auto 1.5rem; }
+
+    .reg-noscript { max-width: 760px; margin: 1rem auto 0; text-align: center; font-size: .85rem; color: #b91c1c; }
+    .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+    @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
+
     .od-contact-line { max-width: 760px; margin: 2.5rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
     .od-contact-line a { color: var(--accent-dark); font-weight: 600; }
   </style>
 
 </head>
-<body class="page-open-day-hub">
+<body class="page-open-day">
 
 <nav id="navbar" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -243,7 +382,7 @@
       <li class="nav-lang">
         <span class="lang-toggle" role="group" aria-label="Language">
           <span class="lang-opt is-active" lang="en" aria-current="true">EN</span>
-          <a class="lang-opt" lang="zh-Hans" hreflang="zh-Hans" href="zh/open-day.html">中文</a>
+          <a class="lang-opt" lang="zh-Hans" hreflang="zh-Hans" href="zh/open-day-munich.html">中文</a>
         </span>
       </li>
     </ul>
@@ -252,12 +391,12 @@
 
 
 
+
 <main id="main-content">
 
 <!-- ============================================================
      HERO
      ============================================================ -->
-
 <section id="home" class="subhero">
   <div class="subhero-content">
     <div class="hero-wordmark hero-wordmark-sm" role="img" aria-label="EBiM Benchmark">
@@ -268,49 +407,54 @@
     <div class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
       <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">Open Day</span>
+      <span class="breadcrumb-current">Open Day · Munich</span>
     </div>
 
-    <div class="od-eyebrow">Open Day</div>
+    <div class="od-eyebrow">Open Day · Munich</div>
 
-    <h1 class="subhero-title">EBiM Open Days</h1>
-    <p class="subhero-subtitle">EBiM Open Days bring the benchmark to the community in person &mdash; talks from invited speakers and members of the benchmark team, live demonstrations on the Mobile FR3 Duo platform, and visits to the labs and evaluation centers where the real-robot work happens. Hamburg and Shanghai in August, Munich in September.</p>
+    <h1 class="subhero-title">EBiM Open Day — Munich</h1>
+    <p class="od-hero-meta">Thursday, 10 September 2026 · 10:00–18:00 CEST · Agile Robots SE, Munich · Free · Registration required</p>
+    <p class="subhero-subtitle">A day at the German industry side of the benchmark: an optional morning visit to the EBiM Munich testbed in Augsburg, where Phase II real-robot evaluation is running, then an afternoon of talks at Agile Robots SE in Munich, and dinner. Shuttle transport is provided from Munich in the morning.</p>
+
+    <div class="subhero-actions">
+
+      <a href="#register" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
+        </svg>
+        Register
+      </a>
+      <a href="#program" class="btn btn-outline">View the program</a>
+
+    </div>
   </div>
 </section>
 
-
 <!-- ============================================================
-     THE OPEN DAYS — one card per dated day, in date order
+     WHAT THIS DAY IS
      ============================================================ -->
-<section id="open-days">
+<section id="about">
   <div class="container">
     <div class="text-center fade-in">
-      <h2 class="section-title">The 2026 Open Days</h2>
+      <h2 class="section-title">What this day is</h2>
+      <p class="section-subtitle">
+        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, and Shanghai. The Munich Open Day opens the German industry testbed to the community for a day — the hardware, the evaluation floor, and the people running it.
+      </p>
     </div>
 
-    <div class="odh-grid fade-in">
-
-      <div class="odh-card">
-        <div class="odh-city">Hamburg &mdash; Monday, 17 August 2026</div>
-        <div class="odh-meta">Google Hamburg &middot; 10:30&ndash;17:00 CEST &middot; Free, registration required &middot; Co-located with IJCAI-ECAI 2026</div>
-        <p class="odh-desc">Talks, a visit to the EBiM Evaluation Center, and University of Hamburg lab tours.</p>
-        <a class="odh-link" href="open-day-hamburg.html">Hamburg Open Day <span aria-hidden="true">&rarr;</span></a>
+    <div class="who-grid fade-in">
+      <div class="who-card">
+        <h3>Researchers &amp; students</h3>
+        <p>Manipulation, robot learning, VLA and foundation models — anyone who wants to see what a benchmark looks like when it has to survive contact with a real robot.</p>
       </div>
-
-      <div class="odh-card">
-        <div class="odh-city">Shanghai &mdash; Friday, 21 August 2026</div>
-        <div class="odh-meta">Franka Robotics, Shanghai &middot; 14:00&ndash;17:00 (UTC+8) &middot; By invitation</div>
-        <p class="odh-desc">Talks on robotics education, healthcare AI, and real-world VLA deployment, plus a live visit to the Mobile FR3 Duo competition floor at the EBiM Shanghai testbed.</p>
-        <a class="odh-link" href="open-day-shanghai.html">Shanghai Open Day <span aria-hidden="true">&rarr;</span></a>
+      <div class="who-card">
+        <h3>Industry &amp; partners</h3>
+        <p>See the standardized Mobile FR3 Duo platform and the evaluation setup three testbeds are running in parallel, at the site that integrates and deploys it.</p>
       </div>
-
-      <div class="odh-card">
-        <div class="odh-city">Munich &mdash; Thursday, 10 September 2026</div>
-        <div class="odh-meta">Agile Robots SE, Munich &middot; 10:00&ndash;18:00 CEST &middot; Free, registration required &middot; Testbed visit in Augsburg</div>
-        <p class="odh-desc">A site visit and live demonstration at the EBiM Munich testbed in Augsburg, an afternoon of talks at Agile Robots SE, and dinner. Shuttle transport from Munich.</p>
-        <a class="odh-link" href="open-day-munich.html">Munich Open Day <span aria-hidden="true">&rarr;</span></a>
+      <div class="who-card">
+        <h3>Competition teams</h3>
+        <p>Phase II real-robot validation is running at this testbed through 12 September. Come and see the floor your policy runs on.</p>
       </div>
-
     </div>
 
     <div class="od-callout fade-in">
@@ -320,9 +464,508 @@
       </svg>
       <span>Open Days are not the EBiM Phase III workshop. The workshop &mdash; invited talks, panel, posters, and the awards ceremony &mdash; is a separate event; its date and venue are still to be announced.</span>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAM
+     ============================================================ -->
+<section id="program">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Program</h2>
+      <p class="section-subtitle">Thursday, 10 September 2026 · 10:00–18:00 CEST · all times Central European Summer Time</p>
+    </div>
+
+    <!-- Legend -->
+    <div class="sched-legend fade-in" aria-label="Schedule legend">
+      <span class="sched-legend-item legend-poster">
+        <span class="legend-dot"></span>Shuttle
+      </span>
+      <span class="sched-legend-item legend-competition">
+        <span class="legend-dot"></span>Site Visit
+      </span>
+      <span class="sched-legend-item legend-lunch">
+        <span class="legend-dot"></span>Lunch
+      </span>
+      <span class="sched-legend-item legend-opening">
+        <span class="legend-dot"></span>Break
+      </span>
+      <span class="sched-legend-item legend-talk">
+        <span class="legend-dot"></span>Talk
+      </span>
+      <span class="sched-legend-item legend-panel">
+        <span class="legend-dot"></span>Dinner
+      </span>
+    </div>
+
+    <div class="sched-timeline fade-in">
+
+      <!-- 10:00 Shuttle, boarding point 1 -->
+      <div class="sched-row sched-poster">
+        <div class="sched-time-col">
+          <span class="sched-t-start">10:00</span>
+          <span class="sched-t-end">10:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-break">Shuttle</span>
+            <span class="sched-dur">30 min</span>
+          </div>
+          <div class="sched-session">Shuttle departs Munich Hbf — boarding point 1 (optional)</div>
+          <div class="sched-speaker">Meeting point emailed to registered guests</div>
+        </div>
+      </div>
+
+      <!-- 10:30 Shuttle, boarding point 2 -->
+      <div class="sched-row sched-poster">
+        <div class="sched-time-col">
+          <span class="sched-t-start">10:30</span>
+          <span class="sched-t-end">11:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-break">Shuttle</span>
+            <span class="sched-dur">60 min</span>
+          </div>
+          <div class="sched-session">Boarding point 2 — Agile Robots SE, then on to Augsburg</div>
+        </div>
+      </div>
+
+      <!-- 11:30 Site visit -->
+      <div class="sched-row sched-competition">
+        <div class="sched-time-col">
+          <span class="sched-t-start">11:30</span>
+          <span class="sched-t-end">12:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-competition">Site Visit</span>
+            <span class="sched-dur">60 min</span>
+          </div>
+          <div class="sched-session">EBiM Munich testbed, Augsburg — site visit and live demonstration</div>
+        </div>
+      </div>
+
+      <!-- 12:30 Lunch -->
+      <div class="sched-row sched-lunch">
+        <div class="sched-time-col">
+          <span class="sched-t-start">12:30</span>
+          <span class="sched-t-end">14:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-lunch">Lunch</span>
+            <span class="sched-dur">2 hrs</span>
+          </div>
+          <div class="sched-session">Lunch at the testbed</div>
+        </div>
+      </div>
+
+      <!-- 14:30 Return shuttle -->
+      <div class="sched-row sched-poster">
+        <div class="sched-time-col">
+          <span class="sched-t-start">14:30</span>
+          <span class="sched-t-end">15:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-break">Shuttle</span>
+            <span class="sched-dur">60 min</span>
+          </div>
+          <div class="sched-session">Shuttle departs Augsburg for Agile Robots SE</div>
+        </div>
+      </div>
+
+      <!-- 15:30 Arrival and coffee -->
+      <div class="sched-row sched-opening">
+        <div class="sched-time-col">
+          <span class="sched-t-start">15:30</span>
+          <span class="sched-t-end">16:20</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-opening">Break</span>
+            <span class="sched-dur">50 min</span>
+          </div>
+          <div class="sched-session">Arrival, check-in and coffee</div>
+        </div>
+      </div>
+
+      <!-- 16:20 Talk 1 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:20</span>
+          <span class="sched-t-end">16:45</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">Title to be announced</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Sven Parusel</span> · Franka Robotics
+          </div>
+        </div>
+      </div>
+
+      <!-- 16:45 Talk 2 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:45</span>
+          <span class="sched-t-end">17:10</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">Title to be announced</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Marian Körber</span> · Agile Robots
+          </div>
+        </div>
+      </div>
+
+      <!-- 17:10 Talk 3 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:10</span>
+          <span class="sched-t-end">17:35</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">To be announced</div>
+          <div class="sched-speaker">Speaker to be announced</div>
+        </div>
+      </div>
+
+      <!-- 17:35 Talk 4 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:35</span>
+          <span class="sched-t-end">18:00</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">Talk</span>
+            <span class="sched-dur">25 min</span>
+          </div>
+          <div class="sched-session">To be announced</div>
+          <div class="sched-speaker">Speaker to be announced</div>
+        </div>
+      </div>
+
+      <!-- 18:30 Dinner — no end time (optional and open-ended), so no
+           sched-t-end and no sched-dur, exactly like the Shanghai dinner row -->
+      <div class="sched-row sched-panel">
+        <div class="sched-time-col">
+          <span class="sched-t-start">18:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-panel">Dinner</span>
+          </div>
+          <div class="sched-session">Dinner at Agile Robots SE (optional), hosted by Agile Robots</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="od-sched-note fade-in">Each talk is 20 minutes plus 5 minutes of Q&amp;A. The morning site visit and the dinner are optional — the talks are the core of the day. Program subject to update.</p>
+
+    <div class="od-speakers-head fade-in">
+      <h3>Speakers</h3>
+    </div>
+
+    <div class="talks-grid fade-in">
+
+      <article class="talk-card">
+        <img class="org-photo" src="img/organizers/sven-parusel.jpg" alt="Sven Parusel" width="88" height="88" loading="lazy" decoding="async" />
+        <h3 class="talk-speaker-name">Sven Parusel</h3>
+        <div class="talk-speaker-affil">Franka Robotics</div>
+        <div class="talk-title">Title to be announced</div>
+      </article>
+
+      <article class="talk-card">
+        <img class="org-photo" src="img/organizers/marian-korber.jpg" alt="Marian Körber" width="88" height="88" loading="lazy" decoding="async" />
+        <h3 class="talk-speaker-name">Marian Körber</h3>
+        <div class="talk-speaker-affil">Agile Robots</div>
+        <div class="talk-title">Title to be announced</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GETTING THERE AND BACK
+     ============================================================ -->
+<section id="venue">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Getting there and back</h2>
+    </div>
+
+    <div class="od-venue-card fade-in">
+      <div class="od-venue-list">
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+          </svg>
+          <span><strong>Talks and dinner:</strong> Agile Robots SE, Plinganserstraße 134, 81369 München.</span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm15-6.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 .5.5z"/>
+          </svg>
+          <span>Photo ID is required at reception. The name you register with must match your ID.</span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0c-2.5 0-5 .5-5 3v7.5A2.5 2.5 0 0 0 5.5 13l-.5.5V14h1l1-1h2l1 1h1v-.5l-.5-.5A2.5 2.5 0 0 0 13 10.5V3c0-2.5-2.5-3-5-3zM5.5 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM12 7H4V4h8v3z"/>
+          </svg>
+          <span><strong>Two boarding points for the morning shuttle:</strong> Munich Hbf at 10:00, and Agile Robots SE at 10:30. Be there five minutes early — the shuttle cannot wait.</span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+          </svg>
+          <span><strong>The testbed visit is in Augsburg.</strong> The shuttle is the only transport we arrange for it; details go to registered guests by email.</span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0c-2.5 0-5 .5-5 3v7.5A2.5 2.5 0 0 0 5.5 13l-.5.5V14h1l1-1h2l1 1h1v-.5l-.5-.5A2.5 2.5 0 0 0 13 10.5V3c0-2.5-2.5-3-5-3zM5.5 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM12 7H4V4h8v3z"/>
+          </svg>
+          <span><strong>The return shuttle goes to Agile Robots SE only, arriving 15:30.</strong> After the talks and the dinner, please arrange your own way back into the city.</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     REGISTER — state-gated on site.openDayMunichRegistration
+     ("open" → live RSVP form | "waitlist" → form + banner + list=waitlist
+      | "closed" → no form, closed panel). See _data/site.json.
+     This is the MUNICH key; site.openDayRegistration is Hamburg's and is not
+     read here. The two days run on independent flags.
+     ============================================================ -->
+<section id="register">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2 class="section-title">Register</h2>
+    </div>
+
+    <div class="od-notice fade-in">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>Free to attend. The shuttle has 60 seats, allocated in registration order — if the shuttle is full when you register, you are still very welcome for the talks and the dinner. Registration stays open until the program begins on Thursday 10 September. Register before you travel — we cannot admit walk-ins. Your place is confirmed by email; a submitted form is not yet a place.</span>
+    </div>
+
+    <div class="reg-card fade-in">
+
+      <!-- Native Web3Forms RSVP form. AJAX-first (see open-day-form-script.njk);
+           hCaptcha is enabled on this key and enforced server-side, so JS is required to submit. -->
+      <form id="openDayForm" action="https://api.web3forms.com/submit" method="POST"
+            data-msg-referral="Please tell us at least one way you heard about the Open Day (or fill in &quot;Other&quot;)."
+            data-msg-captcha="Please complete the captcha before submitting."
+            data-msg-generic="Something went wrong. Please try again."
+            data-msg-network="Network error — please try again later."
+            data-sending="Submitting…"
+            data-submit-label="Reserve my place">
+
+        <div class="reg-form">
+
+          <div class="form-field">
+            <label class="form-label" for="full_name">Full name, as shown on your photo ID <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">reception checks this against your ID</span></label>
+            <input class="form-input" type="text" id="full_name" name="full_name" maxlength="120" required placeholder="Your full name" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="email">Email <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">your confirmation is sent here</span></label>
+            <input class="form-input" type="email" id="email" name="email" maxlength="200" required placeholder="you@example.org" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="affiliation">Affiliation (institution / company) <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200" required placeholder="e.g. Technical University of Munich" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="country">Country <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="country" name="country" maxlength="120" required placeholder="e.g. Germany" />
+          </div>
+
+          <fieldset class="form-field">
+            <legend class="form-label">How will you join the morning site visit? <span class="req" aria-hidden="true">*</span></legend>
+            <div class="od-radios">
+              <label class="reg-check"><input type="radio" name="site_visit" value="Shuttle from Munich Hbf (10:00)" required /> <span>Shuttle from Munich Hbf (10:00)</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="Shuttle from Agile Robots SE (10:30)" /> <span>Shuttle from Agile Robots SE (10:30)</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="I'll skip the site visit and come for the talks" /> <span>I'll skip the site visit and come for the talks</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-field">
+            <legend class="form-label">Will you stay for dinner at Agile Robots SE? <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">hosted by Agile Robots, from 18:30</span></legend>
+            <div class="od-radios">
+              <label class="reg-check"><input type="radio" name="dinner" value="Yes" required /> <span>Yes</span></label>
+              <label class="reg-check"><input type="radio" name="dinner" value="No" /> <span>No</span></label>
+            </div>
+          </fieldset>
+
+          <div class="form-field">
+            <label class="form-label" for="dietary">Dietary requirements <span class="form-label-note">(optional — lunch and dinner are hosted)</span></label>
+            <input class="form-input" type="text" id="dietary" name="dietary" maxlength="200" placeholder="e.g. vegetarian, nut allergy" />
+          </div>
+
+          <fieldset class="form-field">
+            <legend class="form-label">How did you hear about the Open Day? <span class="req" aria-hidden="true">*</span></legend>
+            <div class="reg-checks">
+              <label class="reg-check"><input type="checkbox" name="referral" value="Discord" /> <span>Discord</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="WeChat" /> <span>WeChat</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Colleague or word of mouth" /> <span>Colleague or word of mouth</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="X (Twitter)" /> <span>X (Twitter)</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="LinkedIn" /> <span>LinkedIn</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Mailing list" /> <span>Mailing list</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Search engine" /> <span>Search engine</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="The EBiM website" /> <span>The EBiM website</span></label>
+            </div>
+            <input class="form-input reg-check-other" type="text" name="referral_other" maxlength="200" placeholder="Other (please specify)" />
+          </fieldset>
+
+          <!-- ── Consent ── -->
+          <div class="form-field">
+            <div class="reg-checks">
+              <label class="reg-check">
+                <input type="checkbox" name="consent_guestlist" value="Yes" required />
+                <span>I consent to my name and affiliation being shared with Agile Robots SE for building access. (Required — the venue cannot admit unlisted guests.) <span class="req" aria-hidden="true">*</span></span>
+              </label>
+              <label class="reg-check">
+                <input type="checkbox" name="consent_media_notice" value="Yes" required />
+                <span>I understand that this event will be photographed and recorded, and that images may be published by the EBiM organizers and partners. <span class="req" aria-hidden="true">*</span></span>
+              </label>
+              <label class="reg-check">
+                <input type="checkbox" name="media_optout" value="Yes" />
+                <span>Please do not include me in published photos or recordings.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Hidden Web3Forms fields -->
+          <input type="hidden" name="access_key" value="c4af1beb-1263-4551-ba15-86647ce43ddb" />
+          <input type="hidden" name="from_name" value="EBiM Benchmark — Open Day Munich" />
+          <input type="hidden" name="subject" value="[OPEN DAY MUNICH] New registration" />
+          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/open-day-munich-success.html" />
+
+          <!-- Honeypot -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <!-- hCaptcha (zero-config via web3forms client script, loaded in trailingScripts) -->
+          <div class="h-captcha" data-captcha="true"></div>
+
+          <div id="formError" class="form-error" role="alert" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="formErrorText">Something went wrong. Please try again.</span>
+          </div>
+
+          <button type="submit" class="btn btn-submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
+            </svg>
+            <span class="btn-label">Reserve my place</span>
+          </button>
+
+          <noscript><p class="reg-noscript">JavaScript is required to complete registration (the spam check needs it). If you can't enable it, email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</p></noscript>
+
+        </div>
+      </form>
+
+      <div id="formSuccess" class="form-success" role="status" hidden>
+        <div class="form-success-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2>Thanks!</h2>
+        <p>We have your registration. A confirmation email follows; your place is only held once we confirm it, so please don't travel on this page alone.</p>
+        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">Back to Home</a>
+      </div>
+
+    </div>
+
+    <p class="reg-privacy fade-in">We use your information only to organize the EBiM Open Day — including sharing your name and affiliation with Agile Robots SE for building access. We don't sell it or add you to any mailing list. Submissions are processed by Web3Forms.</p>
 
     <p class="od-contact-line fade-in">
-      Questions about the Open Days? <a href="contact.html">Get in touch <span aria-hidden="true">&rarr;</span></a>
+      The EBiM Benchmark holds Open Days at several of its testbed sites. <a href="open-day.html">See all Open Days</a>, including <a href="open-day-hamburg.html">Hamburg on 17 August 2026</a> and <a href="open-day-shanghai.html">Shanghai on 21 August 2026</a>.
+    </p>
+
+    <p class="od-contact-line fade-in">
+      Questions about the Open Day? <a href="contact.html">Get in touch <span aria-hidden="true">&rarr;</span></a>
     </p>
   </div>
 </section>
@@ -409,6 +1052,87 @@
 </button>
 
 <script src="js/main.js" defer></script>
+
+  
+<!-- Open Day RSVP form: client validation (≥1 referral or "other"; captcha) + AJAX submit -->
+<script>
+  (function () {
+    'use strict';
+    var form = document.querySelector('#openDayForm');
+    if (!form) return;
+
+    var errorBox  = document.querySelector('#formError');
+    var errorText = document.querySelector('#formErrorText');
+    var successEl = document.querySelector('#formSuccess');
+    var d = form.dataset;
+
+    function showError(msg) {
+      errorText.textContent = msg || d.msgGeneric;
+      errorBox.hidden = false;
+      errorBox.scrollIntoView({ block: 'center' });
+    }
+    function hideError() { errorBox.hidden = true; }
+    function showSuccess() {
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.scrollIntoView({ block: 'center' });
+    }
+
+    function anyChecked(name) {
+      return !!form.querySelector('input[name="' + name + '"]:checked');
+    }
+    function val(name) {
+      var el = form.querySelector('[name="' + name + '"]');
+      return (el && el.value || '').trim();
+    }
+
+    // Returns an error string, or null when valid. Runs AFTER native HTML5 validation
+    // (the submit event only fires once the required fields and radio groups are set).
+    function validate() {
+      if (!anyChecked('referral') && !val('referral_other')) return d.msgReferral;
+      var hc = form.querySelector('textarea[name="h-captcha-response"]');
+      if (hc && !hc.value) return d.msgCaptcha;   // null hc = widget not loaded; let Web3Forms decide
+      return null;
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      hideError();
+
+      var problem = validate();
+      if (problem) { showError(problem); return; }
+
+      var submitBtn = form.querySelector('button[type=submit]');
+      var submitLabel = submitBtn.querySelector('.btn-label') || submitBtn;
+      submitBtn.disabled = true;
+      submitLabel.textContent = d.sending;
+
+      try {
+        var res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        var json = await res.json();
+        if (json.success) {
+          showSuccess();
+        } else {
+          showError(json.message || d.msgGeneric);
+          if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+        }
+      } catch (err) {
+        showError(d.msgNetwork);
+        if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+      } finally {
+        submitBtn.disabled = false;
+        submitLabel.textContent = d.submitLabel;
+      }
+    });
+  })();
+</script>
+
+
+  <script src="https://web3forms.com/client/script.js" async defer></script>
 
 </body>
 </html>

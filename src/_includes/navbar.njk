@@ -61,7 +61,7 @@
           and the link count identical, so this retarget costs zero navbar width.
           aria-current stays on for the hub AND for each dated child page, so the
           item reads as the current section anywhere in the Open Day family. #}
-      <li><a href="{{ links.openDay }}"{% if navActive in ["openDay", "openDayHamburg", "openDayShanghai"] %} aria-current="page"{% endif %}>{{ t.nav.openDay | safe }}</a></li>
+      <li><a href="{{ links.openDay }}"{% if navActive in ["openDay", "openDayHamburg", "openDayShanghai", "openDayMunich"] %} aria-current="page"{% endif %}>{{ t.nav.openDay | safe }}</a></li>
       <li><a href="{{ links.register }}"{% if navActive == "register" %} aria-current="page"{% endif %}>{{ t.nav.register | safe }}</a></li>
       <li><a href="{{ links.index }}#partners">{{ t.nav.partners | safe }}</a></li>
       <li><a href="{{ links.faq }}"{% if navActive == "faq" %} aria-current="page"{% endif %}>{{ t.nav.faq | safe }}</a></li>

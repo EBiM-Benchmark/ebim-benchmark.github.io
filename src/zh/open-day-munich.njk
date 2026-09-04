@@ -1,14 +1,14 @@
 ---
-permalink: "open-day-hamburg.html"
+permalink: "/zh/open-day-munich.html"
 bodyClass: "page-open-day"
-title: "Open Day · Hamburg — EBiM Benchmark"
-description: "EBiM Open Day, Hamburg — Monday 17 August 2026, Google Hamburg. Co-located with IJCAI-ECAI 2026. Free; registration required. Talks, testbed and lab tours."
-keywords: "EBiM Open Day, Hamburg, IJCAI 2026, ECAI 2026, co-location event, embodied bimanual manipulation, robotics benchmark, Google Hamburg, University of Hamburg"
-canonical: "https://ebim-benchmark.github.io/open-day-hamburg.html"
+title: "开放日 · 慕尼黑 — EBiM Benchmark"
+description: "EBiM 开放日（慕尼黑）——2026 年 9 月 10 日（周四），Agile Robots SE。免费，需报名。讲座、奥格斯堡测试台参访与晚餐。"
+keywords: "EBiM 开放日, 慕尼黑, 奥格斯堡, 具身双臂操作, 机器人基准, Agile Robots, Franka Robotics, 测试台参访"
+canonical: "https://ebim-benchmark.github.io/zh/open-day-munich.html"
 headComments: true
 backToTop: true
-navActive: "openDayHamburg"
-i18nKey: openDayHamburg
+navActive: "openDayMunich"
+i18nKey: openDayMunich
 ---
 {% extends "layouts/base.njk" %}
 
@@ -16,26 +16,27 @@ i18nKey: openDayHamburg
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="EBiM Benchmark" />
-  <meta property="og:url"         content="https://ebim-benchmark.github.io/open-day-hamburg.html" />
-  <meta property="og:title"       content="Open Day · Hamburg — EBiM Benchmark" />
-  <meta property="og:description" content="EBiM Open Day, Hamburg — Monday 17 August 2026, Google Hamburg. Co-located with IJCAI-ECAI 2026. Free; registration required." />
+  <meta property="og:url"         content="https://ebim-benchmark.github.io/zh/open-day-munich.html" />
+  <meta property="og:title"       content="开放日 · 慕尼黑 — EBiM Benchmark" />
+  <meta property="og:description" content="EBiM 开放日（慕尼黑）——2026 年 9 月 10 日（周四），Agile Robots SE。免费，需报名。" />
   <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
-  <meta property="og:locale"      content="en_US" />
+  <meta property="og:image:alt"   content="EBiM Benchmark — 迈向面向真实世界具身双臂操作的全球协同基准" />
+  <meta property="og:locale"      content="zh_CN" />
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Open Day · Hamburg — EBiM Benchmark" />
-  <meta name="twitter:description" content="EBiM Open Day, Hamburg — Monday 17 August 2026, Google Hamburg. Co-located with IJCAI-ECAI 2026. Free; registration required." />
+  <meta name="twitter:title"       content="开放日 · 慕尼黑 — EBiM Benchmark" />
+  <meta name="twitter:description" content="EBiM 开放日（慕尼黑）——2026 年 9 月 10 日（周四），Agile Robots SE。免费，需报名。" />
   <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
-  <meta name="twitter:image:alt"   content="EBiM Benchmark — Toward a Globally Coordinated Benchmark for Real-World Embodied Bimanual Manipulation" />
+  <meta name="twitter:image:alt"   content="EBiM Benchmark — 迈向面向真实世界具身双臂操作的全球协同基准" />
 {% include "jsonld.njk" %}
 {% endblock %}
-{# NOTE: unlike register, this page IS in the jsonLd whitelist (see _data/eleventyComputed.js) —
-   its Event is date-gated on ev.openDayHamburgStartDate, which is REAL, so the Event is emitted.
-   It has no meta.<key> entry, so pageMeta is undefined and base.njk falls back to the
-   front-matter title/description above. #}
+{# NOTE: like the other two dated Open Days, this page IS in the jsonLd whitelist (see
+   _data/eleventyComputed.js) — its Event is date-gated on ev.openDayMunichStartDate, which is
+   REAL, so the Event is emitted (with the zh jsonld.* strings). It has no meta.<key> entry,
+   so pageMeta is undefined and
+   base.njk falls back to the front-matter title/description above. #}
 
 {% block headStyle %}{% raw %}
   <style>
@@ -89,9 +90,15 @@ i18nKey: openDayHamburg
     .subhero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.4rem; }
     @media (max-width: 700px) { #home.subhero { min-height: 46vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
-    /* Hero eyebrow + fact line */
+    /* Hero eyebrow + fact line. Unlike open-day-hamburg.njk the eyebrow forces
+       its OWN line: the pill is shrink-to-fit and the breadcrumb above it is
+       inline-block, so a SHORT eyebrow ("开放日 · 慕尼黑") rides up beside
+       the breadcrumb and renders the label twice on one cramped line. Hamburg
+       only escapes that because its eyebrow text is long enough to wrap on its
+       own. block + max-content keeps the pill hugging its text AND breaks the line. */
     .od-eyebrow {
-      display: inline-block; margin-bottom: 1rem; padding: .3rem .9rem; border-radius: 100px;
+      display: block; width: max-content; max-width: 100%;
+      margin: 0 auto 1rem; padding: .3rem .9rem; border-radius: 100px;
       background: rgba(0,212,255,.10); border: 1px solid rgba(0,212,255,.35);
       font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
     }
@@ -185,7 +192,7 @@ i18nKey: openDayHamburg
     }
     .od-notice svg { flex-shrink: 0; margin-top: .15rem; color: var(--accent-dark); }
 
-    /* Waitlist banner (site.openDayRegistration == "waitlist") */
+    /* Waitlist banner (site.openDayMunichRegistration == "waitlist") */
     .od-waitlist {
       display: flex; align-items: flex-start; gap: .65rem; margin-bottom: 1.5rem;
       background: rgba(245,158,11,.09); border: 1px solid rgba(245,158,11,.4); border-radius: 12px;
@@ -193,7 +200,7 @@ i18nKey: openDayHamburg
     }
     .od-waitlist svg { flex-shrink: 0; margin-top: .15rem; }
 
-    /* Closed panel (site.openDayRegistration == "closed") — no form at all */
+    /* Closed panel (site.openDayMunichRegistration == "closed") — no form at all */
     .od-closed { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); text-align: center; }
     .od-closed-icon { width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%; background: rgba(100,116,139,.12); border: 1px solid rgba(100,116,139,.35); color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
     .od-closed h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: .6rem; }
@@ -219,11 +226,7 @@ i18nKey: openDayHamburg
     .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
     @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
 
-    /* ── #co-location ── */
-    #co-location { background: var(--bg-light); }
-    .od-colocation { max-width: 760px; margin: 0 auto; text-align: center; font-size: 1rem; line-height: 1.7; color: var(--text-mid); }
-    .od-colocation a { color: var(--accent-dark); font-weight: 600; }
-    .od-contact-line { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
+    .od-contact-line { max-width: 760px; margin: 2.5rem auto 0; text-align: center; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
     .od-contact-line a { color: var(--accent-dark); font-weight: 600; }
   </style>
 {% endraw %}{% endblock %}
@@ -243,28 +246,28 @@ i18nKey: openDayHamburg
     </div>
 
     <div class="breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Home</a>
+      <a href="index.html">首页</a>
       <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">Open Day · Hamburg</span>
+      <span class="breadcrumb-current">开放日 · 慕尼黑</span>
     </div>
 
-    <div class="od-eyebrow">Open Day · Hamburg · Co-located with IJCAI-ECAI 2026</div>
+    <div class="od-eyebrow">开放日 · 慕尼黑</div>
 
-    <h1 class="subhero-title">EBiM Open Day — Hamburg</h1>
-    <p class="od-hero-meta">Monday, 17 August 2026 · 10:30–17:00 CEST · Google Hamburg · Free · Registration required</p>
-    <p class="subhero-subtitle">A one-day, in-person look at what a globally coordinated robot benchmark looks like in practice: talks from invited speakers across industry and academia, a visit to the EBiM Evaluation Center, and lab tours at the University of Hamburg. You&rsquo;ll see the Mobile FR3 Duo platform the benchmark actually runs on.</p>
+    <h1 class="subhero-title">EBiM 开放日 — 慕尼黑</h1>
+    <p class="od-hero-meta">2026 年 9 月 10 日（周四） · 10:00–18:00 CEST · Agile Robots SE（慕尼黑） · 免费 · 需报名</p>
+    <p class="subhero-subtitle">走近本基准在德国的工业侧：上午可选前往位于奥格斯堡的 EBiM 慕尼黑测试台参访，第二阶段实机评测正在那里进行；下午在慕尼黑的 Agile Robots SE 举行讲座，随后共进晚餐。上午提供从慕尼黑出发的班车。</p>
 
     <div class="subhero-actions">
-{% endraw %}{%- if site.openDayRegistration != "closed" %}{% raw %}
+{% endraw %}{%- if site.openDayMunichRegistration != "closed" %}{% raw %}
       <a href="#register" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
         </svg>
-        Register — 80 seats
+        报名
       </a>
-      <a href="#program" class="btn btn-outline">View the program</a>
+      <a href="#program" class="btn btn-outline">查看日程</a>
 {% endraw %}{%- else %}{% raw %}
-      <a href="#program" class="btn btn-primary">View the program</a>
+      <a href="#program" class="btn btn-primary">查看日程</a>
 {% endraw %}{%- endif %}{% raw %}
     </div>
   </div>
@@ -276,24 +279,24 @@ i18nKey: openDayHamburg
 <section id="about">
   <div class="container">
     <div class="text-center fade-in">
-      <h2 class="section-title">What this day is</h2>
+      <h2 class="section-title">这一天是什么</h2>
       <p class="section-subtitle">
-        The EBiM Benchmark is a globally coordinated benchmark for real-world embodied bimanual manipulation, with cross-continent real-robot validation at partner labs in Hamburg, Munich, and Shanghai. The Hamburg Open Day opens that work up to the wider community for a day — the tasks, the evaluation protocol, the hardware, and the people running it.
+        EBiM Benchmark 是面向真实世界具身双臂操作的全球协同基准，在汉堡、慕尼黑与上海的合作实验室开展跨洲实机验证。慕尼黑开放日将德国工业测试台向社区开放一天——硬件、评测现场，以及运行这一切的人。
       </p>
     </div>
 
     <div class="who-grid fade-in">
       <div class="who-card">
-        <h3>Researchers &amp; students</h3>
-        <p>Manipulation, robot learning, VLA and foundation models, HRI — anyone who cares whether benchmark numbers survive contact with a real robot.</p>
+        <h3>研究人员与学生</h3>
+        <p>操作、机器人学习、VLA 与基础模型——欢迎所有想看看基准在真实机器人上经受检验时是什么样子的人。</p>
       </div>
       <div class="who-card">
-        <h3>IJCAI-ECAI 2026 attendees</h3>
-        <p>Bremen to Hamburg is about an hour by train. A block of seats is reserved for IJCAI-ECAI attendees{% endraw %}{% if site.openDayRegistration != "closed" %}{% raw %} — register before you travel, since we cannot admit walk-ins{% endraw %}{% endif %}{% raw %}.</p>
+        <h3>业界与合作伙伴</h3>
+        <p>在负责平台集成与部署的场地，了解标准化的 Mobile FR3 Duo 平台，以及三个测试台并行运行的评测方案。</p>
       </div>
       <div class="who-card">
-        <h3>Industry &amp; partners</h3>
-        <p>See the standardized platform and the evaluation setup that three testbeds are running in parallel.</p>
+        <h3>参赛队伍</h3>
+        <p>第二阶段实机验证正在本测试台进行，持续至 9 月 12 日。欢迎前来实地了解您的策略所运行的场地。</p>
       </div>
     </div>
 
@@ -302,7 +305,7 @@ i18nKey: openDayHamburg
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
       </svg>
-      <span>This is not the EBiM Phase III workshop. The workshop — invited talks, panel, posters, and the awards ceremony — is a separate event; its date and venue are still to be announced.</span>
+      <span>开放日不是 EBiM 第三阶段研讨会。研讨会——特邀报告、圆桌讨论、海报与颁奖典礼——是另一场独立活动，其日期与地点仍待公布。</span>
     </div>
   </div>
 </section>
@@ -313,145 +316,96 @@ i18nKey: openDayHamburg
 <section id="program">
   <div class="container">
     <div class="text-center fade-in">
-      <h2 class="section-title">Program</h2>
-      <p class="section-subtitle">Monday, 17 August 2026 · 10:30–17:00 CEST · all times Central European Summer Time</p>
+      <h2 class="section-title">日程</h2>
+      <p class="section-subtitle">2026 年 9 月 10 日（周四） · 10:00–18:00 CEST · 所有时间均为中欧夏令时</p>
     </div>
 
     <!-- Legend -->
-    <div class="sched-legend fade-in" aria-label="Schedule legend">
-      <span class="sched-legend-item legend-opening">
-        <span class="legend-dot"></span>Opening
-      </span>
-      <span class="sched-legend-item legend-talk">
-        <span class="legend-dot"></span>Talk
-      </span>
-      <span class="sched-legend-item legend-lunch">
-        <span class="legend-dot"></span>Lunch
-      </span>
+    <div class="sched-legend fade-in" aria-label="日程图例">
       <span class="sched-legend-item legend-poster">
-        <span class="legend-dot"></span>Transfer
+        <span class="legend-dot"></span>班车
       </span>
       <span class="sched-legend-item legend-competition">
-        <span class="legend-dot"></span>Site Visit
+        <span class="legend-dot"></span>参访
+      </span>
+      <span class="sched-legend-item legend-lunch">
+        <span class="legend-dot"></span>午餐
+      </span>
+      <span class="sched-legend-item legend-opening">
+        <span class="legend-dot"></span>休息
+      </span>
+      <span class="sched-legend-item legend-talk">
+        <span class="legend-dot"></span>讲座
       </span>
       <span class="sched-legend-item legend-panel">
-        <span class="legend-dot"></span>Lab Visits
+        <span class="legend-dot"></span>晚餐
       </span>
     </div>
 
     <div class="sched-timeline fade-in">
 
-      <!-- 10:30 Opening -->
-      <div class="sched-row sched-opening">
-        <div class="sched-time-col">
-          <span class="sched-t-start">10:30</span>
-          <span class="sched-t-end">11:00</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-opening">Opening</span>
-            <span class="sched-dur">30 min</span>
-          </div>
-          <div class="sched-session">Opening</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Alexander Schröder</span> · Google Cloud
-          </div>
-        </div>
-      </div>
-
-      <!-- 11:00 Talk 1 -->
-      <div class="sched-row sched-talk">
-        <div class="sched-time-col">
-          <span class="sched-t-start">11:00</span>
-          <span class="sched-t-end">11:20</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-talk">Talk</span>
-            <span class="sched-dur">20 min</span>
-          </div>
-          <div class="sched-session">From Isaac Sim to Production Line: Autonomous Peeling and Pasting of Adhesive Sheets via AI</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Prof. Min-Chun Hu</span> · National Tsing Hua University
-          </div>
-        </div>
-      </div>
-
-      <!-- 11:20 Talk 2 -->
-      <div class="sched-row sched-talk">
-        <div class="sched-time-col">
-          <span class="sched-t-start">11:20</span>
-          <span class="sched-t-end">11:40</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-talk">Talk</span>
-            <span class="sched-dur">20 min</span>
-          </div>
-          <div class="sched-session">From Users to Tasks: A Practical Framework for Home Humanoid Robotics</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Dr. Hao Shao</span> · vivo Robotics Lab
-          </div>
-        </div>
-      </div>
-
-      <!-- 11:40 Talk 3 -->
-      <div class="sched-row sched-talk">
-        <div class="sched-time-col">
-          <span class="sched-t-start">11:40</span>
-          <span class="sched-t-end">12:00</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-talk">Talk</span>
-            <span class="sched-dur">20 min</span>
-          </div>
-          <div class="sched-session">Franka Robotics - Reference Platforms for Mobile Bimanual Manipulation</div>
-          <div class="sched-speaker">
-            <span class="speaker-name">Sven Parusel</span> · Franka Robotics
-          </div>
-        </div>
-      </div>
-
-      <!-- 12:00 Lunch -->
-      <div class="sched-row sched-lunch">
-        <div class="sched-time-col">
-          <span class="sched-t-start">12:00</span>
-          <span class="sched-t-end">14:00</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-lunch">Lunch</span>
-            <span class="sched-dur">2 hrs</span>
-          </div>
-          <div class="sched-session">Lunch, hosted by Google</div>
-        </div>
-      </div>
-
-      <!-- 14:00 Transfer -->
+      <!-- 10:00 Shuttle, boarding point 1 -->
       <div class="sched-row sched-poster">
         <div class="sched-time-col">
-          <span class="sched-t-start">14:00</span>
+          <span class="sched-t-start">10:00</span>
+          <span class="sched-t-end">10:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-break">班车</span>
+            <span class="sched-dur">30 分钟</span>
+          </div>
+          <div class="sched-session">班车从慕尼黑火车总站出发——第一上车点（可选）</div>
+          <div class="sched-speaker">集合地点将通过邮件通知已报名来宾</div>
+        </div>
+      </div>
+
+      <!-- 10:30 Shuttle, boarding point 2 -->
+      <div class="sched-row sched-poster">
+        <div class="sched-time-col">
+          <span class="sched-t-start">10:30</span>
+          <span class="sched-t-end">11:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-break">班车</span>
+            <span class="sched-dur">60 分钟</span>
+          </div>
+          <div class="sched-session">第二上车点：Agile Robots SE，随后前往奥格斯堡</div>
+        </div>
+      </div>
+
+      <!-- 11:30 Site visit -->
+      <div class="sched-row sched-competition">
+        <div class="sched-time-col">
+          <span class="sched-t-start">11:30</span>
+          <span class="sched-t-end">12:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-competition">参访</span>
+            <span class="sched-dur">60 分钟</span>
+          </div>
+          <div class="sched-session">EBiM 慕尼黑测试台（奥格斯堡）——现场参访与实机演示</div>
+        </div>
+      </div>
+
+      <!-- 12:30 Lunch -->
+      <div class="sched-row sched-lunch">
+        <div class="sched-time-col">
+          <span class="sched-t-start">12:30</span>
           <span class="sched-t-end">14:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
@@ -460,36 +414,17 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-break">Transfer</span>
-            <span class="sched-dur">30 min</span>
+            <span class="type-badge badge-lunch">午餐</span>
+            <span class="sched-dur">2 小时</span>
           </div>
-          <div class="sched-session">Transfer</div>
+          <div class="sched-session">在测试台用午餐</div>
         </div>
       </div>
 
-      <!-- 14:30 Evaluation Center -->
-      <div class="sched-row sched-competition">
-        <div class="sched-time-col">
-          <span class="sched-t-start">14:30</span>
-          <span class="sched-t-end">15:00</span>
-        </div>
-        <div class="sched-track-col" aria-hidden="true">
-          <div class="sched-dot"></div>
-          <div class="sched-line"></div>
-        </div>
-        <div class="sched-body">
-          <div class="sched-meta">
-            <span class="type-badge badge-competition">Site Visit</span>
-            <span class="sched-dur">30 min</span>
-          </div>
-          <div class="sched-session">EBiM Evaluation Center — site visit</div>
-        </div>
-      </div>
-
-      <!-- 15:00 Transfer -->
+      <!-- 14:30 Return shuttle -->
       <div class="sched-row sched-poster">
         <div class="sched-time-col">
-          <span class="sched-t-start">15:00</span>
+          <span class="sched-t-start">14:30</span>
           <span class="sched-t-end">15:30</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
@@ -498,18 +433,18 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-break">Transfer</span>
-            <span class="sched-dur">30 min</span>
+            <span class="type-badge badge-break">班车</span>
+            <span class="sched-dur">60 分钟</span>
           </div>
-          <div class="sched-session">Transfer</div>
+          <div class="sched-session">班车从奥格斯堡返回 Agile Robots SE</div>
         </div>
       </div>
 
-      <!-- 15:30 Lab visits -->
-      <div class="sched-row sched-panel">
+      <!-- 15:30 Arrival and coffee -->
+      <div class="sched-row sched-opening">
         <div class="sched-time-col">
           <span class="sched-t-start">15:30</span>
-          <span class="sched-t-end">17:00</span>
+          <span class="sched-t-end">16:20</span>
         </div>
         <div class="sched-track-col" aria-hidden="true">
           <div class="sched-dot"></div>
@@ -517,50 +452,137 @@ i18nKey: openDayHamburg
         </div>
         <div class="sched-body">
           <div class="sched-meta">
-            <span class="type-badge badge-panel">Lab Visits</span>
-            <span class="sched-dur">90 min</span>
+            <span class="type-badge badge-opening">休息</span>
+            <span class="sched-dur">50 分钟</span>
           </div>
-          <div class="sched-session">University of Hamburg lab visits</div>
-          <div class="sched-speaker">TAMS, WTM, and HCI, in small-group rotation</div>
+          <div class="sched-session">抵达、签到与茶歇</div>
+        </div>
+      </div>
+
+      <!-- 16:20 Talk 1 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:20</span>
+          <span class="sched-t-end">16:45</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">讲座</span>
+            <span class="sched-dur">25 分钟</span>
+          </div>
+          <div class="sched-session">报告题目待公布</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Sven Parusel</span> · Franka Robotics
+          </div>
+        </div>
+      </div>
+
+      <!-- 16:45 Talk 2 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">16:45</span>
+          <span class="sched-t-end">17:10</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">讲座</span>
+            <span class="sched-dur">25 分钟</span>
+          </div>
+          <div class="sched-session">报告题目待公布</div>
+          <div class="sched-speaker">
+            <span class="speaker-name">Marian Körber</span> · Agile Robots
+          </div>
+        </div>
+      </div>
+
+      <!-- 17:10 Talk 3 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:10</span>
+          <span class="sched-t-end">17:35</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">讲座</span>
+            <span class="sched-dur">25 分钟</span>
+          </div>
+          <div class="sched-session">待公布</div>
+          <div class="sched-speaker">讲者待公布</div>
+        </div>
+      </div>
+
+      <!-- 17:35 Talk 4 -->
+      <div class="sched-row sched-talk">
+        <div class="sched-time-col">
+          <span class="sched-t-start">17:35</span>
+          <span class="sched-t-end">18:00</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-talk">讲座</span>
+            <span class="sched-dur">25 分钟</span>
+          </div>
+          <div class="sched-session">待公布</div>
+          <div class="sched-speaker">讲者待公布</div>
+        </div>
+      </div>
+
+      <!-- 18:30 Dinner — no end time (optional and open-ended), so no
+           sched-t-end and no sched-dur, exactly like the Shanghai dinner row -->
+      <div class="sched-row sched-panel">
+        <div class="sched-time-col">
+          <span class="sched-t-start">18:30</span>
+        </div>
+        <div class="sched-track-col" aria-hidden="true">
+          <div class="sched-dot"></div>
+          <div class="sched-line"></div>
+        </div>
+        <div class="sched-body">
+          <div class="sched-meta">
+            <span class="type-badge badge-panel">晚餐</span>
+          </div>
+          <div class="sched-session">在 Agile Robots SE 用晚餐（可选），由 Agile Robots 招待</div>
         </div>
       </div>
 
     </div>
 
-    <p class="od-sched-note fade-in">Program subject to update.</p>
+    <p class="od-sched-note fade-in">每场报告为 20 分钟演讲 + 5 分钟问答。上午的测试台参访与晚餐均为可选，讲座是这一天的核心内容。日程可能会有调整。</p>
 
     <div class="od-speakers-head fade-in">
-      <h3>Speakers</h3>
+      <h3>讲者</h3>
     </div>
 
     <div class="talks-grid fade-in">
 
       <article class="talk-card">
-        <img class="org-photo" src="img/organizers/alexander-schroder.jpeg" alt="Alexander Schröder" width="88" height="88" loading="lazy" decoding="async" />
-        <h3 class="talk-speaker-name">Alexander Schröder</h3>
-        <div class="talk-speaker-affil">Google Cloud</div>
-        <div class="talk-title">Opening</div>
-      </article>
-
-      <article class="talk-card">
-        <img class="org-photo" src="img/organizers/min-chun-hu.jpg" alt="Prof. Min-Chun Hu" width="88" height="88" loading="lazy" decoding="async" />
-        <h3 class="talk-speaker-name">Prof. Min-Chun Hu</h3>
-        <div class="talk-speaker-affil">National Tsing Hua University</div>
-        <div class="talk-title">From Isaac Sim to Production Line: Autonomous Peeling and Pasting of Adhesive Sheets via AI</div>
-      </article>
-
-      <article class="talk-card">
-        <img class="org-photo" src="img/speakers/hao-shao.jpg" alt="Dr. Hao Shao" width="88" height="88" loading="lazy" decoding="async" />
-        <h3 class="talk-speaker-name">Dr. Hao Shao</h3>
-        <div class="talk-speaker-affil">vivo Robotics Lab</div>
-        <div class="talk-title">From Users to Tasks: A Practical Framework for Home Humanoid Robotics</div>
-      </article>
-
-      <article class="talk-card">
-        <img class="org-photo" src="img/organizers/sven-parusel.jpg" alt="Sven Parusel" width="88" height="88" loading="lazy" decoding="async" />
+        <img class="org-photo" src="../img/organizers/sven-parusel.jpg" alt="Sven Parusel" width="88" height="88" loading="lazy" decoding="async" />
         <h3 class="talk-speaker-name">Sven Parusel</h3>
         <div class="talk-speaker-affil">Franka Robotics</div>
-        <div class="talk-title">Franka Robotics - Reference Platforms for Mobile Bimanual Manipulation</div>
+        <div class="talk-title">报告题目待公布</div>
+      </article>
+
+      <article class="talk-card">
+        <img class="org-photo" src="../img/organizers/marian-korber.jpg" alt="Marian Körber" width="88" height="88" loading="lazy" decoding="async" />
+        <h3 class="talk-speaker-name">Marian Körber</h3>
+        <div class="talk-speaker-affil">Agile Robots</div>
+        <div class="talk-title">报告题目待公布</div>
       </article>
 
     </div>
@@ -568,12 +590,12 @@ i18nKey: openDayHamburg
 </section>
 
 <!-- ============================================================
-     VENUE & GETTING THERE
+     GETTING THERE AND BACK
      ============================================================ -->
 <section id="venue">
   <div class="container">
     <div class="text-center fade-in">
-      <h2 class="section-title">Venue &amp; getting there</h2>
+      <h2 class="section-title">如何前往与返回</h2>
     </div>
 
     <div class="od-venue-card fade-in">
@@ -583,28 +605,35 @@ i18nKey: openDayHamburg
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
           </svg>
-          <span><strong>Google Germany GmbH, ABC-Straße 19, 20354 Hamburg (ABC-Bogen)</strong> — top-floor event hall.</span>
+          <span><strong>讲座与晚餐地点：</strong>Agile Robots SE，Plinganserstraße 134, 81369 München。</span>
         </div>
 
         <div class="od-venue-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm15-6.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 .5.5z"/>
           </svg>
-          <span>Photo ID is required at reception. The name you register with must match your ID.</span>
+          <span>入口处需出示带照片的身份证件。报名时填写的姓名必须与证件一致。</span>
         </div>
 
         <div class="od-venue-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 0c-2.5 0-5 .5-5 3v7.5A2.5 2.5 0 0 0 5.5 13l-.5.5V14h1l1-1h2l1 1h1v-.5l-.5-.5A2.5 2.5 0 0 0 13 10.5V3c0-2.5-2.5-3-5-3zM5.5 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM12 7H4V4h8v3z"/>
           </svg>
-          <span><strong>Coming from IJCAI-ECAI 2026 in Bremen:</strong> Bremen Hbf to Hamburg Hbf is roughly one hour by ICE, then a short walk or U-Bahn ride to ABC-Straße. Book ahead for the best fares.</span>
+          <span><strong>上午班车设两个上车点：</strong>慕尼黑火车总站 10:00，Agile Robots SE 10:30。请提前五分钟到场——班车无法等候。</span>
         </div>
 
         <div class="od-venue-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
           </svg>
-          <span><strong>Afternoon transfers:</strong> details for the EBiM Evaluation Center and the University of Hamburg lab visits are sent to registered guests by email.</span>
+          <span><strong>测试台参访在奥格斯堡。</strong>班车是我们为此安排的唯一交通方式；具体信息将通过邮件发送给已报名来宾。</span>
+        </div>
+
+        <div class="od-venue-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0c-2.5 0-5 .5-5 3v7.5A2.5 2.5 0 0 0 5.5 13l-.5.5V14h1l1-1h2l1 1h1v-.5l-.5-.5A2.5 2.5 0 0 0 13 10.5V3c0-2.5-2.5-3-5-3zM5.5 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM12 7H4V4h8v3z"/>
+          </svg>
+          <span><strong>返程班车仅开往 Agile Robots SE，15:30 抵达。</strong>讲座与晚餐结束后，请自行安排返回市区的交通。</span>
         </div>
 
       </div>
@@ -614,17 +643,19 @@ i18nKey: openDayHamburg
 {% endraw %}
 
 <!-- ============================================================
-     REGISTER — state-gated on site.openDayRegistration
+     REGISTER — state-gated on site.openDayMunichRegistration
      ("open" → live RSVP form | "waitlist" → form + banner + list=waitlist
       | "closed" → no form, closed panel). See _data/site.json.
+     This is the MUNICH key; site.openDayRegistration is Hamburg's and is not
+     read here. The two days run on independent flags.
      ============================================================ -->
 <section id="register">
   <div class="container">
     <div class="text-center fade-in">
-      <h2 class="section-title">Register</h2>
+      <h2 class="section-title">报名</h2>
     </div>
 
-{%- if site.openDayRegistration == "closed" %}
+{%- if site.openDayMunichRegistration == "closed" %}
 
     <div class="od-closed fade-in">
       <div class="od-closed-icon" aria-hidden="true">
@@ -633,8 +664,8 @@ i18nKey: openDayHamburg
           <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
       </div>
-      <h3>Registration for the Hamburg Open Day is closed.</h3>
-      <p>If you have a question about the day, please <a href="{{ links.contact }}">get in touch</a>.</p>
+      <h3>慕尼黑开放日的报名已截止。</h3>
+      <p>如对本次活动有任何疑问，请<a href="{{ links.contact }}">与我们联系</a>。</p>
     </div>
 
 {%- else %}
@@ -644,92 +675,92 @@ i18nKey: openDayHamburg
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
       </svg>
-      <span>Free to attend. A block of seats is reserved for IJCAI-ECAI 2026 attendees. Registration is open until the program begins on Monday 17 August. The venue seats 80, so seats are limited. Register before you travel — we cannot admit walk-ins. Your seat is confirmed by email; a submitted form is not yet a seat.</span>
+      <span>免费参加。班车共有 60 个席位，按报名先后分配——如果您报名时班车席位已满，我们仍非常欢迎您参加讲座与晚餐。报名将持续开放至 2026 年 9 月 10 日（周四）活动开始为止。请在出行前完成报名——我们无法接待未报名的到场者。您的席位以邮件确认为准；提交表单本身尚不代表席位已获保留。</span>
     </div>
 
     <div class="reg-card fade-in">
 
-{%- if site.openDayRegistration == "waitlist" %}
+{%- if site.openDayMunichRegistration == "waitlist" %}
       <div class="od-waitlist">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
           <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
         </svg>
-        <span>All 80 seats are taken. You can still join the waitlist — we will email you if a place opens up.</span>
+        <span>班车的 60 个席位已全部预订。您仍可报名参加讲座与晚餐；如有席位空出，我们会通过邮件通知您。</span>
       </div>
 {%- endif %}
 
       <!-- Native Web3Forms RSVP form. AJAX-first (see open-day-form-script.njk);
            hCaptcha is enabled on this key and enforced server-side, so JS is required to submit. -->
       <form id="openDayForm" action="https://api.web3forms.com/submit" method="POST"
-            data-msg-referral="Please tell us at least one way you heard about the Open Day (or fill in &quot;Other&quot;)."
-            data-msg-captcha="Please complete the captcha before submitting."
-            data-msg-generic="Something went wrong. Please try again."
-            data-msg-network="Network error — please try again later."
-            data-sending="Submitting…"
-            data-submit-label="Reserve my seat">
+            data-msg-referral="请至少选择一项了解本次开放日的渠道（或填写&quot;其他&quot;）。"
+            data-msg-captcha="请先完成人机验证再提交。"
+            data-msg-generic="出现了一些问题，请重试。"
+            data-msg-network="网络错误——请稍后重试。"
+            data-sending="提交中…"
+            data-submit-label="确认报名">
 
         <div class="reg-form">
 
           <div class="form-field">
-            <label class="form-label" for="full_name">Full name, as shown on your photo ID <span class="req" aria-hidden="true">*</span>
-              <span class="form-label-note">reception checks this against your ID</span></label>
-            <input class="form-input" type="text" id="full_name" name="full_name" maxlength="120" required placeholder="Your full name" />
+            <label class="form-label" for="full_name">姓名，须与您的带照片身份证件一致 <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">入口处会核对证件</span></label>
+            <input class="form-input" type="text" id="full_name" name="full_name" maxlength="120" required placeholder="您的姓名" />
           </div>
 
           <div class="form-field">
-            <label class="form-label" for="email">Email <span class="req" aria-hidden="true">*</span>
-              <span class="form-label-note">your confirmation is sent here</span></label>
+            <label class="form-label" for="email">邮箱 <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">确认邮件将发送至此</span></label>
             <input class="form-input" type="email" id="email" name="email" maxlength="200" required placeholder="you@example.org" />
           </div>
 
           <div class="form-field">
-            <label class="form-label" for="affiliation">Affiliation (institution / company) <span class="req" aria-hidden="true">*</span></label>
-            <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200" required placeholder="e.g. University of Hamburg" />
+            <label class="form-label" for="affiliation">所属单位（院校 / 公司） <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200" required placeholder="例如：慕尼黑工业大学" />
           </div>
 
           <div class="form-field">
-            <label class="form-label" for="country">Country <span class="req" aria-hidden="true">*</span></label>
-            <input class="form-input" type="text" id="country" name="country" maxlength="120" required placeholder="e.g. Germany" />
+            <label class="form-label" for="country">国家 <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="country" name="country" maxlength="120" required placeholder="例如：德国" />
           </div>
 
           <fieldset class="form-field">
-            <legend class="form-label">Are you attending IJCAI-ECAI 2026 in Bremen? <span class="req" aria-hidden="true">*</span></legend>
+            <legend class="form-label">您将如何参加上午的测试台参访？ <span class="req" aria-hidden="true">*</span></legend>
             <div class="od-radios">
-              <label class="reg-check"><input type="radio" name="ijcai_attendee" value="Yes" required /> <span>Yes</span></label>
-              <label class="reg-check"><input type="radio" name="ijcai_attendee" value="No" /> <span>No</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="Shuttle from Munich Hbf (10:00)" required /> <span>乘坐慕尼黑火车总站发车的班车（10:00）</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="Shuttle from Agile Robots SE (10:30)" /> <span>乘坐 Agile Robots SE 发车的班车（10:30）</span></label>
+              <label class="reg-check"><input type="radio" name="site_visit" value="I'll skip the site visit and come for the talks" /> <span>我不参加参访，只参加讲座</span></label>
             </div>
           </fieldset>
 
           <fieldset class="form-field">
-            <legend class="form-label">Will you join the afternoon site and lab visits? <span class="req" aria-hidden="true">*</span>
-              <span class="form-label-note">EBiM Evaluation Center + University of Hamburg labs, 14:00–17:00</span></legend>
+            <legend class="form-label">您是否会留下参加在 Agile Robots SE 的晚餐？ <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">由 Agile Robots 招待，18:30 开始</span></legend>
             <div class="od-radios">
-              <label class="reg-check"><input type="radio" name="afternoon_visits" value="Yes" required /> <span>Yes</span></label>
-              <label class="reg-check"><input type="radio" name="afternoon_visits" value="No" /> <span>No</span></label>
+              <label class="reg-check"><input type="radio" name="dinner" value="Yes" required /> <span>是</span></label>
+              <label class="reg-check"><input type="radio" name="dinner" value="No" /> <span>否</span></label>
             </div>
           </fieldset>
 
           <div class="form-field">
-            <label class="form-label" for="dietary">Dietary requirements <span class="form-label-note">(optional — lunch is hosted by Google)</span></label>
-            <input class="form-input" type="text" id="dietary" name="dietary" maxlength="200" placeholder="e.g. vegetarian, nut allergy" />
+            <label class="form-label" for="dietary">饮食需求 <span class="form-label-note">（可选——午餐与晚餐均由主办方招待）</span></label>
+            <input class="form-input" type="text" id="dietary" name="dietary" maxlength="200" placeholder="例如：素食、坚果过敏" />
           </div>
 
           <fieldset class="form-field">
-            <legend class="form-label">How did you hear about the Open Day? <span class="req" aria-hidden="true">*</span></legend>
+            <legend class="form-label">您是通过什么渠道了解到本次开放日的？ <span class="req" aria-hidden="true">*</span></legend>
             <div class="reg-checks">
               <label class="reg-check"><input type="checkbox" name="referral" value="Discord" /> <span>Discord</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="WeChat" /> <span>WeChat</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="Colleague or word of mouth" /> <span>Colleague or word of mouth</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="IJCAI-ECAI 2026" /> <span>IJCAI-ECAI 2026</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="X (Twitter)" /> <span>X (Twitter)</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="LinkedIn" /> <span>LinkedIn</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="Mailing list" /> <span>Mailing list</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="Search engine" /> <span>Search engine</span></label>
-              <label class="reg-check"><input type="checkbox" name="referral" value="The EBiM website" /> <span>The EBiM website</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="WeChat" /> <span>微信</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Colleague or word of mouth" /> <span>同事或口碑</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="X (Twitter)" /> <span>X（推特）</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="LinkedIn" /> <span>领英</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Mailing list" /> <span>邮件列表</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="Search engine" /> <span>搜索引擎</span></label>
+              <label class="reg-check"><input type="checkbox" name="referral" value="The EBiM website" /> <span>EBiM 官网</span></label>
             </div>
-            <input class="form-input reg-check-other" type="text" name="referral_other" maxlength="200" placeholder="Other (please specify)" />
+            <input class="form-input reg-check-other" type="text" name="referral_other" maxlength="200" placeholder="其他（请注明）" />
           </fieldset>
 
           <!-- ── Consent ── -->
@@ -737,25 +768,25 @@ i18nKey: openDayHamburg
             <div class="reg-checks">
               <label class="reg-check">
                 <input type="checkbox" name="consent_guestlist" value="Yes" required />
-                <span>I consent to my name and affiliation being shared with Google Germany GmbH for building access. (Required — the venue cannot admit unlisted guests.) <span class="req" aria-hidden="true">*</span></span>
+                <span>我同意将我的姓名与所属单位提供给 Agile Robots SE 用于办理入场。（必选——场地无法接待未在名单上的来宾。） <span class="req" aria-hidden="true">*</span></span>
               </label>
               <label class="reg-check">
                 <input type="checkbox" name="consent_media_notice" value="Yes" required />
-                <span>I understand that this event will be photographed and recorded, and that images may be published by the EBiM organizers and partners. <span class="req" aria-hidden="true">*</span></span>
+                <span>我了解本次活动将进行拍照与录像，相关影像可能由 EBiM 组织者及合作伙伴发布。 <span class="req" aria-hidden="true">*</span></span>
               </label>
               <label class="reg-check">
                 <input type="checkbox" name="media_optout" value="Yes" />
-                <span>Please do not include me in published photos or recordings.</span>
+                <span>请不要在公开发布的照片或录像中使用我的影像。</span>
               </label>
             </div>
           </div>
 
           <!-- Hidden Web3Forms fields -->
-          <input type="hidden" name="access_key" value="d6f9fc0c-13e6-473f-b8a1-adc21f267e6b" />
-          <input type="hidden" name="from_name" value="EBiM Benchmark — Open Day Hamburg" />
-          <input type="hidden" name="subject" value="[OPEN DAY HAMBURG] New registration" />
-          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/open-day-success.html" />
-{%- if site.openDayRegistration == "waitlist" %}
+          <input type="hidden" name="access_key" value="c4af1beb-1263-4551-ba15-86647ce43ddb" />
+          <input type="hidden" name="from_name" value="EBiM Benchmark — Open Day Munich" />
+          <input type="hidden" name="subject" value="[OPEN DAY MUNICH] New registration" />
+          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/zh/open-day-munich-success.html" />
+{%- if site.openDayMunichRegistration == "waitlist" %}
           <input type="hidden" name="list" value="waitlist" />
 {%- endif %}
 
@@ -770,17 +801,17 @@ i18nKey: openDayHamburg
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span id="formErrorText">Something went wrong. Please try again.</span>
+            <span id="formErrorText">出现了一些问题，请重试。</span>
           </div>
 
           <button type="submit" class="btn btn-submit">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
             </svg>
-            <span class="btn-label">Reserve my seat</span>
+            <span class="btn-label">确认报名</span>
           </button>
 
-          <noscript><p class="reg-noscript">JavaScript is required to complete registration (the spam check needs it). If you can't enable it, email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</p></noscript>
+          <noscript><p class="reg-noscript">完成报名需要启用 JavaScript（人机验证需要）。如无法启用，请发送邮件至 <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>。</p></noscript>
 
         </div>
       </form>
@@ -792,39 +823,23 @@ i18nKey: openDayHamburg
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h2>Thanks!</h2>
-        <p>We have your RSVP. A confirmation email follows; your seat is only held once we confirm it, so please don't travel on this page alone.</p>
-        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">Back to Home</a>
+        <h2>感谢！</h2>
+        <p>我们已收到您的报名。确认邮件随后发出；您的席位以我们的确认为准，请勿仅凭本页面安排行程。</p>
+        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">返回首页</a>
       </div>
 
     </div>
 
-    <p class="reg-privacy fade-in">We use your information only to organize the EBiM Open Day — including sharing your name and affiliation with Google Germany GmbH for building access. We don't sell it or add you to any mailing list. Submissions are processed by Web3Forms.</p>
+    <p class="reg-privacy fade-in">我们仅将您的信息用于组织 EBiM 开放日——包括将您的姓名与所属单位提供给 Agile Robots SE 用于办理入场。我们不会出售这些信息，也不会将您加入任何邮件列表。表单由 Web3Forms 处理。</p>
 
 {%- endif %}
 
-  </div>
-</section>
-
-<!-- ============================================================
-     CO-LOCATION
-     ============================================================ -->
-<section id="co-location">
-  <div class="container">
-    <div class="text-center fade-in">
-      <h2 class="section-title">A co-location event of IJCAI-ECAI 2026</h2>
-    </div>
-
-    <p class="od-colocation fade-in">
-      The EBiM Open Day — Hamburg is a co-location event of <a href="https://2026.ijcai.org/" target="_blank" rel="noopener">IJCAI-ECAI 2026 <span aria-hidden="true">→</span></a>, the 35th International Joint Conference on Artificial Intelligence, held in Bremen, Germany, 15–21 August 2026.
+    <p class="od-contact-line fade-in">
+      EBiM Benchmark 在多个测试地点举办开放日。<a href="{{ links.openDay }}">查看全部开放日</a>，包括 2026 年 8 月 17 日的<a href="{{ links.openDayHamburg }}">汉堡开放日</a>与 2026 年 8 月 21 日的<a href="{{ links.openDayShanghai }}">上海开放日</a>。
     </p>
 
     <p class="od-contact-line fade-in">
-      The EBiM Benchmark holds Open Days at several of its testbed sites. <a href="{{ links.openDay }}">See all Open Days</a>, including <a href="{{ links.openDayShanghai }}">Shanghai on 21 August 2026</a> and <a href="{{ links.openDayMunich }}">Munich on 10 September 2026</a>.
-    </p>
-
-    <p class="od-contact-line fade-in">
-      Questions about the Open Day? <a href="{{ links.contact }}">Get in touch <span aria-hidden="true">→</span></a>
+      对开放日有疑问？<a href="{{ links.contact }}">与我们联系 <span aria-hidden="true">→</span></a>
     </p>
   </div>
 </section>
@@ -833,7 +848,7 @@ i18nKey: openDayHamburg
 {% endblock %}
 
 {% block trailingScripts %}
-{%- if site.openDayRegistration != "closed" %}
+{%- if site.openDayMunichRegistration != "closed" %}
   {% include "open-day-form-script.njk" %}
   <script src="https://web3forms.com/client/script.js" async defer></script>
 {%- endif %}
