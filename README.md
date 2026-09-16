@@ -227,7 +227,7 @@ English is the primary locale. A **Simplified-Chinese `/zh/` locale** was added 
 | Key Themes | `#themes` | 4 research-question cards (sim-to-real, cross-site repro, foundation/VLA, contact-rich) |
 | EBiM Maturity Roadmap | `#maturity` | Alpha (2026, current) → Beta (2027) → Gamma (future) multi-year initiative roadmap — styled distinctly from the Phase I/II/III pipeline |
 | Important Dates | `#dates` | 2-column track summary (Competition vs Workshop dates) |
-| Organizers | `#organizers` | Organizing Committee, Advisory Board, Competition Support Team |
+| Organizers | `#organizers` | Organizing Committee (2027, 2026), Advisory Board, Competition Support Team |
 | Partners | `#partners` (empty `#sponsors` span kept as alias) | ICRA-style tiers — Platinum · Gold · Silver · Bronze |
 | Get Involved | `#contact` | Dual CTA + email contact (dark section) |
 
@@ -522,7 +522,7 @@ Every `<img>` has `alt`, `width`, `height` (CLS prevention), `loading="lazy"`, a
 - [x] Shared navbar + footer (byte-identical, comment-tagged)
 - [x] Schedule: final 4-talk + competition + panel program (08:30–13:30)
 - [x] Benchmark tasks: 3 core tasks
-- [x] Organizers: OC (10), Advisory (4), Support (20); headshot photos wired for all 34 cards (no organizer card remains an initials avatar)
+- [x] Organizers: OC 2027 (10) + OC 2026 (10), Advisory (4), Support (20); headshot photos wired for all 44 cards (no organizer card remains an initials avatar)
 - [x] Invited talks: four confirmed speakers — Prof. Abhinav Valada (University of Freiburg), Prof. Roberto Martín-Martín (UT Austin), Prof. He Wang (Peking University), Prof. Chuchu Fan (MIT) — wired into the `#talks` cards + schedule rows; the dedicated `#talks` section is now revealed; talk titles still "to be announced"
 - [x] Mobile FR3 Duo platform section + photos
 - [x] EBiM Benchmark wordmark (CSS/text) in hero/sub-hero, navbar, and footer on all pages
