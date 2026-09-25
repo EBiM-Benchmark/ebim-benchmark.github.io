@@ -4,7 +4,7 @@
 // captured in tests/baseline/. This is the permanent guard for the invisible
 // i18n refactor (Phase 1a onward): the live English pages must never drift.
 //
-// For each of the 19 built pages it reads the committed baseline fixture
+// For each of the 20 built pages it reads the committed baseline fixture
 // (tests/baseline/<file>) and checks it against the freshly built _site/<file>
 // on four axes:
 //
@@ -19,7 +19,7 @@
 //                open-day-munich]
 //   extra      — contact.html: data-slug values + slug-keyed inline script +
 //                untouched form internals. contact-test.html and
-//                feedback-registered.html: the inline behavior <script> is
+//                feedback-registered.html + feedback-phase2.html: the inline behavior <script> is
 //                unchanged (blank lines and trailing whitespace ignored) — the structure axis strips
 //                script bodies, so this is what pins the questionnaire payload.
 //
@@ -27,7 +27,7 @@
 // output drifted — fix the template, never the baseline.
 //
 // To re-baseline after an INTENTIONAL English content change: rebuild the site
-// and copy the 19 _site/*.html into tests/baseline/ in the same commit. The
+// and copy the 20 _site/*.html into tests/baseline/ in the same commit. The
 // fixtures are byte-faithful to the build, so a straight copy is the whole
 // procedure — never hand-edit a fixture.
 //
@@ -62,6 +62,7 @@ const PAGES = [
   "compute-apply.html",
   "compute-success.html",
   "feedback-registered.html",
+  "feedback-phase2.html",
 ];
 const JSONLD_PAGES = new Set([
   "index.html",
@@ -74,7 +75,7 @@ const JSONLD_PAGES = new Set([
   "open-day-munich.html",
 ]);
 const CONTACT = "contact.html";
-const SCRIPT_UNCHANGED = new Set(["contact-test.html", "feedback-registered.html"]);
+const SCRIPT_UNCHANGED = new Set(["contact-test.html", "feedback-registered.html", "feedback-phase2.html"]);
 
 const GREEN = (s) => `\x1b[32m${s}\x1b[0m`;
 const RED = (s) => `\x1b[31m${s}\x1b[0m`;

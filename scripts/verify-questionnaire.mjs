@@ -1,9 +1,12 @@
-// Questionnaire A EN/zh parity harness.
+// Questionnaire EN/zh parity harness (Questionnaire A and Questionnaire B).
 //
-// The two questionnaire pages (_site/feedback-registered.html and
-// _site/zh/feedback-registered.html) feed ONE dataset, so they must submit the
-// same thing. Both render from src/_data/questionnaireA.json, but a template
-// edit could still make them diverge; this reads the BUILT pages and fails if:
+// Each questionnaire's two pages (A: _site/feedback-registered.html and
+// _site/zh/feedback-registered.html; B: _site/feedback-phase2.html and
+// _site/zh/feedback-phase2.html) feed ONE dataset, so they must submit the
+// same thing. Each pair renders from its own data file (questionnaireA.json /
+// questionnaireB.json), but a template edit could still make them diverge; this
+// reads the BUILT pages and runs every check below for each questionnaire. It
+// fails if:
 //
 //   controls    — any form control (input, textarea incl. its content, select,
 //                 button, fieldset, output, object) or question-wrapper tag differs
@@ -50,6 +53,18 @@
 //                 cycle, a field repeats an option code, or the data file names an
 //                 option set that does not exist.
 //
+// Questionnaire B only (it has required fields and a saved draft):
+//
+//   required    — a question's data-required-if differs EN vs zh or vs the data
+//                 file; a required condition is not a non-empty list of {field,
+//                 non-empty anyOf} naming a real choice field and its real codes,
+//                 or sits on a choice question; a required question lacks its
+//                 hidden message element (<p class="q-req-msg" id="<name>_req">
+//                 inside its own wrapper) with the data file's text in the page's
+//                 language, or a message element appears without a condition.
+//   draft key   — the form's data-draft-key differs EN vs zh, from the data file,
+//                 or from the fixed key "ebim-questionnaire-B-2026".
+//
 // Scope: this guards against HONEST template and data edits that would make the
 // pages submit something other than the data file describes, or make EN and zh
 // differ. It does not try to defeat deliberately obfuscated HTML, and it cannot
@@ -68,8 +83,13 @@ import { spawnSync } from "node:child_process";
 
 const ROOT = process.cwd();
 const SITE = path.join(ROOT, "_site");
-const EN = "feedback-registered.html";
-const ZH = "zh/feedback-registered.html";
+// One entry per questionnaire. `marker` is the HTML comment that labels its
+// behaviour script; `floor` is the fewest submitted fields a page may have.
+const INSTRUMENTS = [
+  { id: "A", en: "feedback-registered.html", zh: "zh/feedback-registered.html", data: "src/_data/questionnaireA.json", marker: "Questionnaire A", floor: 30 },
+  { id: "B", en: "feedback-phase2.html", zh: "zh/feedback-phase2.html", data: "src/_data/questionnaireB.json", marker: "Questionnaire B", floor: 70,
+    required: true, draftKey: "ebim-questionnaire-B-2026" },
+];
 const HIDDEN = ["access_key", "from_name", "subject", "instrument", "lang", "botcheck"];
 // The control type each data-file question type renders as.
 const RENDERS = { checkbox: "checkbox", single: "checkbox", radio: "radio", scale: "radio", text: "text", longtext: "textarea", email: "email" };
@@ -115,7 +135,7 @@ const sig = (name, a, extra = "") =>
 const canon = (s) => { try { return JSON.stringify(JSON.parse(s)); } catch { return s; } };
 
 // Everything the page submits and branches on, extracted from built HTML.
-function extract(rel) {
+function extract(rel, marker) {
   const raw = fs.readFileSync(path.join(SITE, rel), "utf8").replace(/\r\n/g, "\n");
   const scripts = [...raw.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
     .filter((m) => { const a = attrs(`<script${m[1]}>`); return !("src" in a) && a.type !== "application/ld+json"; })
@@ -123,7 +143,7 @@ function extract(rel) {
   // External scripts, compared EN vs zh with the zh "../" asset prefix removed.
   const srcScripts = [...raw.matchAll(tagRe("script"))]
     .map((m) => attrs(m[0]).src).filter((s) => s !== undefined).map((s) => s.replace(/^(\.\.\/)+/, ""));
-  const marked = raw.match(/<!-- Questionnaire A:[^>]*-->\s*<script>([\s\S]*?)<\/script>/);
+  const marked = raw.match(new RegExp(`<!-- ${marker}:[^>]*-->\\s*<script>([\\s\\S]*?)<\\/script>`));
   // Comments and script bodies can hold tag-like text that submits nothing.
   const full = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, "$1</script>");
 
@@ -221,15 +241,23 @@ function extract(rel) {
   }
   for (const w of wrappers) sigs.push(sig("div", "data-show-if" in w.a ? { ...w.a, "data-show-if": canon(w.a["data-show-if"]) } : w.a));
 
+  // Required-field message elements (<p class="q-req-msg" …>text</p>).
+  const reqMsgs = [...html.matchAll(new RegExp(`(${tagRe("p").source})([\\s\\S]*?)</p>`, "gi"))]
+    .map((m) => ({ a: attrs(m[1]), text: decode(m[3]), index: m.index }))
+    .filter((p) => (p.a.class || "").split(/\s+/).includes("q-req-msg"));
+
   const conditions = {};
+  const required = {};
   for (const w of wrappers) {
     const q = w.a["data-q"];
     conditions[q] = "data-show-if" in w.a ? canon(w.a["data-show-if"]) : null;
+    required[q] = "data-required-if" in w.a ? canon(w.a["data-required-if"]) : null;
     for (const n of w.names) if (n !== q) problems.push(`wrapper data-q="${q}" holds input name="${n}"`);
     if (!w.names.has(q)) problems.push(`wrapper data-q="${q}" holds no input named ${q}`);
   }
 
-  return { fields, byName, conditions, wrappers, sigs, skeleton, srcScripts, problems, scripts, closesAt: formTag["data-closes-at"], script: marked ? marked[1] : null };
+  return { fields, byName, conditions, required, reqMsgs, wrappers, sigs, skeleton, srcScripts, problems, scripts,
+    closesAt: formTag["data-closes-at"], draftKey: formTag["data-draft-key"], script: marked ? marked[1] : null };
 }
 
 // The same, derived from the data file (the spec as encoded).
@@ -239,26 +267,49 @@ function expectedFromData(DATA) {
   const grouped = {};
   const types = { ...HIDDEN_TYPES };
   const conditions = {};
+  const required = {};
+  const requiredMsg = {};
   const problems = [];
   if (!CLOSES_AT_RE.test(DATA.closesAt || "")) problems.push(`closesAt "${DATA.closesAt}" needs an ISO date-time with an explicit offset (e.g. …T12:00:00Z)`);
-  for (const sec of DATA.sections)
-    for (const q of sec.questions) {
-      fields.push(q.name);
-      types[q.name] = RENDERS[q.type] || `unknown data type "${q.type}"`;
-      if (typeof q.options === "string" && !(q.options in (DATA.optionSets || {})))
-        problems.push(`${q.name}: option set "${q.options}" does not exist`);
-      const opts = typeof q.options === "string" ? (DATA.optionSets || {})[q.options] : q.options;
-      if (q.type === "scale") {
-        codes[q.name] = [];
-        for (let v = q.min; v <= q.max; v++) codes[q.name].push(String(v));
-      } else if (opts) codes[q.name] = opts.map((o) => o.code);
-      if (codes[q.name] && new Set(codes[q.name]).size !== codes[q.name].length) problems.push(`${q.name}: repeated option code`);
-      if ((q.type === "checkbox" || q.type === "radio" || q.type === "single") && !(codes[q.name] || []).length)
-        problems.push(`${q.name}: choice question with no options`);
-      grouped[q.name] = q.type === "checkbox" || q.type === "single";
-      conditions[q.name] = q.showIf ? JSON.stringify(q.showIf) : null;
+  for (const q of dataQuestions(DATA)) {
+    fields.push(q.name);
+    types[q.name] = RENDERS[q.type] || `unknown data type "${q.type}"`;
+    if (typeof q.options === "string" && !(q.options in (DATA.optionSets || {})))
+      problems.push(`${q.name}: option set "${q.options}" does not exist`);
+    const opts = typeof q.options === "string" ? (DATA.optionSets || {})[q.options] : q.options;
+    if (q.type === "scale") {
+      codes[q.name] = [];
+      for (let v = q.min; v <= q.max; v++) codes[q.name].push(String(v));
+      if (q.extra !== undefined) {
+        if (!(q.extra in (DATA.optionSets || {}))) problems.push(`${q.name}: option set "${q.extra}" does not exist`);
+        for (const o of (DATA.optionSets || {})[q.extra] || []) codes[q.name].push(o.code);
+      }
+    } else if (opts) codes[q.name] = opts.map((o) => o.code);
+    if (codes[q.name] && new Set(codes[q.name]).size !== codes[q.name].length) problems.push(`${q.name}: repeated option code`);
+    if ((q.type === "checkbox" || q.type === "radio" || q.type === "single") && !(codes[q.name] || []).length)
+      problems.push(`${q.name}: choice question with no options`);
+    grouped[q.name] = q.type === "checkbox" || q.type === "single";
+    conditions[q.name] = q.showIf ? JSON.stringify(q.showIf) : null;
+    required[q.name] = q.requiredIf ? JSON.stringify(q.requiredIf) : null;
+    requiredMsg[q.name] = q.requiredMsg ?? null;
+  }
+  return { fields: [...fields, ...HIDDEN], codes, grouped, types, conditions, required, requiredMsg, problems };
+}
+
+// Every question in page order. A section holds `questions`, or `subsections`
+// that hold `questions` or labelled `groups`; a `group` question (Questionnaire
+// B's B5.2) contributes its `items`.
+function dataQuestions(DATA) {
+  const out = [];
+  const take = (qs) => { for (const q of qs || []) { if (q.type === "group") out.push(...(q.items || [])); else out.push(q); } };
+  for (const sec of DATA.sections) {
+    take(sec.questions);
+    for (const sub of sec.subsections || []) {
+      take(sub.questions);
+      for (const g of sub.groups || []) take(g.questions);
     }
-  return { fields: [...fields, ...HIDDEN], codes, grouped, types, conditions, problems };
+  }
+  return out;
 }
 
 // A condition graph (question → the fields its condition reads) must be acyclic:
@@ -286,21 +337,50 @@ function buildSite() {
   if (r.status !== 0) throw new Error("eleventy build failed");
 }
 
+// Checks one {field, anyOf} list (a show-if or required-if) against a page's fields.
+function condListProblems(label, q, raw, byName, what) {
+  const out = [];
+  let list;
+  try { list = JSON.parse(raw); } catch { return [`${label} ${q}: ${what} is not JSON`]; }
+  if (!Array.isArray(list) || !list.length) return [`${label} ${q}: ${what} is not a non-empty list`];
+  for (const c of list) {
+    const keys = c && typeof c === "object" ? Object.keys(c).sort().join(",") : "";
+    if (keys !== "anyOf,field" || typeof c.field !== "string" || !Array.isArray(c.anyOf) || !c.anyOf.length) {
+      out.push(`${label} ${q}: condition must be exactly {field, anyOf: [non-empty]}: ${JSON.stringify(c)}`);
+      continue;
+    }
+    if (c.field === q) { out.push(`${label} ${q}: condition refers to itself`); continue; }
+    const t = byName.get(c.field);
+    if (!t) { out.push(`${label} ${q}: condition on unknown field ${c.field}`); continue; }
+    if (t.type !== "checkbox" && t.type !== "radio") out.push(`${label} ${q}: condition on non-choice field ${c.field}`);
+    for (const code of c.anyOf) if (!t.codes.includes(code)) out.push(`${label} ${q}: ${c.field} has no code "${code}"`);
+  }
+  return out;
+}
+
 function main() {
   if (!process.argv.includes("--no-build")) buildSite();
-  const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/questionnaireA.json"), "utf8"));
-  console.log(BOLD(`\nQuestionnaire A — EN/zh parity (${EN} vs ${ZH})\n`));
+  let ok = true;
+  for (const inst of INSTRUMENTS) if (!checkInstrument(inst)) ok = false;
+  console.log("\n" + (ok ? GREEN(BOLD("✓ QUESTIONNAIRE PARITY PASSED")) : RED(BOLD("✗ QUESTIONNAIRE PARITY FAILED"))) + "\n");
+  process.exit(ok ? 0 : 1);
+}
+
+function checkInstrument(inst) {
+  const { en: EN, zh: ZH, marker, floor } = inst;
+  const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, inst.data), "utf8"));
+  console.log(BOLD(`\nQuestionnaire ${inst.id} — EN/zh parity (${EN} vs ${ZH})\n`));
 
   const results = [];
   const add = (name, ok, msg = "") => results.push({ name, ok, msg });
   const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
-  const en = extract(EN);
-  const zh = extract(ZH);
+  const en = extract(EN, marker);
+  const zh = extract(ZH, marker);
   const exp = expectedFromData(DATA);
 
-  add("floor: fields found", en.fields.length >= 30 && zh.fields.length >= 30,
-    `EN ${en.fields.length}, zh ${zh.fields.length} fields — expected ≥ 30`);
+  add("floor: fields found", en.fields.length >= floor && zh.fields.length >= floor,
+    `EN ${en.fields.length}, zh ${zh.fields.length} fields — expected ≥ ${floor}`);
 
   add("structure + defaults: EN", en.problems.length === 0, en.problems.join("\n    "));
   add("structure + defaults: zh", zh.problems.length === 0, zh.problems.join("\n    "));
@@ -367,21 +447,7 @@ function main() {
       if (cond !== ("hidden" in w.a)) condShape.push(`${label} ${q}: ${cond ? "conditional but not hidden" : "hidden but unconditional"}`);
       if (e && e.disabled.some((d) => d !== cond)) condShape.push(`${label} ${q}: inputs ${cond ? "not all disabled" : "disabled"}`);
       if (!cond) continue;
-      let list;
-      try { list = JSON.parse(w.a["data-show-if"]); } catch { condShape.push(`${label} ${q}: data-show-if is not JSON`); continue; }
-      if (!Array.isArray(list) || !list.length) { condShape.push(`${label} ${q}: data-show-if is not a non-empty list`); continue; }
-      for (const c of list) {
-        const keys = c && typeof c === "object" ? Object.keys(c).sort().join(",") : "";
-        if (keys !== "anyOf,field" || typeof c.field !== "string" || !Array.isArray(c.anyOf) || !c.anyOf.length) {
-          condShape.push(`${label} ${q}: condition must be exactly {field, anyOf: [non-empty]}: ${JSON.stringify(c)}`);
-          continue;
-        }
-        if (c.field === q) { condShape.push(`${label} ${q}: condition refers to itself`); continue; }
-        const t = p.byName.get(c.field);
-        if (!t) { condShape.push(`${label} ${q}: condition on unknown field ${c.field}`); continue; }
-        if (t.type !== "checkbox" && t.type !== "radio") condShape.push(`${label} ${q}: condition on non-choice field ${c.field}`);
-        for (const code of c.anyOf) if (!t.codes.includes(code)) condShape.push(`${label} ${q}: ${c.field} has no code "${code}"`);
-      }
+      condShape.push(...condListProblems(label, q, w.a["data-show-if"], p.byName, "data-show-if"));
     }
   }
   for (const cyc of conditionCycles(en.conditions)) condShape.push(`EN condition cycle: ${cyc}`);
@@ -409,11 +475,48 @@ function main() {
     en.script === null || zh.script === null ? "questionnaire script not found"
       : `EN has ${en.scripts.length} inline script(s), zh ${zh.scripts.length}; bodies differ`);
 
+  if (inst.required) {
+    const reqDiffs = [];
+    const reqData = [];
+    const reqShape = [];
+    for (const q of new Set([...Object.keys(en.required), ...Object.keys(zh.required)]))
+      if (en.required[q] !== zh.required[q]) reqDiffs.push(`${q}: ${en.required[q]} vs ${zh.required[q]}`);
+    for (const q of Object.keys(exp.required))
+      if (en.required[q] !== exp.required[q]) reqData.push(`${q}: page ${en.required[q]} vs data ${exp.required[q]}`);
+    for (const [label, p, L] of [["EN", en, "en"], ["zh", zh, "zh"]]) {
+      for (const m of p.reqMsgs)
+        if (!p.wrappers.some((w) => m.index > w.start && m.index < w.end)) reqShape.push(`${label}: q-req-msg outside any question: ${m.a.id}`);
+      for (const w of p.wrappers) {
+        const q = w.a["data-q"];
+        const msgs = p.reqMsgs.filter((m) => m.index > w.start && m.index < w.end);
+        if (!("data-required-if" in w.a)) {
+          if (msgs.length) reqShape.push(`${label} ${q}: required message without data-required-if`);
+          continue;
+        }
+        reqShape.push(...condListProblems(label, q, w.a["data-required-if"], p.byName, "data-required-if"));
+        const e = p.byName.get(q);
+        if (e && (e.type === "checkbox" || e.type === "radio")) reqShape.push(`${label} ${q}: required-if on a choice question`);
+        const key = exp.requiredMsg[q];
+        const want = key && DATA.text[key] ? DATA.text[key][L] : undefined;
+        if (want === undefined) reqShape.push(`${label} ${q}: data file names no message text (requiredMsg "${key}")`);
+        if (msgs.length !== 1) { reqShape.push(`${label} ${q}: expected exactly one q-req-msg in its wrapper, found ${msgs.length}`); continue; }
+        const m = msgs[0];
+        if (m.a.id !== `${q}_req`) reqShape.push(`${label} ${q}: message id "${m.a.id}" should be "${q}_req"`);
+        if (!("hidden" in m.a)) reqShape.push(`${label} ${q}: message not rendered hidden`);
+        if (want !== undefined && m.text.trim() !== want) reqShape.push(`${label} ${q}: message "${m.text.trim()}" vs data "${want}"`);
+      }
+    }
+    add("required: EN == zh", reqDiffs.length === 0, reqDiffs.join("\n    "));
+    add("required: EN == data file", reqData.length === 0, reqData.join("\n    "));
+    add("required: well-formed (real codes; text field; own hidden message in the page's language)", reqShape.length === 0, reqShape.join("\n    "));
+    add(`draft key: data-draft-key EN == zh == data file == "${inst.draftKey}"`,
+      en.draftKey === inst.draftKey && zh.draftKey === inst.draftKey && DATA.draftKey === inst.draftKey,
+      `EN ${en.draftKey}, zh ${zh.draftKey}, data ${DATA.draftKey}`);
+  }
+
   for (const r of results)
     console.log(`  ${r.ok ? GREEN("PASS") : RED("FAIL")}  ${r.name}${r.ok ? "" : "\n    " + r.msg}`);
-  const ok = results.every((r) => r.ok);
-  console.log("\n" + (ok ? GREEN(BOLD("✓ QUESTIONNAIRE PARITY PASSED")) : RED(BOLD("✗ QUESTIONNAIRE PARITY FAILED"))) + "\n");
-  process.exit(ok ? 0 : 1);
+  return results.every((r) => r.ok);
 }
 
 try {
