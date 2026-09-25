@@ -1,0 +1,25 @@
+---
+permalink: "/zh/feedback-registered.html"
+bodyClass: "page-feedback-registered"
+eleventyComputed:
+  title: "{{ questionnaireA.text.title.zh }} · EBiM Benchmark"
+  description: "{{ questionnaireA.text.description.zh }}"
+canonical: "https://ebim-benchmark.github.io/zh/feedback-registered.html"
+headComments: true
+backToTop: true
+---
+{#- Questionnaire A (zh). UNLISTED: no nav/footer/sitemap entry and no inbound link
+    from the rest of the site (only the EN page's EN/中文 switch); reached only from the email. No i18nKey, so noindex comes from the
+    zhNoindex computed (no robots front matter — that would emit a second tag)
+    and no hreflang/navbar toggle renders. Shared with src/feedback-registered.njk
+    and rendered from src/_data/questionnaireA.json. -#}
+{% extends "layouts/base.njk" %}
+
+{% block headStyle %}{% include "questionnaire-a-style.njk" %}{% endblock %}
+
+{% block main %}{% include "questionnaire-a-form.njk" %}{% endblock %}
+
+{% block trailingScripts %}
+  {% include "questionnaire-a-script.njk" %}
+  <script src="https://web3forms.com/client/script.js" async defer></script>
+{% endblock %}
