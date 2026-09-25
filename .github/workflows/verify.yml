@@ -15,13 +15,15 @@ name: Build & EN parity
 # and the /zh/ invariants, which leaves them blind to whether a referenced FILE is
 # actually present on disk — delete an asset a page still points at and every
 # golden stays byte-identical, parity passes, and the reference 404s in production
-# (PR #97 was exactly that shape). The third and fourth stages close that gap with
+# (PR #97 was exactly that shape). The third stage (scripts/verify-questionnaire.mjs)
+# asserts the EN and /zh/ questionnaire pages submit exactly the same fields,
+# option codes and conditions. The fourth and fifth stages close the existence gap with
 # scripts/check-links.mjs, an EXISTENCE check over every local reference in _site/.
 # Its self-test runs FIRST, deliberately: it seeds known-broken references and
 # asserts they are caught, so a checker that silently parses nothing cannot
 # masquerade as a clean site. Runs on every PR and on pushes to main.
 #
-# All four stages are defined ONCE, in package.json as `scripts.verify:all`, and
+# All five stages are defined ONCE, in package.json as `scripts.verify:all`, and
 # invoked here as a single step — see the comment on that step below.
 
 on:
@@ -49,7 +51,7 @@ jobs:
         run: npm ci
 
       # ONE definition of the pipeline, in package.json. This step used to inline
-      # the four stages as four separate `run:` steps, which meant the sequence
+      # the stages as separate `run:` steps, which meant the sequence
       # existed twice — here and in `scripts.verify:all` — with nothing asserting
       # they matched. They did match, but only by hand: edit one and the other
       # silently disagrees, and because CI is what gates, the failure mode is a
@@ -57,5 +59,5 @@ jobs:
       # either file alone. Reading `npm run verify:all` costs one hop and removes
       # the drift class. The stage that failed is still named in the log — each
       # script prints its own banner and the `&&` chain stops at the first failure.
-      - name: Verify (EN parity, /zh/ locale, reference self-test, reference existence)
+      - name: Verify (EN parity, /zh/ locale, questionnaire parity, reference self-test, reference existence)
         run: npm run verify:all

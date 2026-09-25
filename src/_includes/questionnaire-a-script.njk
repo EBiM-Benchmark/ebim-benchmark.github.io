@@ -10,17 +10,23 @@
     var closedEl  = document.querySelector('#qClosed');
     var errorBox  = document.querySelector('#formError');
     var successEl = document.querySelector('#formSuccess');
+    var submitBtn = form.querySelector('button[type=submit]');
     var closesAt  = Date.parse(form.getAttribute('data-closes-at'));
+    var SEND_TIMEOUT_MS = 30000;
 
-    // Closed from closesAt onward: drop the whole questionnaire body, keep the
-    // page header, show the single closed line.
+    // Closed from closesAt onward (an unparseable date also reads as closed):
+    // drop the whole questionnaire body, keep the page header, show the single
+    // closed line. moveFocus is set when the body is removed under the user.
     function isClosed() { return !(Date.now() < closesAt); }
-    function closeNow() {
+    function closeNow(moveFocus) {
       if (body && body.parentNode) body.parentNode.removeChild(body);
       closedEl.hidden = false;
+      if (moveFocus) closedEl.focus();
     }
-    if (isClosed()) { closeNow(); return; }
+    if (isClosed()) { closeNow(false); return; }
     body.hidden = false;
+    // A page restored from the back/forward cache after the close closes too.
+    window.addEventListener('pageshow', function () { if (isClosed()) closeNow(false); });
 
     // ── Conditional questions ──
     // A question with data-show-if is shown when ANY {field, anyOf} test holds
@@ -61,9 +67,18 @@
       }
     }
     form.addEventListener('change', applyConditions);
-    // Start from a clean state: a browser may restore ticks inside hidden questions.
+    // Start from a clean state: a browser may restore ticks inside hidden
+    // questions, and may restore the submit button as disabled.
     blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
     applyConditions();
+    submitBtn.disabled = false;
+
+    // Every question is optional, so Enter in a one-line field would send a
+    // half-finished questionnaire. Only the submit button submits.
+    form.addEventListener('keydown', function (e) {
+      var t = e.target;
+      if (e.key === 'Enter' && t.tagName === 'INPUT' && t.type !== 'submit' && t.type !== 'button') e.preventDefault();
+    });
 
     // ── Payload ──
     // Each checkbox group (data-group) is ONE field: its ticked codes joined with
@@ -91,34 +106,44 @@
       return out;
     }
 
+    // Re-shown on the next frame so a repeated error is announced again.
     function showError() {
-      errorBox.hidden = false;
-      errorBox.scrollIntoView({ block: 'center' });
+      errorBox.hidden = true;
+      requestAnimationFrame(function () {
+        errorBox.hidden = false;
+        errorBox.scrollIntoView({ block: 'center' });
+      });
     }
     function resetCaptcha() {
       if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
     }
 
+    var sending = false;
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
+      if (sending) return;
       errorBox.hidden = true;
-      if (isClosed()) { closeNow(); return; }
+      if (isClosed()) { closeNow(true); return; }
 
       var hc = form.querySelector('textarea[name="h-captcha-response"]');
       if (hc && !hc.value) { showError(); return; }   // null hc = widget not loaded; let Web3Forms decide
 
-      var submitBtn = form.querySelector('button[type=submit]');
+      sending = true;
       submitBtn.disabled = true;
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, SEND_TIMEOUT_MS);
       try {
         var res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
-          body: payload()
+          body: payload(),
+          signal: ctrl.signal
         });
         var json = await res.json();
         if (json.success) {
           form.hidden = true;
           successEl.hidden = false;
+          successEl.focus();
           successEl.scrollIntoView({ block: 'center' });
         } else {
           console.error('Web3Forms:', json.message);
@@ -130,6 +155,8 @@
         showError();
         resetCaptcha();
       } finally {
+        clearTimeout(timer);
+        sending = false;
         submitBtn.disabled = false;
       }
     });

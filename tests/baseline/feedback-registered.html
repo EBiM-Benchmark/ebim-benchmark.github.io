@@ -58,14 +58,18 @@
     .subhero-subtitle { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,.72); margin: 0 auto; max-width: 620px; }
     @media (max-width: 700px) { #home.subhero { min-height: 32vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
-    /* ── Intro, language switch, closed line ── */
+    /* ── Intro, language switch, closed line ──
+       Secondary text on this page uses --text-mid (7.1:1 on --bg-light), not
+       --text-muted (2.4:1), so it passes WCAG AA. The .btn-submit rules below are
+       the site's shared button style, copied unchanged. */
     .q-intro, .q-switch, .q-lang, .q-closed { max-width: 760px; margin: 0 auto 1rem; color: var(--text-mid); font-size: .98rem; line-height: 1.65; }
-    .q-switch { font-size: .9rem; color: var(--text-muted); margin-bottom: .5rem; }
+    .q-switch { font-size: .9rem; color: var(--text-mid); margin-bottom: .5rem; }
     .q-lang { display: flex; gap: .4rem; margin-bottom: 1.75rem; }
     .q-lang-opt { font-size: .82rem; font-weight: 700; padding: .25rem .7rem; border-radius: 999px; border: 1px solid var(--border); color: var(--text-mid); }
     .q-lang-opt.is-active { background: var(--bg-dark); border-color: var(--bg-dark); color: #fff; }
-    a.q-lang-opt:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+    a.q-lang-opt:hover { border-color: var(--text-dark); color: var(--text-dark); }
     .q-closed { text-align: center; font-size: 1.05rem; color: var(--text-dark); padding: 2rem 0; }
+    .q-closed:focus, .form-success:focus { outline: none; }
 
     /* ── Card + form (classes shared with compute-apply / register) ── */
     .reg-card { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); }
@@ -91,11 +95,16 @@
     .q-section { display: flex; flex-direction: column; gap: 1.4rem; }
     .q-section + .q-section { border-top: 1px solid var(--border); padding-top: 1.6rem; }
     .q-section-title { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; }
-    .q-num { color: var(--accent-dark); margin-right: .15rem; }
+    .q-num { color: var(--text-mid); margin-right: .15rem; }
     .q-scale { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
     .q-scale-opt { display: inline-flex; align-items: center; gap: .3rem; font-size: .92rem; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem; cursor: pointer; }
     .q-scale-opt input { accent-color: var(--accent-dark); margin: 0; }
-    .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-muted); }
+    .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-mid); }
+    /* Narrow screens: one row, digit under its radio, so the end labels stay under the ends. */
+    @media (max-width: 540px) {
+      .q-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .2rem; }
+      .q-scale-opt { flex-direction: column; justify-content: center; gap: .15rem; padding: .3rem 0; font-size: .82rem; }
+    }
 
     /* Submit button */
     .btn-submit { width: 100%; justify-content: center; background: var(--accent); color: var(--bg-dark); font-size: 1rem; padding: .95rem 2rem; margin-top: .25rem; }
@@ -113,7 +122,7 @@
     .form-success p { color: var(--text-mid); font-size: 1rem; line-height: 1.65; max-width: 480px; margin: 0 auto; }
 
     .reg-noscript { max-width: 760px; margin: 1rem auto 0; text-align: center; font-size: .9rem; color: #b91c1c; }
-    .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+    .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-mid); line-height: 1.6; }
     @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
   </style>
 
@@ -201,11 +210,11 @@
 
     <noscript><p class="reg-noscript">JavaScript is required to submit this form (the spam check needs it). If you can&#39;t enable it, email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</p></noscript>
 
-    <p id="qClosed" class="q-closed" hidden>This questionnaire closed on 22 October 2026. Thank you to everyone who answered.</p>
+    <p id="qClosed" class="q-closed" role="status" tabindex="-1" hidden>This questionnaire closed on 22 October 2026. Thank you to everyone who answered.</p>
 
     <div id="qBody" hidden>
       <p class="q-intro">This questionnaire is for teams that registered for the EBiM Benchmark Competition 2026 but did not file a Phase I submission. It takes about five minutes. Every question is optional, and you do not need to give your team name. Everyone on your team is welcome to answer — one response per person. It closes on 22 October 2026 (AoE).</p>
-      <p class="q-switch">To answer in 中文, switch language before you start — switching reloads the page.</p>
+      <p class="q-switch">To answer in <span lang="zh-Hans">中文</span>, switch language before you start — switching reloads the page.</p>
       <p class="q-lang">
         <span class="q-lang-opt is-active" lang="en" aria-current="true">EN</span>
         <a class="q-lang-opt" lang="zh-Hans" href="zh/feedback-registered.html">中文</a>
@@ -506,7 +515,7 @@
                 </div>
               </div>
               <div class="q" data-q="q12_likelihood" data-type="scale">
-                <fieldset class="form-field">
+                <fieldset class="form-field" aria-describedby="q12_likelihood_ends">
                   <legend class="form-label"><span class="q-num">10.</span> How likely are you to take part in the next edition?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="0" /> <span>0</span></label>
@@ -521,7 +530,7 @@
                     <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="9" /> <span>9</span></label>
                     <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="10" /> <span>10</span></label>
                   </div>
-                  <div class="q-scale-ends"><span>0 = not at all likely</span><span>10 = extremely likely</span></div>
+                  <div class="q-scale-ends" id="q12_likelihood_ends"><span>0 = not at all likely</span><span>10 = extremely likely</span></div>
                 </fieldset>
               </div>
               <div class="q" data-q="q12_detail" data-type="text">
@@ -544,7 +553,7 @@
                 </fieldset>
               </div>
               <div class="q" data-q="q11_ease" data-type="scale" data-show-if="[{&quot;field&quot;:&quot;q11_ran_sim&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
-                <fieldset class="form-field">
+                <fieldset class="form-field" aria-describedby="q11_ease_ends">
                   <legend class="form-label">How easy was it to get running?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="q11_ease" value="1" disabled /> <span>1</span></label>
@@ -553,7 +562,7 @@
                     <label class="q-scale-opt"><input type="radio" name="q11_ease" value="4" disabled /> <span>4</span></label>
                     <label class="q-scale-opt"><input type="radio" name="q11_ease" value="5" disabled /> <span>5</span></label>
                   </div>
-                  <div class="q-scale-ends"><span>1 = very hard</span><span>5 = very easy</span></div>
+                  <div class="q-scale-ends" id="q11_ease_ends"><span>1 = very hard</span><span>5 = very easy</span></div>
                 </fieldset>
               </div>
               <div class="q" data-q="q11_comment" data-type="text" data-show-if="[{&quot;field&quot;:&quot;q11_ran_sim&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
@@ -633,7 +642,7 @@
           </div>
         </form>
 
-        <div id="formSuccess" class="form-success" role="status" hidden>
+        <div id="formSuccess" class="form-success" role="status" tabindex="-1" hidden>
           <div class="form-success-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <p>Thank you. We have your answers. If you asked to join the email list or to talk with us, we&#39;ll be in touch at the address you gave.</p>
         </div>
@@ -739,17 +748,23 @@
     var closedEl  = document.querySelector('#qClosed');
     var errorBox  = document.querySelector('#formError');
     var successEl = document.querySelector('#formSuccess');
+    var submitBtn = form.querySelector('button[type=submit]');
     var closesAt  = Date.parse(form.getAttribute('data-closes-at'));
+    var SEND_TIMEOUT_MS = 30000;
 
-    // Closed from closesAt onward: drop the whole questionnaire body, keep the
-    // page header, show the single closed line.
+    // Closed from closesAt onward (an unparseable date also reads as closed):
+    // drop the whole questionnaire body, keep the page header, show the single
+    // closed line. moveFocus is set when the body is removed under the user.
     function isClosed() { return !(Date.now() < closesAt); }
-    function closeNow() {
+    function closeNow(moveFocus) {
       if (body && body.parentNode) body.parentNode.removeChild(body);
       closedEl.hidden = false;
+      if (moveFocus) closedEl.focus();
     }
-    if (isClosed()) { closeNow(); return; }
+    if (isClosed()) { closeNow(false); return; }
     body.hidden = false;
+    // A page restored from the back/forward cache after the close closes too.
+    window.addEventListener('pageshow', function () { if (isClosed()) closeNow(false); });
 
     // ── Conditional questions ──
     // A question with data-show-if is shown when ANY {field, anyOf} test holds
@@ -790,9 +805,18 @@
       }
     }
     form.addEventListener('change', applyConditions);
-    // Start from a clean state: a browser may restore ticks inside hidden questions.
+    // Start from a clean state: a browser may restore ticks inside hidden
+    // questions, and may restore the submit button as disabled.
     blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
     applyConditions();
+    submitBtn.disabled = false;
+
+    // Every question is optional, so Enter in a one-line field would send a
+    // half-finished questionnaire. Only the submit button submits.
+    form.addEventListener('keydown', function (e) {
+      var t = e.target;
+      if (e.key === 'Enter' && t.tagName === 'INPUT' && t.type !== 'submit' && t.type !== 'button') e.preventDefault();
+    });
 
     // ── Payload ──
     // Each checkbox group (data-group) is ONE field: its ticked codes joined with
@@ -820,34 +844,44 @@
       return out;
     }
 
+    // Re-shown on the next frame so a repeated error is announced again.
     function showError() {
-      errorBox.hidden = false;
-      errorBox.scrollIntoView({ block: 'center' });
+      errorBox.hidden = true;
+      requestAnimationFrame(function () {
+        errorBox.hidden = false;
+        errorBox.scrollIntoView({ block: 'center' });
+      });
     }
     function resetCaptcha() {
       if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
     }
 
+    var sending = false;
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
+      if (sending) return;
       errorBox.hidden = true;
-      if (isClosed()) { closeNow(); return; }
+      if (isClosed()) { closeNow(true); return; }
 
       var hc = form.querySelector('textarea[name="h-captcha-response"]');
       if (hc && !hc.value) { showError(); return; }   // null hc = widget not loaded; let Web3Forms decide
 
-      var submitBtn = form.querySelector('button[type=submit]');
+      sending = true;
       submitBtn.disabled = true;
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, SEND_TIMEOUT_MS);
       try {
         var res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
-          body: payload()
+          body: payload(),
+          signal: ctrl.signal
         });
         var json = await res.json();
         if (json.success) {
           form.hidden = true;
           successEl.hidden = false;
+          successEl.focus();
           successEl.scrollIntoView({ block: 'center' });
         } else {
           console.error('Web3Forms:', json.message);
@@ -859,6 +893,8 @@
         showError();
         resetCaptcha();
       } finally {
+        clearTimeout(timer);
+        sending = false;
         submitBtn.disabled = false;
       }
     });

@@ -18,8 +18,10 @@
 //                workshop/contact/open-day/open-day-hamburg/open-day-shanghai/
 //                open-day-munich]
 //   extra      — contact.html: data-slug values + slug-keyed inline script +
-//                untouched form internals. contact-test.html: inline behavior
-//                <script> is byte-for-byte unchanged.
+//                untouched form internals. contact-test.html and
+//                feedback-registered.html: the inline behavior <script> is
+//                unchanged (blank lines and trailing whitespace ignored) — the structure axis strips
+//                script bodies, so this is what pins the questionnaire payload.
 //
 // Expected: every page PASSES every applicable axis. Any red means the EN
 // output drifted — fix the template, never the baseline.
@@ -72,7 +74,7 @@ const JSONLD_PAGES = new Set([
   "open-day-munich.html",
 ]);
 const CONTACT = "contact.html";
-const SCRIPT_UNCHANGED = new Set(["contact-test.html"]);
+const SCRIPT_UNCHANGED = new Set(["contact-test.html", "feedback-registered.html"]);
 
 const GREEN = (s) => `\x1b[32m${s}\x1b[0m`;
 const RED = (s) => `\x1b[31m${s}\x1b[0m`;

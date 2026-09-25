@@ -37,14 +37,18 @@
     .subhero-subtitle { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,.72); margin: 0 auto; max-width: 620px; }
     @media (max-width: 700px) { #home.subhero { min-height: 32vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
-    /* ── Intro, language switch, closed line ── */
+    /* ── Intro, language switch, closed line ──
+       Secondary text on this page uses --text-mid (7.1:1 on --bg-light), not
+       --text-muted (2.4:1), so it passes WCAG AA. The .btn-submit rules below are
+       the site's shared button style, copied unchanged. */
     .q-intro, .q-switch, .q-lang, .q-closed { max-width: 760px; margin: 0 auto 1rem; color: var(--text-mid); font-size: .98rem; line-height: 1.65; }
-    .q-switch { font-size: .9rem; color: var(--text-muted); margin-bottom: .5rem; }
+    .q-switch { font-size: .9rem; color: var(--text-mid); margin-bottom: .5rem; }
     .q-lang { display: flex; gap: .4rem; margin-bottom: 1.75rem; }
     .q-lang-opt { font-size: .82rem; font-weight: 700; padding: .25rem .7rem; border-radius: 999px; border: 1px solid var(--border); color: var(--text-mid); }
     .q-lang-opt.is-active { background: var(--bg-dark); border-color: var(--bg-dark); color: #fff; }
-    a.q-lang-opt:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+    a.q-lang-opt:hover { border-color: var(--text-dark); color: var(--text-dark); }
     .q-closed { text-align: center; font-size: 1.05rem; color: var(--text-dark); padding: 2rem 0; }
+    .q-closed:focus, .form-success:focus { outline: none; }
 
     /* ── Card + form (classes shared with compute-apply / register) ── */
     .reg-card { max-width: 760px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2.25rem; box-shadow: var(--card-shadow); }
@@ -70,11 +74,16 @@
     .q-section { display: flex; flex-direction: column; gap: 1.4rem; }
     .q-section + .q-section { border-top: 1px solid var(--border); padding-top: 1.6rem; }
     .q-section-title { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; }
-    .q-num { color: var(--accent-dark); margin-right: .15rem; }
+    .q-num { color: var(--text-mid); margin-right: .15rem; }
     .q-scale { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
     .q-scale-opt { display: inline-flex; align-items: center; gap: .3rem; font-size: .92rem; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem; cursor: pointer; }
     .q-scale-opt input { accent-color: var(--accent-dark); margin: 0; }
-    .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-muted); }
+    .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-mid); }
+    /* Narrow screens: one row, digit under its radio, so the end labels stay under the ends. */
+    @media (max-width: 540px) {
+      .q-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .2rem; }
+      .q-scale-opt { flex-direction: column; justify-content: center; gap: .15rem; padding: .3rem 0; font-size: .82rem; }
+    }
 
     /* Submit button */
     .btn-submit { width: 100%; justify-content: center; background: var(--accent); color: var(--bg-dark); font-size: 1rem; padding: .95rem 2rem; margin-top: .25rem; }
@@ -92,7 +101,7 @@
     .form-success p { color: var(--text-mid); font-size: 1rem; line-height: 1.65; max-width: 480px; margin: 0 auto; }
 
     .reg-noscript { max-width: 760px; margin: 1rem auto 0; text-align: center; font-size: .9rem; color: #b91c1c; }
-    .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+    .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-mid); line-height: 1.6; }
     @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
   </style>
 {% endraw %}

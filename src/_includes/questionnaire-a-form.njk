@@ -24,11 +24,11 @@
 
     <noscript><p class="reg-noscript">{{ Q.text.noscript[L] | e | replace(MAIL, MAILTO) | safe }}</p></noscript>
 
-    <p id="qClosed" class="q-closed" hidden>{{ Q.text.closed[L] | e }}</p>
+    <p id="qClosed" class="q-closed" role="status" tabindex="-1" hidden>{{ Q.text.closed[L] | e }}</p>
 
     <div id="qBody" hidden>
       <p class="q-intro">{{ Q.text.intro[L] | e }}</p>
-      <p class="q-switch">{{ Q.text.switchLine[L] | e }}</p>
+      <p class="q-switch">{{ Q.text.switchLine[L] | e | replace("中文", '<span lang="zh-Hans">中文</span>') | replace("English", '<span lang="en">English</span>') | safe }}</p>
       <p class="q-lang">
         {%- if L == "en" %}
         <span class="q-lang-opt is-active" lang="en" aria-current="true">EN</span>
@@ -62,14 +62,14 @@
                   </div>
                 </fieldset>
 {%- elif q.type == "scale" %}
-                <fieldset class="form-field">
+                <fieldset class="form-field" aria-describedby="{{ q.name }}_ends">
                   <legend class="form-label">{{ numHtml | safe }}{{ q.label[L] | e }}</legend>
                   <div class="q-scale">
 {%- for v in range(q.min, q.max + 1) %}
                     <label class="q-scale-opt"><input type="radio" name="{{ q.name }}" value="{{ v }}"{% if cond %} disabled{% endif %} /> <span>{{ v }}</span></label>
 {%- endfor %}
                   </div>
-                  <div class="q-scale-ends"><span>{{ q.minLabel[L] | e }}</span><span>{{ q.maxLabel[L] | e }}</span></div>
+                  <div class="q-scale-ends" id="{{ q.name }}_ends"><span>{{ q.minLabel[L] | e }}</span><span>{{ q.maxLabel[L] | e }}</span></div>
                 </fieldset>
 {%- elif q.type == "single" %}
 {%- for o in opts %}
@@ -109,7 +109,7 @@
           </div>
         </form>
 
-        <div id="formSuccess" class="form-success" role="status" hidden>
+        <div id="formSuccess" class="form-success" role="status" tabindex="-1" hidden>
           <div class="form-success-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <p>{{ Q.text.thanks[L] | e }}</p>
         </div>
