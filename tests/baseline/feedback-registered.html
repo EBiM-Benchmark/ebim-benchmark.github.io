@@ -59,8 +59,9 @@
     @media (max-width: 700px) { #home.subhero { min-height: 32vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
     /* ── Intro, language switch, closed line ──
-       Secondary text on this page uses --text-mid (7.1:1 on --bg-light), not
-       --text-muted (2.4:1), so it passes WCAG AA. The .btn-submit rules below are
+       Secondary text on this page uses --text-mid (7.1:1 on the section's
+       --bg-light, 7.5:1 on the white card), not --text-muted (2.4:1 / 2.6:1),
+       so it passes WCAG AA. The .btn-submit rules below are
        the site's shared button style, copied unchanged. */
     .q-intro, .q-switch, .q-lang, .q-closed { max-width: 760px; margin: 0 auto 1rem; color: var(--text-mid); font-size: .98rem; line-height: 1.65; }
     .q-switch { font-size: .9rem; color: var(--text-mid); margin-bottom: .5rem; }
@@ -100,10 +101,17 @@
     .q-scale-opt { display: inline-flex; align-items: center; gap: .3rem; font-size: .92rem; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem; cursor: pointer; }
     .q-scale-opt input { accent-color: var(--accent-dark); margin: 0; }
     .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-mid); }
-    /* Narrow screens: one row, digit under its radio, so the end labels stay under the ends. */
-    @media (max-width: 540px) {
+    /* Below the width where 0–10 fits as pills: one row, digit under its radio, so
+       the end labels stay under the ends. On phones the scale also spans the card's
+       side padding, keeping each of the 11 targets at least 24px wide. */
+    @media (max-width: 767px) {
       .q-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .2rem; }
       .q-scale-opt { flex-direction: column; justify-content: center; gap: .15rem; padding: .3rem 0; font-size: .82rem; }
+    }
+    @media (max-width: 540px) {
+      .q-scale, .q-scale-ends { margin-left: -1.35rem; margin-right: -1.35rem; }
+      .q-scale-ends { padding: 0 .5rem; }
+      .q-scale { gap: 0; }
     }
 
     /* Submit button */
@@ -124,6 +132,8 @@
     .reg-noscript { max-width: 760px; margin: 1rem auto 0; text-align: center; font-size: .9rem; color: #b91c1c; }
     .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-mid); line-height: 1.6; }
     @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
+    /* Smallest phones: slimmer section and card sides so the 11-option scale keeps 24px targets. */
+    @media (max-width: 360px) { #questionnaire .container { padding-left: 1rem; padding-right: 1rem; } .reg-card { padding-left: 1rem; padding-right: 1rem; } .q-scale, .q-scale-ends { margin-left: -1rem; margin-right: -1rem; } }
   </style>
 
 
@@ -518,17 +528,17 @@
                 <fieldset class="form-field" aria-describedby="q12_likelihood_ends">
                   <legend class="form-label"><span class="q-num">10.</span> How likely are you to take part in the next edition?</legend>
                   <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="0" /> <span>0</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="1" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="2" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="3" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="4" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="5" /> <span>5</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="6" /> <span>6</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="7" /> <span>7</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="8" /> <span>8</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="9" /> <span>9</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="10" /> <span>10</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="0" aria-describedby="q12_likelihood_ends" /> <span>0</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="1" aria-describedby="q12_likelihood_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="2" aria-describedby="q12_likelihood_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="3" aria-describedby="q12_likelihood_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="4" aria-describedby="q12_likelihood_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="5" aria-describedby="q12_likelihood_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="6" aria-describedby="q12_likelihood_ends" /> <span>6</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="7" aria-describedby="q12_likelihood_ends" /> <span>7</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="8" aria-describedby="q12_likelihood_ends" /> <span>8</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="9" aria-describedby="q12_likelihood_ends" /> <span>9</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="10" aria-describedby="q12_likelihood_ends" /> <span>10</span></label>
                   </div>
                   <div class="q-scale-ends" id="q12_likelihood_ends"><span>0 = not at all likely</span><span>10 = extremely likely</span></div>
                 </fieldset>
@@ -556,11 +566,11 @@
                 <fieldset class="form-field" aria-describedby="q11_ease_ends">
                   <legend class="form-label">How easy was it to get running?</legend>
                   <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="1" disabled /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="2" disabled /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="3" disabled /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="4" disabled /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="5" disabled /> <span>5</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="1" aria-describedby="q11_ease_ends" disabled /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="2" aria-describedby="q11_ease_ends" disabled /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="3" aria-describedby="q11_ease_ends" disabled /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="4" aria-describedby="q11_ease_ends" disabled /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="q11_ease" value="5" aria-describedby="q11_ease_ends" disabled /> <span>5</span></label>
                   </div>
                   <div class="q-scale-ends" id="q11_ease_ends"><span>1 = very hard</span><span>5 = very easy</span></div>
                 </fieldset>
@@ -751,6 +761,7 @@
     var submitBtn = form.querySelector('button[type=submit]');
     var closesAt  = Date.parse(form.getAttribute('data-closes-at'));
     var SEND_TIMEOUT_MS = 30000;
+    var sending = false;
 
     // Closed from closesAt onward (an unparseable date also reads as closed):
     // drop the whole questionnaire body, keep the page header, show the single
@@ -763,8 +774,6 @@
     }
     if (isClosed()) { closeNow(false); return; }
     body.hidden = false;
-    // A page restored from the back/forward cache after the close closes too.
-    window.addEventListener('pageshow', function () { if (isClosed()) closeNow(false); });
 
     // ── Conditional questions ──
     // A question with data-show-if is shown when ANY {field, anyOf} test holds
@@ -804,17 +813,30 @@
         if (!changed) break;
       }
     }
+    // Bring the page in line with the ticks it holds: show what they trigger and
+    // keep every hidden question cleared. Browsers restore form values on
+    // back/forward navigation and reload AFTER this script has run and without
+    // a change event, so this runs again on load and on pageshow.
+    function sync() {
+      applyConditions();
+      blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
+      if (!sending) submitBtn.disabled = false;
+    }
     form.addEventListener('change', applyConditions);
-    // Start from a clean state: a browser may restore ticks inside hidden
-    // questions, and may restore the submit button as disabled.
-    blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
-    applyConditions();
-    submitBtn.disabled = false;
+    window.addEventListener('load', sync);
+    // pageshow also fires on a back/forward-cache restore, which may come after
+    // the close; a thank-you already on screen is left alone.
+    window.addEventListener('pageshow', function () {
+      if (isClosed() && successEl.hidden) { closeNow(false); return; }
+      sync();
+    });
+    sync();
 
     // Every question is optional, so Enter in a one-line field would send a
     // half-finished questionnaire. Only the submit button submits.
     form.addEventListener('keydown', function (e) {
       var t = e.target;
+      if (e.isComposing || e.keyCode === 229) return;   // Enter that commits an IME candidate
       if (e.key === 'Enter' && t.tagName === 'INPUT' && t.type !== 'submit' && t.type !== 'button') e.preventDefault();
     });
 
@@ -856,7 +878,6 @@
       if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
     }
 
-    var sending = false;
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       if (sending) return;

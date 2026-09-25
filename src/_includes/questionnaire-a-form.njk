@@ -66,7 +66,7 @@
                   <legend class="form-label">{{ numHtml | safe }}{{ q.label[L] | e }}</legend>
                   <div class="q-scale">
 {%- for v in range(q.min, q.max + 1) %}
-                    <label class="q-scale-opt"><input type="radio" name="{{ q.name }}" value="{{ v }}"{% if cond %} disabled{% endif %} /> <span>{{ v }}</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="{{ q.name }}" value="{{ v }}" aria-describedby="{{ q.name }}_ends"{% if cond %} disabled{% endif %} /> <span>{{ v }}</span></label>
 {%- endfor %}
                   </div>
                   <div class="q-scale-ends" id="{{ q.name }}_ends"><span>{{ q.minLabel[L] | e }}</span><span>{{ q.maxLabel[L] | e }}</span></div>

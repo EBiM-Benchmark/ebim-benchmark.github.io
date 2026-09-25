@@ -38,8 +38,9 @@
     @media (max-width: 700px) { #home.subhero { min-height: 32vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
 
     /* ── Intro, language switch, closed line ──
-       Secondary text on this page uses --text-mid (7.1:1 on --bg-light), not
-       --text-muted (2.4:1), so it passes WCAG AA. The .btn-submit rules below are
+       Secondary text on this page uses --text-mid (7.1:1 on the section's
+       --bg-light, 7.5:1 on the white card), not --text-muted (2.4:1 / 2.6:1),
+       so it passes WCAG AA. The .btn-submit rules below are
        the site's shared button style, copied unchanged. */
     .q-intro, .q-switch, .q-lang, .q-closed { max-width: 760px; margin: 0 auto 1rem; color: var(--text-mid); font-size: .98rem; line-height: 1.65; }
     .q-switch { font-size: .9rem; color: var(--text-mid); margin-bottom: .5rem; }
@@ -79,10 +80,17 @@
     .q-scale-opt { display: inline-flex; align-items: center; gap: .3rem; font-size: .92rem; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem; cursor: pointer; }
     .q-scale-opt input { accent-color: var(--accent-dark); margin: 0; }
     .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-mid); }
-    /* Narrow screens: one row, digit under its radio, so the end labels stay under the ends. */
-    @media (max-width: 540px) {
+    /* Below the width where 0–10 fits as pills: one row, digit under its radio, so
+       the end labels stay under the ends. On phones the scale also spans the card's
+       side padding, keeping each of the 11 targets at least 24px wide. */
+    @media (max-width: 767px) {
       .q-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .2rem; }
       .q-scale-opt { flex-direction: column; justify-content: center; gap: .15rem; padding: .3rem 0; font-size: .82rem; }
+    }
+    @media (max-width: 540px) {
+      .q-scale, .q-scale-ends { margin-left: -1.35rem; margin-right: -1.35rem; }
+      .q-scale-ends { padding: 0 .5rem; }
+      .q-scale { gap: 0; }
     }
 
     /* Submit button */
@@ -103,5 +111,7 @@
     .reg-noscript { max-width: 760px; margin: 1rem auto 0; text-align: center; font-size: .9rem; color: #b91c1c; }
     .reg-privacy { max-width: 760px; margin: 1.5rem auto 0; text-align: center; font-size: .82rem; color: var(--text-mid); line-height: 1.6; }
     @media (max-width: 540px) { .reg-card { padding: 1.75rem 1.35rem; } }
+    /* Smallest phones: slimmer section and card sides so the 11-option scale keeps 24px targets. */
+    @media (max-width: 360px) { #questionnaire .container { padding-left: 1rem; padding-right: 1rem; } .reg-card { padding-left: 1rem; padding-right: 1rem; } .q-scale, .q-scale-ends { margin-left: -1rem; margin-right: -1rem; } }
   </style>
 {% endraw %}

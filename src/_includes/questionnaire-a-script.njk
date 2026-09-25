@@ -13,6 +13,7 @@
     var submitBtn = form.querySelector('button[type=submit]');
     var closesAt  = Date.parse(form.getAttribute('data-closes-at'));
     var SEND_TIMEOUT_MS = 30000;
+    var sending = false;
 
     // Closed from closesAt onward (an unparseable date also reads as closed):
     // drop the whole questionnaire body, keep the page header, show the single
@@ -25,8 +26,6 @@
     }
     if (isClosed()) { closeNow(false); return; }
     body.hidden = false;
-    // A page restored from the back/forward cache after the close closes too.
-    window.addEventListener('pageshow', function () { if (isClosed()) closeNow(false); });
 
     // ── Conditional questions ──
     // A question with data-show-if is shown when ANY {field, anyOf} test holds
@@ -66,17 +65,30 @@
         if (!changed) break;
       }
     }
+    // Bring the page in line with the ticks it holds: show what they trigger and
+    // keep every hidden question cleared. Browsers restore form values on
+    // back/forward navigation and reload AFTER this script has run and without
+    // a change event, so this runs again on load and on pageshow.
+    function sync() {
+      applyConditions();
+      blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
+      if (!sending) submitBtn.disabled = false;
+    }
     form.addEventListener('change', applyConditions);
-    // Start from a clean state: a browser may restore ticks inside hidden
-    // questions, and may restore the submit button as disabled.
-    blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
-    applyConditions();
-    submitBtn.disabled = false;
+    window.addEventListener('load', sync);
+    // pageshow also fires on a back/forward-cache restore, which may come after
+    // the close; a thank-you already on screen is left alone.
+    window.addEventListener('pageshow', function () {
+      if (isClosed() && successEl.hidden) { closeNow(false); return; }
+      sync();
+    });
+    sync();
 
     // Every question is optional, so Enter in a one-line field would send a
     // half-finished questionnaire. Only the submit button submits.
     form.addEventListener('keydown', function (e) {
       var t = e.target;
+      if (e.isComposing || e.keyCode === 229) return;   // Enter that commits an IME candidate
       if (e.key === 'Enter' && t.tagName === 'INPUT' && t.type !== 'submit' && t.type !== 'button') e.preventDefault();
     });
 
@@ -118,7 +130,6 @@
       if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
     }
 
-    var sending = false;
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       if (sending) return;

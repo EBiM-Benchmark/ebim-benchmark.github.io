@@ -5,32 +5,41 @@
 // same thing. Both render from src/_data/questionnaireA.json, but a template
 // edit could still make them diverge; this reads the BUILT pages and fails if:
 //
-//   controls    — any form control or question wrapper tag differs EN vs zh
-//                 (attributes compared order-insensitively; only the hidden lang
-//                 value may differ). Controls carry no translated text, so this
-//                 catch-all covers data-group, disabled, hidden, maxlength, …
+//   controls    — any form control (input, textarea incl. its content, select,
+//                 button, fieldset, output, object) or question-wrapper tag differs
+//                 EN vs zh. Attributes are compared order-insensitively and only
+//                 the hidden lang value may differ; controls carry no translated
+//                 text, so this also covers data-group, disabled, hidden, maxlength.
 //   fields      — the ordered list of submitted field names differs EN vs zh or
-//                 from the data file (a checkbox group counts once).
-//   options     — a choice field's type or option codes/order differ, EN vs zh
-//                 or vs the data file.
+//                 from the data file (a checkbox group counts once), or a field's
+//                 control type is not the one its data-file type renders.
+//   options     — a choice field's option codes/order differ, EN vs zh or vs the
+//                 data file.
 //   encoding    — a checkbox lacks data-group or a radio carries it (data-group
 //                 is what makes the script send a group as ONE ";"-joined field).
-//   conditions  — a question's data-show-if differs EN vs zh or vs the data file;
-//                 a condition names a field or code that does not exist; a
-//                 conditional question is not rendered hidden + disabled (or an
-//                 unconditional one is); a wrapper holds another question's input.
+//   defaults    — any control ships pre-answered: a checked box or radio, a value
+//                 on a visible text/email input, or text inside a textarea.
+//   conditions  — a question's data-show-if differs EN vs zh or vs the data file
+//                 (compared as parsed JSON); a condition is not a non-empty list of
+//                 {field, non-empty anyOf} naming a real choice field and its real
+//                 codes; a conditional question is not rendered hidden + disabled
+//                 (or an unconditional one is); a wrapper holds another question's
+//                 input.
 //   hidden      — access_key / from_name / subject / instrument differ; lang is
 //                 not exactly "en" on EN and "zh" on zh.
 //   close date  — the form's data-closes-at differs from the data file.
-//   structure   — a named control sits outside #qForm or points into it with
-//                 form=, a non-choice name repeats, or an unsupported control
-//                 (select, named button) appears — the script would send it.
-//   script      — the inline questionnaire script is missing or differs EN vs zh.
-//                 (scripts/verify.mjs pins the EN script to its golden, so a
-//                 single-source edit that changes both pages alike is caught
-//                 there.)
+//   structure   — a named control sits outside #qForm, any control carries form=,
+//                 a non-choice name repeats, or a control the script would send
+//                 but this check does not model appears (select, named button,
+//                 named fieldset/output/object).
+//   scripts     — the questionnaire script is missing, or ANY inline script
+//                 (other than JSON-LD) differs EN vs zh (line endings normalised).
+//                 A single-source edit changes both pages alike, so
+//                 scripts/verify.mjs also pins the EN script to its golden.
 //
-// A floor guards against a broken instrument: a page with no fields is not a pass.
+// Tags are matched quote-aware, so a ">" inside an attribute value cannot hide an
+// attribute. A floor guards against a broken instrument: a page with no fields
+// is not a pass.
 //
 // Usage:  node scripts/verify-questionnaire.mjs            (builds, then verifies)
 //         node scripts/verify-questionnaire.mjs --no-build (verify an existing _site)
@@ -43,10 +52,16 @@ const SITE = path.join(ROOT, "_site");
 const EN = "feedback-registered.html";
 const ZH = "zh/feedback-registered.html";
 const HIDDEN = ["access_key", "from_name", "subject", "instrument", "lang", "botcheck"];
+// The control type each data-file question type renders as.
+const RENDERS = { checkbox: "checkbox", single: "checkbox", radio: "radio", scale: "radio", text: "text", longtext: "textarea", email: "email" };
+const HIDDEN_TYPES = { access_key: "hidden", from_name: "hidden", subject: "hidden", instrument: "hidden", lang: "hidden", botcheck: "checkbox" };
 
 const GREEN = (s) => `\x1b[32m${s}\x1b[0m`;
 const RED = (s) => `\x1b[31m${s}\x1b[0m`;
 const BOLD = (s) => `\x1b[1m${s}\x1b[0m`;
+
+// A start tag of one of `names`, quote-aware (a ">" inside a quoted value does not end it).
+const tagRe = (names) => new RegExp(`<(${names})\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, "gi");
 
 const decode = (s) =>
   s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
@@ -59,25 +74,31 @@ function attrs(tag) {
     out[m[1].toLowerCase()] = decode(m[2] ?? m[3] ?? m[4] ?? "");
   return out;
 }
-const sig = (name, a) =>
-  `<${name} ${Object.keys(a).sort().map((k) => `${k}=${JSON.stringify(a[k])}`).join(" ")}>`;
+const sig = (name, a, extra = "") =>
+  `<${name} ${Object.keys(a).sort().map((k) => `${k}=${JSON.stringify(a[k])}`).join(" ")}>${extra}`;
+// Conditions compare as parsed JSON, so re-spacing is not a difference.
+const canon = (s) => { try { return JSON.stringify(JSON.parse(s)); } catch { return s; } };
 
 // Everything the page submits and branches on, extracted from built HTML.
 function extract(rel) {
-  const raw = fs.readFileSync(path.join(SITE, rel), "utf8");
-  const s = raw.match(/<!-- Questionnaire A:[^>]*-->\s*<script>([\s\S]*?)<\/script>/);
+  const raw = fs.readFileSync(path.join(SITE, rel), "utf8").replace(/\r\n/g, "\n");
+  const scripts = [...raw.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
+    .filter((m) => { const a = attrs(`<script${m[1]}>`); return !("src" in a) && a.type !== "application/ld+json"; })
+    .map((m) => m[2]);
+  const marked = raw.match(/<!-- Questionnaire A:[^>]*-->\s*<script>([\s\S]*?)<\/script>/);
   // Comments and script bodies can hold tag-like text that submits nothing.
   const html = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
 
-  const formStart = html.search(/<form\b[^>]*\sid="qForm"/);
-  if (formStart < 0) throw new Error(`${rel}: no <form id="qForm">`);
+  const forms = [...html.matchAll(tagRe("form"))].filter((m) => attrs(m[0]).id === "qForm");
+  if (!forms.length) throw new Error(`${rel}: no <form id="qForm">`);
+  const formStart = forms[0].index;
   const formEnd = html.indexOf("</form>", formStart);
-  const formTag = attrs(html.slice(formStart).match(/^<form\b[^>]*>/)[0]);
+  const formTag = attrs(forms[0][0]);
 
   // Question wrappers (<div class="q" …>) with their extent, found by div depth.
   const wrappers = [];
   const stack = [];
-  for (const m of html.matchAll(/<div\b[^>]*>|<\/div>/gi)) {
+  for (const m of html.matchAll(new RegExp(`${tagRe("div").source}|</div>`, "gi"))) {
     if (m[0][1] === "/") {
       const w = stack.pop();
       if (w) w.end = m.index;
@@ -94,24 +115,38 @@ function extract(rel) {
   const sigs = [];
   const fields = [];
   const byName = new Map();
-  for (const m of html.matchAll(/<(input|textarea|select|button)\b[^>]*>/gi)) {
+  for (const m of html.matchAll(tagRe("input|textarea|select|button|fieldset|output|object"))) {
     const kind = m[1].toLowerCase();
     const a = attrs(m[0]);
     const inside = m.index > formStart && m.index < formEnd;
+    if ("form" in a) problems.push(`control with form= attribute: ${m[0]}`);
     if (!inside) {
-      if (a.name || a.form) problems.push(`control outside #qForm: ${m[0]}`);
+      if (a.name) problems.push(`named control outside #qForm: ${m[0]}`);
       continue;
     }
-    sigs.push(sig(kind, a.name === "lang" && a.type === "hidden" ? { ...a, value: "<lang>" } : a));
-    if (kind === "button" && !a.name) continue; // the submit button
-    if (kind === "select" || kind === "button") { problems.push(`unsupported control: ${m[0]}`); continue; }
+    let body = "";
+    if (kind === "textarea") {
+      const end = html.indexOf("</textarea>", m.index);
+      body = html.slice(m.index + m[0].length, end < 0 ? undefined : end);
+    }
+    sigs.push(sig(kind, a.name === "lang" && a.type === "hidden" ? { ...a, value: "<lang>" } : a, body));
+    if (kind === "fieldset" || kind === "output" || kind === "object" || kind === "button") {
+      if (a.name) problems.push(`unsupported named control: ${m[0]}`);
+      continue;
+    }
+    if (kind === "select") { problems.push(`unsupported control: ${m[0]}`); continue; }
     const name = a.name;
     if (!name) continue;
     const type = kind === "textarea" ? "textarea" : (a.type || "text").toLowerCase();
+    // Nothing may ship pre-answered.
+    if ((type === "checkbox" || type === "radio") && "checked" in a) problems.push(`${name}: pre-checked ${m[0]}`);
+    if ((type === "text" || type === "email") && "value" in a) problems.push(`${name}: pre-filled ${m[0]}`);
+    if (type === "textarea" && body.trim() !== "") problems.push(`${name}: pre-filled textarea "${body.trim().slice(0, 40)}"`);
+
     const w = wrappers.find((x) => m.index > x.start && m.index < x.end);
     if (w) w.names.add(name);
     if (!byName.has(name)) {
-      byName.set(name, { type, codes: [], grouped: [], count: 0, value: null, wrapper: w || null, disabled: [] });
+      byName.set(name, { type, codes: [], grouped: [], count: 0, value: null, disabled: [] });
       fields.push(name);
     }
     const e = byName.get(name);
@@ -126,17 +161,17 @@ function extract(rel) {
       if (e.count > 1) problems.push(`${name}: repeated non-choice field`);
     }
   }
-  for (const w of wrappers) sigs.push(sig("div", w.a));
+  for (const w of wrappers) sigs.push(sig("div", "data-show-if" in w.a ? { ...w.a, "data-show-if": canon(w.a["data-show-if"]) } : w.a));
 
   const conditions = {};
   for (const w of wrappers) {
     const q = w.a["data-q"];
-    conditions[q] = "data-show-if" in w.a ? w.a["data-show-if"] : null;
+    conditions[q] = "data-show-if" in w.a ? canon(w.a["data-show-if"]) : null;
     for (const n of w.names) if (n !== q) problems.push(`wrapper data-q="${q}" holds input name="${n}"`);
     if (!w.names.has(q)) problems.push(`wrapper data-q="${q}" holds no input named ${q}`);
   }
 
-  return { fields, byName, conditions, wrappers, sigs, problems, closesAt: formTag["data-closes-at"], script: s ? s[1] : null };
+  return { fields, byName, conditions, wrappers, sigs, problems, scripts, closesAt: formTag["data-closes-at"], script: marked ? marked[1] : null };
 }
 
 // The same, derived from the data file (the spec as encoded).
@@ -144,10 +179,12 @@ function expectedFromData(DATA) {
   const fields = [];
   const codes = {};
   const grouped = {};
+  const types = { ...HIDDEN_TYPES };
   const conditions = {};
   for (const sec of DATA.sections)
     for (const q of sec.questions) {
       fields.push(q.name);
+      types[q.name] = RENDERS[q.type] || `unknown data type "${q.type}"`;
       const opts = typeof q.options === "string" ? DATA.optionSets[q.options] : q.options;
       if (q.type === "scale") {
         codes[q.name] = [];
@@ -156,7 +193,7 @@ function expectedFromData(DATA) {
       grouped[q.name] = q.type === "checkbox" || q.type === "single";
       conditions[q.name] = q.showIf ? JSON.stringify(q.showIf) : null;
     }
-  return { fields: [...fields, ...HIDDEN], codes, grouped, conditions };
+  return { fields: [...fields, ...HIDDEN], codes, grouped, types, conditions };
 }
 
 function buildSite() {
@@ -180,8 +217,8 @@ function main() {
   add("floor: fields found", en.fields.length >= 30 && zh.fields.length >= 30,
     `EN ${en.fields.length}, zh ${zh.fields.length} fields — expected ≥ 30`);
 
-  add("structure: EN (controls inside #qForm, supported, no repeats)", en.problems.length === 0, en.problems.join("\n    "));
-  add("structure: zh (controls inside #qForm, supported, no repeats)", zh.problems.length === 0, zh.problems.join("\n    "));
+  add("structure + defaults: EN", en.problems.length === 0, en.problems.join("\n    "));
+  add("structure + defaults: zh", zh.problems.length === 0, zh.problems.join("\n    "));
 
   const sigDiffs = [];
   for (let i = 0; i < Math.max(en.sigs.length, zh.sigs.length); i++)
@@ -195,6 +232,7 @@ function main() {
 
   const optDiffs = [];
   const dataDiffs = [];
+  const typeDiffs = [];
   const encDiffs = [];
   for (const name of en.fields) {
     const a = en.byName.get(name);
@@ -205,6 +243,7 @@ function main() {
     }
     if (name in exp.codes && !same(a.codes, exp.codes[name]))
       dataDiffs.push(`${name}: page [${a.codes}] vs data [${exp.codes[name]}]`);
+    if (a.type !== exp.types[name]) typeDiffs.push(`${name}: page ${a.type} vs data ${exp.types[name] ?? "(not in data)"}`);
     for (const [label, p] of [["EN", a], ["zh", b]]) {
       if (!p) continue;
       const want = p.type === "checkbox" && name !== "botcheck";
@@ -212,6 +251,7 @@ function main() {
       if (name in exp.grouped && exp.grouped[name] !== want) encDiffs.push(`${label} ${name}: data file says grouped=${exp.grouped[name]}`);
     }
   }
+  add("fields: control types == data file", typeDiffs.length === 0, typeDiffs.join("\n    "));
   add("options: EN == zh (type, codes, order)", optDiffs.length === 0, optDiffs.join("\n    "));
   add("options: EN == data file", dataDiffs.length === 0, dataDiffs.join("\n    "));
   add("encoding: every checkbox group carries data-group (and no radio does)", encDiffs.length === 0, encDiffs.join("\n    "));
@@ -236,16 +276,20 @@ function main() {
       try { list = JSON.parse(w.a["data-show-if"]); } catch { condShape.push(`${label} ${q}: data-show-if is not JSON`); continue; }
       if (!Array.isArray(list) || !list.length) { condShape.push(`${label} ${q}: data-show-if is not a non-empty list`); continue; }
       for (const c of list) {
+        if (!c || typeof c.field !== "string" || !Array.isArray(c.anyOf) || !c.anyOf.length) {
+          condShape.push(`${label} ${q}: condition must be {field, anyOf: [non-empty]}: ${JSON.stringify(c)}`);
+          continue;
+        }
         const t = p.byName.get(c.field);
         if (!t) { condShape.push(`${label} ${q}: condition on unknown field ${c.field}`); continue; }
         if (t.type !== "checkbox" && t.type !== "radio") condShape.push(`${label} ${q}: condition on non-choice field ${c.field}`);
-        for (const code of c.anyOf || []) if (!t.codes.includes(code)) condShape.push(`${label} ${q}: ${c.field} has no code "${code}"`);
+        for (const code of c.anyOf) if (!t.codes.includes(code)) condShape.push(`${label} ${q}: ${c.field} has no code "${code}"`);
       }
     }
   }
   add("conditions: EN == zh", condDiffs.length === 0, condDiffs.join("\n    "));
   add("conditions: EN == data file", condData.length === 0, condData.join("\n    "));
-  add("conditions: well-formed (known field + codes; hidden + disabled iff conditional)", condShape.length === 0, condShape.join("\n    "));
+  add("conditions: well-formed (non-empty anyOf of real codes; hidden + disabled iff conditional)", condShape.length === 0, condShape.join("\n    "));
 
   const hv = (p, n) => (p.byName.get(n) || {}).value;
   const hiddenDiffs = ["access_key", "from_name", "subject", "instrument"].filter((n) => hv(en, n) !== hv(zh, n));
@@ -261,8 +305,10 @@ function main() {
     en.closesAt === DATA.closesAt && zh.closesAt === DATA.closesAt && !Number.isNaN(Date.parse(DATA.closesAt)),
     `EN ${en.closesAt}, zh ${zh.closesAt}, data ${DATA.closesAt}`);
 
-  add("script: inline questionnaire script present and identical",
-    en.script !== null && en.script === zh.script, en.script === null ? "script not found" : "EN and zh script bodies differ");
+  add("scripts: questionnaire script present; every inline script identical EN == zh",
+    en.script !== null && zh.script !== null && same(en.scripts, zh.scripts),
+    en.script === null || zh.script === null ? "questionnaire script not found"
+      : `EN has ${en.scripts.length} inline script(s), zh ${zh.scripts.length}; bodies differ`);
 
   for (const r of results)
     console.log(`  ${r.ok ? GREEN("PASS") : RED("FAIL")}  ${r.name}${r.ok ? "" : "\n    " + r.msg}`);
