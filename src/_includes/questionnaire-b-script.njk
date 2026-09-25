@@ -1,0 +1,294 @@
+{% raw %}
+<!-- Questionnaire B: date close, conditional + required questions, draft saving, one-field-per-group encoding, AJAX submit -->
+<script>
+  (function () {
+    'use strict';
+    var form = document.querySelector('#qForm');
+    if (!form) return;
+
+    var body      = document.querySelector('#qBody');
+    var closedEl  = document.querySelector('#qClosed');
+    var draftLine = document.querySelector('#qDraft');
+    var errorBox  = document.querySelector('#formError');
+    var successEl = document.querySelector('#formSuccess');
+    var submitBtn = form.querySelector('button[type=submit]');
+    var closesAt  = Date.parse(form.getAttribute('data-closes-at'));
+    var DRAFT_KEY = form.getAttribute('data-draft-key');
+    var SEND_TIMEOUT_MS = 30000;
+    var sending = false;
+
+    // Closed from closesAt onward (an unparseable date also reads as closed):
+    // drop the whole questionnaire body, keep the page header, show the single
+    // closed line. moveFocus is set when the body is removed under the user.
+    // Nothing below touches the draft store once the page is closed.
+    function isClosed() { return !(Date.now() < closesAt); }
+    function closeNow(moveFocus) {
+      if (body && body.parentNode) body.parentNode.removeChild(body);
+      closedEl.hidden = false;
+      if (moveFocus) closedEl.focus();
+    }
+    if (isClosed()) { closeNow(false); return; }
+
+    // ── Draft store ──
+    // Answers are kept in localStorage under one key for both languages. Every
+    // storage call is guarded: with storage unavailable the form still works,
+    // just without saving, and the "saved in this browser" line stays hidden.
+    var storage = null;
+    try {
+      var probe = '__' + DRAFT_KEY + '__';
+      window.localStorage.setItem(probe, '1');
+      window.localStorage.removeItem(probe);
+      storage = window.localStorage;
+    } catch (err) { storage = null; }
+    if (storage) draftLine.hidden = false;
+
+    // Only question inputs (inside a .q wrapper) are saved — never the hidden
+    // fields, the honeypot or the hCaptcha response.
+    function questionInputs() {
+      return [].slice.call(form.querySelectorAll('.q[data-q] input, .q[data-q] textarea'));
+    }
+    function saveDraft() {
+      if (!storage || isClosed()) return;
+      var state = {};
+      questionInputs().forEach(function (i) {
+        if (i.disabled) return;
+        if (i.type === 'checkbox') {
+          if (i.checked) (state[i.name] = state[i.name] || []).push(i.value);
+        } else if (i.type === 'radio') {
+          if (i.checked) state[i.name] = i.value;
+        } else if (i.value !== '') {
+          state[i.name] = i.value;
+        }
+      });
+      try { storage.setItem(DRAFT_KEY, JSON.stringify(state)); } catch (err) { /* not saved */ }
+    }
+    function restoreDraft() {
+      if (!storage) return;
+      var state = null;
+      try { state = JSON.parse(storage.getItem(DRAFT_KEY) || 'null'); } catch (err) { state = null; }
+      if (!state || typeof state !== 'object') return;
+      questionInputs().forEach(function (i) {
+        if (!Object.prototype.hasOwnProperty.call(state, i.name)) return;
+        var v = state[i.name];
+        if (i.type === 'checkbox') i.checked = Array.isArray(v) && v.indexOf(i.value) !== -1;
+        else if (i.type === 'radio') i.checked = v === i.value;
+        else if (typeof v === 'string') i.value = v.slice(0, i.maxLength > 0 ? i.maxLength : undefined);
+      });
+    }
+    function clearDraft() {
+      if (!storage) return;
+      try { storage.removeItem(DRAFT_KEY); } catch (err) { /* nothing to clear */ }
+    }
+
+    // ── Conditional questions ──
+    // A question with data-show-if is shown when ANY {field, anyOf} test holds
+    // against the enabled, checked inputs of that field. Hidden questions are
+    // disabled (so they are never submitted) and cleared.
+    var blocks = [].slice.call(form.querySelectorAll('.q[data-show-if]')).map(function (el) {
+      return { el: el, conds: JSON.parse(el.getAttribute('data-show-if')) };
+    });
+    var containers = [].slice.call(form.querySelectorAll('.q-block'));
+    function checkedCodes(name) {
+      return [].slice.call(form.querySelectorAll('input[name="' + name + '"]'))
+        .filter(function (i) { return !i.disabled && i.checked; })
+        .map(function (i) { return i.value; });
+    }
+    function holds(conds) {
+      return conds.some(function (c) {
+        return checkedCodes(c.field).some(function (v) { return c.anyOf.indexOf(v) !== -1; });
+      });
+    }
+    function setShown(b, show) {
+      b.el.hidden = !show;
+      [].slice.call(b.el.querySelectorAll('input, textarea')).forEach(function (i) {
+        i.disabled = !show;
+        if (!show) {
+          if (i.type === 'checkbox' || i.type === 'radio') i.checked = false;
+          else i.value = '';
+        }
+      });
+    }
+    // A section, subsection or group is hidden while none of its questions is.
+    function syncContainers() {
+      containers.forEach(function (c) {
+        var qs = [].slice.call(c.querySelectorAll('.q'));
+        c.hidden = qs.length > 0 && qs.every(function (q) { return q.hidden; });
+      });
+    }
+    function applyConditions() {
+      // Repeat until stable, so clearing one question cascades to its dependants.
+      for (var pass = 0; pass < 10; pass++) {
+        var changed = false;
+        blocks.forEach(function (b) {
+          var show = holds(b.conds);
+          if (show === b.el.hidden) { setShown(b, show); changed = true; }
+        });
+        if (!changed) break;
+      }
+      syncContainers();
+      syncRequired();
+    }
+
+    // ── Required questions ──
+    // A question with data-required-if must be filled while ANY of its tests
+    // holds (and it is shown). Its message is shown only after a blocked submit,
+    // and is withdrawn as soon as the field is filled or stops being required.
+    var reqs = [].slice.call(form.querySelectorAll('.q[data-required-if]')).map(function (el) {
+      return {
+        el: el,
+        conds: JSON.parse(el.getAttribute('data-required-if')),
+        input: el.querySelector('input, textarea'),
+        msg: el.querySelector('.q-req-msg')
+      };
+    });
+    function isRequired(r) { return !r.el.hidden && !r.input.disabled && holds(r.conds); }
+    function isMissing(r) { return isRequired(r) && r.input.value.trim() === ''; }
+    function showMsg(r, show) {
+      r.msg.hidden = !show;
+      if (show) {
+        r.input.setAttribute('aria-invalid', 'true');
+        r.input.setAttribute('aria-describedby', r.msg.id);
+      } else {
+        r.input.removeAttribute('aria-invalid');
+        r.input.removeAttribute('aria-describedby');
+      }
+    }
+    function syncRequired() {
+      reqs.forEach(function (r) {
+        if (isRequired(r)) r.input.setAttribute('aria-required', 'true');
+        else r.input.removeAttribute('aria-required');
+        if (!r.msg.hidden && !isMissing(r)) showMsg(r, false);
+      });
+    }
+    // Returns true when submit may go ahead; otherwise shows every message and
+    // moves focus to the first missing field in page order.
+    function checkRequired() {
+      var missing = reqs.filter(isMissing);
+      reqs.forEach(function (r) { showMsg(r, missing.indexOf(r) !== -1); });
+      if (!missing.length) return true;
+      missing[0].input.focus();
+      return false;
+    }
+
+    // Bring the page in line with the answers it holds: show what they trigger
+    // and keep every hidden question cleared. Browsers restore form values on
+    // back/forward navigation and reload AFTER this script has run and without
+    // a change event, so this runs again on load and on pageshow.
+    function sync() {
+      applyConditions();
+      blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
+      syncContainers();
+      syncRequired();
+      if (!sending) submitBtn.disabled = false;
+    }
+    function onEdit() {
+      applyConditions();
+      saveDraft();
+    }
+    form.addEventListener('change', onEdit);
+    form.addEventListener('input', onEdit);
+    window.addEventListener('load', function () { sync(); saveDraft(); });
+    // pageshow also fires on a back/forward-cache restore, which may come after
+    // the close; a thank-you already on screen is left alone.
+    window.addEventListener('pageshow', function () {
+      if (isClosed() && successEl.hidden) { closeNow(false); return; }
+      if (!successEl.hidden) return;
+      sync();
+      saveDraft();
+    });
+    restoreDraft();
+    sync();
+    body.hidden = false;
+
+    // Every question is optional, so Enter in a one-line field would send a
+    // half-finished questionnaire. Only the submit button submits.
+    form.addEventListener('keydown', function (e) {
+      var t = e.target;
+      if (e.isComposing || e.keyCode === 229) return;   // Enter that commits an IME candidate
+      if (e.key === 'Enter' && t.tagName === 'INPUT' && t.type !== 'submit' && t.type !== 'button') e.preventDefault();
+    });
+
+    // ── Payload ──
+    // Each checkbox group (data-group) is ONE field: its ticked codes joined with
+    // ";" in page order, "" if none. Radios send their single code, text fields
+    // their value. Disabled fields are skipped.
+    function payload() {
+      var out = new FormData();
+      var groups = {};
+      [].slice.call(form.querySelectorAll('input[data-group]')).forEach(function (i) {
+        if (i.disabled) return;
+        if (!groups[i.name]) groups[i.name] = [];
+        if (i.checked) groups[i.name].push(i.value);
+      });
+      var done = {};
+      [].slice.call(form.elements).forEach(function (el) {
+        if (!el.name || el.disabled || el.type === 'submit' || el.type === 'button') return;
+        if (el.hasAttribute('data-group')) {
+          if (!done[el.name]) { done[el.name] = true; out.append(el.name, groups[el.name].join(';')); }
+        } else if (el.type === 'checkbox' || el.type === 'radio') {
+          if (el.checked) out.append(el.name, el.value);
+        } else {
+          out.append(el.name, el.value);
+        }
+      });
+      return out;
+    }
+
+    // Re-shown on the next frame so a repeated error is announced again.
+    function showError() {
+      errorBox.hidden = true;
+      requestAnimationFrame(function () {
+        errorBox.hidden = false;
+        errorBox.scrollIntoView({ block: 'center' });
+      });
+    }
+    function resetCaptcha() {
+      if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (sending) return;
+      errorBox.hidden = true;
+      if (isClosed()) { closeNow(true); return; }
+      if (!checkRequired()) return;
+
+      var hc = form.querySelector('textarea[name="h-captcha-response"]');
+      if (hc && !hc.value) { showError(); return; }   // null hc = widget not loaded; let Web3Forms decide
+
+      sending = true;
+      submitBtn.disabled = true;
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, SEND_TIMEOUT_MS);
+      try {
+        var res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: payload(),
+          signal: ctrl.signal
+        });
+        var json = await res.json();
+        if (res.ok && json.success) {
+          clearDraft();
+          form.hidden = true;
+          successEl.hidden = false;
+          successEl.focus();
+          successEl.scrollIntoView({ block: 'center' });
+        } else {
+          console.error('Web3Forms:', json.message);
+          showError();
+          resetCaptcha();
+        }
+      } catch (err) {
+        console.error('Web3Forms:', err);
+        showError();
+        resetCaptcha();
+      } finally {
+        clearTimeout(timer);
+        sending = false;
+        submitBtn.disabled = false;
+      }
+    });
+  })();
+</script>
+{% endraw %}

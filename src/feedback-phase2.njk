@@ -1,0 +1,25 @@
+---
+permalink: "feedback-phase2.html"
+bodyClass: "page-feedback-phase2"
+eleventyComputed:
+  title: "{{ questionnaireB.text.title.en }} · EBiM Benchmark"
+  description: "{{ questionnaireB.text.description.en }}"
+canonical: "https://ebim-benchmark.github.io/feedback-phase2.html"
+robots: "noindex"
+headComments: true
+backToTop: true
+---
+{#- Questionnaire B (EN). UNLISTED: no nav/footer/sitemap entry and no inbound link
+    from the rest of the site (only the zh page's EN/中文 switch); reached only from the email to Phase II team members.
+    Body, questions and script are shared with src/zh/feedback-phase2.njk and
+    rendered from src/_data/questionnaireB.json. -#}
+{% extends "layouts/base.njk" %}
+
+{% block headStyle %}{% include "questionnaire-b-style.njk" %}{% endblock %}
+
+{% block main %}{% include "questionnaire-b-form.njk" %}{% endblock %}
+
+{% block trailingScripts %}
+  {% include "questionnaire-b-script.njk" %}
+  <script src="https://web3forms.com/client/script.js" async defer></script>
+{% endblock %}
