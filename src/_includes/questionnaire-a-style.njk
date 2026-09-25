@@ -76,16 +76,17 @@
     .q-section + .q-section { border-top: 1px solid var(--border); padding-top: 1.6rem; }
     .q-section-title { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; }
     .q-num { color: var(--text-mid); margin-right: .15rem; }
-    .q-scale { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
-    .q-scale-opt { display: inline-flex; align-items: center; gap: .3rem; font-size: .92rem; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem; cursor: pointer; }
+    /* Scales: one full-width row of equal cells, digit under its radio, so the first
+       and last cells sit exactly above the end labels at every width. On phones the
+       scale also spans the card's side padding, keeping each of the 11 targets at
+       least 24px wide. */
+    .q-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .3rem; margin-top: .5rem; }
+    .q-scale-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem; font-size: .88rem; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; padding: .35rem 0; cursor: pointer; }
     .q-scale-opt input { accent-color: var(--accent-dark); margin: 0; }
     .q-scale-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--text-mid); }
-    /* Below the width where 0–10 fits as pills: one row, digit under its radio, so
-       the end labels stay under the ends. On phones the scale also spans the card's
-       side padding, keeping each of the 11 targets at least 24px wide. */
     @media (max-width: 767px) {
-      .q-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .2rem; }
-      .q-scale-opt { flex-direction: column; justify-content: center; gap: .15rem; padding: .3rem 0; font-size: .82rem; }
+      .q-scale { gap: .2rem; }
+      .q-scale-opt { padding: .3rem 0; font-size: .82rem; }
     }
     @media (max-width: 540px) {
       .q-scale, .q-scale-ends { margin-left: -1.35rem; margin-right: -1.35rem; }

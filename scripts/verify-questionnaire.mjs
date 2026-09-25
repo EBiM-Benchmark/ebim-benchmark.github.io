@@ -37,6 +37,25 @@
 //                 A single-source edit changes both pages alike, so
 //                 scripts/verify.mjs also pins the EN script to its golden.
 //
+//   skeleton    — the form's full tag skeleton (every start/end tag with its
+//                 attributes, text stripped, lang value masked) differs EN vs zh,
+//                 or the list of external scripts differs — covers the form tag
+//                 itself, the hCaptcha slot, and anything wrapped in <noscript> or
+//                 <template> (whose contents never reach the DOM and are not
+//                 scanned as controls).
+//   well-formed — a tag repeats an attribute (the browser keeps the first), a
+//                 hidden field is disabled, closesAt lacks an explicit UTC offset
+//                 (it would be read in the visitor's time zone), a condition has
+//                 keys other than {field, anyOf}, refers to itself or forms a
+//                 cycle, a field repeats an option code, or the data file names an
+//                 option set that does not exist.
+//
+// Scope: this guards against HONEST template and data edits that would make the
+// pages submit something other than the data file describes, or make EN and zh
+// differ. It does not try to defeat deliberately obfuscated HTML, and it cannot
+// know whether a value the data file itself holds is right (a changed access key
+// in data + pages passes here; the EN golden in verify.mjs shows the diff).
+//
 // Tags are matched quote-aware, so a ">" inside an attribute value cannot hide an
 // attribute. A floor guards against a broken instrument: a page with no fields
 // is not a pass.
@@ -67,13 +86,29 @@ const decode = (s) =>
   s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 
 // Attributes of one start tag, any quoting style; a bare attribute reads as "".
+// Like the browser, the FIRST of a repeated attribute wins; repeats are listed in
+// dupAttrs() so the check can fail on them.
+const ATTR_RE = /([^\s"'>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g;
+const attrBody = (tag) => tag.replace(/^<\/?[a-zA-Z]+/, "").replace(/\/?>$/, "");
 function attrs(tag) {
   const out = {};
-  const body = tag.replace(/^<[a-zA-Z]+/, "").replace(/\/?>$/, "");
-  for (const m of body.matchAll(/([^\s"'>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g))
-    out[m[1].toLowerCase()] = decode(m[2] ?? m[3] ?? m[4] ?? "");
+  for (const m of attrBody(tag).matchAll(ATTR_RE)) {
+    const k = m[1].toLowerCase();
+    if (!(k in out)) out[k] = decode(m[2] ?? m[3] ?? m[4] ?? "");
+  }
   return out;
 }
+function dupAttrs(tag) {
+  const seen = new Set();
+  const dups = [];
+  for (const m of attrBody(tag).matchAll(ATTR_RE)) {
+    const k = m[1].toLowerCase();
+    if (seen.has(k)) dups.push(k);
+    seen.add(k);
+  }
+  return dups;
+}
+const CLOSES_AT_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/;
 const sig = (name, a, extra = "") =>
   `<${name} ${Object.keys(a).sort().map((k) => `${k}=${JSON.stringify(a[k])}`).join(" ")}>${extra}`;
 // Conditions compare as parsed JSON, so re-spacing is not a difference.
@@ -85,15 +120,34 @@ function extract(rel) {
   const scripts = [...raw.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
     .filter((m) => { const a = attrs(`<script${m[1]}>`); return !("src" in a) && a.type !== "application/ld+json"; })
     .map((m) => m[2]);
+  // External scripts, compared EN vs zh with the zh "../" asset prefix removed.
+  const srcScripts = [...raw.matchAll(tagRe("script"))]
+    .map((m) => attrs(m[0]).src).filter((s) => s !== undefined).map((s) => s.replace(/^(\.\.\/)+/, ""));
   const marked = raw.match(/<!-- Questionnaire A:[^>]*-->\s*<script>([\s\S]*?)<\/script>/);
   // Comments and script bodies can hold tag-like text that submits nothing.
-  const html = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+  const full = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, "$1</script>");
 
-  const forms = [...html.matchAll(tagRe("form"))].filter((m) => attrs(m[0]).id === "qForm");
-  if (!forms.length) throw new Error(`${rel}: no <form id="qForm">`);
-  const formStart = forms[0].index;
-  const formEnd = html.indexOf("</form>", formStart);
-  const formTag = attrs(forms[0][0]);
+  // The form's tag skeleton: every start/end tag with sorted attributes, text dropped.
+  const findForm = (h) => {
+    const f = [...h.matchAll(tagRe("form"))].filter((m) => attrs(m[0]).id === "qForm");
+    if (!f.length) throw new Error(`${rel}: no <form id="qForm">`);
+    return { start: f[0].index, end: h.indexOf("</form>", f[0].index), tag: f[0][0] };
+  };
+  const ff = findForm(full);
+  const skeleton = [...full.slice(ff.start, ff.end + 7).matchAll(new RegExp(`${tagRe("[a-zA-Z][a-zA-Z0-9-]*").source}|</[a-zA-Z][a-zA-Z0-9-]*\\s*>`, "g"))]
+    .map((m) => {
+      if (m[0][1] === "/") return m[0].toLowerCase().replace(/\s+/g, "");
+      const a = attrs(m[0]);
+      if ("data-show-if" in a) a["data-show-if"] = canon(a["data-show-if"]);
+      if (a.name === "lang" && a.type === "hidden") a.value = "<lang>";
+      return sig(m[1].toLowerCase(), a);
+    });
+
+  // <noscript>/<template> contents never reach the DOM as form controls; the
+  // skeleton above still sees them, so an EN/zh difference there still fails.
+  const html = full.replace(/<(noscript|template)\b[\s\S]*?<\/\1\s*>/gi, "");
+  const { start: formStart, end: formEnd, tag: formTagRaw } = findForm(html);
+  const formTag = attrs(formTagRaw);
 
   // Question wrappers (<div class="q" …>) with their extent, found by div depth.
   const wrappers = [];
@@ -119,6 +173,8 @@ function extract(rel) {
     const kind = m[1].toLowerCase();
     const a = attrs(m[0]);
     const inside = m.index > formStart && m.index < formEnd;
+    const dups = dupAttrs(m[0]);
+    if (dups.length) problems.push(`repeated attribute ${dups.join(", ")}: ${m[0]}`);
     if ("form" in a) problems.push(`control with form= attribute: ${m[0]}`);
     if (!inside) {
       if (a.name) problems.push(`named control outside #qForm: ${m[0]}`);
@@ -126,7 +182,7 @@ function extract(rel) {
     }
     let body = "";
     if (kind === "textarea") {
-      const end = html.indexOf("</textarea>", m.index);
+      const end = html.indexOf("</textarea>", m.index + m[0].length);
       body = html.slice(m.index + m[0].length, end < 0 ? undefined : end);
     }
     sigs.push(sig(kind, a.name === "lang" && a.type === "hidden" ? { ...a, value: "<lang>" } : a, body));
@@ -138,6 +194,7 @@ function extract(rel) {
     const name = a.name;
     if (!name) continue;
     const type = kind === "textarea" ? "textarea" : (a.type || "text").toLowerCase();
+    if (type === "hidden" && "disabled" in a) problems.push(`${name}: hidden field is disabled (never sent) ${m[0]}`);
     // Nothing may ship pre-answered.
     if ((type === "checkbox" || type === "radio") && "checked" in a) problems.push(`${name}: pre-checked ${m[0]}`);
     if ((type === "text" || type === "email") && "value" in a) problems.push(`${name}: pre-filled ${m[0]}`);
@@ -154,6 +211,7 @@ function extract(rel) {
     e.disabled.push("disabled" in a);
     if (e.type !== type) problems.push(`${name}: mixed control types ${e.type} / ${type}`);
     if (type === "checkbox" || type === "radio") {
+      if (name !== "botcheck" && e.codes.includes(a.value ?? null)) problems.push(`${name}: option code "${a.value}" repeats`);
       e.codes.push(a.value ?? null);
       e.grouped.push("data-group" in a);
     } else {
@@ -171,7 +229,7 @@ function extract(rel) {
     if (!w.names.has(q)) problems.push(`wrapper data-q="${q}" holds no input named ${q}`);
   }
 
-  return { fields, byName, conditions, wrappers, sigs, problems, scripts, closesAt: formTag["data-closes-at"], script: marked ? marked[1] : null };
+  return { fields, byName, conditions, wrappers, sigs, skeleton, srcScripts, problems, scripts, closesAt: formTag["data-closes-at"], script: marked ? marked[1] : null };
 }
 
 // The same, derived from the data file (the spec as encoded).
@@ -181,19 +239,46 @@ function expectedFromData(DATA) {
   const grouped = {};
   const types = { ...HIDDEN_TYPES };
   const conditions = {};
+  const problems = [];
+  if (!CLOSES_AT_RE.test(DATA.closesAt || "")) problems.push(`closesAt "${DATA.closesAt}" needs an ISO date-time with an explicit offset (e.g. …T12:00:00Z)`);
   for (const sec of DATA.sections)
     for (const q of sec.questions) {
       fields.push(q.name);
       types[q.name] = RENDERS[q.type] || `unknown data type "${q.type}"`;
-      const opts = typeof q.options === "string" ? DATA.optionSets[q.options] : q.options;
+      if (typeof q.options === "string" && !(q.options in (DATA.optionSets || {})))
+        problems.push(`${q.name}: option set "${q.options}" does not exist`);
+      const opts = typeof q.options === "string" ? (DATA.optionSets || {})[q.options] : q.options;
       if (q.type === "scale") {
         codes[q.name] = [];
         for (let v = q.min; v <= q.max; v++) codes[q.name].push(String(v));
       } else if (opts) codes[q.name] = opts.map((o) => o.code);
+      if (codes[q.name] && new Set(codes[q.name]).size !== codes[q.name].length) problems.push(`${q.name}: repeated option code`);
+      if ((q.type === "checkbox" || q.type === "radio" || q.type === "single") && !(codes[q.name] || []).length)
+        problems.push(`${q.name}: choice question with no options`);
       grouped[q.name] = q.type === "checkbox" || q.type === "single";
       conditions[q.name] = q.showIf ? JSON.stringify(q.showIf) : null;
     }
-  return { fields: [...fields, ...HIDDEN], codes, grouped, types, conditions };
+  return { fields: [...fields, ...HIDDEN], codes, grouped, types, conditions, problems };
+}
+
+// A condition graph (question → the fields its condition reads) must be acyclic:
+// a self-reference or cycle means the question can never appear.
+function conditionCycles(conds) {
+  const edges = {};
+  for (const [q, s] of Object.entries(conds)) {
+    try { edges[q] = s ? JSON.parse(s).map((c) => c && c.field) : []; } catch { edges[q] = []; }
+  }
+  const bad = [];
+  const state = {};
+  const visit = (q, trail) => {
+    if (state[q] === 2) return;
+    if (state[q] === 1) { bad.push([...trail, q].join(" → ")); return; }
+    state[q] = 1;
+    for (const f of edges[q] || []) visit(f, [...trail, q]);
+    state[q] = 2;
+  };
+  for (const q of Object.keys(edges)) visit(q, []);
+  return bad;
 }
 
 function buildSite() {
@@ -220,10 +305,20 @@ function main() {
   add("structure + defaults: EN", en.problems.length === 0, en.problems.join("\n    "));
   add("structure + defaults: zh", zh.problems.length === 0, zh.problems.join("\n    "));
 
-  const sigDiffs = [];
-  for (let i = 0; i < Math.max(en.sigs.length, zh.sigs.length); i++)
-    if (en.sigs[i] !== zh.sigs[i]) sigDiffs.push(`#${i}: EN ${en.sigs[i]}\n      zh ${zh.sigs[i]}`);
+  add("data file: well-formed (closesAt offset, option sets exist, unique codes)", exp.problems.length === 0, exp.problems.join("\n    "));
+
+  const listDiff = (a, b) => {
+    const d = [];
+    for (let i = 0; i < Math.max(a.length, b.length); i++)
+      if (a[i] !== b[i]) d.push(`#${i}: EN ${a[i]}\n      zh ${b[i]}`);
+    return d;
+  };
+  const sigDiffs = listDiff(en.sigs, zh.sigs);
   add(`controls: every control + wrapper tag EN == zh (${en.sigs.length} tags)`, sigDiffs.length === 0, sigDiffs.slice(0, 5).join("\n    "));
+  const skelDiffs = listDiff(en.skeleton, zh.skeleton);
+  add(`skeleton: form tag structure EN == zh (${en.skeleton.length} tags)`, skelDiffs.length === 0, skelDiffs.slice(0, 5).join("\n    "));
+  add("skeleton: external scripts EN == zh", same(en.srcScripts, zh.srcScripts),
+    `EN [${en.srcScripts.join(", ")}]\n    zh [${zh.srcScripts.join(", ")}]`);
 
   add("fields: EN == zh (names, order)", same(en.fields, zh.fields),
     `EN [${en.fields.join(", ")}]\n    zh [${zh.fields.join(", ")}]`);
@@ -276,10 +371,12 @@ function main() {
       try { list = JSON.parse(w.a["data-show-if"]); } catch { condShape.push(`${label} ${q}: data-show-if is not JSON`); continue; }
       if (!Array.isArray(list) || !list.length) { condShape.push(`${label} ${q}: data-show-if is not a non-empty list`); continue; }
       for (const c of list) {
-        if (!c || typeof c.field !== "string" || !Array.isArray(c.anyOf) || !c.anyOf.length) {
-          condShape.push(`${label} ${q}: condition must be {field, anyOf: [non-empty]}: ${JSON.stringify(c)}`);
+        const keys = c && typeof c === "object" ? Object.keys(c).sort().join(",") : "";
+        if (keys !== "anyOf,field" || typeof c.field !== "string" || !Array.isArray(c.anyOf) || !c.anyOf.length) {
+          condShape.push(`${label} ${q}: condition must be exactly {field, anyOf: [non-empty]}: ${JSON.stringify(c)}`);
           continue;
         }
+        if (c.field === q) { condShape.push(`${label} ${q}: condition refers to itself`); continue; }
         const t = p.byName.get(c.field);
         if (!t) { condShape.push(`${label} ${q}: condition on unknown field ${c.field}`); continue; }
         if (t.type !== "checkbox" && t.type !== "radio") condShape.push(`${label} ${q}: condition on non-choice field ${c.field}`);
@@ -287,6 +384,8 @@ function main() {
       }
     }
   }
+  for (const cyc of conditionCycles(en.conditions)) condShape.push(`EN condition cycle: ${cyc}`);
+  for (const cyc of conditionCycles(zh.conditions)) condShape.push(`zh condition cycle: ${cyc}`);
   add("conditions: EN == zh", condDiffs.length === 0, condDiffs.join("\n    "));
   add("conditions: EN == data file", condData.length === 0, condData.join("\n    "));
   add("conditions: well-formed (non-empty anyOf of real codes; hidden + disabled iff conditional)", condShape.length === 0, condShape.join("\n    "));
@@ -301,8 +400,8 @@ function main() {
   add('hidden: lang = "en" / "zh"', hv(en, "lang") === "en" && hv(zh, "lang") === "zh",
     `EN lang=${hv(en, "lang")}, zh lang=${hv(zh, "lang")}`);
 
-  add("close date: data-closes-at EN == zh == data file",
-    en.closesAt === DATA.closesAt && zh.closesAt === DATA.closesAt && !Number.isNaN(Date.parse(DATA.closesAt)),
+  add("close date: data-closes-at EN == zh == data file (ISO with offset)",
+    en.closesAt === DATA.closesAt && zh.closesAt === DATA.closesAt && CLOSES_AT_RE.test(DATA.closesAt || "") && !Number.isNaN(Date.parse(DATA.closesAt)),
     `EN ${en.closesAt}, zh ${zh.closesAt}, data ${DATA.closesAt}`);
 
   add("scripts: questionnaire script present; every inline script identical EN == zh",

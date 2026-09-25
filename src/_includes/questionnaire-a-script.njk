@@ -151,7 +151,7 @@
           signal: ctrl.signal
         });
         var json = await res.json();
-        if (json.success) {
+        if (res.ok && json.success) {
           form.hidden = true;
           successEl.hidden = false;
           successEl.focus();
