@@ -14,10 +14,12 @@
 // /zh/open-day-success.html and /zh/open-day-munich-success.html utility pages
 // (the no-JS targets of the zh contact/register/Open Day form redirects) and
 // the UNLISTED /zh/compute-apply.html + its /zh/compute-success.html target (the
-// compute-resource application emailed privately to registered teams) — all plain
+// compute-resource application emailed privately to registered teams) and the
+// UNLISTED /zh/feedback-registered.html questionnaire — all plain
 // noindex zh pages with no hreflang/toggle and out of the sitemap (see
 // contactSuccessChecks / registerSuccessChecks / openDaySuccessChecks /
-// openDayMunichSuccessChecks / computeApplyChecks / computeSuccessChecks below).
+// openDayMunichSuccessChecks / computeApplyChecks / computeSuccessChecks /
+// feedbackRegisteredChecks below).
 //
 // Publish state is now PER PAGE: src/_data/site.json `zhPublished` is a map keyed
 // by i18nKey, e.g. { "index": true, "competition": true, "workshop": false,
@@ -760,6 +762,70 @@ function computeApplyChecks() {
   return checks;
 }
 
+// The hidden /zh/ UNLISTED Questionnaire A page (src/zh/feedback-registered.njk),
+// modelled on computeApplyChecks — NO i18nKey, so NO hreflang, NO navbar language
+// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the zhNoindex
+// computed). Its only cross-locale link is the page-local EN switch back to
+// ../feedback-registered.html, and it submits lang=zh. Field/option/condition
+// parity with the EN page is scripts/verify-questionnaire.mjs's job.
+function feedbackRegisteredChecks() {
+  const file = "zh/feedback-registered.html";
+  const checks = [];
+  const add = (name, ok, msg = "") => checks.push({ name, ok, msg });
+
+  if (!exists(file)) {
+    add("build", false, `_site/${file} missing`);
+    return checks;
+  }
+  add("build", true);
+
+  const html = read(file);
+  const body = bodyOf(html);
+
+  add("lang=zh-Hans", /<html lang="zh-Hans">/.test(html), 'expected <html lang="zh-Hans">');
+
+  const noindexCount = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  add("noindex (exactly one)", noindexCount === 1, `expected exactly 1 noindex meta, found ${noindexCount}`);
+
+  add(
+    "canonical=self",
+    html.includes(
+      '<link rel="canonical" href="https://ebim-benchmark.github.io/zh/feedback-registered.html" />',
+    ),
+    "expected self canonical to /zh/feedback-registered.html",
+  );
+
+  add("no hreflang", !/hreflang/.test(html), "hidden unlisted page must emit no hreflang");
+  add(
+    "no navbar language toggle",
+    !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html),
+    "hidden unlisted page must not render the navbar language toggle",
+  );
+  add(
+    "page-local EN switch",
+    html.includes('<a class="q-lang-opt" lang="en" href="../feedback-registered.html">EN</a>'),
+    'expected <a class="q-lang-opt" lang="en" href="../feedback-registered.html">EN</a>',
+  );
+  add(
+    'hidden lang="zh"',
+    html.includes('<input type="hidden" name="lang" value="zh" />'),
+    'expected <input type="hidden" name="lang" value="zh" />',
+  );
+
+  add("navbar", /<nav id="navbar"/.test(html), "navbar did not render");
+  add("footer", /<footer id="footer"/.test(html), "footer did not render");
+
+  add(
+    "assets→../",
+    html.includes('href="../fonts/inter-latin-800-normal.woff2"') && html.includes('src="../js/main.js"'),
+    "expected ../fonts/inter-latin-800-normal.woff2 (preload) and ../js/main.js",
+  );
+
+  add("body has CJK", hasCJK(body), "body contains no CJK text");
+
+  return checks;
+}
+
 // The hidden /zh/ UNLISTED utility page for the compute application: the no-JS
 // target of the zh compute form's redirect (src/zh/compute-success.njk). Same
 // shape as registerSuccessChecks — NO i18nKey, so NO hreflang, NO language
@@ -891,6 +957,17 @@ function main() {
   }
   console.log("");
 
+  // ── hidden /zh/ UNLISTED Questionnaire A page ──
+  console.log(BOLD("• zh/feedback-registered.html  (HIDDEN UNLISTED)"));
+  for (const c of feedbackRegisteredChecks()) {
+    console.log(`    ${c.ok ? GREEN("PASS") : RED("FAIL")}  ${c.name}`);
+    if (!c.ok) {
+      allOk = false;
+      fails.push(`zh/feedback-registered.html — ${c.name}: ${c.msg}`);
+    }
+  }
+  console.log("");
+
   // ── hidden /zh/ utility page (compute-success) ──
   console.log(BOLD("• zh/compute-success.html  (HIDDEN UTILITY)"));
   for (const c of computeSuccessChecks()) {
@@ -969,6 +1046,11 @@ function main() {
     "sitemap excludes /zh/compute-success.html (hidden utility)",
     !sitemap.includes("/zh/compute-success.html"),
     "/zh/compute-success.html must not appear in sitemap.xml",
+  );
+  siteAdd(
+    "sitemap excludes /feedback-registered.html + /zh/ (hidden unlisted)",
+    !sitemap.includes("feedback-registered.html"),
+    "feedback-registered.html (EN or /zh/) must not appear in sitemap.xml",
   );
 
   // hreflang sweep: exactly the published localized pairs (EN + /zh/), nothing else.

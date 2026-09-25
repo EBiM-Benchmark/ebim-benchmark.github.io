@@ -1,0 +1,373 @@
+{
+  "_comment": "Single data source for Questionnaire A (registered teams that did not submit), rendered by src/feedback-registered.njk and src/zh/feedback-registered.njk through src/_includes/questionnaire-a-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails the build if the built pages still differ in field names, option codes/order or conditions. Participant-facing text is verbatim from Questionnaire_A_spec_bilingual.md (sha256 6b1e4284…9b57d) plus the two approved closed-state lines. `options` is either an inline list or the key of a shared set in `optionSets`. `showIf` is a list of {field, anyOf} tests OR'd together; a hidden question is disabled (never submitted) and cleared. `num: true` marks the questions that take a sequential display number (always-visible spec questions; conditional follow-ups are unnumbered). The page closes itself at `closesAt` (end of 22 Oct 2026 AoE).",
+  "instrument": "A-2026",
+  "accessKey": "7450a84a-2bdd-4d02-b72c-f441c8d7910e",
+  "subject": "EBiM feedback — registered teams (A)",
+  "fromName": "EBiM questionnaire A",
+  "closesAt": "2026-10-23T12:00:00Z",
+  "text": {
+    "title": { "en": "Feedback from registered teams", "zh": "报名队伍反馈问卷" },
+    "subtitle": { "en": "EBiM Benchmark Competition 2026", "zh": "EBiM Benchmark Competition 2026" },
+    "description": {
+      "en": "This questionnaire is for teams that registered for the EBiM Benchmark Competition 2026 but did not file a Phase I submission.",
+      "zh": "本问卷面向已报名 EBiM Benchmark Competition 2026 但未提交第一阶段作品的队伍，约需五分钟。"
+    },
+    "intro": {
+      "en": "This questionnaire is for teams that registered for the EBiM Benchmark Competition 2026 but did not file a Phase I submission. It takes about five minutes. Every question is optional, and you do not need to give your team name. Everyone on your team is welcome to answer — one response per person. It closes on 22 October 2026 (AoE).",
+      "zh": "本问卷面向已报名 EBiM Benchmark Competition 2026 但未提交第一阶段作品的队伍，约需五分钟。所有问题均为选答，也无需填写队名。欢迎贵队每位成员分别填写，每人填写一份。问卷于 2026 年 10 月 22 日（AoE）截止。"
+    },
+    "switchLine": {
+      "en": "To answer in 中文, switch language before you start — switching reloads the page.",
+      "zh": "如需使用 English 作答，请在开始前切换语言；切换会重新加载页面。"
+    },
+    "privacy": {
+      "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. Answers are shared with sponsors only if you tick the box above, and then without your name or team; we also remove names from free-text answers before sharing. Your email address, if you give it, is used only for what you ticked. We don't sell your information. Submissions are processed by Web3Forms.",
+      "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况。只有在您勾选上方选项时，回答才会与赞助方分享，且不含您的姓名和队名；分享前我们也会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。我们不会出售您的信息。表单由 Web3Forms 处理。"
+    },
+    "submit": { "en": "Submit", "zh": "提交" },
+    "thanks": {
+      "en": "Thank you. We have your answers. If you asked to join the email list or to talk with us, we'll be in touch at the address you gave.",
+      "zh": "感谢您的填写，我们已收到您的回答。如您选择加入邮件列表或参加后续交流，我们会通过您留下的邮箱与您联系。"
+    },
+    "error": {
+      "en": "Your answers could not be sent. Please try again, or email them to organizers@ebim-benchmark.org.",
+      "zh": "提交未成功。请重试，或将您的回答发送至 organizers@ebim-benchmark.org。"
+    },
+    "noscript": {
+      "en": "JavaScript is required to submit this form (the spam check needs it). If you can't enable it, email organizers@ebim-benchmark.org.",
+      "zh": "提交本问卷需要启用 JavaScript（反垃圾验证需要）。如无法启用，请发送邮件至 organizers@ebim-benchmark.org。"
+    },
+    "closed": {
+      "en": "This questionnaire closed on 22 October 2026. Thank you to everyone who answered.",
+      "zh": "本问卷已于 2026 年 10 月 22 日截止。感谢所有填写问卷的朋友。"
+    }
+  },
+  "optionSets": {
+    "stage": [
+      { "code": "registered", "en": "Registered only; didn't start", "zh": "仅报名，尚未开始" },
+      { "code": "read_docs", "en": "Read the rulebook and documents", "zh": "阅读了规则手册和文档" },
+      { "code": "installed", "en": "Installed the simulator", "zh": "安装了仿真器" },
+      { "code": "ran_example", "en": "Ran the provided baseline or example", "zh": "运行了官方提供的基线或示例" },
+      { "code": "partial_policy", "en": "Had our own policy partly working", "zh": "自己的策略已部分可用" },
+      { "code": "working_not_submitted", "en": "Had a working policy but did not submit", "zh": "已有可用的策略，但未提交" }
+    ],
+    "sim13": [
+      { "code": "isaacsim", "en": "Isaac Sim", "zh": "Isaac Sim" },
+      { "code": "mujoco", "en": "MuJoCo", "zh": "MuJoCo" },
+      { "code": "undecided", "en": "Not decided", "zh": "尚未决定" }
+    ],
+    "sim2": [
+      { "code": "isaacsim", "en": "Isaac Sim", "zh": "Isaac Sim" },
+      { "code": "mujoco", "en": "MuJoCo", "zh": "MuJoCo" },
+      { "code": "genesis", "en": "Genesis", "zh": "Genesis" },
+      { "code": "undecided", "en": "Not decided", "zh": "尚未决定" }
+    ],
+    "barriers": [
+      { "code": "time", "en": "Not enough time before the deadline", "zh": "截止前时间不够" },
+      { "code": "team_size", "en": "Team too small, or members dropped out", "zh": "团队人手不足，或有成员退出" },
+      { "code": "install", "en": "Simulator installation or environment problems", "zh": "仿真器安装或环境配置问题" },
+      { "code": "env_unavailable", "en": "The environment or simulator we planned to use was not available or not complete", "zh": "我们计划使用的任务环境或仿真器尚未发布或不完整" },
+      { "code": "no_baseline", "en": "No baseline or example model to start from", "zh": "没有可作为起点的基线或示例模型" },
+      { "code": "compute", "en": "Not enough GPU or compute", "zh": "GPU 或算力不足" },
+      { "code": "unclear_rules", "en": "Rules or documentation unclear", "zh": "规则或文档不清楚" },
+      { "code": "too_hard", "en": "The task was harder than expected", "zh": "任务比预期更难" },
+      { "code": "t1_update", "en": "The Task 1 platform update came too close to the deadline", "zh": "任务 1 平台更新距截止时间太近" },
+      { "code": "gt_rule_late", "en": "The rule allowing ground-truth object positions came too late to use", "zh": "允许使用真值物体位置的规则公布太晚，来不及利用" },
+      { "code": "packaging", "en": "Submission requirements (Dockerfile, public repository)", "zh": "提交要求（Dockerfile、公开代码仓库）" },
+      { "code": "missed_extension", "en": "Didn't know the deadline was extended to 22 August", "zh": "不知道截止时间已延长至 8 月 22 日" },
+      { "code": "phase2_travel", "en": "Couldn't commit to Phase II travel or dates", "zh": "无法确定能否参加第二阶段的出行或日程" },
+      { "code": "materials_only", "en": "Registered mainly to access the materials, not to compete", "zh": "报名主要是为了获取资料，而非参赛" },
+      { "code": "other", "en": "Other", "zh": "其他" }
+    ],
+    "yesno": [
+      { "code": "yes", "en": "Yes", "zh": "是" },
+      { "code": "no", "en": "No", "zh": "否" }
+    ]
+  },
+  "sections": [
+    {
+      "title": { "en": "Your plans", "zh": "参赛计划" },
+      "questions": [
+        {
+          "name": "q01_tasks", "type": "checkbox", "num": true,
+          "label": { "en": "Which tasks did your team intend to attempt?", "zh": "贵队原计划参加哪些任务？" },
+          "options": [
+            { "code": "t1", "en": "Task 1 — Cable Routing & Plugging", "zh": "任务 1 — 线缆布线与插接" },
+            { "code": "t2", "en": "Task 2 — Deformable Material Handling", "zh": "任务 2 — 柔性材料操作" },
+            { "code": "t3", "en": "Task 3 — Assisted Living & Feeding", "zh": "任务 3 — 辅助生活与喂食" },
+            { "code": "unsure", "en": "Not sure yet", "zh": "尚未确定" }
+          ]
+        },
+        {
+          "name": "q02_t1_stage", "type": "radio", "options": "stage",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t1"] }],
+          "label": { "en": "Task 1: how far did you get?", "zh": "任务 1：贵队进展到哪一步？" }
+        },
+        {
+          "name": "q02_t1_sim", "type": "checkbox", "options": "sim13",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t1"] }],
+          "label": { "en": "Task 1: which simulator did you use or plan to use?", "zh": "任务 1：贵队使用或计划使用哪个仿真器？" }
+        },
+        {
+          "name": "q02_t2_stage", "type": "radio", "options": "stage",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t2"] }],
+          "label": { "en": "Task 2: how far did you get?", "zh": "任务 2：贵队进展到哪一步？" }
+        },
+        {
+          "name": "q02_t2_sim", "type": "checkbox", "options": "sim2",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t2"] }],
+          "label": { "en": "Task 2: which simulator did you use or plan to use?", "zh": "任务 2：贵队使用或计划使用哪个仿真器？" }
+        },
+        {
+          "name": "q02_t3_stage", "type": "radio", "options": "stage",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t3"] }],
+          "label": { "en": "Task 3: how far did you get?", "zh": "任务 3：贵队进展到哪一步？" }
+        },
+        {
+          "name": "q02_t3_sim", "type": "checkbox", "options": "sim13",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t3"] }],
+          "label": { "en": "Task 3: which simulator did you use or plan to use?", "zh": "任务 3：贵队使用或计划使用哪个仿真器？" }
+        }
+      ]
+    },
+    {
+      "title": { "en": "What stopped you", "zh": "未能提交的原因" },
+      "questions": [
+        {
+          "name": "q03_barriers", "type": "checkbox", "num": true, "options": "barriers",
+          "label": { "en": "What stopped you from submitting? Choose all that apply.", "zh": "是什么阻碍了贵队提交？可多选。" }
+        },
+        {
+          "name": "q03_other", "type": "text",
+          "showIf": [{ "field": "q03_barriers", "anyOf": ["other"] }],
+          "label": { "en": "Please describe", "zh": "请说明" }
+        },
+        {
+          "name": "q04_main", "type": "radio", "num": true, "options": "barriers",
+          "label": { "en": "Which one of these was the main reason?", "zh": "其中最主要的原因是哪一项？" }
+        },
+        {
+          "name": "q05_t1_issues", "type": "checkbox",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t1"] }],
+          "label": { "en": "What specifically made Task 1 difficult?", "zh": "具体是什么让任务 1 难以完成？" },
+          "options": [
+            { "code": "setup", "en": "Setup and installation", "zh": "安装与环境配置" },
+            { "code": "eval_unclear", "en": "Unclear how it would be evaluated", "zh": "不清楚如何评测" },
+            { "code": "little_data", "en": "Too little demonstration data", "zh": "示范数据太少" },
+            { "code": "perception", "en": "Perception", "zh": "感知" },
+            { "code": "update_timing", "en": "Timing of the platform update", "zh": "平台更新的时间" },
+            { "code": "cable_physics", "en": "Cable behaviour in simulation", "zh": "仿真中线缆的物理表现" },
+            { "code": "routing", "en": "Routing the cable along the required path", "zh": "按要求路径布线" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ]
+        },
+        {
+          "name": "q05_t1_other", "type": "text",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t1"] }],
+          "label": { "en": "Anything else about Task 1?", "zh": "关于任务 1，还有什么想告诉我们的？" }
+        },
+        {
+          "name": "q05_t2_issues", "type": "checkbox",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t2"] }],
+          "label": { "en": "What specifically made Task 2 difficult?", "zh": "具体是什么让任务 2 难以完成？" },
+          "options": [
+            { "code": "setup", "en": "Setup and installation", "zh": "安装与环境配置" },
+            { "code": "eval_unclear", "en": "Unclear how it would be evaluated", "zh": "不清楚如何评测" },
+            { "code": "little_data", "en": "Too little demonstration data", "zh": "示范数据太少" },
+            { "code": "perception", "en": "Perception", "zh": "感知" },
+            { "code": "deformable_physics", "en": "Deformable-material behaviour in simulation", "zh": "仿真中柔性材料的物理表现" },
+            { "code": "pad_grasp", "en": "Grasping the thin, flexible pad", "zh": "抓取薄而柔软的导热垫" },
+            { "code": "placement", "en": "Placing the pad accurately on the target", "zh": "将导热垫准确放置到目标位置" },
+            { "code": "isaac_only", "en": "Available only in Isaac Sim", "zh": "仅支持 Isaac Sim" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ]
+        },
+        {
+          "name": "q05_t2_other", "type": "text",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t2"] }],
+          "label": { "en": "Anything else about Task 2?", "zh": "关于任务 2，还有什么想告诉我们的？" }
+        },
+        {
+          "name": "q05_t3_issues", "type": "checkbox",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t3"] }],
+          "label": { "en": "What specifically made Task 3 difficult?", "zh": "具体是什么让任务 3 难以完成？" },
+          "options": [
+            { "code": "setup", "en": "Setup and installation", "zh": "安装与环境配置" },
+            { "code": "eval_unclear", "en": "Unclear how it would be evaluated", "zh": "不清楚如何评测" },
+            { "code": "little_data", "en": "Too little demonstration data", "zh": "示范数据太少" },
+            { "code": "perception", "en": "Perception", "zh": "感知" },
+            { "code": "long_horizon", "en": "The length of the four-stage sequence", "zh": "四个阶段连续完成的任务长度" },
+            { "code": "small_objects", "en": "Handling small objects such as beans", "zh": "处理豆子等小物体" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ]
+        },
+        {
+          "name": "q05_t3_stage", "type": "radio",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t3"] }],
+          "label": { "en": "Which stage was hardest?", "zh": "哪个阶段最难？" },
+          "options": [
+            { "code": "setup_table", "en": "Table setup", "zh": "餐桌布置" },
+            { "code": "feeding", "en": "Feeding", "zh": "喂食" },
+            { "code": "bean_recovery", "en": "Bean recovery", "zh": "豆子回收" },
+            { "code": "cleanup", "en": "Cleanup", "zh": "清理" },
+            { "code": "not_reached", "en": "We didn't get far enough to say", "zh": "进展不足，无法判断" }
+          ]
+        },
+        {
+          "name": "q05_t3_other", "type": "text",
+          "showIf": [{ "field": "q01_tasks", "anyOf": ["t3"] }],
+          "label": { "en": "Anything else about Task 3?", "zh": "关于任务 3，还有什么想告诉我们的？" }
+        },
+        {
+          "name": "q06_one_change", "type": "longtext", "num": true,
+          "label": { "en": "What one change would most likely have got your team to submit?", "zh": "哪一项改变最有可能让贵队完成提交？" }
+        },
+        {
+          "name": "q07_would_submit", "type": "checkbox", "num": true,
+          "label": { "en": "Would you have submitted if Phase I had offered any of these?", "zh": "如果第一阶段提供以下安排，贵队是否会提交？可多选。" },
+          "options": [
+            { "code": "longer_window", "en": "A longer submission window", "zh": "更长的提交期" },
+            { "code": "sim_only", "en": "A simulation-only leaderboard, with no real-robot phase", "zh": "只有仿真排行榜，不含真机阶段" },
+            { "code": "lighter_format", "en": "A lighter submission format, such as logs or video instead of Docker", "zh": "更轻量的提交形式（如日志或视频，而非 Docker）" },
+            { "code": "cloud_sim", "en": "Cloud-hosted simulation instead of a local install", "zh": "云端仿真，无需本地安装" },
+            { "code": "better_starter", "en": "Starter code closer to a working baseline", "zh": "更接近可用基线的起步代码" },
+            { "code": "none", "en": "None of these", "zh": "以上都不会" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Updates and support", "zh": "信息与支持" },
+      "questions": [
+        {
+          "name": "q08_channels", "type": "checkbox", "num": true,
+          "label": { "en": "How did you mainly follow competition updates?", "zh": "您主要通过哪些渠道了解竞赛动态？" },
+          "options": [
+            { "code": "email", "en": "Email", "zh": "邮件" },
+            { "code": "website", "en": "Website", "zh": "官网" },
+            { "code": "discord", "en": "Discord", "zh": "Discord" },
+            { "code": "wechat", "en": "WeChat", "zh": "微信" },
+            { "code": "none", "en": "I didn't follow updates", "zh": "没有关注" }
+          ]
+        },
+        {
+          "name": "q08_knew_extension", "type": "radio", "num": true, "options": "yesno",
+          "label": { "en": "Did you know the deadline had been extended to 22 August?", "zh": "您是否知道截止时间已延长至 8 月 22 日？" }
+        },
+        {
+          "name": "q09_compute", "type": "radio", "num": true,
+          "label": { "en": "Did you apply for sponsored compute?", "zh": "您是否申请过赞助算力？" },
+          "options": [
+            { "code": "applied_used", "en": "Yes, and used it", "zh": "申请了，并使用了" },
+            { "code": "applied_unused", "en": "Yes, but didn't use it", "zh": "申请了，但没有使用" },
+            { "code": "no_unaware", "en": "No — didn't know it was available", "zh": "没有申请：不知道有算力支持" },
+            { "code": "no_unneeded", "en": "No — didn't need it", "zh": "没有申请：不需要" },
+            { "code": "no_other", "en": "No — other reason", "zh": "没有申请：其他原因" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Value and the next edition", "zh": "价值与下一届" },
+      "questions": [
+        {
+          "name": "q10_materials", "type": "checkbox", "num": true,
+          "label": { "en": "Even without submitting, have you used any EBiM materials in other work?", "zh": "即使没有提交，您是否在其他工作中使用过 EBiM 的资料？" },
+          "options": [
+            { "code": "simulator", "en": "Simulator", "zh": "仿真器" },
+            { "code": "datasets", "en": "Datasets", "zh": "数据集" },
+            { "code": "task_defs", "en": "Task definitions or rulebook", "zh": "任务定义或规则手册" },
+            { "code": "baselines", "en": "Baselines", "zh": "基线" },
+            { "code": "none", "en": "None", "zh": "都没有" }
+          ]
+        },
+        {
+          "name": "q10_detail", "type": "text",
+          "label": { "en": "If so, how?", "zh": "如有，请简述用途。" }
+        },
+        {
+          "name": "q12_likelihood", "type": "scale", "num": true, "min": 0, "max": 10,
+          "minLabel": { "en": "0 = not at all likely", "zh": "0 = 完全不可能" },
+          "maxLabel": { "en": "10 = extremely likely", "zh": "10 = 非常可能" },
+          "label": { "en": "How likely are you to take part in the next edition?", "zh": "您参加下一届的可能性有多大？" }
+        },
+        {
+          "name": "q12_detail", "type": "text",
+          "label": { "en": "What would make you more likely to take part?", "zh": "怎样会让您更有可能参加？" }
+        }
+      ]
+    },
+    {
+      "title": { "en": "The Franka Mobile FR3 Duo in simulation", "zh": "仿真中的 Franka Mobile FR3 Duo" },
+      "questions": [
+        {
+          "name": "q11_ran_sim", "type": "radio", "num": true, "options": "yesno",
+          "label": { "en": "Did you run the Franka Mobile FR3 Duo in simulation?", "zh": "您是否在仿真中运行过 Franka Mobile FR3 Duo？" }
+        },
+        {
+          "name": "q11_ease", "type": "scale", "min": 1, "max": 5,
+          "showIf": [{ "field": "q11_ran_sim", "anyOf": ["yes"] }],
+          "minLabel": { "en": "1 = very hard", "zh": "1 = 非常困难" },
+          "maxLabel": { "en": "5 = very easy", "zh": "5 = 非常容易" },
+          "label": { "en": "How easy was it to get running?", "zh": "让它运行起来有多容易？" }
+        },
+        {
+          "name": "q11_comment", "type": "text",
+          "showIf": [{ "field": "q11_ran_sim", "anyOf": ["yes"] }],
+          "label": { "en": "One comment on the simulated robot", "zh": "关于仿真机器人，请写一条意见" }
+        }
+      ]
+    },
+    {
+      "title": { "en": "About you", "zh": "关于您" },
+      "questions": [
+        {
+          "name": "q13_team_size", "type": "radio", "num": true,
+          "label": { "en": "Your team's size at registration", "zh": "报名时的队伍人数" },
+          "options": [
+            { "code": "1", "en": "1", "zh": "1" },
+            { "code": "2-3", "en": "2–3", "zh": "2–3" },
+            { "code": "4-6", "en": "4–6", "zh": "4–6" }
+          ]
+        },
+        {
+          "name": "q13_role", "type": "radio", "num": true,
+          "label": { "en": "Your role", "zh": "您的身份" },
+          "options": [
+            { "code": "student", "en": "Student", "zh": "学生" },
+            { "code": "researcher", "en": "Researcher", "zh": "研究人员" },
+            { "code": "faculty", "en": "Faculty", "zh": "教师" },
+            { "code": "industry", "en": "Industry", "zh": "业界" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ]
+        },
+        {
+          "name": "q13_team_name", "type": "text", "num": true,
+          "label": { "en": "Team name (optional)", "zh": "队名（选填）" }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Staying in touch", "zh": "保持联系" },
+      "questions": [
+        {
+          "name": "q14_email_list", "type": "single",
+          "options": [{ "code": "yes", "en": "Add me to the EBiM email list.", "zh": "将我加入 EBiM 邮件列表。" }]
+        },
+        {
+          "name": "q14_interview", "type": "single",
+          "options": [{ "code": "yes", "en": "I'm willing to have a 20-minute follow-up conversation.", "zh": "我愿意参加约 20 分钟的后续交流。" }]
+        },
+        {
+          "name": "q14_share_sponsors", "type": "single",
+          "options": [{ "code": "yes", "en": "My answers may be shared with EBiM sponsors, including Franka Robotics, without my name or team.", "zh": "我的回答可在不含姓名和队名的情况下，与包括 Franka Robotics 在内的 EBiM 赞助方分享。" }]
+        },
+        {
+          "name": "q14_email", "type": "email",
+          "showIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }],
+          "label": { "en": "Email address", "zh": "电子邮箱" }
+        }
+      ]
+    }
+  ]
+}

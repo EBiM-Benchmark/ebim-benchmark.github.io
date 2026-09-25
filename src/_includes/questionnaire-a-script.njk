@@ -1,0 +1,138 @@
+{% raw %}
+<!-- Questionnaire A: date close, conditional questions, one-field-per-group encoding, AJAX submit -->
+<script>
+  (function () {
+    'use strict';
+    var form = document.querySelector('#qForm');
+    if (!form) return;
+
+    var body      = document.querySelector('#qBody');
+    var closedEl  = document.querySelector('#qClosed');
+    var errorBox  = document.querySelector('#formError');
+    var successEl = document.querySelector('#formSuccess');
+    var closesAt  = Date.parse(form.getAttribute('data-closes-at'));
+
+    // Closed from closesAt onward: drop the whole questionnaire body, keep the
+    // page header, show the single closed line.
+    function isClosed() { return !(Date.now() < closesAt); }
+    function closeNow() {
+      if (body && body.parentNode) body.parentNode.removeChild(body);
+      closedEl.hidden = false;
+    }
+    if (isClosed()) { closeNow(); return; }
+    body.hidden = false;
+
+    // ── Conditional questions ──
+    // A question with data-show-if is shown when ANY {field, anyOf} test holds
+    // against the enabled, checked inputs of that field. Hidden questions are
+    // disabled (so they are never submitted) and cleared.
+    var blocks = [].slice.call(form.querySelectorAll('.q[data-show-if]')).map(function (el) {
+      return { el: el, conds: JSON.parse(el.getAttribute('data-show-if')) };
+    });
+    function checkedCodes(name) {
+      return [].slice.call(form.querySelectorAll('input[name="' + name + '"]'))
+        .filter(function (i) { return !i.disabled && i.checked; })
+        .map(function (i) { return i.value; });
+    }
+    function holds(conds) {
+      return conds.some(function (c) {
+        return checkedCodes(c.field).some(function (v) { return c.anyOf.indexOf(v) !== -1; });
+      });
+    }
+    function setShown(b, show) {
+      b.el.hidden = !show;
+      [].slice.call(b.el.querySelectorAll('input, textarea')).forEach(function (i) {
+        i.disabled = !show;
+        if (!show) {
+          if (i.type === 'checkbox' || i.type === 'radio') i.checked = false;
+          else i.value = '';
+        }
+      });
+    }
+    function applyConditions() {
+      // Repeat until stable, so clearing one question cascades to its dependants.
+      for (var pass = 0; pass < 10; pass++) {
+        var changed = false;
+        blocks.forEach(function (b) {
+          var show = holds(b.conds);
+          if (show === b.el.hidden) { setShown(b, show); changed = true; }
+        });
+        if (!changed) break;
+      }
+    }
+    form.addEventListener('change', applyConditions);
+    // Start from a clean state: a browser may restore ticks inside hidden questions.
+    blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
+    applyConditions();
+
+    // ── Payload ──
+    // Each checkbox group (data-group) is ONE field: its ticked codes joined with
+    // ";" in page order, "" if none. Radios send their single code, text fields
+    // their value. Disabled fields are skipped.
+    function payload() {
+      var out = new FormData();
+      var groups = {};
+      [].slice.call(form.querySelectorAll('input[data-group]')).forEach(function (i) {
+        if (i.disabled) return;
+        if (!groups[i.name]) groups[i.name] = [];
+        if (i.checked) groups[i.name].push(i.value);
+      });
+      var done = {};
+      [].slice.call(form.elements).forEach(function (el) {
+        if (!el.name || el.disabled || el.type === 'submit' || el.type === 'button') return;
+        if (el.hasAttribute('data-group')) {
+          if (!done[el.name]) { done[el.name] = true; out.append(el.name, groups[el.name].join(';')); }
+        } else if (el.type === 'checkbox' || el.type === 'radio') {
+          if (el.checked) out.append(el.name, el.value);
+        } else {
+          out.append(el.name, el.value);
+        }
+      });
+      return out;
+    }
+
+    function showError() {
+      errorBox.hidden = false;
+      errorBox.scrollIntoView({ block: 'center' });
+    }
+    function resetCaptcha() {
+      if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      errorBox.hidden = true;
+      if (isClosed()) { closeNow(); return; }
+
+      var hc = form.querySelector('textarea[name="h-captcha-response"]');
+      if (hc && !hc.value) { showError(); return; }   // null hc = widget not loaded; let Web3Forms decide
+
+      var submitBtn = form.querySelector('button[type=submit]');
+      submitBtn.disabled = true;
+      try {
+        var res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: payload()
+        });
+        var json = await res.json();
+        if (json.success) {
+          form.hidden = true;
+          successEl.hidden = false;
+          successEl.scrollIntoView({ block: 'center' });
+        } else {
+          console.error('Web3Forms:', json.message);
+          showError();
+          resetCaptcha();
+        }
+      } catch (err) {
+        console.error('Web3Forms:', err);
+        showError();
+        resetCaptcha();
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  })();
+</script>
+{% endraw %}
