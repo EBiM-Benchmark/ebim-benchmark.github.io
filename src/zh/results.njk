@@ -95,7 +95,11 @@ navActive: "competition"
     #results .results-block li { margin-bottom: .35rem; }
     #results .results-block p a { font-weight: 600; text-decoration: underline; }
     #results .results-table-wrap { overflow-x: auto; }
-    #results table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    #results table { width: 100%; border-collapse: collapse; font-size: .95rem; table-layout: fixed; }
+    /* Shared column widths so the Task 2 and Task 3 tables line up */
+    #results thead th:nth-child(1) { width: 4.5rem; }
+    #results thead th:nth-child(2) { width: 38%; }
+    #results thead th:nth-child(3) { width: 24%; }
     #results caption { caption-side: top; text-align: left; }
     #results th, #results td { padding: .65rem .75rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
     #results thead th { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; white-space: nowrap; }
@@ -107,7 +111,9 @@ navActive: "competition"
     #results .col-video a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (max-width: 600px) {
       #results .results-block { padding: 1.2rem 1rem; }
-      #results th, #results td { padding: .55rem .5rem; }
+      #results th, #results td { padding: .55rem .5rem; overflow-wrap: anywhere; }
+      #results thead th { white-space: normal; letter-spacing: .04em; }
+      #results thead th:nth-child(1) { width: 2.75rem; }
     }
   </style>
 {% endraw %}{% endblock %}
