@@ -28,6 +28,7 @@ sitemap:
     - { loc: "https://ebim-benchmark.github.io/open-day.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDay" }
     - { loc: "https://ebim-benchmark.github.io/open-day-shanghai.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDayShanghai" }
     - { loc: "https://ebim-benchmark.github.io/open-day-munich.html", lastmod: "2026-09-04", changefreq: "weekly", priority: "0.8", pair: "openDayMunich" }
+    - { loc: "https://ebim-benchmark.github.io/results.html", lastmod: "2026-10-02", changefreq: "monthly", priority: "0.8", pair: "results" }
     - { loc: "https://ebim-benchmark.github.io/zh/", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0", pair: "index", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/competition.html", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9", pair: "competition", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop", zh: true }
@@ -38,6 +39,7 @@ sitemap:
     - { loc: "https://ebim-benchmark.github.io/zh/open-day.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDay", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/open-day-shanghai.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDayShanghai", zh: true }
     - { loc: "https://ebim-benchmark.github.io/zh/open-day-munich.html", lastmod: "2026-09-04", changefreq: "weekly", priority: "0.8", pair: "openDayMunich", zh: true }
+    - { loc: "https://ebim-benchmark.github.io/zh/results.html", lastmod: "2026-10-02", changefreq: "monthly", priority: "0.8", pair: "results", zh: true }
   alternates:
     index:
       - { hreflang: "en", href: "https://ebim-benchmark.github.io/" }
@@ -79,9 +81,13 @@ sitemap:
       - { hreflang: "en", href: "https://ebim-benchmark.github.io/open-day-munich.html" }
       - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/open-day-munich.html" }
       - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/open-day-munich.html" }
+    results:
+      - { hreflang: "en", href: "https://ebim-benchmark.github.io/results.html" }
+      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/results.html" }
+      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/results.html" }
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.faq or site.zhPublished.contact or site.zhPublished.register or site.zhPublished.openDay or site.zhPublished.openDayHamburg or site.zhPublished.openDayShanghai or site.zhPublished.openDayMunich %}
+{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.faq or site.zhPublished.contact or site.zhPublished.register or site.zhPublished.openDay or site.zhPublished.openDayHamburg or site.zhPublished.openDayShanghai or site.zhPublished.openDayMunich or site.zhPublished.results %}
 {%- if anyPublished %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">

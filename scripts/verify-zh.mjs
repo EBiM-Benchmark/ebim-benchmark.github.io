@@ -191,6 +191,16 @@ const PAGES = [
     enGone: "Getting there and back",
     zhHas: "如何前往与返回",
   },
+  {
+    key: "results",
+    file: "zh/results.html",
+    canonical: `${SITE_ORIGIN}/zh/results.html`,
+    enUrl: `${SITE_ORIGIN}/results.html`,
+    zhUrl: `${SITE_ORIGIN}/zh/results.html`,
+    enToggleHref: "../results.html",
+    enGone: "How teams were ranked",
+    zhHas: "排名方式",
+  },
 ];
 
 // The EN file each localized page mirrors (used for the hreflang sweep + the
@@ -206,6 +216,7 @@ const EN_FILE = {
   openDayHamburg: "open-day-hamburg.html",
   openDayShanghai: "open-day-shanghai.html",
   openDayMunich: "open-day-munich.html",
+  results: "results.html",
 };
 
 // The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every

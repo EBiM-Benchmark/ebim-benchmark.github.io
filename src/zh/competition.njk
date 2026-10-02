@@ -378,6 +378,19 @@ i18nKey: competition
       .partners-tier.tier-platinum .partners-logos::after { display: none; }
       .partners-tier.tier-platinum .partner-card:nth-child(n+5) { margin-top: 0; }
     }
+    /* Final-results banner at the top of #awards, linking to the results page */
+    .results-banner {
+      max-width: 720px; margin: 0 auto 2rem; padding: .85rem 1.25rem;
+      text-align: center; font-size: .98rem; color: var(--text-dark);
+      background: var(--bg-white); border: 1px solid var(--accent); border-left-width: 4px;
+      border-radius: var(--radius);
+    }
+    .results-banner a { color: var(--accent-dark); font-weight: 700; text-decoration: underline; }
+    .results-banner a:hover { color: var(--accent); }
+
+    /* "Final Result Announcement" date label, linked to the results page */
+    .date-label a { color: inherit; border-bottom: 1px dashed currentColor; }
+    .date-label a:hover { color: var(--accent); }
   </style>
 {% endraw %}{% endblock %}
 
@@ -1206,7 +1219,7 @@ i18nKey: competition
         <div class="date-value">2026 年 9 月 12 日（AoE）</div>
       </div>
       <div class="date-item" role="listitem">
-        <div class="date-label">最终结果公布</div>
+        <div class="date-label"><a href="results.html">最终结果公布</a></div>
         <div class="date-value">2026 年 10 月 1 日</div>
       </div>
       <div class="date-item date-item-highlight" role="listitem">
@@ -1307,6 +1320,8 @@ i18nKey: competition
      ============================================================ -->
 <section id="awards">
   <div class="container">
+    <p class="results-banner"><strong>2026 年最终结果已公布。</strong><a href="results.html">查看最终结果 →</a></p>
+
     <div class="text-center fade-in">
       <h2 class="section-title">奖项与奖金</h2>
       <p class="section-subtitle">
@@ -1402,7 +1417,7 @@ i18nKey: competition
         仅限<a href="#tasks">任务三</a>之鲁棒性评测，面向以任务三参赛条目晋级 Phase II 的队伍。由主办方于仿真环境中，就各队已提交之 Phase II 策略进行评测 &mdash; <strong>队伍无需进行任何操作</strong>。总分 10 分：光照鲁棒性 4 分（四组光照配置），避障能力 6 分（三项障碍物）。评分完全独立于主赛道排行榜，不影响主任务排名。
       </p>
       <p class="prize-hardware-desc">
-        本奖项为<strong>全场共一套</strong>，非按任务分设。与上方仿真奖为两个独立奖项，金额相同但评判标准不同 &mdash; 同一队伍可同时获得两者。不设并列决胜规则：总分相同之队伍并列同一名次，且各自完整获得该名次之奖金；因并列而从缺之名次不予发放；总分为 0 之队伍不予排名。结果将于 2026 年 10 月 1 日与主赛道结果一并公布。
+        本奖项为<strong>全场共一套</strong>，非按任务分设。与上方仿真奖为两个独立奖项，金额相同但评判标准不同 &mdash; 同一队伍可同时获得两者。不设并列决胜规则：总分相同之队伍并列同一名次，且各自完整获得该名次之奖金；因并列而从缺之名次不予发放；总分为 0 之队伍不予排名。结果将另行公布。
       </p>
       <ul class="prize-hardware-list">
         <li><strong>第一名</strong> $300</li>

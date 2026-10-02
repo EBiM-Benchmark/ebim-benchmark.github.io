@@ -53,6 +53,7 @@ const PAGES = [
   "open-day-hamburg.html",
   "open-day-shanghai.html",
   "open-day-munich.html",
+  "results.html",
   "404.html",
   "contact-success.html",
   "register-success.html",

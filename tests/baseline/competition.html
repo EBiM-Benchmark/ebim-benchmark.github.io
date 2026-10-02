@@ -518,6 +518,19 @@
       .partners-tier.tier-platinum .partners-logos::after { display: none; }
       .partners-tier.tier-platinum .partner-card:nth-child(n+5) { margin-top: 0; }
     }
+    /* Final-results banner at the top of #awards, linking to the results page */
+    .results-banner {
+      max-width: 720px; margin: 0 auto 2rem; padding: .85rem 1.25rem;
+      text-align: center; font-size: .98rem; color: var(--text-dark);
+      background: var(--bg-white); border: 1px solid var(--accent); border-left-width: 4px;
+      border-radius: var(--radius);
+    }
+    .results-banner a { color: var(--accent-dark); font-weight: 700; text-decoration: underline; }
+    .results-banner a:hover { color: var(--accent); }
+
+    /* "Final Result Announcement" date label, linked to the results page */
+    .date-label a { color: inherit; border-bottom: 1px dashed currentColor; }
+    .date-label a:hover { color: var(--accent); }
   </style>
 
 </head>
@@ -562,6 +575,7 @@
           <li><a href="competition.html#get-benchmark">Get the Code</a></li>
           <li><a href="competition.html#submission">Submission</a></li>
           <li><a href="competition.html#awards">Awards &amp; Prizes</a></li>
+          <li><a href="results.html">Final Results</a></li>
         </ul>
       </li>
       <li class="has-dropdown nav-workshop">
@@ -1432,7 +1446,7 @@
         <div class="date-value">Sep 12, 2026 (AoE)</div>
       </div>
       <div class="date-item" role="listitem">
-        <div class="date-label">Final Result Announcement</div>
+        <div class="date-label"><a href="results.html">Final Result Announcement</a></div>
         <div class="date-value">Oct 1, 2026</div>
       </div>
       <div class="date-item date-item-highlight" role="listitem">
@@ -1533,6 +1547,8 @@
      ============================================================ -->
 <section id="awards">
   <div class="container">
+    <p class="results-banner"><strong>2026 final results are out.</strong> <a href="results.html">See the Final Results →</a></p>
+
     <div class="text-center fade-in">
       <h2 class="section-title">Awards &amp; Prizes</h2>
       <p class="section-subtitle">
@@ -1641,7 +1657,7 @@
         Simulation Prize above, which carries the same amounts on different criteria &mdash; a team
         may win both. There is no tie-break: teams with the same total score share a rank and each
         receives that rank's prize, a rank left vacant by a tie is not awarded, and teams scoring
-        zero are not ranked. Results are announced on 1 October 2026 alongside the main results.
+        zero are not ranked. Results will be announced separately.
       </p>
       <ul class="prize-hardware-list">
         <li><strong>1st</strong> $300</li>
