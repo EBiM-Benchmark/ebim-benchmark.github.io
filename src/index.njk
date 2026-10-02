@@ -263,6 +263,9 @@ i18nKey: index
       .partners-tier.tier-platinum .partners-logos::after { display: none; }
       .partners-tier.tier-platinum .partner-card:nth-child(n+5) { margin-top: 0; }
     }
+    /* "Final Results" date name, linked to the results page */
+    .dates-list .date-name a { color: inherit; border-bottom: 1px dashed currentColor; }
+    .dates-list .date-name a:hover { color: var(--accent); }
   </style>
 {% endraw %}{% endblock %}
 
@@ -691,7 +694,7 @@ i18nKey: index
             <span class="date-when">Aug 25 – Sep 12, 2026</span>
           </li>
           <li class="date-highlight">
-            <span class="date-name">Final Results</span>
+            <span class="date-name"><a href="results.html">Final Results</a></span>
             <span class="date-when">Oct 1, 2026</span>
           </li>
         </ul>

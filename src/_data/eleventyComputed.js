@@ -84,6 +84,7 @@ const TOGGLE_HREFS = {
   competition: { en: "../competition.html", zh: "zh/competition.html" },
   workshop: { en: "../workshop.html", zh: "zh/workshop.html" },
   faq: { en: "../faq.html", zh: "zh/faq.html" },
+  results: { en: "../results.html", zh: "zh/results.html" },
   contact: { en: "../contact.html", zh: "zh/contact.html" },
   register: { en: "../register.html", zh: "zh/register.html" },
   // The Open Day family: the hub (openDay) lists every Open Day; the three dated
@@ -110,6 +111,10 @@ const HREFLANG_PAIRS = {
   faq: {
     en: "https://ebim-benchmark.github.io/faq.html",
     zh: "https://ebim-benchmark.github.io/zh/faq.html",
+  },
+  results: {
+    en: "https://ebim-benchmark.github.io/results.html",
+    zh: "https://ebim-benchmark.github.io/zh/results.html",
   },
   contact: {
     en: "https://ebim-benchmark.github.io/contact.html",
@@ -206,6 +211,7 @@ export default {
           openDayShanghai: "/open-day-shanghai.html",
           openDayMunich: "/open-day-munich.html",
           faq: "/faq.html",
+          results: "/results.html",
           contact: "/contact.html",
           register: "/register.html",
         }
@@ -219,6 +225,7 @@ export default {
             openDayShanghai: "open-day-shanghai.html",
             openDayMunich: "open-day-munich.html",
             faq: "faq.html",
+            results: "results.html",
             contact: "contact.html",
             register: "register.html",
           }
@@ -231,6 +238,7 @@ export default {
             openDayShanghai: "open-day-shanghai.html",
             openDayMunich: "open-day-munich.html",
             faq: "faq.html",
+            results: "results.html",
             contact: "contact.html",
             register: "register.html",
           },
