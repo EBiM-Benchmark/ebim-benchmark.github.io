@@ -63,7 +63,7 @@
 //                 inside its own wrapper) with the data file's text in the page's
 //                 language, or a message element appears without a condition.
 //   draft key   — the form's data-draft-key differs EN vs zh, from the data file,
-//                 or from the fixed key "ebim-questionnaire-B-2026".
+//                 or from the fixed key "ebim-questionnaire-B-2026-v2".
 //
 // Scope: this guards against HONEST template and data edits that would make the
 // pages submit something other than the data file describes, or make EN and zh
@@ -87,8 +87,8 @@ const SITE = path.join(ROOT, "_site");
 // behaviour script; `floor` is the fewest submitted fields a page may have.
 const INSTRUMENTS = [
   { id: "A", en: "feedback-registered.html", zh: "zh/feedback-registered.html", data: "src/_data/questionnaireA.json", marker: "Questionnaire A", floor: 30 },
-  { id: "B", en: "feedback-phase2.html", zh: "zh/feedback-phase2.html", data: "src/_data/questionnaireB.json", marker: "Questionnaire B", floor: 70,
-    required: true, draftKey: "ebim-questionnaire-B-2026" },
+  { id: "B", en: "feedback-phase2.html", zh: "zh/feedback-phase2.html", data: "src/_data/questionnaireB.json", marker: "Questionnaire B", floor: 150,
+    required: true, draftKey: "ebim-questionnaire-B-2026-v2" },
 ];
 const HIDDEN = ["access_key", "from_name", "subject", "instrument", "lang", "botcheck"];
 // The control type each data-file question type renders as.

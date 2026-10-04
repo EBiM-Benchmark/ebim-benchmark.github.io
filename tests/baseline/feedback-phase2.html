@@ -239,10 +239,10 @@
 
     <noscript><p class="reg-noscript">JavaScript is required to submit this form (the spam check needs it). If you can&#39;t enable it, email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</p></noscript>
 
-    <p id="qClosed" class="q-closed" role="status" tabindex="-1" hidden>This questionnaire closed on 22 October 2026. Thank you to everyone who answered.</p>
+    <p id="qClosed" class="q-closed" role="status" tabindex="-1" hidden>This questionnaire closed on 5 November 2026. Thank you to everyone who answered.</p>
 
     <div id="qBody" hidden>
-      <p class="q-intro">This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026. It takes about 15–20 minutes. Every question is optional. One response per person, please. It closes on 22 October 2026 (AoE).</p>
+      <p class="q-intro">This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026. Above all, we want to understand why policies that worked in simulation did or did not work on the real robots, and what would make them work. Only the people who built them can tell us. It takes about 20 minutes, or about 30 if you built your team&#39;s policy. Every question is optional, except a few details that some choices need. One response per person, please. It closes on 5 November 2026 (AoE).</p>
       <p class="q-intro">Your answers are read only by the EBiM organizers, reported only in aggregate, and never quoted or attributed to you without your permission. Results are final, and nothing here can affect them.</p>
       <p id="qDraft" class="q-intro" hidden>Your answers are saved in this browser as you go, so you can close the page and come back later.</p>
       <p class="q-switch">To answer in <span lang="zh-Hans">中文</span>, switch language before you start. Your answers so far are kept.</p>
@@ -252,14 +252,14 @@
       </p>
 
       <div class="reg-card">
-        <form id="qForm" data-closes-at="2026-10-23T12:00:00Z" data-draft-key="ebim-questionnaire-B-2026">
+        <form id="qForm" data-closes-at="2026-11-06T12:00:00Z" data-draft-key="ebim-questionnaire-B-2026-v2">
           <div class="reg-form">
 
             <div class="q-section q-block">
               <h2 class="q-section-title">Section 1 · About you</h2>
-              <div class="q" data-q="b01_team" data-type="text" data-required-if="[{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_franka_answers&quot;,&quot;anyOf&quot;:[&quot;named&quot;]}]">
+              <div class="q" data-q="b01_team" data-type="text" data-required-if="[{&quot;field&quot;:&quot;b01_role&quot;,&quot;anyOf&quot;:[&quot;policy&quot;,&quot;simulation&quot;,&quot;data&quot;]},{&quot;field&quot;:&quot;collab_join&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_code&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_data&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_weights&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_rerun&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_paper&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_franka_answers&quot;,&quot;anyOf&quot;:[&quot;named&quot;]}]">
                 <div class="form-field">
-                  <label class="form-label" for="b01_team"><span class="q-num">1.</span> Your team</label>
+                  <label class="form-label" for="b01_team"><span class="q-num">1.</span> Your team. Needed if you worked on the policy, so that we can match your technical answers to your team&#39;s evaluation.</label>
                   <input class="form-input" type="text" id="b01_team" name="b01_team" maxlength="500" />
                 </div>
                 <p class="q-req-msg" id="b01_team_req" hidden>Please enter your team in Section 1.</p>
@@ -313,83 +313,637 @@
             </div>
 
             <div class="q-section q-block">
-              <h2 class="q-section-title">Section 2 · Phase I, in simulation</h2>
-              <div class="q" data-q="b02_setup_time" data-type="radio">
+              <h2 class="q-section-title">Section 2 · Your policy</h2>
+              <p class="q-note">For the people who built the policy. If several of you did, one complete answer per team is enough, and the others can skip this section. Approximate answers are fine. Answer for the policy your team submitted for Phase II evaluation.</p>
+              <div class="q-sub q-block">
+                <h3 class="q-sub-title">The policy</h3>
+              <div class="q" data-q="pol_t1_approach" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">6.</span> How long did it take you to get the simulator running?</legend>
+                  <legend class="form-label">Task 1: what kind of policy was it? Choose all that apply.</legend>
                   <div class="reg-checks">
-                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="lt_1d" /> <span>Less than a day</span></label>
-                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="1_3d" /> <span>1–3 days</span></label>
-                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="4_7d" /> <span>4–7 days</span></label>
-                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="gt_1w" /> <span>More than a week</span></label>
-                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="not_me" /> <span>I didn&#39;t set it up myself</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_approach" value="scripted" data-group disabled /> <span>Scripted or classical motion planning, no learned policy</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_approach" value="il_scratch" data-group disabled /> <span>Imitation learning, trained from scratch (e.g. ACT, Diffusion Policy)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_approach" value="vla_ft" data-group disabled /> <span>A fine-tuned, pretrained vision-language-action (VLA) model</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_approach" value="rl" data-group disabled /> <span>Reinforcement learning</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_approach" value="hybrid" data-group disabled /> <span>Hybrid: learned for some parts, scripted for others</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_approach" value="other" data-group disabled /> <span>Other</span></label>
                   </div>
                 </fieldset>
               </div>
-              <div class="q" data-q="b02_sim" data-type="checkbox">
+              <div class="q" data-q="pol_t1_base" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">7.</span> Which simulator did your team use?</legend>
+                  <legend class="form-label">Task 1: which pretrained base model did you start from?</legend>
                   <div class="reg-checks">
-                    <label class="reg-check"><input type="checkbox" name="b02_sim" value="isaacsim" data-group /> <span>Isaac Sim</span></label>
-                    <label class="reg-check"><input type="checkbox" name="b02_sim" value="mujoco" data-group /> <span>MuJoCo</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="none" disabled /> <span>None: trained from scratch</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="pi0" disabled /> <span>π0 (openpi)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="pi05" disabled /> <span>π0.5 (openpi)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="groot" disabled /> <span>GR00T N1 (any version)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="rdt" disabled /> <span>RDT</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="openvla" disabled /> <span>OpenVLA or OpenVLA-OFT</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_base" value="other" disabled /> <span>Other</span></label>
                   </div>
                 </fieldset>
               </div>
-              <div class="q" data-q="b02_docs" data-type="scale">
-                <fieldset class="form-field" aria-describedby="b02_docs_ends">
-                  <legend class="form-label"><span class="q-num">8.</span> How clear were the rulebook and documentation?</legend>
-                  <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="1" aria-describedby="b02_docs_ends" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="2" aria-describedby="b02_docs_ends" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="3" aria-describedby="b02_docs_ends" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="4" aria-describedby="b02_docs_ends" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="5" aria-describedby="b02_docs_ends" /> <span>5</span></label>
-                  </div>
-                  <div class="q-scale-ends" id="b02_docs_ends"><span>1 = very unclear</span><span>5 = very clear</span></div>
-                </fieldset>
-              </div>
-              <div class="q" data-q="b02_packaging" data-type="scale">
-                <fieldset class="form-field" aria-describedby="b02_packaging_ends">
-                  <legend class="form-label"><span class="q-num">9.</span> How easy was it to package and submit your work (Dockerfile, public repository, submission form)?</legend>
-                  <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="1" aria-describedby="b02_packaging_ends" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="2" aria-describedby="b02_packaging_ends" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="3" aria-describedby="b02_packaging_ends" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="4" aria-describedby="b02_packaging_ends" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="5" aria-describedby="b02_packaging_ends" /> <span>5</span></label>
-                  </div>
-                  <div class="q-scale-ends" id="b02_packaging_ends"><span>1 = very difficult</span><span>5 = very easy</span></div>
-                </fieldset>
-              </div>
-              <div class="q" data-q="b02_rules_stable" data-type="scale">
-                <fieldset class="form-field" aria-describedby="b02_rules_stable_ends">
-                  <legend class="form-label"><span class="q-num">10.</span> Were the rules clear and stable enough to plan around?</legend>
-                  <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="b02_rules_stable" value="1" aria-describedby="b02_rules_stable_ends" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_rules_stable" value="2" aria-describedby="b02_rules_stable_ends" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_rules_stable" value="3" aria-describedby="b02_rules_stable_ends" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_rules_stable" value="4" aria-describedby="b02_rules_stable_ends" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b02_rules_stable" value="5" aria-describedby="b02_rules_stable_ends" /> <span>5</span></label>
-                  </div>
-                  <div class="q-scale-ends" id="b02_rules_stable_ends"><span>1 = not at all</span><span>5 = completely</span></div>
-                </fieldset>
-              </div>
-              <div class="q" data-q="b02_rules_comment" data-type="text">
+              <div class="q" data-q="pol_t1_model" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
                 <div class="form-field">
-                  <label class="form-label" for="b02_rules_comment">Anything you&#39;d like to add about the rules?</label>
-                  <input class="form-input" type="text" id="b02_rules_comment" name="b02_rules_comment" maxlength="500" />
+                  <label class="form-label" for="pol_t1_model">Task 1: model name, version and size, if you can share them</label>
+                  <input class="form-input" type="text" id="pol_t1_model" name="pol_t1_model" maxlength="500" disabled />
                 </div>
               </div>
-              <div class="q" data-q="b02_gt_effect" data-type="longtext">
+              <div class="q" data-q="pol_t1_sim" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: which simulator did you develop in?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim" value="isaacsim" data-group disabled /> <span>Isaac Sim</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim" value="mujoco" data-group disabled /> <span>MuJoCo</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim" value="other" data-group disabled /> <span>Other</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim" value="none" data-group disabled /> <span>None</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_nav" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: how did the robot get to the work area?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_nav" value="none" disabled /> <span>No navigation: we assumed it started in place</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_nav" value="open_loop" disabled /> <span>Fixed, open-loop base motion</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_nav" value="lidar" disabled /> <span>LiDAR-based localization and navigation</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_nav" value="vision" disabled /> <span>Vision-based localization</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_nav" value="learned" disabled /> <span>Learned as part of the policy</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_nav" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_inputs" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: what did the policy take as input? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="head_cam" data-group disabled /> <span>Head camera(s)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="wrist_cam" data-group disabled /> <span>Wrist cameras</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="depth" data-group disabled /> <span>Depth</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="proprio" data-group disabled /> <span>Joint states (proprioception)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="lidar" data-group disabled /> <span>LiDAR</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="force" data-group disabled /> <span>Force or torque</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="language" data-group disabled /> <span>A language instruction</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_inputs" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_action" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: what did the policy output?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_action" value="joint_pos" disabled /> <span>Joint positions</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_action" value="joint_vel" disabled /> <span>Joint velocities or torques</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_action" value="ee_abs" disabled /> <span>End-effector pose, absolute</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_action" value="ee_delta" disabled /> <span>End-effector pose, relative (delta)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_action" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_infer" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: where was the policy meant to run during evaluation?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_infer" value="onboard" disabled /> <span>On the robot&#39;s onboard computer (Jetson AGX Orin)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_infer" value="external" disabled /> <span>On a separate GPU computer at the testbed</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_infer" value="cloud" disabled /> <span>On a remote server or in the cloud</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_infer" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_gt_replace" data-type="longtext" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
                 <div class="form-field">
-                  <label class="form-label" for="b02_gt_effect"><span class="q-num">11.</span> How did the rule allowing ground-truth object positions affect your approach?</label>
-                  <textarea class="form-textarea" id="b02_gt_effect" name="b02_gt_effect" rows="4" maxlength="5000"></textarea>
+                  <label class="form-label" for="pol_t1_gt_replace">Task 1: if your Phase I policy used the simulator&#39;s ground-truth object poses, what did you use in their place on the real robot?</label>
+                  <textarea class="form-textarea" id="pol_t1_gt_replace" name="pol_t1_gt_replace" rows="4" maxlength="5000" disabled></textarea>
                 </div>
+              </div>
+              <div class="q" data-q="pol_t2_approach" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: what kind of policy was it? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_approach" value="scripted" data-group disabled /> <span>Scripted or classical motion planning, no learned policy</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_approach" value="il_scratch" data-group disabled /> <span>Imitation learning, trained from scratch (e.g. ACT, Diffusion Policy)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_approach" value="vla_ft" data-group disabled /> <span>A fine-tuned, pretrained vision-language-action (VLA) model</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_approach" value="rl" data-group disabled /> <span>Reinforcement learning</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_approach" value="hybrid" data-group disabled /> <span>Hybrid: learned for some parts, scripted for others</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_approach" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_base" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: which pretrained base model did you start from?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="none" disabled /> <span>None: trained from scratch</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="pi0" disabled /> <span>π0 (openpi)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="pi05" disabled /> <span>π0.5 (openpi)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="groot" disabled /> <span>GR00T N1 (any version)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="rdt" disabled /> <span>RDT</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="openvla" disabled /> <span>OpenVLA or OpenVLA-OFT</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_base" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_model" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t2_model">Task 2: model name, version and size, if you can share them</label>
+                  <input class="form-input" type="text" id="pol_t2_model" name="pol_t2_model" maxlength="500" disabled />
+                </div>
+              </div>
+              <div class="q" data-q="pol_t2_sim" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: which simulator did you develop in?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim" value="isaacsim" data-group disabled /> <span>Isaac Sim</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim" value="mujoco" data-group disabled /> <span>MuJoCo</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim" value="other" data-group disabled /> <span>Other</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim" value="none" data-group disabled /> <span>None</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_nav" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: how did the robot get to the work area?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_nav" value="none" disabled /> <span>No navigation: we assumed it started in place</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_nav" value="open_loop" disabled /> <span>Fixed, open-loop base motion</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_nav" value="lidar" disabled /> <span>LiDAR-based localization and navigation</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_nav" value="vision" disabled /> <span>Vision-based localization</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_nav" value="learned" disabled /> <span>Learned as part of the policy</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_nav" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_inputs" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: what did the policy take as input? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="head_cam" data-group disabled /> <span>Head camera(s)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="wrist_cam" data-group disabled /> <span>Wrist cameras</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="depth" data-group disabled /> <span>Depth</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="proprio" data-group disabled /> <span>Joint states (proprioception)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="lidar" data-group disabled /> <span>LiDAR</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="force" data-group disabled /> <span>Force or torque</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="language" data-group disabled /> <span>A language instruction</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_inputs" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_action" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: what did the policy output?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_action" value="joint_pos" disabled /> <span>Joint positions</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_action" value="joint_vel" disabled /> <span>Joint velocities or torques</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_action" value="ee_abs" disabled /> <span>End-effector pose, absolute</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_action" value="ee_delta" disabled /> <span>End-effector pose, relative (delta)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_action" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_infer" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: where was the policy meant to run during evaluation?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_infer" value="onboard" disabled /> <span>On the robot&#39;s onboard computer (Jetson AGX Orin)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_infer" value="external" disabled /> <span>On a separate GPU computer at the testbed</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_infer" value="cloud" disabled /> <span>On a remote server or in the cloud</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_infer" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_gt_replace" data-type="longtext" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t2_gt_replace">Task 2: if your Phase I policy used the simulator&#39;s ground-truth object poses, what did you use in their place on the real robot?</label>
+                  <textarea class="form-textarea" id="pol_t2_gt_replace" name="pol_t2_gt_replace" rows="4" maxlength="5000" disabled></textarea>
+                </div>
+              </div>
+              <div class="q" data-q="pol_t3_approach" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: what kind of policy was it? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_approach" value="scripted" data-group disabled /> <span>Scripted or classical motion planning, no learned policy</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_approach" value="il_scratch" data-group disabled /> <span>Imitation learning, trained from scratch (e.g. ACT, Diffusion Policy)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_approach" value="vla_ft" data-group disabled /> <span>A fine-tuned, pretrained vision-language-action (VLA) model</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_approach" value="rl" data-group disabled /> <span>Reinforcement learning</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_approach" value="hybrid" data-group disabled /> <span>Hybrid: learned for some parts, scripted for others</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_approach" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_base" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: which pretrained base model did you start from?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="none" disabled /> <span>None: trained from scratch</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="pi0" disabled /> <span>π0 (openpi)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="pi05" disabled /> <span>π0.5 (openpi)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="groot" disabled /> <span>GR00T N1 (any version)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="rdt" disabled /> <span>RDT</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="openvla" disabled /> <span>OpenVLA or OpenVLA-OFT</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_base" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_model" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t3_model">Task 3: model name, version and size, if you can share them</label>
+                  <input class="form-input" type="text" id="pol_t3_model" name="pol_t3_model" maxlength="500" disabled />
+                </div>
+              </div>
+              <div class="q" data-q="pol_t3_sim" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: which simulator did you develop in?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim" value="isaacsim" data-group disabled /> <span>Isaac Sim</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim" value="mujoco" data-group disabled /> <span>MuJoCo</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim" value="other" data-group disabled /> <span>Other</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim" value="none" data-group disabled /> <span>None</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_nav" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: how did the robot get to the work area?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_nav" value="none" disabled /> <span>No navigation: we assumed it started in place</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_nav" value="open_loop" disabled /> <span>Fixed, open-loop base motion</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_nav" value="lidar" disabled /> <span>LiDAR-based localization and navigation</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_nav" value="vision" disabled /> <span>Vision-based localization</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_nav" value="learned" disabled /> <span>Learned as part of the policy</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_nav" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_inputs" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: what did the policy take as input? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="head_cam" data-group disabled /> <span>Head camera(s)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="wrist_cam" data-group disabled /> <span>Wrist cameras</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="depth" data-group disabled /> <span>Depth</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="proprio" data-group disabled /> <span>Joint states (proprioception)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="lidar" data-group disabled /> <span>LiDAR</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="force" data-group disabled /> <span>Force or torque</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="language" data-group disabled /> <span>A language instruction</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_inputs" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_action" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: what did the policy output?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_action" value="joint_pos" disabled /> <span>Joint positions</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_action" value="joint_vel" disabled /> <span>Joint velocities or torques</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_action" value="ee_abs" disabled /> <span>End-effector pose, absolute</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_action" value="ee_delta" disabled /> <span>End-effector pose, relative (delta)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_action" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_infer" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: where was the policy meant to run during evaluation?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_infer" value="onboard" disabled /> <span>On the robot&#39;s onboard computer (Jetson AGX Orin)</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_infer" value="external" disabled /> <span>On a separate GPU computer at the testbed</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_infer" value="cloud" disabled /> <span>On a remote server or in the cloud</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_infer" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_gt_replace" data-type="longtext" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t3_gt_replace">Task 3: if your Phase I policy used the simulator&#39;s ground-truth object poses, what did you use in their place on the real robot?</label>
+                  <textarea class="form-textarea" id="pol_t3_gt_replace" name="pol_t3_gt_replace" rows="4" maxlength="5000" disabled></textarea>
+                </div>
+              </div>
+              </div>
+              <div class="q-sub q-block">
+                <h3 class="q-sub-title">Training data</h3>
+              <div class="q" data-q="pol_t1_sim_eps" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: roughly how many simulation episodes did the final policy train on?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_sim_eps" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_sim_eps" value="1_100" disabled /> <span>1–100</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_sim_eps" value="101_1k" disabled /> <span>101–1,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_sim_eps" value="1k_10k" disabled /> <span>1,001–10,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_sim_eps" value="gt_10k" disabled /> <span>More than 10,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_sim_eps" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_sim_source" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: how was the simulation data produced? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim_source" value="teleop" data-group disabled /> <span>Teleoperation in simulation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim_source" value="scripted" data-group disabled /> <span>Scripted or motion-planner demonstrations</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim_source" value="rl" data-group disabled /> <span>Reinforcement-learning rollouts</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim_source" value="augmented" data-group disabled /> <span>Augmenting or replaying existing episodes with variations</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_sim_source" value="none" data-group disabled /> <span>We didn&#39;t use simulation data</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_real_ebim" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: did you train on the EBiM real-world dataset for this task?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_ebim" value="all" disabled /> <span>Yes, all of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_ebim" value="part" disabled /> <span>Yes, part of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_ebim" value="no" disabled /> <span>No</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_ebim" value="unaware" disabled /> <span>We didn&#39;t know it was available</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_real_own" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: how many real-robot episodes did your team collect yourselves, for example during bench time?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_own" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_own" value="1_20" disabled /> <span>1–20</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_own" value="21_100" disabled /> <span>21–100</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_own" value="101_500" disabled /> <span>101–500</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_real_own" value="gt_500" disabled /> <span>More than 500</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_mix" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: roughly what share of the final training data came from simulation? Leave out the base model&#39;s own pre-training.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="lt_25" disabled /> <span>Less than 25%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="25_50" disabled /> <span>25–50%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="50_75" disabled /> <span>50–75%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="gt_75" disabled /> <span>More than 75%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="all" disabled /> <span>All of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_mix" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_external" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t1_external">Task 1: any other datasets you trained on, beyond your base model&#39;s own pre-training (e.g. Open X-Embodiment, DROID, AgiBot World)</label>
+                  <input class="form-input" type="text" id="pol_t1_external" name="pol_t1_external" maxlength="500" disabled />
+                </div>
+              </div>
+              <div class="q" data-q="pol_t1_bridge" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: what did you do to help the policy transfer from simulation to the real robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="dr_visual" data-group disabled /> <span>Randomized lighting, textures or background</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="dr_physics" data-group disabled /> <span>Randomized object poses or physics</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="camera" data-group disabled /> <span>Randomized or matched camera poses</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="cotrain" data-group disabled /> <span>Trained on simulation and real data together</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="finetune_real" data-group disabled /> <span>Fine-tuned on real data after simulation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="real2sim" data-group disabled /> <span>Tuned the simulator to match the real setup</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="none" data-group disabled /> <span>Nothing specific</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t1_bridge" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_compute" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: roughly how much GPU time went into training the final policy?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_compute" value="lt_10" disabled /> <span>Less than 10 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_compute" value="10_100" disabled /> <span>10–100 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_compute" value="100_1k" disabled /> <span>100–1,000 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_compute" value="gt_1k" disabled /> <span>More than 1,000 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_compute" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t1_pretest" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: before evaluation, had you run your submitted container on a real Mobile FR3 Duo?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t1_pretest" value="yes" disabled /> <span>Yes</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_pretest" value="stack_only" disabled /> <span>Only on a matching software setup, not the real robot</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t1_pretest" value="no" disabled /> <span>No</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_sim_eps" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: roughly how many simulation episodes did the final policy train on?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_sim_eps" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_sim_eps" value="1_100" disabled /> <span>1–100</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_sim_eps" value="101_1k" disabled /> <span>101–1,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_sim_eps" value="1k_10k" disabled /> <span>1,001–10,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_sim_eps" value="gt_10k" disabled /> <span>More than 10,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_sim_eps" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_sim_source" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: how was the simulation data produced? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim_source" value="teleop" data-group disabled /> <span>Teleoperation in simulation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim_source" value="scripted" data-group disabled /> <span>Scripted or motion-planner demonstrations</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim_source" value="rl" data-group disabled /> <span>Reinforcement-learning rollouts</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim_source" value="augmented" data-group disabled /> <span>Augmenting or replaying existing episodes with variations</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_sim_source" value="none" data-group disabled /> <span>We didn&#39;t use simulation data</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_real_ebim" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: did you train on the EBiM real-world dataset for this task?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_ebim" value="all" disabled /> <span>Yes, all of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_ebim" value="part" disabled /> <span>Yes, part of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_ebim" value="no" disabled /> <span>No</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_ebim" value="unaware" disabled /> <span>We didn&#39;t know it was available</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_real_own" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: how many real-robot episodes did your team collect yourselves, for example during bench time?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_own" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_own" value="1_20" disabled /> <span>1–20</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_own" value="21_100" disabled /> <span>21–100</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_own" value="101_500" disabled /> <span>101–500</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_real_own" value="gt_500" disabled /> <span>More than 500</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_mix" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: roughly what share of the final training data came from simulation? Leave out the base model&#39;s own pre-training.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="lt_25" disabled /> <span>Less than 25%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="25_50" disabled /> <span>25–50%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="50_75" disabled /> <span>50–75%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="gt_75" disabled /> <span>More than 75%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="all" disabled /> <span>All of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_mix" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_external" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t2_external">Task 2: any other datasets you trained on, beyond your base model&#39;s own pre-training (e.g. Open X-Embodiment, DROID, AgiBot World)</label>
+                  <input class="form-input" type="text" id="pol_t2_external" name="pol_t2_external" maxlength="500" disabled />
+                </div>
+              </div>
+              <div class="q" data-q="pol_t2_bridge" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: what did you do to help the policy transfer from simulation to the real robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="dr_visual" data-group disabled /> <span>Randomized lighting, textures or background</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="dr_physics" data-group disabled /> <span>Randomized object poses or physics</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="camera" data-group disabled /> <span>Randomized or matched camera poses</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="cotrain" data-group disabled /> <span>Trained on simulation and real data together</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="finetune_real" data-group disabled /> <span>Fine-tuned on real data after simulation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="real2sim" data-group disabled /> <span>Tuned the simulator to match the real setup</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="none" data-group disabled /> <span>Nothing specific</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t2_bridge" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_compute" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: roughly how much GPU time went into training the final policy?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_compute" value="lt_10" disabled /> <span>Less than 10 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_compute" value="10_100" disabled /> <span>10–100 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_compute" value="100_1k" disabled /> <span>100–1,000 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_compute" value="gt_1k" disabled /> <span>More than 1,000 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_compute" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t2_pretest" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: before evaluation, had you run your submitted container on a real Mobile FR3 Duo?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t2_pretest" value="yes" disabled /> <span>Yes</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_pretest" value="stack_only" disabled /> <span>Only on a matching software setup, not the real robot</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t2_pretest" value="no" disabled /> <span>No</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_sim_eps" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: roughly how many simulation episodes did the final policy train on?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_sim_eps" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_sim_eps" value="1_100" disabled /> <span>1–100</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_sim_eps" value="101_1k" disabled /> <span>101–1,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_sim_eps" value="1k_10k" disabled /> <span>1,001–10,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_sim_eps" value="gt_10k" disabled /> <span>More than 10,000</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_sim_eps" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_sim_source" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: how was the simulation data produced? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim_source" value="teleop" data-group disabled /> <span>Teleoperation in simulation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim_source" value="scripted" data-group disabled /> <span>Scripted or motion-planner demonstrations</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim_source" value="rl" data-group disabled /> <span>Reinforcement-learning rollouts</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim_source" value="augmented" data-group disabled /> <span>Augmenting or replaying existing episodes with variations</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_sim_source" value="none" data-group disabled /> <span>We didn&#39;t use simulation data</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_real_ebim" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: did you train on the EBiM real-world dataset for this task?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_ebim" value="all" disabled /> <span>Yes, all of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_ebim" value="part" disabled /> <span>Yes, part of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_ebim" value="no" disabled /> <span>No</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_ebim" value="unaware" disabled /> <span>We didn&#39;t know it was available</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_real_own" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: how many real-robot episodes did your team collect yourselves, for example during bench time?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_own" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_own" value="1_20" disabled /> <span>1–20</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_own" value="21_100" disabled /> <span>21–100</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_own" value="101_500" disabled /> <span>101–500</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_real_own" value="gt_500" disabled /> <span>More than 500</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_mix" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: roughly what share of the final training data came from simulation? Leave out the base model&#39;s own pre-training.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="0" disabled /> <span>None</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="lt_25" disabled /> <span>Less than 25%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="25_50" disabled /> <span>25–50%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="50_75" disabled /> <span>50–75%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="gt_75" disabled /> <span>More than 75%</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="all" disabled /> <span>All of it</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_mix" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_external" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <div class="form-field">
+                  <label class="form-label" for="pol_t3_external">Task 3: any other datasets you trained on, beyond your base model&#39;s own pre-training (e.g. Open X-Embodiment, DROID, AgiBot World)</label>
+                  <input class="form-input" type="text" id="pol_t3_external" name="pol_t3_external" maxlength="500" disabled />
+                </div>
+              </div>
+              <div class="q" data-q="pol_t3_bridge" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: what did you do to help the policy transfer from simulation to the real robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="dr_visual" data-group disabled /> <span>Randomized lighting, textures or background</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="dr_physics" data-group disabled /> <span>Randomized object poses or physics</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="camera" data-group disabled /> <span>Randomized or matched camera poses</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="cotrain" data-group disabled /> <span>Trained on simulation and real data together</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="finetune_real" data-group disabled /> <span>Fine-tuned on real data after simulation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="real2sim" data-group disabled /> <span>Tuned the simulator to match the real setup</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="none" data-group disabled /> <span>Nothing specific</span></label>
+                    <label class="reg-check"><input type="checkbox" name="pol_t3_bridge" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_compute" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: roughly how much GPU time went into training the final policy?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_compute" value="lt_10" disabled /> <span>Less than 10 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_compute" value="10_100" disabled /> <span>10–100 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_compute" value="100_1k" disabled /> <span>100–1,000 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_compute" value="gt_1k" disabled /> <span>More than 1,000 GPU-hours</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_compute" value="unknown" disabled /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="pol_t3_pretest" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: before evaluation, had you run your submitted container on a real Mobile FR3 Duo?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="pol_t3_pretest" value="yes" disabled /> <span>Yes</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_pretest" value="stack_only" disabled /> <span>Only on a matching software setup, not the real robot</span></label>
+                    <label class="reg-check"><input type="radio" name="pol_t3_pretest" value="no" disabled /> <span>No</span></label>
+                  </div>
+                </fieldset>
+              </div>
               </div>
             </div>
 
             <div class="q-section q-block">
-              <h2 class="q-section-title">Section 3 · Your task</h2>
+              <h2 class="q-section-title">Section 3 · From simulation to the real robot</h2>
+              <p class="q-note">For everyone. Answer for each task your team took part in. We&#39;ve sent your team the video of its evaluation runs; it may help to watch it before answering.</p>
               <div class="q-sub q-block">
               <div class="q" data-q="b03_t1_diff_sim" data-type="scale" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
                 <fieldset class="form-field" aria-describedby="b03_t1_diff_sim_ends">
@@ -429,6 +983,62 @@
                     <label class="reg-check"><input type="checkbox" name="b03_t1_issues" value="cable_physics" data-group disabled /> <span>Cable behaviour in simulation</span></label>
                     <label class="reg-check"><input type="checkbox" name="b03_t1_issues" value="routing" data-group disabled /> <span>Routing the cable along the required path</span></label>
                     <label class="reg-check"><input type="checkbox" name="b03_t1_issues" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t1_cause" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: on the real robot, what do you think stopped your policy from scoring higher? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="navigation" data-group disabled /> <span>Getting the mobile base to the right place</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="perception" data-group disabled /> <span>Perception: camera viewpoint, calibration or field of view</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="control" data-group disabled /> <span>Control: joint limits, action mapping or latency</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="sim_fidelity" data-group disabled /> <span>The simulation wasn&#39;t realistic enough (contact, deformation, lighting)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="sim_data" data-group disabled /> <span>Not enough, or not varied enough, simulation data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="real_data" data-group disabled /> <span>Not enough real-world data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="testbed_diff" data-group disabled /> <span>The testbed differed from what we prepared for (layout, object placement, lighting)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="hardware" data-group disabled /> <span>Robot hardware condition or faults</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="integration" data-group disabled /> <span>Software integration or deployment (container, drivers, launch order, ROS topics)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="policy" data-group disabled /> <span>The policy itself (model or training)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="bench_time" data-group disabled /> <span>Not enough time on the real robot</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="unknown" data-group disabled /> <span>We don&#39;t know</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_cause" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t1_cause_main" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: which one mattered most?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="navigation" disabled /> <span>Getting the mobile base to the right place</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="perception" disabled /> <span>Perception: camera viewpoint, calibration or field of view</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="control" disabled /> <span>Control: joint limits, action mapping or latency</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="sim_fidelity" disabled /> <span>The simulation wasn&#39;t realistic enough (contact, deformation, lighting)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="sim_data" disabled /> <span>Not enough, or not varied enough, simulation data</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="real_data" disabled /> <span>Not enough real-world data</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="testbed_diff" disabled /> <span>The testbed differed from what we prepared for (layout, object placement, lighting)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="hardware" disabled /> <span>Robot hardware condition or faults</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="integration" disabled /> <span>Software integration or deployment (container, drivers, launch order, ROS topics)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="policy" disabled /> <span>The policy itself (model or training)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="bench_time" disabled /> <span>Not enough time on the real robot</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="unknown" disabled /> <span>We don&#39;t know</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t1_cause_main" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t1_fix" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t1&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 1: what would most likely have made your policy work on the real robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="real_data" data-group disabled /> <span>More real-world data, collected on the testbed itself</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="sim_data" data-group disabled /> <span>More, or more varied, simulation data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="sim_fidelity" data-group disabled /> <span>A more realistic simulator</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="model" data-group disabled /> <span>A different or larger model</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="localization" data-group disabled /> <span>Extra localization aids (e.g. markers, a map, a fixed start pose)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="platform_info" data-group disabled /> <span>More complete information about the platform and testbed</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="earlier_access" data-group disabled /> <span>Earlier access to the real robot</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="eval_logs" data-group disabled /> <span>Logs and video from our evaluation runs</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t1_fix" value="other" data-group disabled /> <span>Other</span></label>
                   </div>
                 </fieldset>
               </div>
@@ -492,6 +1102,62 @@
                     <label class="reg-check"><input type="checkbox" name="b03_t2_issues" value="placement" data-group disabled /> <span>Placing the pad accurately on the target</span></label>
                     <label class="reg-check"><input type="checkbox" name="b03_t2_issues" value="isaac_only" data-group disabled /> <span>Available only in Isaac Sim</span></label>
                     <label class="reg-check"><input type="checkbox" name="b03_t2_issues" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t2_cause" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: on the real robot, what do you think stopped your policy from scoring higher? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="navigation" data-group disabled /> <span>Getting the mobile base to the right place</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="perception" data-group disabled /> <span>Perception: camera viewpoint, calibration or field of view</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="control" data-group disabled /> <span>Control: joint limits, action mapping or latency</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="sim_fidelity" data-group disabled /> <span>The simulation wasn&#39;t realistic enough (contact, deformation, lighting)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="sim_data" data-group disabled /> <span>Not enough, or not varied enough, simulation data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="real_data" data-group disabled /> <span>Not enough real-world data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="testbed_diff" data-group disabled /> <span>The testbed differed from what we prepared for (layout, object placement, lighting)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="hardware" data-group disabled /> <span>Robot hardware condition or faults</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="integration" data-group disabled /> <span>Software integration or deployment (container, drivers, launch order, ROS topics)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="policy" data-group disabled /> <span>The policy itself (model or training)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="bench_time" data-group disabled /> <span>Not enough time on the real robot</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="unknown" data-group disabled /> <span>We don&#39;t know</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_cause" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t2_cause_main" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: which one mattered most?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="navigation" disabled /> <span>Getting the mobile base to the right place</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="perception" disabled /> <span>Perception: camera viewpoint, calibration or field of view</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="control" disabled /> <span>Control: joint limits, action mapping or latency</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="sim_fidelity" disabled /> <span>The simulation wasn&#39;t realistic enough (contact, deformation, lighting)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="sim_data" disabled /> <span>Not enough, or not varied enough, simulation data</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="real_data" disabled /> <span>Not enough real-world data</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="testbed_diff" disabled /> <span>The testbed differed from what we prepared for (layout, object placement, lighting)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="hardware" disabled /> <span>Robot hardware condition or faults</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="integration" disabled /> <span>Software integration or deployment (container, drivers, launch order, ROS topics)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="policy" disabled /> <span>The policy itself (model or training)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="bench_time" disabled /> <span>Not enough time on the real robot</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="unknown" disabled /> <span>We don&#39;t know</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t2_cause_main" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t2_fix" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t2&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 2: what would most likely have made your policy work on the real robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="real_data" data-group disabled /> <span>More real-world data, collected on the testbed itself</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="sim_data" data-group disabled /> <span>More, or more varied, simulation data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="sim_fidelity" data-group disabled /> <span>A more realistic simulator</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="model" data-group disabled /> <span>A different or larger model</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="localization" data-group disabled /> <span>Extra localization aids (e.g. markers, a map, a fixed start pose)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="platform_info" data-group disabled /> <span>More complete information about the platform and testbed</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="earlier_access" data-group disabled /> <span>Earlier access to the real robot</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="eval_logs" data-group disabled /> <span>Logs and video from our evaluation runs</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t2_fix" value="other" data-group disabled /> <span>Other</span></label>
                   </div>
                 </fieldset>
               </div>
@@ -568,6 +1234,62 @@
                   </div>
                 </fieldset>
               </div>
+              <div class="q" data-q="b03_t3_cause" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: on the real robot, what do you think stopped your policy from scoring higher? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="navigation" data-group disabled /> <span>Getting the mobile base to the right place</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="perception" data-group disabled /> <span>Perception: camera viewpoint, calibration or field of view</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="control" data-group disabled /> <span>Control: joint limits, action mapping or latency</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="sim_fidelity" data-group disabled /> <span>The simulation wasn&#39;t realistic enough (contact, deformation, lighting)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="sim_data" data-group disabled /> <span>Not enough, or not varied enough, simulation data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="real_data" data-group disabled /> <span>Not enough real-world data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="testbed_diff" data-group disabled /> <span>The testbed differed from what we prepared for (layout, object placement, lighting)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="hardware" data-group disabled /> <span>Robot hardware condition or faults</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="integration" data-group disabled /> <span>Software integration or deployment (container, drivers, launch order, ROS topics)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="policy" data-group disabled /> <span>The policy itself (model or training)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="bench_time" data-group disabled /> <span>Not enough time on the real robot</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="unknown" data-group disabled /> <span>We don&#39;t know</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_cause" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t3_cause_main" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: which one mattered most?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="navigation" disabled /> <span>Getting the mobile base to the right place</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="perception" disabled /> <span>Perception: camera viewpoint, calibration or field of view</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="control" disabled /> <span>Control: joint limits, action mapping or latency</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="sim_fidelity" disabled /> <span>The simulation wasn&#39;t realistic enough (contact, deformation, lighting)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="sim_data" disabled /> <span>Not enough, or not varied enough, simulation data</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="real_data" disabled /> <span>Not enough real-world data</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="testbed_diff" disabled /> <span>The testbed differed from what we prepared for (layout, object placement, lighting)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="hardware" disabled /> <span>Robot hardware condition or faults</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="integration" disabled /> <span>Software integration or deployment (container, drivers, launch order, ROS topics)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="policy" disabled /> <span>The policy itself (model or training)</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="bench_time" disabled /> <span>Not enough time on the real robot</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="unknown" disabled /> <span>We don&#39;t know</span></label>
+                    <label class="reg-check"><input type="radio" name="b03_t3_cause_main" value="other" disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b03_t3_fix" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">Task 3: what would most likely have made your policy work on the real robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="real_data" data-group disabled /> <span>More real-world data, collected on the testbed itself</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="sim_data" data-group disabled /> <span>More, or more varied, simulation data</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="sim_fidelity" data-group disabled /> <span>A more realistic simulator</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="model" data-group disabled /> <span>A different or larger model</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="localization" data-group disabled /> <span>Extra localization aids (e.g. markers, a map, a fixed start pose)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="platform_info" data-group disabled /> <span>More complete information about the platform and testbed</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="earlier_access" data-group disabled /> <span>Earlier access to the real robot</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="eval_logs" data-group disabled /> <span>Logs and video from our evaluation runs</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b03_t3_fix" value="other" data-group disabled /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
               <div class="q" data-q="b03_t3_scoring" data-type="scale" data-show-if="[{&quot;field&quot;:&quot;b01_tasks&quot;,&quot;anyOf&quot;:[&quot;t3&quot;]}]" hidden>
                 <fieldset class="form-field" aria-describedby="b03_t3_scoring_ends">
                   <legend class="form-label">Task 3: is the scoring a fair measure of the skill the task is meant to test?</legend>
@@ -591,7 +1313,7 @@
             </div>
 
             <div class="q-section q-block">
-              <h2 class="q-section-title">Section 4 · Hands-on sessions</h2>
+              <h2 class="q-section-title">Section 4 · Testbeds and evaluation</h2>
               <div class="q-sub q-block">
               <div class="q" data-q="b04_bench_time" data-type="radio" data-show-if="[{&quot;field&quot;:&quot;b01_mode&quot;,&quot;anyOf&quot;:[&quot;hamburg&quot;,&quot;augsburg&quot;,&quot;shanghai&quot;]}]" hidden>
                 <fieldset class="form-field">
@@ -683,13 +1405,126 @@
                 </div>
               </div>
               </div>
+              <div class="q-sub q-block">
+              <div class="q-group">
+                <p class="form-label q-group-label"><span class="q-num">6.</span> How different was the real testbed from what you developed for?</p>
+                <div class="q-scale-ends" id="b04_diff_ends"><span>1 = the same</span><span>5 = very different</span></div>
+              <div class="q" data-q="b04_diff_layout" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b04_diff_ends">
+                  <legend class="form-label q-item-label">Table and fixture sizes and positions</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_layout" value="1" aria-describedby="b04_diff_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_layout" value="2" aria-describedby="b04_diff_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_layout" value="3" aria-describedby="b04_diff_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_layout" value="4" aria-describedby="b04_diff_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_layout" value="5" aria-describedby="b04_diff_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b04_diff_layout" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b04_diff_objects" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b04_diff_ends">
+                  <legend class="form-label q-item-label">Object placement</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_objects" value="1" aria-describedby="b04_diff_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_objects" value="2" aria-describedby="b04_diff_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_objects" value="3" aria-describedby="b04_diff_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_objects" value="4" aria-describedby="b04_diff_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_objects" value="5" aria-describedby="b04_diff_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b04_diff_objects" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b04_diff_lighting" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b04_diff_ends">
+                  <legend class="form-label q-item-label">Lighting and background</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_lighting" value="1" aria-describedby="b04_diff_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_lighting" value="2" aria-describedby="b04_diff_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_lighting" value="3" aria-describedby="b04_diff_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_lighting" value="4" aria-describedby="b04_diff_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_lighting" value="5" aria-describedby="b04_diff_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b04_diff_lighting" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b04_diff_camera" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b04_diff_ends">
+                  <legend class="form-label q-item-label">Camera positions or calibration</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_camera" value="1" aria-describedby="b04_diff_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_camera" value="2" aria-describedby="b04_diff_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_camera" value="3" aria-describedby="b04_diff_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_camera" value="4" aria-describedby="b04_diff_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_camera" value="5" aria-describedby="b04_diff_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b04_diff_camera" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b04_diff_start" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b04_diff_ends">
+                  <legend class="form-label q-item-label">The robot&#39;s start position</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_start" value="1" aria-describedby="b04_diff_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_start" value="2" aria-describedby="b04_diff_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_start" value="3" aria-describedby="b04_diff_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_start" value="4" aria-describedby="b04_diff_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_start" value="5" aria-describedby="b04_diff_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b04_diff_start" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b04_diff_space" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b04_diff_ends">
+                  <legend class="form-label q-item-label">Space around the robot (walls, table legs, floor)</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_space" value="1" aria-describedby="b04_diff_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_space" value="2" aria-describedby="b04_diff_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_space" value="3" aria-describedby="b04_diff_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_space" value="4" aria-describedby="b04_diff_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b04_diff_space" value="5" aria-describedby="b04_diff_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b04_diff_space" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              </div>
+              <div class="q" data-q="b04_platform_info" data-type="checkbox">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">7.</span> Which information about the platform or testbed did you need but not have? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="limits" data-group /> <span>Joint position, velocity or torque limits</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="camera_calib" data-group /> <span>Camera intrinsics and extrinsics</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="frames" data-group /> <span>Sensor and robot coordinate frames (e.g. LiDAR, base)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="controller" data-group /> <span>Controller behaviour and latency</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="spine" data-group /> <span>Spine (lift) range</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="layout" data-group /> <span>Testbed layout drawings and dimensions</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="objects" data-group /> <span>Object models and specifications</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="deploy_env" data-group /> <span>The deployment environment (OS, ROS version, GPU, drivers)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="none" data-group /> <span>None: we had what we needed</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b04_platform_info" value="other" data-group /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b04_eval_pref" data-type="radio">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">8.</span> Phase II took the best of three trials at each of two sites. How would you prefer policies to be scored?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b04_eval_pref" value="best" /> <span>Best of several trials, as now</span></label>
+                    <label class="reg-check"><input type="radio" name="b04_eval_pref" value="mean" /> <span>Average over all trials</span></label>
+                    <label class="reg-check"><input type="radio" name="b04_eval_pref" value="both" /> <span>Best for the ranking, with the average and spread also reported</span></label>
+                    <label class="reg-check"><input type="radio" name="b04_eval_pref" value="variation" /> <span>Success under deliberately varied conditions (e.g. lighting, object placement)</span></label>
+                    <label class="reg-check"><input type="radio" name="b04_eval_pref" value="none" /> <span>No preference</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              </div>
             </div>
 
             <div class="q-section q-block">
               <h2 class="q-section-title">Section 5 · The Franka Mobile FR3 Duo platform</h2>
               <div class="q" data-q="b05_interfaces" data-type="checkbox">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">12.</span> Which interfaces or tools did you use with the robot?</legend>
+                  <legend class="form-label"><span class="q-num">9.</span> Which interfaces or tools did you use with the robot?</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="checkbox" name="b05_interfaces" value="fci" data-group /> <span>Franka Control Interface (FCI)</span></label>
                     <label class="reg-check"><input type="checkbox" name="b05_interfaces" value="ros2" data-group /> <span>ROS 2</span></label>
@@ -700,8 +1535,35 @@
                   </div>
                 </fieldset>
               </div>
+              <div class="q" data-q="b05_teleop" data-type="checkbox">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">10.</span> Which teleoperation or data-collection tools did you use with the robot? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b05_teleop" value="gello" data-group /> <span>GELLO</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_teleop" value="keyboard" data-group /> <span>Keyboard</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_teleop" value="pedal" data-group /> <span>Foot pedal</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_teleop" value="vr" data-group /> <span>VR</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_teleop" value="own" data-group /> <span>Our own tools</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_teleop" value="none" data-group /> <span>None</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b05_teleop_rate" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b05_teleop_rate_ends">
+                  <legend class="form-label"><span class="q-num">11.</span> How well did teleoperation work for collecting data?</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b05_teleop_rate" value="1" aria-describedby="b05_teleop_rate_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_teleop_rate" value="2" aria-describedby="b05_teleop_rate_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_teleop_rate" value="3" aria-describedby="b05_teleop_rate_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_teleop_rate" value="4" aria-describedby="b05_teleop_rate_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_teleop_rate" value="5" aria-describedby="b05_teleop_rate_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b05_teleop_rate" value="na" /> <span>Didn&#39;t use</span></label>
+                  </div>
+                  <div class="q-scale-ends" id="b05_teleop_rate_ends"><span>1 = very poorly</span><span>5 = very well</span></div>
+                </fieldset>
+              </div>
               <div class="q-group">
-                <p class="form-label q-group-label"><span class="q-num">13.</span> Rate each aspect</p>
+                <p class="form-label q-group-label"><span class="q-num">12.</span> Rate each aspect</p>
                 <div class="q-scale-ends" id="b05_rate_ends"><span>1 = very poor</span><span>5 = excellent</span></div>
               <div class="q" data-q="b05_arm" data-type="scale">
                 <fieldset class="form-field" aria-describedby="b05_rate_ends">
@@ -808,9 +1670,35 @@
                 </fieldset>
               </div>
               </div>
+              <div class="q" data-q="b05_hw_events" data-type="checkbox" data-show-if="[{&quot;field&quot;:&quot;b01_mode&quot;,&quot;anyOf&quot;:[&quot;hamburg&quot;,&quot;augsburg&quot;,&quot;shanghai&quot;]}]" hidden>
+                <fieldset class="form-field">
+                  <legend class="form-label">During your hands-on session, did you see any of these? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="reflex" data-group disabled /> <span>Joint-limit or reflex stops</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="controller" data-group disabled /> <span>Controller or communication faults</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="sensor" data-group disabled /> <span>Camera or sensor dropouts</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="odometry" data-group disabled /> <span>Base localization or odometry drift</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="gripper" data-group disabled /> <span>Gripper failures</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="safety_stop" data-group disabled /> <span>Safety stops triggered by the LiDAR or proximity sensing</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="thermal" data-group disabled /> <span>Performance dropping over time, e.g. overheating</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_hw_events" value="none" data-group disabled /> <span>None of these</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b05_onboard" data-type="radio">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">13.</span> Was the robot&#39;s onboard computer (Jetson AGX Orin) powerful enough for your policy?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b05_onboard" value="yes" /> <span>Yes</span></label>
+                    <label class="reg-check"><input type="radio" name="b05_onboard" value="no" /> <span>No: we needed a separate GPU computer</span></label>
+                    <label class="reg-check"><input type="radio" name="b05_onboard" value="not_tried" /> <span>We didn&#39;t try</span></label>
+                    <label class="reg-check"><input type="radio" name="b05_onboard" value="unknown" /> <span>Don&#39;t know</span></label>
+                  </div>
+                </fieldset>
+              </div>
               <div class="q" data-q="b05_sim2real" data-type="scale">
                 <fieldset class="form-field" aria-describedby="b05_sim2real_ends">
-                  <legend class="form-label"><span class="q-num">14.</span> How well did behaviour in simulation carry over to the real robot?</legend>
+                  <legend class="form-label"><span class="q-num">14.</span> How closely did the simulated Mobile FR3 Duo behave like the real robot?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="b05_sim2real" value="1" aria-describedby="b05_sim2real_ends" /> <span>1</span></label>
                     <label class="q-scale-opt"><input type="radio" name="b05_sim2real" value="2" aria-describedby="b05_sim2real_ends" /> <span>2</span></label>
@@ -818,30 +1706,59 @@
                     <label class="q-scale-opt"><input type="radio" name="b05_sim2real" value="4" aria-describedby="b05_sim2real_ends" /> <span>4</span></label>
                     <label class="q-scale-opt"><input type="radio" name="b05_sim2real" value="5" aria-describedby="b05_sim2real_ends" /> <span>5</span></label>
                   </div>
-                  <div class="q-scale-ends" id="b05_sim2real_ends"><span>1 = very poorly</span><span>5 = very well</span></div>
+                  <div class="q-scale-ends" id="b05_sim2real_ends"><span>1 = very differently</span><span>5 = very closely</span></div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b05_assets" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b05_assets_ends">
+                  <legend class="form-label"><span class="q-num">15.</span> How usable were the robot&#39;s simulation assets (e.g. URDF, USD, MJCF)?</legend>
+                  <div class="q-scale has-extra">
+                    <label class="q-scale-opt"><input type="radio" name="b05_assets" value="1" aria-describedby="b05_assets_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_assets" value="2" aria-describedby="b05_assets_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_assets" value="3" aria-describedby="b05_assets_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_assets" value="4" aria-describedby="b05_assets_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b05_assets" value="5" aria-describedby="b05_assets_ends" /> <span>5</span></label>
+                    <label class="q-scale-opt q-scale-extra"><input type="radio" name="b05_assets" value="na" /> <span>Didn&#39;t use</span></label>
+                  </div>
+                  <div class="q-scale-ends" id="b05_assets_ends"><span>1 = very poor</span><span>5 = excellent</span></div>
                 </fieldset>
               </div>
               <div class="q" data-q="b05_mismatch" data-type="longtext">
                 <div class="form-field">
-                  <label class="form-label" for="b05_mismatch"><span class="q-num">15.</span> What was the biggest mismatch between simulation and the real robot?</label>
+                  <label class="form-label" for="b05_mismatch"><span class="q-num">16.</span> What was the biggest difference between the simulated robot and the real one?</label>
                   <textarea class="form-textarea" id="b05_mismatch" name="b05_mismatch" rows="4" maxlength="5000"></textarea>
                 </div>
               </div>
               <div class="q" data-q="b05_issue" data-type="longtext">
                 <div class="form-field">
-                  <label class="form-label" for="b05_issue"><span class="q-num">16.</span> What was the most serious issue you hit with the platform?</label>
+                  <label class="form-label" for="b05_issue"><span class="q-num">17.</span> What was the most serious issue you hit with the platform?</label>
                   <textarea class="form-textarea" id="b05_issue" name="b05_issue" rows="4" maxlength="5000"></textarea>
                 </div>
               </div>
               <div class="q" data-q="b05_change" data-type="longtext">
                 <div class="form-field">
-                  <label class="form-label" for="b05_change"><span class="q-num">17.</span> What one change would you ask Franka for?</label>
+                  <label class="form-label" for="b05_change"><span class="q-num">18.</span> What one change would you ask Franka for?</label>
                   <textarea class="form-textarea" id="b05_change" name="b05_change" rows="4" maxlength="5000"></textarea>
                 </div>
               </div>
+              <div class="q" data-q="b05_adopt" data-type="checkbox">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">19.</span> What would your lab need before using this platform in its own work? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="price" data-group /> <span>A lower price</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="docs" data-group /> <span>Better documentation</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="low_level" data-group /> <span>More open low-level access</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="sim_assets" data-group /> <span>Simulation assets that match the hardware more closely</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="ros2" data-group /> <span>Better ROS 2 integration</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="local_support" data-group /> <span>Local support in our region</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="nothing" data-group /> <span>Nothing: we would use it as it is</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b05_adopt" value="other" data-group /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
               <div class="q" data-q="b05_own_research" data-type="radio">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">18.</span> Would you use this platform in your own research?</legend>
+                  <legend class="form-label"><span class="q-num">20.</span> Would you use this platform in your own research?</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="radio" name="b05_own_research" value="yes" /> <span>Yes</span></label>
                     <label class="reg-check"><input type="radio" name="b05_own_research" value="maybe" /> <span>Maybe</span></label>
@@ -858,10 +1775,48 @@
             </div>
 
             <div class="q-section q-block">
-              <h2 class="q-section-title">Section 6 · Compute and support</h2>
+              <h2 class="q-section-title">Section 6 · Tools and support</h2>
+              <div class="q" data-q="b02_setup_time" data-type="radio">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">21.</span> How long did it take you to get the simulator running?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="lt_1d" /> <span>Less than a day</span></label>
+                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="1_3d" /> <span>1–3 days</span></label>
+                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="4_7d" /> <span>4–7 days</span></label>
+                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="gt_1w" /> <span>More than a week</span></label>
+                    <label class="reg-check"><input type="radio" name="b02_setup_time" value="not_me" /> <span>I didn&#39;t set it up myself</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b02_docs" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b02_docs_ends">
+                  <legend class="form-label"><span class="q-num">22.</span> How clear were the rulebook and documentation?</legend>
+                  <div class="q-scale">
+                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="1" aria-describedby="b02_docs_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="2" aria-describedby="b02_docs_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="3" aria-describedby="b02_docs_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="4" aria-describedby="b02_docs_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_docs" value="5" aria-describedby="b02_docs_ends" /> <span>5</span></label>
+                  </div>
+                  <div class="q-scale-ends" id="b02_docs_ends"><span>1 = very unclear</span><span>5 = very clear</span></div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b02_packaging" data-type="scale">
+                <fieldset class="form-field" aria-describedby="b02_packaging_ends">
+                  <legend class="form-label"><span class="q-num">23.</span> How easy was it to package and submit your work (Dockerfile, public repository, submission form)?</legend>
+                  <div class="q-scale">
+                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="1" aria-describedby="b02_packaging_ends" /> <span>1</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="2" aria-describedby="b02_packaging_ends" /> <span>2</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="3" aria-describedby="b02_packaging_ends" /> <span>3</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="4" aria-describedby="b02_packaging_ends" /> <span>4</span></label>
+                    <label class="q-scale-opt"><input type="radio" name="b02_packaging" value="5" aria-describedby="b02_packaging_ends" /> <span>5</span></label>
+                  </div>
+                  <div class="q-scale-ends" id="b02_packaging_ends"><span>1 = very difficult</span><span>5 = very easy</span></div>
+                </fieldset>
+              </div>
               <div class="q" data-q="b06_compute" data-type="checkbox">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">19.</span> Which compute did you use?</legend>
+                  <legend class="form-label"><span class="q-num">24.</span> Which compute did you use?</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="checkbox" name="b06_compute" value="gcloud" data-group /> <span>Google Cloud credits</span></label>
                     <label class="reg-check"><input type="checkbox" name="b06_compute" value="mi300x" data-group /> <span>AMD Instinct MI300X</span></label>
@@ -884,45 +1839,15 @@
                   <div class="q-scale-ends" id="b06_gcloud_window_ends"><span>1 = far too short</span><span>5 = fully adequate</span></div>
                 </fieldset>
               </div>
-              <div class="q" data-q="b06_support_clear" data-type="scale">
-                <fieldset class="form-field" aria-describedby="b06_support_clear_ends">
-                  <legend class="form-label"><span class="q-num">20.</span> Were the rules for financial support clear?</legend>
-                  <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="b06_support_clear" value="1" aria-describedby="b06_support_clear_ends" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b06_support_clear" value="2" aria-describedby="b06_support_clear_ends" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b06_support_clear" value="3" aria-describedby="b06_support_clear_ends" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b06_support_clear" value="4" aria-describedby="b06_support_clear_ends" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b06_support_clear" value="5" aria-describedby="b06_support_clear_ends" /> <span>5</span></label>
-                  </div>
-                  <div class="q-scale-ends" id="b06_support_clear_ends"><span>1 = very unclear</span><span>5 = very clear</span></div>
-                </fieldset>
-              </div>
               <div class="q" data-q="b06_missing" data-type="longtext">
                 <div class="form-field">
-                  <label class="form-label" for="b06_missing"><span class="q-num">21.</span> What support was missing?</label>
+                  <label class="form-label" for="b06_missing"><span class="q-num">25.</span> What support was missing?</label>
                   <textarea class="form-textarea" id="b06_missing" name="b06_missing" rows="4" maxlength="5000"></textarea>
                 </div>
               </div>
-            </div>
-
-            <div class="q-section q-block">
-              <h2 class="q-section-title">Section 7 · Organization and communication</h2>
-              <div class="q" data-q="b07_clarity" data-type="scale">
-                <fieldset class="form-field" aria-describedby="b07_clarity_ends">
-                  <legend class="form-label"><span class="q-num">22.</span> How clear were our emails and announcements?</legend>
-                  <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="b07_clarity" value="1" aria-describedby="b07_clarity_ends" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b07_clarity" value="2" aria-describedby="b07_clarity_ends" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b07_clarity" value="3" aria-describedby="b07_clarity_ends" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b07_clarity" value="4" aria-describedby="b07_clarity_ends" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b07_clarity" value="5" aria-describedby="b07_clarity_ends" /> <span>5</span></label>
-                  </div>
-                  <div class="q-scale-ends" id="b07_clarity_ends"><span>1 = very unclear</span><span>5 = very clear</span></div>
-                </fieldset>
-              </div>
               <div class="q" data-q="b07_changes_fair" data-type="scale">
                 <fieldset class="form-field" aria-describedby="b07_changes_fair_ends">
-                  <legend class="form-label"><span class="q-num">23.</span> Were changes to deadlines and rules handled fairly?</legend>
+                  <legend class="form-label"><span class="q-num">26.</span> Were changes to deadlines and rules handled fairly?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="b07_changes_fair" value="1" aria-describedby="b07_changes_fair_ends" /> <span>1</span></label>
                     <label class="q-scale-opt"><input type="radio" name="b07_changes_fair" value="2" aria-describedby="b07_changes_fair_ends" /> <span>2</span></label>
@@ -933,15 +1858,9 @@
                   <div class="q-scale-ends" id="b07_changes_fair_ends"><span>1 = very unfairly</span><span>5 = very fairly</span></div>
                 </fieldset>
               </div>
-              <div class="q" data-q="b07_changes_comment" data-type="text">
-                <div class="form-field">
-                  <label class="form-label" for="b07_changes_comment">Anything you&#39;d like to add?</label>
-                  <input class="form-input" type="text" id="b07_changes_comment" name="b07_changes_comment" maxlength="500" />
-                </div>
-              </div>
               <div class="q" data-q="q08_channels" data-type="checkbox">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">24.</span> Which channels do you prefer for updates?</legend>
+                  <legend class="form-label"><span class="q-num">27.</span> Which channels do you prefer for updates?</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="checkbox" name="q08_channels" value="email" data-group /> <span>Email</span></label>
                     <label class="reg-check"><input type="checkbox" name="q08_channels" value="website" data-group /> <span>Website</span></label>
@@ -953,7 +1872,7 @@
               </div>
               <div class="q" data-q="b07_language" data-type="scale">
                 <fieldset class="form-field" aria-describedby="b07_language_ends">
-                  <legend class="form-label"><span class="q-num">25.</span> Were the materials in English and Chinese adequate for you?</legend>
+                  <legend class="form-label"><span class="q-num">28.</span> Were the materials in English and Chinese adequate for you?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="b07_language" value="1" aria-describedby="b07_language_ends" /> <span>1</span></label>
                     <label class="q-scale-opt"><input type="radio" name="b07_language" value="2" aria-describedby="b07_language_ends" /> <span>2</span></label>
@@ -967,10 +1886,10 @@
             </div>
 
             <div class="q-section q-block">
-              <h2 class="q-section-title">Section 8 · Value</h2>
+              <h2 class="q-section-title">Section 7 · Value and the next edition</h2>
               <div class="q" data-q="b08_gained" data-type="checkbox">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">26.</span> What did you gain from taking part? Choose all that apply.</legend>
+                  <legend class="form-label"><span class="q-num">29.</span> What did you gain from taking part? Choose all that apply.</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="checkbox" name="b08_gained" value="publishable" data-group /> <span>Publishable results</span></label>
                     <label class="reg-check"><input type="checkbox" name="b08_gained" value="dataset" data-group /> <span>A dataset</span></label>
@@ -984,7 +1903,7 @@
               </div>
               <div class="q" data-q="b08_publish" data-type="radio">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">27.</span> Do you plan to publish or open-source your work?</legend>
+                  <legend class="form-label"><span class="q-num">30.</span> Do you plan to publish or open-source your work?</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="radio" name="b08_publish" value="yes" /> <span>Yes</span></label>
                     <label class="reg-check"><input type="radio" name="b08_publish" value="maybe" /> <span>Maybe</span></label>
@@ -992,22 +1911,9 @@
                   </div>
                 </fieldset>
               </div>
-              <div class="q" data-q="b08_worth" data-type="scale">
-                <fieldset class="form-field" aria-describedby="b08_worth_ends">
-                  <legend class="form-label"><span class="q-num">28.</span> Was it worth the effort?</legend>
-                  <div class="q-scale">
-                    <label class="q-scale-opt"><input type="radio" name="b08_worth" value="1" aria-describedby="b08_worth_ends" /> <span>1</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b08_worth" value="2" aria-describedby="b08_worth_ends" /> <span>2</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b08_worth" value="3" aria-describedby="b08_worth_ends" /> <span>3</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b08_worth" value="4" aria-describedby="b08_worth_ends" /> <span>4</span></label>
-                    <label class="q-scale-opt"><input type="radio" name="b08_worth" value="5" aria-describedby="b08_worth_ends" /> <span>5</span></label>
-                  </div>
-                  <div class="q-scale-ends" id="b08_worth_ends"><span>1 = not at all</span><span>5 = entirely</span></div>
-                </fieldset>
-              </div>
               <div class="q" data-q="b08_recommend" data-type="scale">
                 <fieldset class="form-field" aria-describedby="b08_recommend_ends">
-                  <legend class="form-label"><span class="q-num">29.</span> How likely are you to recommend EBiM to a colleague?</legend>
+                  <legend class="form-label"><span class="q-num">31.</span> How likely are you to recommend EBiM to a colleague?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="b08_recommend" value="0" aria-describedby="b08_recommend_ends" /> <span>0</span></label>
                     <label class="q-scale-opt"><input type="radio" name="b08_recommend" value="1" aria-describedby="b08_recommend_ends" /> <span>1</span></label>
@@ -1024,13 +1930,9 @@
                   <div class="q-scale-ends" id="b08_recommend_ends"><span>0 = not at all likely</span><span>10 = extremely likely</span></div>
                 </fieldset>
               </div>
-            </div>
-
-            <div class="q-section q-block">
-              <h2 class="q-section-title">Section 9 · The next edition</h2>
               <div class="q" data-q="q12_likelihood" data-type="scale">
                 <fieldset class="form-field" aria-describedby="q12_likelihood_ends">
-                  <legend class="form-label"><span class="q-num">30.</span> How likely are you to take part in the next edition?</legend>
+                  <legend class="form-label"><span class="q-num">32.</span> How likely are you to take part in the next edition?</legend>
                   <div class="q-scale">
                     <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="0" aria-describedby="q12_likelihood_ends" /> <span>0</span></label>
                     <label class="q-scale-opt"><input type="radio" name="q12_likelihood" value="1" aria-describedby="q12_likelihood_ends" /> <span>1</span></label>
@@ -1047,9 +1949,37 @@
                   <div class="q-scale-ends" id="q12_likelihood_ends"><span>0 = not at all likely</span><span>10 = extremely likely</span></div>
                 </fieldset>
               </div>
+              <div class="q" data-q="b09_focus" data-type="checkbox">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">33.</span> What should EBiM&#39;s evaluation tell you about your policy? Choose all that apply.</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="works" data-group /> <span>Whether it works on a real robot at all</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="consistency" data-group /> <span>How consistent it is over repeated trials</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="cross_site" data-group /> <span>How it holds up across different sites and robots</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="variation" data-group /> <span>How it holds up when conditions change (e.g. lighting, object placement)</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="diagnosis" data-group /> <span>Which part of the system causes failures</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="ranking" data-group /> <span>How it ranks against other teams</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_focus" value="other" data-group /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="q" data-q="b09_focus_main" data-type="radio">
+                <fieldset class="form-field">
+                  <legend class="form-label"><span class="q-num">34.</span> Which one matters most to you?</legend>
+                  <div class="reg-checks">
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="works" /> <span>Whether it works on a real robot at all</span></label>
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="consistency" /> <span>How consistent it is over repeated trials</span></label>
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="cross_site" /> <span>How it holds up across different sites and robots</span></label>
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="variation" /> <span>How it holds up when conditions change (e.g. lighting, object placement)</span></label>
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="diagnosis" /> <span>Which part of the system causes failures</span></label>
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="ranking" /> <span>How it ranks against other teams</span></label>
+                    <label class="reg-check"><input type="radio" name="b09_focus_main" value="other" /> <span>Other</span></label>
+                  </div>
+                </fieldset>
+              </div>
               <div class="q" data-q="b09_changes" data-type="checkbox">
                 <fieldset class="form-field">
-                  <legend class="form-label"><span class="q-num">31.</span> Which changes would you want? Choose all that apply.</legend>
+                  <legend class="form-label"><span class="q-num">35.</span> Which changes would you want? Choose all that apply.</legend>
                   <div class="reg-checks">
                     <label class="reg-check"><input type="checkbox" name="b09_changes" value="longer_sim" data-group /> <span>A longer simulation phase</span></label>
                     <label class="reg-check"><input type="checkbox" name="b09_changes" value="sim_track" data-group /> <span>A simulation-only track</span></label>
@@ -1057,23 +1987,66 @@
                     <label class="reg-check"><input type="checkbox" name="b09_changes" value="longer_hands_on" data-group /> <span>Longer hands-on sessions</span></label>
                     <label class="reg-check"><input type="checkbox" name="b09_changes" value="fixed_deadlines" data-group /> <span>All deadlines fixed and announced at the start</span></label>
                     <label class="reg-check"><input type="checkbox" name="b09_changes" value="more_baselines" data-group /> <span>More baseline code</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_changes" value="eval_logs" data-group /> <span>Logs and video from every evaluation run</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_changes" value="platform_spec" data-group /> <span>A published specification of the platform and testbeds</span></label>
+                    <label class="reg-check"><input type="checkbox" name="b09_changes" value="variation_track" data-group /> <span>Evaluation under controlled variations</span></label>
                     <label class="reg-check"><input type="checkbox" name="b09_changes" value="other" data-group /> <span>Other</span></label>
                   </div>
                 </fieldset>
               </div>
+              <div class="q" data-q="b09_other_benchmarks" data-type="text">
+                <div class="form-field">
+                  <label class="form-label" for="b09_other_benchmarks"><span class="q-num">36.</span> Which other robot-learning benchmarks or competitions have you used or entered?</label>
+                  <input class="form-input" type="text" id="b09_other_benchmarks" name="b09_other_benchmarks" maxlength="500" />
+                </div>
+              </div>
+              <div class="q" data-q="b09_unique" data-type="longtext">
+                <div class="form-field">
+                  <label class="form-label" for="b09_unique"><span class="q-num">37.</span> Compared with those, what does EBiM offer that they don&#39;t, and what does it lack?</label>
+                  <textarea class="form-textarea" id="b09_unique" name="b09_unique" rows="4" maxlength="5000"></textarea>
+                </div>
+              </div>
               <div class="q" data-q="b09_contribute" data-type="longtext">
                 <div class="form-field">
-                  <label class="form-label" for="b09_contribute"><span class="q-num">32.</span> Could you contribute to the next edition, for example a test site, data or code?</label>
+                  <label class="form-label" for="b09_contribute"><span class="q-num">38.</span> Could you contribute to the next edition, for example a test site, data or code?</label>
                   <textarea class="form-textarea" id="b09_contribute" name="b09_contribute" rows="4" maxlength="5000"></textarea>
                 </div>
               </div>
             </div>
 
             <div class="q-section q-block">
-              <h2 class="q-section-title">Section 10 · Staying in touch and consent</h2>
+              <h2 class="q-section-title">Section 8 · Working with us on the analysis</h2>
+              <p class="q-note">We want to understand, team by team, why policies that worked in simulation did or didn&#39;t work on the real robots, and to work out with you what would make them work. We don&#39;t have your training code or data, so we can only do this together. Everything here is optional and is only a statement of interest: nothing is shared until we have agreed the details with your team. Anything you share is used only for this analysis and is published only with your agreement.</p>
+              <div class="q-sub q-block">
+                <div class="q-grp q-block">
+                  <p class="q-grp-label">For your team, after checking with your teammates</p>
+              <div class="q" data-q="collab_join" data-type="single">
+                <label class="reg-check"><input type="checkbox" name="collab_join" value="yes" data-group /> <span>Our team would like to take part in a joint analysis with the organizers.</span></label>
+              </div>
+              <div class="q" data-q="collab_code" data-type="single">
+                <label class="reg-check"><input type="checkbox" name="collab_code" value="yes" data-group /> <span>We could share our source code privately with the organizers.</span></label>
+              </div>
+              <div class="q" data-q="collab_data" data-type="single">
+                <label class="reg-check"><input type="checkbox" name="collab_data" value="yes" data-group /> <span>We could share our training data, or a detailed description of it.</span></label>
+              </div>
+              <div class="q" data-q="collab_weights" data-type="single">
+                <label class="reg-check"><input type="checkbox" name="collab_weights" value="yes" data-group /> <span>We could share model weights or checkpoints.</span></label>
+              </div>
+              <div class="q" data-q="collab_rerun" data-type="single">
+                <label class="reg-check"><input type="checkbox" name="collab_rerun" value="yes" data-group /> <span>We would like to run an improved version of our policy on the real robot in the next EBiM competition.</span></label>
+              </div>
+              <div class="q" data-q="collab_paper" data-type="single">
+                <label class="reg-check"><input type="checkbox" name="collab_paper" value="yes" data-group /> <span>We would be interested in co-authoring a joint paper or report.</span></label>
+              </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="q-section q-block">
+              <h2 class="q-section-title">Section 9 · Staying in touch and consent</h2>
               <p class="q-note">Everything in this section is optional. Some choices need your name or email. If you give your name here, it is stored with this whole response. To keep your feedback separate from your name, leave this section blank and email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a> instead.</p>
               <div class="q-sub q-block">
-                <h3 class="q-sub-title">10a · Contact</h3>
+                <h3 class="q-sub-title">9a · Contact</h3>
               <div class="q" data-q="b10_email_list" data-type="single">
                 <label class="reg-check"><input type="checkbox" name="b10_email_list" value="yes" data-group /> <span>Add me to the EBiM email list.</span></label>
               </div>
@@ -1082,7 +2055,7 @@
               </div>
               </div>
               <div class="q-sub q-block">
-                <h3 class="q-sub-title">10b · Quoting your answers</h3>
+                <h3 class="q-sub-title">9b · Quoting your answers</h3>
               <div class="q" data-q="b10_quote" data-type="radio">
                 <fieldset class="form-field">
                   <legend class="form-label">May we quote your answers in reports about this edition?</legend>
@@ -1095,7 +2068,7 @@
               </div>
               </div>
               <div class="q-sub q-block">
-                <h3 class="q-sub-title">10c · Your answers about the Franka platform</h3>
+                <h3 class="q-sub-title">9c · Your answers about the Franka platform</h3>
               <div class="q" data-q="b10_franka_answers" data-type="radio">
                 <fieldset class="form-field">
                   <legend class="form-label">May Franka Robotics GmbH receive your answers to Section 5?</legend>
@@ -1111,7 +2084,7 @@
               </div>
               </div>
               <div class="q-sub q-block">
-                <h3 class="q-sub-title">10d · Sharing with Franka Robotics</h3>
+                <h3 class="q-sub-title">9d · Sharing with Franka Robotics</h3>
                 <p class="q-note">Franka Robotics GmbH (Germany), including its team in China, would like to feature the EBiM competition in their own publicity and case studies. Each item below is separate and optional, and ticking none is fine. Your choice has no bearing on your results or on any future EBiM competition. You can withdraw consent at any time by emailing <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>; material published before you withdraw may not be recallable.</p>
                 <div class="q-grp q-block">
                   <p class="q-grp-label">For yourself</p>
@@ -1139,15 +2112,15 @@
                 </div>
               </div>
               <div class="q-sub q-block">
-                <h3 class="q-sub-title">10e · Your details</h3>
-              <div class="q" data-q="b10_name" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b10_quote&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_franka_answers&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" data-required-if="[{&quot;field&quot;:&quot;b10_quote&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_franka_answers&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
+                <h3 class="q-sub-title">9e · Your details</h3>
+              <div class="q" data-q="b10_name" data-type="text" data-show-if="[{&quot;field&quot;:&quot;b10_quote&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_franka_answers&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_paper&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" data-required-if="[{&quot;field&quot;:&quot;b10_quote&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_franka_answers&quot;,&quot;anyOf&quot;:[&quot;named&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_paper&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
                 <div class="form-field">
                   <label class="form-label" for="b10_name">Full name, as you would appear in photos or credits</label>
                   <input class="form-input" type="text" id="b10_name" name="b10_name" maxlength="500" disabled />
                 </div>
                 <p class="q-req-msg" id="b10_name_req" hidden>This is needed for the choice you made above.</p>
               </div>
-              <div class="q" data-q="b10_email" data-type="email" data-show-if="[{&quot;field&quot;:&quot;b10_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_franka_contact&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" data-required-if="[{&quot;field&quot;:&quot;b10_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_franka_contact&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
+              <div class="q" data-q="b10_email" data-type="email" data-show-if="[{&quot;field&quot;:&quot;b10_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_franka_contact&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_join&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_code&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_data&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_weights&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_rerun&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_paper&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" data-required-if="[{&quot;field&quot;:&quot;b10_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_franka_contact&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_photos&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_name&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;b10_share_work&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_join&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_code&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_data&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_weights&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_rerun&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;collab_paper&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
                 <div class="form-field">
                   <label class="form-label" for="b10_email">Email address</label>
                   <input class="form-input" type="email" id="b10_email" name="b10_email" maxlength="200" autocomplete="email" disabled />
@@ -1177,11 +2150,11 @@
 
         <div id="formSuccess" class="form-success" role="status" tabindex="-1" hidden>
           <div class="form-success-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <p>Thank you. We have your answers. If you asked to join the email list, to talk with us, or gave consent in Section 10, we&#39;ll use the address you gave only for those purposes.</p>
+          <p>Thank you. We have your answers. If you asked to join the email list or to talk with us, offered to work with us in Section 8, or gave consent in Section 9, we&#39;ll use the address you gave only for those purposes.</p>
         </div>
       </div>
 
-      <p class="reg-privacy">We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. They are read only by the EBiM organizers. Your answers about the Franka platform go to Franka Robotics GmbH only as you chose in Section 10, and material is shared with them only for the items you ticked there. We remove names from free-text answers before sharing anything. Your email address, if you give it, is used only for what you ticked. We don&#39;t sell your information. Submissions are processed by Web3Forms.</p>
+      <p class="reg-privacy">We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. They are read only by the EBiM organizers. Your answers about the Franka platform go to Franka Robotics GmbH only as you chose in Section 9, and material is shared with them only for the items you ticked there. If you offered to work with us in Section 8, we will contact you only about that. We remove names from free-text answers before sharing anything. Your email address, if you give it, is used only for what you ticked. We don&#39;t sell your information. Submissions are processed by Web3Forms.</p>
     </div>
 
   </div>
