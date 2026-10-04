@@ -909,7 +909,7 @@
     },
     {
       "title": { "en": "Section 3 · From simulation to the real robot", "zh": "第 3 部分 · 从仿真到真实机器人" },
-      "intro": { "en": "For everyone. Answer for each task your team took part in. We've sent your team the video of its evaluation runs; it may help to watch it before answering.", "zh": "所有成员均可填写。请针对贵队参加的每个任务作答。我们已将贵队的评测录像发给您，作答前观看可能会有帮助。" },
+      "intro": { "en": "For everyone. Answer for each task your team took part in. If we sent your team a video of its evaluation runs, it may help to watch it before answering.", "zh": "所有成员均可填写。请针对贵队参加的每个任务作答。如我们已将贵队的评测录像发给您，作答前观看可能会有帮助。" },
       "subsections": [
         {
           "questions": [
