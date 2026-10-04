@@ -1,63 +1,27 @@
 {
-  "_comment": "Single data source for Questionnaire B (Phase II participants), rendered by src/feedback-phase2.njk and src/zh/feedback-phase2.njk through src/_includes/questionnaire-b-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages differ in field names, option codes/order, conditions, required conditions or the draft key. Participant-facing text is verbatim from Questionnaire_B_spec_bilingual.md (sha256 f69609da…cb79); where B repeats an A question it keeps A's field name, codes and (for the Section 3 issue and stage options) A's option text. A section holds `questions`, or `subsections` that hold `questions` or labelled `groups`. `options` is an inline list or the key of a set in `optionSets`; a scale's `extra` names a set appended after its numbers (B5.2's \"Didn't use\" [na]). `showIf` and `requiredIf` are lists of {field, anyOf} tests OR'd together: a hidden question is disabled (never submitted) and cleared; a required question blocks submit while empty and shows text[requiredMsg] beside it. `num: true` marks the spec's numbered questions that are always shown (B5.2 is one numbered group of eight scales); conditional questions and the spec's unnumbered follow-ups are unnumbered. Answers are saved as a draft in localStorage under `draftKey`. The page closes itself at `closesAt` (end of 22 Oct 2026 AoE).",
+  "_comment": "Single data source for Questionnaire B (Phase II participants), rendered by src/feedback-phase2.njk and src/zh/feedback-phase2.njk through src/_includes/questionnaire-b-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages differ in field names, option codes/order, conditions, required conditions or the draft key. Participant-facing text is verbatim from Questionnaire_B_spec_bilingual_v3.md (sha256 5295b610…5c43), and text the spec marks unchanged from v1 is carried over from the v1 build; where B repeats an A question it keeps A's field name, codes and (for the Section 3 issue and stage options) A's option text. A section holds `questions`, or `subsections` that hold `questions` or labelled `groups`. `options` is an inline list or the key of a set in `optionSets`; a scale's `extra` names a set appended after its numbers (\"Don't know\" [unknown] on B4.8, \"Didn't use\" [na] on B5.2, B5.10 and B5.12). `showIf` and `requiredIf` are lists of {field, anyOf} tests OR'd together: a hidden question is disabled (never submitted) and cleared; a required question blocks submit while empty and shows text[requiredMsg] beside it. `num: true` marks the spec's numbered questions that are always shown (B4.8 and B5.2 are each one numbered group of scales); conditional questions and the spec's unnumbered follow-ups are unnumbered. Answers are saved as a draft in localStorage under `draftKey`. The page closes itself at `closesAt` (end of 5 Nov 2026 AoE).",
   "instrument": "B-2026",
   "accessKey": "6954a4e6-ff20-4cd3-9a36-8c025709f7a2",
   "subject": "EBiM feedback — Phase II (B)",
   "fromName": "EBiM questionnaire B",
-  "closesAt": "2026-10-23T12:00:00Z",
-  "draftKey": "ebim-questionnaire-B-2026",
+  "closesAt": "2026-11-06T12:00:00Z",
+  "draftKey": "ebim-questionnaire-B-2026-v2",
   "text": {
     "title": { "en": "Feedback from Phase II teams", "zh": "第二阶段队伍反馈问卷" },
     "subtitle": { "en": "EBiM Benchmark Competition 2026", "zh": "EBiM Benchmark Competition 2026" },
-    "description": {
-      "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026.",
-      "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员，约需 15–20 分钟。"
-    },
-    "intro": {
-      "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026. It takes about 15–20 minutes. Every question is optional. One response per person, please. It closes on 22 October 2026 (AoE).",
-      "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员，约需 15–20 分钟。所有问题均为选答。请每人填写一份。问卷于 2026 年 10 月 22 日（AoE）截止。"
-    },
-    "confidentiality": {
-      "en": "Your answers are read only by the EBiM organizers, reported only in aggregate, and never quoted or attributed to you without your permission. Results are final, and nothing here can affect them.",
-      "zh": "您的回答仅由 EBiM 组委会阅读，仅以汇总形式报告；未经您许可，我们不会引用您的回答或注明出处。比赛结果已为最终结果，本问卷不会对其产生任何影响。"
-    },
-    "draftLine": {
-      "en": "Your answers are saved in this browser as you go, so you can close the page and come back later.",
-      "zh": "您的回答会随填写自动保存在本浏览器中，可随时关闭页面，稍后继续填写。"
-    },
-    "switchLine": {
-      "en": "To answer in 中文, switch language before you start. Your answers so far are kept.",
-      "zh": "如需使用 English 作答，请在开始前切换语言。已填写的内容会保留。"
-    },
-    "required": {
-      "en": "This is needed for the choice you made above.",
-      "zh": "您在上方所作的选择需要填写此项。"
-    },
-    "team": {
-      "en": "Please enter your team in Section 1.",
-      "zh": "请在第 1 部分填写您所在的队伍。"
-    },
-    "privacy": {
-      "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. They are read only by the EBiM organizers. Your answers about the Franka platform go to Franka Robotics GmbH only as you chose in Section 10, and material is shared with them only for the items you ticked there. We remove names from free-text answers before sharing anything. Your email address, if you give it, is used only for what you ticked. We don't sell your information. Submissions are processed by Web3Forms.",
-      "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况，仅由 EBiM 组委会阅读。您对 Franka 平台的回答只会按您在第 10 部分的选择提供给 Franka Robotics GmbH；相关素材也只会按您在该部分勾选的项目与其分享。分享前我们会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。我们不会出售您的信息。表单由 Web3Forms 处理。"
-    },
+    "description": { "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026.", "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员。" },
+    "intro": { "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026. Above all, we want to understand why policies that worked in simulation did or did not work on the real robots, and what would make them work. Only the people who built them can tell us. It takes about 20 minutes, or about 30 if you built your team's policy. Every question is optional, except a few details that some choices need. One response per person, please. It closes on 5 November 2026 (AoE).", "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员。我们最想了解的是：在仿真中可行的策略，为什么在真实机器人上成功或失败，以及怎样才能让它们真正可用。只有开发这些策略的人才能告诉我们答案。填写约需 20 分钟；如您参与了策略开发，约需 30 分钟。除部分选项所需的个人信息外，所有问题均为选答。请每人填写一份。问卷于 2026 年 11 月 5 日（AoE）截止。" },
+    "confidentiality": { "en": "Your answers are read only by the EBiM organizers, reported only in aggregate, and never quoted or attributed to you without your permission. Results are final, and nothing here can affect them.", "zh": "您的回答仅由 EBiM 组委会阅读，仅以汇总形式报告；未经您许可，我们不会引用您的回答或注明出处。比赛结果已为最终结果，本问卷不会对其产生任何影响。" },
+    "draftLine": { "en": "Your answers are saved in this browser as you go, so you can close the page and come back later.", "zh": "您的回答会随填写自动保存在本浏览器中，可随时关闭页面，稍后继续填写。" },
+    "switchLine": { "en": "To answer in 中文, switch language before you start. Your answers so far are kept.", "zh": "如需使用 English 作答，请在开始前切换语言。已填写的内容会保留。" },
+    "required": { "en": "This is needed for the choice you made above.", "zh": "您在上方所作的选择需要填写此项。" },
+    "team": { "en": "Please enter your team in Section 1.", "zh": "请在第 1 部分填写您所在的队伍。" },
+    "privacy": { "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. They are read only by the EBiM organizers. Your answers about the Franka platform go to Franka Robotics GmbH only as you chose in Section 9, and material is shared with them only for the items you ticked there. If you offered to work with us in Section 8, we will contact you only about that. We remove names from free-text answers before sharing anything. Your email address, if you give it, is used only for what you ticked. We don't sell your information. Submissions are processed by Web3Forms.", "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况，仅由 EBiM 组委会阅读。您对 Franka 平台的回答只会按您在第 9 部分的选择提供给 Franka Robotics GmbH；相关素材也只会按您在该部分勾选的项目与其分享。如您在第 8 部分表示愿意与我们合作，我们只会就此事与您联系。分享前我们会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。我们不会出售您的信息。表单由 Web3Forms 处理。" },
     "submit": { "en": "Submit", "zh": "提交" },
-    "thanks": {
-      "en": "Thank you. We have your answers. If you asked to join the email list, to talk with us, or gave consent in Section 10, we'll use the address you gave only for those purposes.",
-      "zh": "感谢您的填写，我们已收到您的回答。如您选择加入邮件列表、参加后续交流，或在第 10 部分作出了授权，我们只会将您留下的邮箱用于这些用途。"
-    },
-    "error": {
-      "en": "Your answers could not be sent. Please try again, or email them to organizers@ebim-benchmark.org.",
-      "zh": "提交未成功。请重试，或将您的回答发送至 organizers@ebim-benchmark.org。"
-    },
-    "noscript": {
-      "en": "JavaScript is required to submit this form (the spam check needs it). If you can't enable it, email organizers@ebim-benchmark.org.",
-      "zh": "提交本问卷需要启用 JavaScript（反垃圾验证需要）。如无法启用，请发送邮件至 organizers@ebim-benchmark.org。"
-    },
-    "closed": {
-      "en": "This questionnaire closed on 22 October 2026. Thank you to everyone who answered.",
-      "zh": "本问卷已于 2026 年 10 月 22 日截止。感谢所有填写问卷的朋友。"
-    }
+    "thanks": { "en": "Thank you. We have your answers. If you asked to join the email list or to talk with us, offered to work with us in Section 8, or gave consent in Section 9, we'll use the address you gave only for those purposes.", "zh": "感谢您的填写，我们已收到您的回答。如您选择加入邮件列表或参加后续交流、在第 8 部分表示愿意与我们合作，或在第 9 部分作出了授权，我们只会将您留下的邮箱用于这些用途。" },
+    "error": { "en": "Your answers could not be sent. Please try again, or email them to organizers@ebim-benchmark.org.", "zh": "提交未成功。请重试，或将您的回答发送至 organizers@ebim-benchmark.org。" },
+    "noscript": { "en": "JavaScript is required to submit this form (the spam check needs it). If you can't enable it, email organizers@ebim-benchmark.org.", "zh": "提交本问卷需要启用 JavaScript（反垃圾验证需要）。如无法启用，请发送邮件至 organizers@ebim-benchmark.org。" },
+    "closed": { "en": "This questionnaire closed on 5 November 2026. Thank you to everyone who answered.", "zh": "本问卷已于 2026 年 11 月 5 日截止。感谢所有填写问卷的朋友。" }
   },
   "optionSets": {
     "na": [
@@ -69,6 +33,9 @@
       { "code": "bean_recovery", "en": "Bean recovery", "zh": "豆子回收" },
       { "code": "cleanup", "en": "Cleanup", "zh": "清理" },
       { "code": "not_reached", "en": "We didn't get far enough to say", "zh": "进展不足，无法判断" }
+    ],
+    "unknown": [
+      { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
     ]
   },
   "sections": [
@@ -76,28 +43,40 @@
       "title": { "en": "Section 1 · About you", "zh": "第 1 部分 · 关于您" },
       "questions": [
         {
-          "name": "b01_team", "type": "text", "num": true,
+          "name": "b01_team",
+          "type": "text",
+          "num": true,
           "requiredIf": [
+            { "field": "b01_role", "anyOf": ["policy", "simulation", "data"] },
+            { "field": "collab_join", "anyOf": ["yes"] },
+            { "field": "collab_code", "anyOf": ["yes"] },
+            { "field": "collab_data", "anyOf": ["yes"] },
+            { "field": "collab_weights", "anyOf": ["yes"] },
+            { "field": "collab_rerun", "anyOf": ["yes"] },
+            { "field": "collab_paper", "anyOf": ["yes"] },
             { "field": "b10_share_photos", "anyOf": ["yes"] },
             { "field": "b10_share_name", "anyOf": ["yes"] },
             { "field": "b10_share_work", "anyOf": ["yes"] },
             { "field": "b10_franka_answers", "anyOf": ["named"] }
           ],
           "requiredMsg": "team",
-          "label": { "en": "Your team", "zh": "您所在的队伍" }
+          "label": { "en": "Your team. Needed if you worked on the policy, so that we can match your technical answers to your team's evaluation.", "zh": "您所在的队伍。如您参与了策略开发，请务必填写，以便我们将您的技术回答与贵队的评测结果对应。" }
         },
         {
-          "name": "b01_tasks", "type": "checkbox", "num": true,
-          "label": { "en": "Which tasks did your team take part in during Phase II?", "zh": "贵队在第二阶段参加了哪些任务？" },
+          "name": "b01_tasks",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "t1", "en": "Task 1 — Cable Routing & Plugging", "zh": "任务 1 — 线缆布线与插接" },
             { "code": "t2", "en": "Task 2 — Deformable Material Handling", "zh": "任务 2 — 柔性材料操作" },
             { "code": "t3", "en": "Task 3 — Assisted Living & Feeding", "zh": "任务 3 — 辅助生活与喂食" }
-          ]
+          ],
+          "label": { "en": "Which tasks did your team take part in during Phase II?", "zh": "贵队在第二阶段参加了哪些任务？" }
         },
         {
-          "name": "b01_role", "type": "checkbox", "num": true,
-          "label": { "en": "What did you work on? Choose all that apply.", "zh": "您主要负责哪些工作？可多选。" },
+          "name": "b01_role",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "policy", "en": "Policy development", "zh": "策略开发" },
             { "code": "simulation", "en": "Simulation", "zh": "仿真" },
@@ -105,104 +84,856 @@
             { "code": "data", "en": "Data collection", "zh": "数据采集" },
             { "code": "coordination", "en": "Team coordination", "zh": "团队协调" },
             { "code": "other", "en": "Other", "zh": "其他" }
-          ]
+          ],
+          "label": { "en": "What did you work on? Choose all that apply.", "zh": "您主要负责哪些工作？可多选。" }
         },
         {
-          "name": "b01_mode", "type": "radio", "num": true,
-          "label": { "en": "How did you personally take part in Phase II?", "zh": "您本人以何种方式参加第二阶段？" },
+          "name": "b01_mode",
+          "type": "radio",
+          "num": true,
           "options": [
             { "code": "hamburg", "en": "In person at Hamburg", "zh": "在汉堡现场参加" },
             { "code": "augsburg", "en": "In person at the Munich testbed (Augsburg)", "zh": "在慕尼黑测试场地（奥格斯堡）现场参加" },
             { "code": "shanghai", "en": "In person at Shanghai", "zh": "在上海现场参加" },
             { "code": "remote", "en": "Remotely", "zh": "远程参加" }
-          ]
+          ],
+          "label": { "en": "How did you personally take part in Phase II?", "zh": "您本人以何种方式参加第二阶段？" }
         },
         {
-          "name": "b01_status", "type": "radio", "num": true,
-          "label": { "en": "Your position", "zh": "您的身份" },
+          "name": "b01_status",
+          "type": "radio",
+          "num": true,
           "options": [
             { "code": "student", "en": "Student", "zh": "学生" },
             { "code": "researcher", "en": "Researcher", "zh": "研究人员" },
             { "code": "faculty", "en": "Faculty", "zh": "教师" },
             { "code": "industry", "en": "Industry", "zh": "业界" },
             { "code": "other", "en": "Other", "zh": "其他" }
+          ],
+          "label": { "en": "Your position", "zh": "您的身份" }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Section 2 · Your policy", "zh": "第 2 部分 · 您的策略" },
+      "intro": { "en": "For the people who built the policy. If several of you did, one complete answer per team is enough, and the others can skip this section. Approximate answers are fine. Answer for the policy your team submitted for Phase II evaluation.", "zh": "本部分由参与策略开发的成员填写。如有多位成员参与，每队提供一份完整回答即可，其他成员可跳过本部分。填写大致情况即可。请针对贵队提交用于第二阶段评测的策略作答。" },
+      "subsections": [
+        {
+          "title": { "en": "The policy", "zh": "策略" },
+          "questions": [
+            {
+              "name": "pol_t1_approach",
+              "type": "checkbox",
+              "options": [
+                { "code": "scripted", "en": "Scripted or classical motion planning, no learned policy", "zh": "脚本或经典运动规划，无学习策略" },
+                { "code": "il_scratch", "en": "Imitation learning, trained from scratch (e.g. ACT, Diffusion Policy)", "zh": "从零训练的模仿学习（如 ACT、Diffusion Policy）" },
+                { "code": "vla_ft", "en": "A fine-tuned, pretrained vision-language-action (VLA) model", "zh": "微调预训练的视觉-语言-动作（VLA）模型" },
+                { "code": "rl", "en": "Reinforcement learning", "zh": "强化学习" },
+                { "code": "hybrid", "en": "Hybrid: learned for some parts, scripted for others", "zh": "混合：部分模块为学习策略，部分为脚本" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: what kind of policy was it? Choose all that apply.", "zh": "任务 1：贵队的策略属于哪种类型？可多选。" }
+            },
+            {
+              "name": "pol_t1_base",
+              "type": "radio",
+              "options": [
+                { "code": "none", "en": "None: trained from scratch", "zh": "无，从零训练" },
+                { "code": "pi0", "en": "π0 (openpi)", "zh": "π0 (openpi)" },
+                { "code": "pi05", "en": "π0.5 (openpi)", "zh": "π0.5 (openpi)" },
+                { "code": "groot", "en": "GR00T N1 (any version)", "zh": "GR00T N1（任意版本）" },
+                { "code": "rdt", "en": "RDT", "zh": "RDT" },
+                { "code": "openvla", "en": "OpenVLA or OpenVLA-OFT", "zh": "OpenVLA 或 OpenVLA-OFT" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: which pretrained base model did you start from?", "zh": "任务 1：贵队基于哪个预训练基础模型？" }
+            },
+            {
+              "name": "pol_t1_model",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: model name, version and size, if you can share them", "zh": "任务 1：模型名称、版本与参数规模（如方便提供）" }
+            },
+            {
+              "name": "pol_t1_sim",
+              "type": "checkbox",
+              "options": [
+                { "code": "isaacsim", "en": "Isaac Sim", "zh": "Isaac Sim" },
+                { "code": "mujoco", "en": "MuJoCo", "zh": "MuJoCo" },
+                { "code": "other", "en": "Other", "zh": "其他" },
+                { "code": "none", "en": "None", "zh": "未使用仿真器" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: which simulator did you develop in?", "zh": "任务 1：贵队在哪个仿真器中开发？" }
+            },
+            {
+              "name": "pol_t1_nav",
+              "type": "radio",
+              "options": [
+                { "code": "none", "en": "No navigation: we assumed it started in place", "zh": "无导航：假设机器人已在作业位置" },
+                { "code": "open_loop", "en": "Fixed, open-loop base motion", "zh": "固定的开环底盘运动" },
+                { "code": "lidar", "en": "LiDAR-based localization and navigation", "zh": "基于激光雷达的定位与导航" },
+                { "code": "vision", "en": "Vision-based localization", "zh": "基于视觉的定位" },
+                { "code": "learned", "en": "Learned as part of the policy", "zh": "作为策略的一部分学习得到" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: how did the robot get to the work area?", "zh": "任务 1：机器人如何移动到作业区域？" }
+            },
+            {
+              "name": "pol_t1_inputs",
+              "type": "checkbox",
+              "options": [
+                { "code": "head_cam", "en": "Head camera(s)", "zh": "头部相机" },
+                { "code": "wrist_cam", "en": "Wrist cameras", "zh": "腕部相机" },
+                { "code": "depth", "en": "Depth", "zh": "深度信息" },
+                { "code": "proprio", "en": "Joint states (proprioception)", "zh": "关节状态（本体感知）" },
+                { "code": "lidar", "en": "LiDAR", "zh": "激光雷达" },
+                { "code": "force", "en": "Force or torque", "zh": "力或力矩" },
+                { "code": "language", "en": "A language instruction", "zh": "语言指令" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: what did the policy take as input? Choose all that apply.", "zh": "任务 1：策略的输入包括哪些？可多选。" }
+            },
+            {
+              "name": "pol_t1_action",
+              "type": "radio",
+              "options": [
+                { "code": "joint_pos", "en": "Joint positions", "zh": "关节位置" },
+                { "code": "joint_vel", "en": "Joint velocities or torques", "zh": "关节速度或力矩" },
+                { "code": "ee_abs", "en": "End-effector pose, absolute", "zh": "末端执行器位姿（绝对）" },
+                { "code": "ee_delta", "en": "End-effector pose, relative (delta)", "zh": "末端执行器位姿（相对增量）" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: what did the policy output?", "zh": "任务 1：策略输出的动作是什么形式？" }
+            },
+            {
+              "name": "pol_t1_infer",
+              "type": "radio",
+              "options": [
+                { "code": "onboard", "en": "On the robot's onboard computer (Jetson AGX Orin)", "zh": "机器人自带计算机（Jetson AGX Orin）" },
+                { "code": "external", "en": "On a separate GPU computer at the testbed", "zh": "测试场地的独立 GPU 计算机" },
+                { "code": "cloud", "en": "On a remote server or in the cloud", "zh": "远程服务器或云端" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: where was the policy meant to run during evaluation?", "zh": "任务 1：评测时，策略设计在哪里运行？" }
+            },
+            {
+              "name": "pol_t1_gt_replace",
+              "type": "longtext",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: if your Phase I policy used the simulator's ground-truth object poses, what did you use in their place on the real robot?", "zh": "任务 1：如贵队第一阶段的策略使用了仿真器提供的真值物体位姿，在真实机器人上用什么替代了它们？" }
+            },
+            {
+              "name": "pol_t2_approach",
+              "type": "checkbox",
+              "options": [
+                { "code": "scripted", "en": "Scripted or classical motion planning, no learned policy", "zh": "脚本或经典运动规划，无学习策略" },
+                { "code": "il_scratch", "en": "Imitation learning, trained from scratch (e.g. ACT, Diffusion Policy)", "zh": "从零训练的模仿学习（如 ACT、Diffusion Policy）" },
+                { "code": "vla_ft", "en": "A fine-tuned, pretrained vision-language-action (VLA) model", "zh": "微调预训练的视觉-语言-动作（VLA）模型" },
+                { "code": "rl", "en": "Reinforcement learning", "zh": "强化学习" },
+                { "code": "hybrid", "en": "Hybrid: learned for some parts, scripted for others", "zh": "混合：部分模块为学习策略，部分为脚本" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: what kind of policy was it? Choose all that apply.", "zh": "任务 2：贵队的策略属于哪种类型？可多选。" }
+            },
+            {
+              "name": "pol_t2_base",
+              "type": "radio",
+              "options": [
+                { "code": "none", "en": "None: trained from scratch", "zh": "无，从零训练" },
+                { "code": "pi0", "en": "π0 (openpi)", "zh": "π0 (openpi)" },
+                { "code": "pi05", "en": "π0.5 (openpi)", "zh": "π0.5 (openpi)" },
+                { "code": "groot", "en": "GR00T N1 (any version)", "zh": "GR00T N1（任意版本）" },
+                { "code": "rdt", "en": "RDT", "zh": "RDT" },
+                { "code": "openvla", "en": "OpenVLA or OpenVLA-OFT", "zh": "OpenVLA 或 OpenVLA-OFT" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: which pretrained base model did you start from?", "zh": "任务 2：贵队基于哪个预训练基础模型？" }
+            },
+            {
+              "name": "pol_t2_model",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: model name, version and size, if you can share them", "zh": "任务 2：模型名称、版本与参数规模（如方便提供）" }
+            },
+            {
+              "name": "pol_t2_sim",
+              "type": "checkbox",
+              "options": [
+                { "code": "isaacsim", "en": "Isaac Sim", "zh": "Isaac Sim" },
+                { "code": "mujoco", "en": "MuJoCo", "zh": "MuJoCo" },
+                { "code": "other", "en": "Other", "zh": "其他" },
+                { "code": "none", "en": "None", "zh": "未使用仿真器" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: which simulator did you develop in?", "zh": "任务 2：贵队在哪个仿真器中开发？" }
+            },
+            {
+              "name": "pol_t2_nav",
+              "type": "radio",
+              "options": [
+                { "code": "none", "en": "No navigation: we assumed it started in place", "zh": "无导航：假设机器人已在作业位置" },
+                { "code": "open_loop", "en": "Fixed, open-loop base motion", "zh": "固定的开环底盘运动" },
+                { "code": "lidar", "en": "LiDAR-based localization and navigation", "zh": "基于激光雷达的定位与导航" },
+                { "code": "vision", "en": "Vision-based localization", "zh": "基于视觉的定位" },
+                { "code": "learned", "en": "Learned as part of the policy", "zh": "作为策略的一部分学习得到" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: how did the robot get to the work area?", "zh": "任务 2：机器人如何移动到作业区域？" }
+            },
+            {
+              "name": "pol_t2_inputs",
+              "type": "checkbox",
+              "options": [
+                { "code": "head_cam", "en": "Head camera(s)", "zh": "头部相机" },
+                { "code": "wrist_cam", "en": "Wrist cameras", "zh": "腕部相机" },
+                { "code": "depth", "en": "Depth", "zh": "深度信息" },
+                { "code": "proprio", "en": "Joint states (proprioception)", "zh": "关节状态（本体感知）" },
+                { "code": "lidar", "en": "LiDAR", "zh": "激光雷达" },
+                { "code": "force", "en": "Force or torque", "zh": "力或力矩" },
+                { "code": "language", "en": "A language instruction", "zh": "语言指令" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: what did the policy take as input? Choose all that apply.", "zh": "任务 2：策略的输入包括哪些？可多选。" }
+            },
+            {
+              "name": "pol_t2_action",
+              "type": "radio",
+              "options": [
+                { "code": "joint_pos", "en": "Joint positions", "zh": "关节位置" },
+                { "code": "joint_vel", "en": "Joint velocities or torques", "zh": "关节速度或力矩" },
+                { "code": "ee_abs", "en": "End-effector pose, absolute", "zh": "末端执行器位姿（绝对）" },
+                { "code": "ee_delta", "en": "End-effector pose, relative (delta)", "zh": "末端执行器位姿（相对增量）" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: what did the policy output?", "zh": "任务 2：策略输出的动作是什么形式？" }
+            },
+            {
+              "name": "pol_t2_infer",
+              "type": "radio",
+              "options": [
+                { "code": "onboard", "en": "On the robot's onboard computer (Jetson AGX Orin)", "zh": "机器人自带计算机（Jetson AGX Orin）" },
+                { "code": "external", "en": "On a separate GPU computer at the testbed", "zh": "测试场地的独立 GPU 计算机" },
+                { "code": "cloud", "en": "On a remote server or in the cloud", "zh": "远程服务器或云端" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: where was the policy meant to run during evaluation?", "zh": "任务 2：评测时，策略设计在哪里运行？" }
+            },
+            {
+              "name": "pol_t2_gt_replace",
+              "type": "longtext",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: if your Phase I policy used the simulator's ground-truth object poses, what did you use in their place on the real robot?", "zh": "任务 2：如贵队第一阶段的策略使用了仿真器提供的真值物体位姿，在真实机器人上用什么替代了它们？" }
+            },
+            {
+              "name": "pol_t3_approach",
+              "type": "checkbox",
+              "options": [
+                { "code": "scripted", "en": "Scripted or classical motion planning, no learned policy", "zh": "脚本或经典运动规划，无学习策略" },
+                { "code": "il_scratch", "en": "Imitation learning, trained from scratch (e.g. ACT, Diffusion Policy)", "zh": "从零训练的模仿学习（如 ACT、Diffusion Policy）" },
+                { "code": "vla_ft", "en": "A fine-tuned, pretrained vision-language-action (VLA) model", "zh": "微调预训练的视觉-语言-动作（VLA）模型" },
+                { "code": "rl", "en": "Reinforcement learning", "zh": "强化学习" },
+                { "code": "hybrid", "en": "Hybrid: learned for some parts, scripted for others", "zh": "混合：部分模块为学习策略，部分为脚本" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: what kind of policy was it? Choose all that apply.", "zh": "任务 3：贵队的策略属于哪种类型？可多选。" }
+            },
+            {
+              "name": "pol_t3_base",
+              "type": "radio",
+              "options": [
+                { "code": "none", "en": "None: trained from scratch", "zh": "无，从零训练" },
+                { "code": "pi0", "en": "π0 (openpi)", "zh": "π0 (openpi)" },
+                { "code": "pi05", "en": "π0.5 (openpi)", "zh": "π0.5 (openpi)" },
+                { "code": "groot", "en": "GR00T N1 (any version)", "zh": "GR00T N1（任意版本）" },
+                { "code": "rdt", "en": "RDT", "zh": "RDT" },
+                { "code": "openvla", "en": "OpenVLA or OpenVLA-OFT", "zh": "OpenVLA 或 OpenVLA-OFT" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: which pretrained base model did you start from?", "zh": "任务 3：贵队基于哪个预训练基础模型？" }
+            },
+            {
+              "name": "pol_t3_model",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: model name, version and size, if you can share them", "zh": "任务 3：模型名称、版本与参数规模（如方便提供）" }
+            },
+            {
+              "name": "pol_t3_sim",
+              "type": "checkbox",
+              "options": [
+                { "code": "isaacsim", "en": "Isaac Sim", "zh": "Isaac Sim" },
+                { "code": "mujoco", "en": "MuJoCo", "zh": "MuJoCo" },
+                { "code": "other", "en": "Other", "zh": "其他" },
+                { "code": "none", "en": "None", "zh": "未使用仿真器" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: which simulator did you develop in?", "zh": "任务 3：贵队在哪个仿真器中开发？" }
+            },
+            {
+              "name": "pol_t3_nav",
+              "type": "radio",
+              "options": [
+                { "code": "none", "en": "No navigation: we assumed it started in place", "zh": "无导航：假设机器人已在作业位置" },
+                { "code": "open_loop", "en": "Fixed, open-loop base motion", "zh": "固定的开环底盘运动" },
+                { "code": "lidar", "en": "LiDAR-based localization and navigation", "zh": "基于激光雷达的定位与导航" },
+                { "code": "vision", "en": "Vision-based localization", "zh": "基于视觉的定位" },
+                { "code": "learned", "en": "Learned as part of the policy", "zh": "作为策略的一部分学习得到" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: how did the robot get to the work area?", "zh": "任务 3：机器人如何移动到作业区域？" }
+            },
+            {
+              "name": "pol_t3_inputs",
+              "type": "checkbox",
+              "options": [
+                { "code": "head_cam", "en": "Head camera(s)", "zh": "头部相机" },
+                { "code": "wrist_cam", "en": "Wrist cameras", "zh": "腕部相机" },
+                { "code": "depth", "en": "Depth", "zh": "深度信息" },
+                { "code": "proprio", "en": "Joint states (proprioception)", "zh": "关节状态（本体感知）" },
+                { "code": "lidar", "en": "LiDAR", "zh": "激光雷达" },
+                { "code": "force", "en": "Force or torque", "zh": "力或力矩" },
+                { "code": "language", "en": "A language instruction", "zh": "语言指令" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: what did the policy take as input? Choose all that apply.", "zh": "任务 3：策略的输入包括哪些？可多选。" }
+            },
+            {
+              "name": "pol_t3_action",
+              "type": "radio",
+              "options": [
+                { "code": "joint_pos", "en": "Joint positions", "zh": "关节位置" },
+                { "code": "joint_vel", "en": "Joint velocities or torques", "zh": "关节速度或力矩" },
+                { "code": "ee_abs", "en": "End-effector pose, absolute", "zh": "末端执行器位姿（绝对）" },
+                { "code": "ee_delta", "en": "End-effector pose, relative (delta)", "zh": "末端执行器位姿（相对增量）" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: what did the policy output?", "zh": "任务 3：策略输出的动作是什么形式？" }
+            },
+            {
+              "name": "pol_t3_infer",
+              "type": "radio",
+              "options": [
+                { "code": "onboard", "en": "On the robot's onboard computer (Jetson AGX Orin)", "zh": "机器人自带计算机（Jetson AGX Orin）" },
+                { "code": "external", "en": "On a separate GPU computer at the testbed", "zh": "测试场地的独立 GPU 计算机" },
+                { "code": "cloud", "en": "On a remote server or in the cloud", "zh": "远程服务器或云端" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: where was the policy meant to run during evaluation?", "zh": "任务 3：评测时，策略设计在哪里运行？" }
+            },
+            {
+              "name": "pol_t3_gt_replace",
+              "type": "longtext",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: if your Phase I policy used the simulator's ground-truth object poses, what did you use in their place on the real robot?", "zh": "任务 3：如贵队第一阶段的策略使用了仿真器提供的真值物体位姿，在真实机器人上用什么替代了它们？" }
+            }
+          ]
+        },
+        {
+          "title": { "en": "Training data", "zh": "训练数据" },
+          "questions": [
+            {
+              "name": "pol_t1_sim_eps",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "1_100", "en": "1–100", "zh": "1–100" },
+                { "code": "101_1k", "en": "101–1,000", "zh": "101–1,000" },
+                { "code": "1k_10k", "en": "1,001–10,000", "zh": "1,001–10,000" },
+                { "code": "gt_10k", "en": "More than 10,000", "zh": "超过 10,000" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: roughly how many simulation episodes did the final policy train on?", "zh": "任务 1：最终策略大约使用了多少条仿真数据（episode）进行训练？" }
+            },
+            {
+              "name": "pol_t1_sim_source",
+              "type": "checkbox",
+              "options": [
+                { "code": "teleop", "en": "Teleoperation in simulation", "zh": "在仿真中遥操作采集" },
+                { "code": "scripted", "en": "Scripted or motion-planner demonstrations", "zh": "脚本或运动规划生成的示范" },
+                { "code": "rl", "en": "Reinforcement-learning rollouts", "zh": "强化学习采样" },
+                { "code": "augmented", "en": "Augmenting or replaying existing episodes with variations", "zh": "对已有数据进行增广或带变化重放" },
+                { "code": "none", "en": "We didn't use simulation data", "zh": "未使用仿真数据" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: how was the simulation data produced? Choose all that apply.", "zh": "任务 1：仿真数据是如何产生的？可多选。" }
+            },
+            {
+              "name": "pol_t1_real_ebim",
+              "type": "radio",
+              "options": [
+                { "code": "all", "en": "Yes, all of it", "zh": "是，全部使用" },
+                { "code": "part", "en": "Yes, part of it", "zh": "是，部分使用" },
+                { "code": "no", "en": "No", "zh": "否" },
+                { "code": "unaware", "en": "We didn't know it was available", "zh": "不知道有该数据集" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: did you train on the EBiM real-world dataset for this task?", "zh": "任务 1：贵队是否使用了该任务的 EBiM 真实世界数据集进行训练？" }
+            },
+            {
+              "name": "pol_t1_real_own",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "1_20", "en": "1–20", "zh": "1–20" },
+                { "code": "21_100", "en": "21–100", "zh": "21–100" },
+                { "code": "101_500", "en": "101–500", "zh": "101–500" },
+                { "code": "gt_500", "en": "More than 500", "zh": "超过 500" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: how many real-robot episodes did your team collect yourselves, for example during bench time?", "zh": "任务 1：贵队自行采集了多少条真机数据（例如在实操期间）？" }
+            },
+            {
+              "name": "pol_t1_mix",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "lt_25", "en": "Less than 25%", "zh": "少于 25%" },
+                { "code": "25_50", "en": "25–50%", "zh": "25–50%" },
+                { "code": "50_75", "en": "50–75%", "zh": "50–75%" },
+                { "code": "gt_75", "en": "More than 75%", "zh": "超过 75%" },
+                { "code": "all", "en": "All of it", "zh": "全部" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: roughly what share of the final training data came from simulation? Leave out the base model's own pre-training.", "zh": "任务 1：在最终训练数据中，仿真数据大约占多少？不含基础模型自身的预训练数据。" }
+            },
+            {
+              "name": "pol_t1_external",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: any other datasets you trained on, beyond your base model's own pre-training (e.g. Open X-Embodiment, DROID, AgiBot World)", "zh": "任务 1：其他训练数据集（不含基础模型自身的预训练数据；例如 Open X-Embodiment、DROID、AgiBot World）" }
+            },
+            {
+              "name": "pol_t1_bridge",
+              "type": "checkbox",
+              "options": [
+                { "code": "dr_visual", "en": "Randomized lighting, textures or background", "zh": "随机化光照、纹理或背景" },
+                { "code": "dr_physics", "en": "Randomized object poses or physics", "zh": "随机化物体位姿或物理参数" },
+                { "code": "camera", "en": "Randomized or matched camera poses", "zh": "随机化或对齐相机位姿" },
+                { "code": "cotrain", "en": "Trained on simulation and real data together", "zh": "仿真与真实数据联合训练" },
+                { "code": "finetune_real", "en": "Fine-tuned on real data after simulation", "zh": "先用仿真训练，再用真实数据微调" },
+                { "code": "real2sim", "en": "Tuned the simulator to match the real setup", "zh": "调整仿真器以匹配真实环境" },
+                { "code": "none", "en": "Nothing specific", "zh": "无特别措施" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: what did you do to help the policy transfer from simulation to the real robot? Choose all that apply.", "zh": "任务 1：为帮助策略从仿真迁移到真实机器人，贵队采取了哪些措施？可多选。" }
+            },
+            {
+              "name": "pol_t1_compute",
+              "type": "radio",
+              "options": [
+                { "code": "lt_10", "en": "Less than 10 GPU-hours", "zh": "少于 10 GPU 小时" },
+                { "code": "10_100", "en": "10–100 GPU-hours", "zh": "10–100 GPU 小时" },
+                { "code": "100_1k", "en": "100–1,000 GPU-hours", "zh": "100–1,000 GPU 小时" },
+                { "code": "gt_1k", "en": "More than 1,000 GPU-hours", "zh": "超过 1,000 GPU 小时" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: roughly how much GPU time went into training the final policy?", "zh": "任务 1：训练最终策略大约用了多少 GPU 时间？" }
+            },
+            {
+              "name": "pol_t1_pretest",
+              "type": "radio",
+              "options": [
+                { "code": "yes", "en": "Yes", "zh": "是" },
+                { "code": "stack_only", "en": "Only on a matching software setup, not the real robot", "zh": "仅在相同的软件环境中运行过，未在真机上运行" },
+                { "code": "no", "en": "No", "zh": "否" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: before evaluation, had you run your submitted container on a real Mobile FR3 Duo?", "zh": "任务 1：评测前，贵队是否在真实的 Mobile FR3 Duo 上运行过所提交的容器？" }
+            },
+            {
+              "name": "pol_t2_sim_eps",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "1_100", "en": "1–100", "zh": "1–100" },
+                { "code": "101_1k", "en": "101–1,000", "zh": "101–1,000" },
+                { "code": "1k_10k", "en": "1,001–10,000", "zh": "1,001–10,000" },
+                { "code": "gt_10k", "en": "More than 10,000", "zh": "超过 10,000" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: roughly how many simulation episodes did the final policy train on?", "zh": "任务 2：最终策略大约使用了多少条仿真数据（episode）进行训练？" }
+            },
+            {
+              "name": "pol_t2_sim_source",
+              "type": "checkbox",
+              "options": [
+                { "code": "teleop", "en": "Teleoperation in simulation", "zh": "在仿真中遥操作采集" },
+                { "code": "scripted", "en": "Scripted or motion-planner demonstrations", "zh": "脚本或运动规划生成的示范" },
+                { "code": "rl", "en": "Reinforcement-learning rollouts", "zh": "强化学习采样" },
+                { "code": "augmented", "en": "Augmenting or replaying existing episodes with variations", "zh": "对已有数据进行增广或带变化重放" },
+                { "code": "none", "en": "We didn't use simulation data", "zh": "未使用仿真数据" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: how was the simulation data produced? Choose all that apply.", "zh": "任务 2：仿真数据是如何产生的？可多选。" }
+            },
+            {
+              "name": "pol_t2_real_ebim",
+              "type": "radio",
+              "options": [
+                { "code": "all", "en": "Yes, all of it", "zh": "是，全部使用" },
+                { "code": "part", "en": "Yes, part of it", "zh": "是，部分使用" },
+                { "code": "no", "en": "No", "zh": "否" },
+                { "code": "unaware", "en": "We didn't know it was available", "zh": "不知道有该数据集" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: did you train on the EBiM real-world dataset for this task?", "zh": "任务 2：贵队是否使用了该任务的 EBiM 真实世界数据集进行训练？" }
+            },
+            {
+              "name": "pol_t2_real_own",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "1_20", "en": "1–20", "zh": "1–20" },
+                { "code": "21_100", "en": "21–100", "zh": "21–100" },
+                { "code": "101_500", "en": "101–500", "zh": "101–500" },
+                { "code": "gt_500", "en": "More than 500", "zh": "超过 500" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: how many real-robot episodes did your team collect yourselves, for example during bench time?", "zh": "任务 2：贵队自行采集了多少条真机数据（例如在实操期间）？" }
+            },
+            {
+              "name": "pol_t2_mix",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "lt_25", "en": "Less than 25%", "zh": "少于 25%" },
+                { "code": "25_50", "en": "25–50%", "zh": "25–50%" },
+                { "code": "50_75", "en": "50–75%", "zh": "50–75%" },
+                { "code": "gt_75", "en": "More than 75%", "zh": "超过 75%" },
+                { "code": "all", "en": "All of it", "zh": "全部" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: roughly what share of the final training data came from simulation? Leave out the base model's own pre-training.", "zh": "任务 2：在最终训练数据中，仿真数据大约占多少？不含基础模型自身的预训练数据。" }
+            },
+            {
+              "name": "pol_t2_external",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: any other datasets you trained on, beyond your base model's own pre-training (e.g. Open X-Embodiment, DROID, AgiBot World)", "zh": "任务 2：其他训练数据集（不含基础模型自身的预训练数据；例如 Open X-Embodiment、DROID、AgiBot World）" }
+            },
+            {
+              "name": "pol_t2_bridge",
+              "type": "checkbox",
+              "options": [
+                { "code": "dr_visual", "en": "Randomized lighting, textures or background", "zh": "随机化光照、纹理或背景" },
+                { "code": "dr_physics", "en": "Randomized object poses or physics", "zh": "随机化物体位姿或物理参数" },
+                { "code": "camera", "en": "Randomized or matched camera poses", "zh": "随机化或对齐相机位姿" },
+                { "code": "cotrain", "en": "Trained on simulation and real data together", "zh": "仿真与真实数据联合训练" },
+                { "code": "finetune_real", "en": "Fine-tuned on real data after simulation", "zh": "先用仿真训练，再用真实数据微调" },
+                { "code": "real2sim", "en": "Tuned the simulator to match the real setup", "zh": "调整仿真器以匹配真实环境" },
+                { "code": "none", "en": "Nothing specific", "zh": "无特别措施" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: what did you do to help the policy transfer from simulation to the real robot? Choose all that apply.", "zh": "任务 2：为帮助策略从仿真迁移到真实机器人，贵队采取了哪些措施？可多选。" }
+            },
+            {
+              "name": "pol_t2_compute",
+              "type": "radio",
+              "options": [
+                { "code": "lt_10", "en": "Less than 10 GPU-hours", "zh": "少于 10 GPU 小时" },
+                { "code": "10_100", "en": "10–100 GPU-hours", "zh": "10–100 GPU 小时" },
+                { "code": "100_1k", "en": "100–1,000 GPU-hours", "zh": "100–1,000 GPU 小时" },
+                { "code": "gt_1k", "en": "More than 1,000 GPU-hours", "zh": "超过 1,000 GPU 小时" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: roughly how much GPU time went into training the final policy?", "zh": "任务 2：训练最终策略大约用了多少 GPU 时间？" }
+            },
+            {
+              "name": "pol_t2_pretest",
+              "type": "radio",
+              "options": [
+                { "code": "yes", "en": "Yes", "zh": "是" },
+                { "code": "stack_only", "en": "Only on a matching software setup, not the real robot", "zh": "仅在相同的软件环境中运行过，未在真机上运行" },
+                { "code": "no", "en": "No", "zh": "否" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: before evaluation, had you run your submitted container on a real Mobile FR3 Duo?", "zh": "任务 2：评测前，贵队是否在真实的 Mobile FR3 Duo 上运行过所提交的容器？" }
+            },
+            {
+              "name": "pol_t3_sim_eps",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "1_100", "en": "1–100", "zh": "1–100" },
+                { "code": "101_1k", "en": "101–1,000", "zh": "101–1,000" },
+                { "code": "1k_10k", "en": "1,001–10,000", "zh": "1,001–10,000" },
+                { "code": "gt_10k", "en": "More than 10,000", "zh": "超过 10,000" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: roughly how many simulation episodes did the final policy train on?", "zh": "任务 3：最终策略大约使用了多少条仿真数据（episode）进行训练？" }
+            },
+            {
+              "name": "pol_t3_sim_source",
+              "type": "checkbox",
+              "options": [
+                { "code": "teleop", "en": "Teleoperation in simulation", "zh": "在仿真中遥操作采集" },
+                { "code": "scripted", "en": "Scripted or motion-planner demonstrations", "zh": "脚本或运动规划生成的示范" },
+                { "code": "rl", "en": "Reinforcement-learning rollouts", "zh": "强化学习采样" },
+                { "code": "augmented", "en": "Augmenting or replaying existing episodes with variations", "zh": "对已有数据进行增广或带变化重放" },
+                { "code": "none", "en": "We didn't use simulation data", "zh": "未使用仿真数据" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: how was the simulation data produced? Choose all that apply.", "zh": "任务 3：仿真数据是如何产生的？可多选。" }
+            },
+            {
+              "name": "pol_t3_real_ebim",
+              "type": "radio",
+              "options": [
+                { "code": "all", "en": "Yes, all of it", "zh": "是，全部使用" },
+                { "code": "part", "en": "Yes, part of it", "zh": "是，部分使用" },
+                { "code": "no", "en": "No", "zh": "否" },
+                { "code": "unaware", "en": "We didn't know it was available", "zh": "不知道有该数据集" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: did you train on the EBiM real-world dataset for this task?", "zh": "任务 3：贵队是否使用了该任务的 EBiM 真实世界数据集进行训练？" }
+            },
+            {
+              "name": "pol_t3_real_own",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "1_20", "en": "1–20", "zh": "1–20" },
+                { "code": "21_100", "en": "21–100", "zh": "21–100" },
+                { "code": "101_500", "en": "101–500", "zh": "101–500" },
+                { "code": "gt_500", "en": "More than 500", "zh": "超过 500" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: how many real-robot episodes did your team collect yourselves, for example during bench time?", "zh": "任务 3：贵队自行采集了多少条真机数据（例如在实操期间）？" }
+            },
+            {
+              "name": "pol_t3_mix",
+              "type": "radio",
+              "options": [
+                { "code": "0", "en": "None", "zh": "无" },
+                { "code": "lt_25", "en": "Less than 25%", "zh": "少于 25%" },
+                { "code": "25_50", "en": "25–50%", "zh": "25–50%" },
+                { "code": "50_75", "en": "50–75%", "zh": "50–75%" },
+                { "code": "gt_75", "en": "More than 75%", "zh": "超过 75%" },
+                { "code": "all", "en": "All of it", "zh": "全部" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: roughly what share of the final training data came from simulation? Leave out the base model's own pre-training.", "zh": "任务 3：在最终训练数据中，仿真数据大约占多少？不含基础模型自身的预训练数据。" }
+            },
+            {
+              "name": "pol_t3_external",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: any other datasets you trained on, beyond your base model's own pre-training (e.g. Open X-Embodiment, DROID, AgiBot World)", "zh": "任务 3：其他训练数据集（不含基础模型自身的预训练数据；例如 Open X-Embodiment、DROID、AgiBot World）" }
+            },
+            {
+              "name": "pol_t3_bridge",
+              "type": "checkbox",
+              "options": [
+                { "code": "dr_visual", "en": "Randomized lighting, textures or background", "zh": "随机化光照、纹理或背景" },
+                { "code": "dr_physics", "en": "Randomized object poses or physics", "zh": "随机化物体位姿或物理参数" },
+                { "code": "camera", "en": "Randomized or matched camera poses", "zh": "随机化或对齐相机位姿" },
+                { "code": "cotrain", "en": "Trained on simulation and real data together", "zh": "仿真与真实数据联合训练" },
+                { "code": "finetune_real", "en": "Fine-tuned on real data after simulation", "zh": "先用仿真训练，再用真实数据微调" },
+                { "code": "real2sim", "en": "Tuned the simulator to match the real setup", "zh": "调整仿真器以匹配真实环境" },
+                { "code": "none", "en": "Nothing specific", "zh": "无特别措施" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: what did you do to help the policy transfer from simulation to the real robot? Choose all that apply.", "zh": "任务 3：为帮助策略从仿真迁移到真实机器人，贵队采取了哪些措施？可多选。" }
+            },
+            {
+              "name": "pol_t3_compute",
+              "type": "radio",
+              "options": [
+                { "code": "lt_10", "en": "Less than 10 GPU-hours", "zh": "少于 10 GPU 小时" },
+                { "code": "10_100", "en": "10–100 GPU-hours", "zh": "10–100 GPU 小时" },
+                { "code": "100_1k", "en": "100–1,000 GPU-hours", "zh": "100–1,000 GPU 小时" },
+                { "code": "gt_1k", "en": "More than 1,000 GPU-hours", "zh": "超过 1,000 GPU 小时" },
+                { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: roughly how much GPU time went into training the final policy?", "zh": "任务 3：训练最终策略大约用了多少 GPU 时间？" }
+            },
+            {
+              "name": "pol_t3_pretest",
+              "type": "radio",
+              "options": [
+                { "code": "yes", "en": "Yes", "zh": "是" },
+                { "code": "stack_only", "en": "Only on a matching software setup, not the real robot", "zh": "仅在相同的软件环境中运行过，未在真机上运行" },
+                { "code": "no", "en": "No", "zh": "否" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: before evaluation, had you run your submitted container on a real Mobile FR3 Duo?", "zh": "任务 3：评测前，贵队是否在真实的 Mobile FR3 Duo 上运行过所提交的容器？" }
+            }
           ]
         }
       ]
     },
     {
-      "title": { "en": "Section 2 · Phase I, in simulation", "zh": "第 2 部分 · 第一阶段（仿真）" },
-      "questions": [
-        {
-          "name": "b02_setup_time", "type": "radio", "num": true,
-          "label": { "en": "How long did it take you to get the simulator running?", "zh": "让仿真器运行起来花了多长时间？" },
-          "options": [
-            { "code": "lt_1d", "en": "Less than a day", "zh": "不到一天" },
-            { "code": "1_3d", "en": "1–3 days", "zh": "1–3 天" },
-            { "code": "4_7d", "en": "4–7 days", "zh": "4–7 天" },
-            { "code": "gt_1w", "en": "More than a week", "zh": "超过一周" },
-            { "code": "not_me", "en": "I didn't set it up myself", "zh": "不是我本人配置的" }
-          ]
-        },
-        {
-          "name": "b02_sim", "type": "checkbox", "num": true,
-          "label": { "en": "Which simulator did your team use?", "zh": "贵队使用了哪个仿真器？" },
-          "options": [
-            { "code": "isaacsim", "en": "Isaac Sim", "zh": "Isaac Sim" },
-            { "code": "mujoco", "en": "MuJoCo", "zh": "MuJoCo" }
-          ]
-        },
-        {
-          "name": "b02_docs", "type": "scale", "num": true, "min": 1, "max": 5,
-          "minLabel": { "en": "1 = very unclear", "zh": "1 = 非常不清楚" },
-          "maxLabel": { "en": "5 = very clear", "zh": "5 = 非常清楚" },
-          "label": { "en": "How clear were the rulebook and documentation?", "zh": "规则手册和文档是否清楚？" }
-        },
-        {
-          "name": "b02_packaging", "type": "scale", "num": true, "min": 1, "max": 5,
-          "minLabel": { "en": "1 = very difficult", "zh": "1 = 非常困难" },
-          "maxLabel": { "en": "5 = very easy", "zh": "5 = 非常容易" },
-          "label": { "en": "How easy was it to package and submit your work (Dockerfile, public repository, submission form)?", "zh": "打包并提交作品（Dockerfile、公开代码仓库、提交表单）是否容易？" }
-        },
-        {
-          "name": "b02_rules_stable", "type": "scale", "num": true, "min": 1, "max": 5,
-          "minLabel": { "en": "1 = not at all", "zh": "1 = 完全不" },
-          "maxLabel": { "en": "5 = completely", "zh": "5 = 完全可以" },
-          "label": { "en": "Were the rules clear and stable enough to plan around?", "zh": "规则是否足够清楚、稳定，便于据此制定计划？" }
-        },
-        {
-          "name": "b02_rules_comment", "type": "text",
-          "label": { "en": "Anything you'd like to add about the rules?", "zh": "关于规则，还有什么想补充的？" }
-        },
-        {
-          "name": "b02_gt_effect", "type": "longtext", "num": true,
-          "label": { "en": "How did the rule allowing ground-truth object positions affect your approach?", "zh": "允许使用真值物体位置的规则对贵队的方案有何影响？" }
-        }
-      ]
-    },
-    {
-      "title": { "en": "Section 3 · Your task", "zh": "第 3 部分 · 您的任务" },
+      "title": { "en": "Section 3 · From simulation to the real robot", "zh": "第 3 部分 · 从仿真到真实机器人" },
+      "intro": { "en": "For everyone. Answer for each task your team took part in. We've sent your team the video of its evaluation runs; it may help to watch it before answering.", "zh": "所有成员均可填写。请针对贵队参加的每个任务作答。我们已将贵队的评测录像发给您，作答前观看可能会有帮助。" },
       "subsections": [
         {
           "questions": [
             {
-              "name": "b03_t1_diff_sim", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t1"] }],
+              "name": "b03_t1_diff_sim",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
               "minLabel": { "en": "1 = very easy", "zh": "1 = 非常容易" },
               "maxLabel": { "en": "5 = very hard", "zh": "5 = 非常困难" },
               "label": { "en": "Task 1: how hard was it in simulation?", "zh": "任务 1：在仿真中难度如何？" }
             },
             {
-              "name": "b03_t1_diff_real", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t1"] }],
+              "name": "b03_t1_diff_real",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
               "minLabel": { "en": "1 = very easy", "zh": "1 = 非常容易" },
               "maxLabel": { "en": "5 = very hard", "zh": "5 = 非常困难" },
               "label": { "en": "Task 1: how hard was it on the real robot?", "zh": "任务 1：在真实机器人上难度如何？" }
             },
             {
-              "name": "b03_t1_issues", "type": "checkbox",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t1"] }],
-              "label": { "en": "Task 1: what made it hardest? Choose all that apply.", "zh": "任务 1：最难的地方在哪里？可多选。" },
+              "name": "b03_t1_issues",
+              "type": "checkbox",
               "options": [
                 { "code": "setup", "en": "Setup and installation", "zh": "安装与环境配置" },
                 { "code": "eval_unclear", "en": "Unclear how it would be evaluated", "zh": "不清楚如何评测" },
@@ -212,18 +943,95 @@
                 { "code": "cable_physics", "en": "Cable behaviour in simulation", "zh": "仿真中线缆的物理表现" },
                 { "code": "routing", "en": "Routing the cable along the required path", "zh": "按要求路径布线" },
                 { "code": "other", "en": "Other", "zh": "其他" }
-              ]
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: what made it hardest? Choose all that apply.", "zh": "任务 1：最难的地方在哪里？可多选。" }
             },
             {
-              "name": "b03_t1_scoring", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t1"] }],
+              "name": "b03_t1_cause",
+              "type": "checkbox",
+              "options": [
+                { "code": "navigation", "en": "Getting the mobile base to the right place", "zh": "移动底盘未能到达正确位置" },
+                { "code": "perception", "en": "Perception: camera viewpoint, calibration or field of view", "zh": "感知：相机视角、标定或视野" },
+                { "code": "control", "en": "Control: joint limits, action mapping or latency", "zh": "控制：关节限位、动作映射或延迟" },
+                { "code": "sim_fidelity", "en": "The simulation wasn't realistic enough (contact, deformation, lighting)", "zh": "仿真不够真实（接触、形变、光照）" },
+                { "code": "sim_data", "en": "Not enough, or not varied enough, simulation data", "zh": "仿真数据量不足或多样性不够" },
+                { "code": "real_data", "en": "Not enough real-world data", "zh": "真实数据不足" },
+                { "code": "testbed_diff", "en": "The testbed differed from what we prepared for (layout, object placement, lighting)", "zh": "测试场地与我们准备的情况不同（布局、物体摆放、光照）" },
+                { "code": "hardware", "en": "Robot hardware condition or faults", "zh": "机器人硬件状态或故障" },
+                { "code": "integration", "en": "Software integration or deployment (container, drivers, launch order, ROS topics)", "zh": "软件集成或部署（容器、驱动、启动顺序、ROS 话题）" },
+                { "code": "policy", "en": "The policy itself (model or training)", "zh": "策略本身（模型或训练）" },
+                { "code": "bench_time", "en": "Not enough time on the real robot", "zh": "真机调试时间不足" },
+                { "code": "unknown", "en": "We don't know", "zh": "不清楚" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: on the real robot, what do you think stopped your policy from scoring higher? Choose all that apply.", "zh": "任务 1：在真实机器人上，您认为是什么阻碍了策略取得更高分数？可多选。" }
+            },
+            {
+              "name": "b03_t1_cause_main",
+              "type": "radio",
+              "options": [
+                { "code": "navigation", "en": "Getting the mobile base to the right place", "zh": "移动底盘未能到达正确位置" },
+                { "code": "perception", "en": "Perception: camera viewpoint, calibration or field of view", "zh": "感知：相机视角、标定或视野" },
+                { "code": "control", "en": "Control: joint limits, action mapping or latency", "zh": "控制：关节限位、动作映射或延迟" },
+                { "code": "sim_fidelity", "en": "The simulation wasn't realistic enough (contact, deformation, lighting)", "zh": "仿真不够真实（接触、形变、光照）" },
+                { "code": "sim_data", "en": "Not enough, or not varied enough, simulation data", "zh": "仿真数据量不足或多样性不够" },
+                { "code": "real_data", "en": "Not enough real-world data", "zh": "真实数据不足" },
+                { "code": "testbed_diff", "en": "The testbed differed from what we prepared for (layout, object placement, lighting)", "zh": "测试场地与我们准备的情况不同（布局、物体摆放、光照）" },
+                { "code": "hardware", "en": "Robot hardware condition or faults", "zh": "机器人硬件状态或故障" },
+                { "code": "integration", "en": "Software integration or deployment (container, drivers, launch order, ROS topics)", "zh": "软件集成或部署（容器、驱动、启动顺序、ROS 话题）" },
+                { "code": "policy", "en": "The policy itself (model or training)", "zh": "策略本身（模型或训练）" },
+                { "code": "bench_time", "en": "Not enough time on the real robot", "zh": "真机调试时间不足" },
+                { "code": "unknown", "en": "We don't know", "zh": "不清楚" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: which one mattered most?", "zh": "任务 1：其中最主要的是哪一项？" }
+            },
+            {
+              "name": "b03_t1_fix",
+              "type": "checkbox",
+              "options": [
+                { "code": "real_data", "en": "More real-world data, collected on the testbed itself", "zh": "更多在测试场地本身采集的真实数据" },
+                { "code": "sim_data", "en": "More, or more varied, simulation data", "zh": "更多或更多样的仿真数据" },
+                { "code": "sim_fidelity", "en": "A more realistic simulator", "zh": "更逼真的仿真器" },
+                { "code": "model", "en": "A different or larger model", "zh": "换用其他模型或更大的模型" },
+                { "code": "localization", "en": "Extra localization aids (e.g. markers, a map, a fixed start pose)", "zh": "额外的定位辅助（如标记物、地图、固定起始位姿）" },
+                { "code": "platform_info", "en": "More complete information about the platform and testbed", "zh": "更完整的平台与测试场地信息" },
+                { "code": "earlier_access", "en": "Earlier access to the real robot", "zh": "更早接触真实机器人" },
+                { "code": "eval_logs", "en": "Logs and video from our evaluation runs", "zh": "我们评测运行的日志与录像" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
+              "label": { "en": "Task 1: what would most likely have made your policy work on the real robot? Choose all that apply.", "zh": "任务 1：什么最有可能让贵队的策略在真实机器人上成功？可多选。" }
+            },
+            {
+              "name": "b03_t1_scoring",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
               "minLabel": { "en": "1 = not at all fair", "zh": "1 = 完全不公平" },
               "maxLabel": { "en": "5 = entirely fair", "zh": "5 = 完全公平" },
               "label": { "en": "Task 1: is the scoring a fair measure of the skill the task is meant to test?", "zh": "任务 1：评分方式能否公平地衡量该任务所要考察的能力？" }
             },
             {
-              "name": "b03_t1_comment", "type": "text",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t1"] }],
+              "name": "b03_t1_comment",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t1"] }
+              ],
               "label": { "en": "Anything else about Task 1?", "zh": "关于任务 1，还有什么想告诉我们的？" }
             }
           ]
@@ -231,23 +1039,32 @@
         {
           "questions": [
             {
-              "name": "b03_t2_diff_sim", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t2"] }],
+              "name": "b03_t2_diff_sim",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
               "minLabel": { "en": "1 = very easy", "zh": "1 = 非常容易" },
               "maxLabel": { "en": "5 = very hard", "zh": "5 = 非常困难" },
               "label": { "en": "Task 2: how hard was it in simulation?", "zh": "任务 2：在仿真中难度如何？" }
             },
             {
-              "name": "b03_t2_diff_real", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t2"] }],
+              "name": "b03_t2_diff_real",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
               "minLabel": { "en": "1 = very easy", "zh": "1 = 非常容易" },
               "maxLabel": { "en": "5 = very hard", "zh": "5 = 非常困难" },
               "label": { "en": "Task 2: how hard was it on the real robot?", "zh": "任务 2：在真实机器人上难度如何？" }
             },
             {
-              "name": "b03_t2_issues", "type": "checkbox",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t2"] }],
-              "label": { "en": "Task 2: what made it hardest? Choose all that apply.", "zh": "任务 2：最难的地方在哪里？可多选。" },
+              "name": "b03_t2_issues",
+              "type": "checkbox",
               "options": [
                 { "code": "setup", "en": "Setup and installation", "zh": "安装与环境配置" },
                 { "code": "eval_unclear", "en": "Unclear how it would be evaluated", "zh": "不清楚如何评测" },
@@ -258,18 +1075,95 @@
                 { "code": "placement", "en": "Placing the pad accurately on the target", "zh": "将导热垫准确放置到目标位置" },
                 { "code": "isaac_only", "en": "Available only in Isaac Sim", "zh": "仅支持 Isaac Sim" },
                 { "code": "other", "en": "Other", "zh": "其他" }
-              ]
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: what made it hardest? Choose all that apply.", "zh": "任务 2：最难的地方在哪里？可多选。" }
             },
             {
-              "name": "b03_t2_scoring", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t2"] }],
+              "name": "b03_t2_cause",
+              "type": "checkbox",
+              "options": [
+                { "code": "navigation", "en": "Getting the mobile base to the right place", "zh": "移动底盘未能到达正确位置" },
+                { "code": "perception", "en": "Perception: camera viewpoint, calibration or field of view", "zh": "感知：相机视角、标定或视野" },
+                { "code": "control", "en": "Control: joint limits, action mapping or latency", "zh": "控制：关节限位、动作映射或延迟" },
+                { "code": "sim_fidelity", "en": "The simulation wasn't realistic enough (contact, deformation, lighting)", "zh": "仿真不够真实（接触、形变、光照）" },
+                { "code": "sim_data", "en": "Not enough, or not varied enough, simulation data", "zh": "仿真数据量不足或多样性不够" },
+                { "code": "real_data", "en": "Not enough real-world data", "zh": "真实数据不足" },
+                { "code": "testbed_diff", "en": "The testbed differed from what we prepared for (layout, object placement, lighting)", "zh": "测试场地与我们准备的情况不同（布局、物体摆放、光照）" },
+                { "code": "hardware", "en": "Robot hardware condition or faults", "zh": "机器人硬件状态或故障" },
+                { "code": "integration", "en": "Software integration or deployment (container, drivers, launch order, ROS topics)", "zh": "软件集成或部署（容器、驱动、启动顺序、ROS 话题）" },
+                { "code": "policy", "en": "The policy itself (model or training)", "zh": "策略本身（模型或训练）" },
+                { "code": "bench_time", "en": "Not enough time on the real robot", "zh": "真机调试时间不足" },
+                { "code": "unknown", "en": "We don't know", "zh": "不清楚" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: on the real robot, what do you think stopped your policy from scoring higher? Choose all that apply.", "zh": "任务 2：在真实机器人上，您认为是什么阻碍了策略取得更高分数？可多选。" }
+            },
+            {
+              "name": "b03_t2_cause_main",
+              "type": "radio",
+              "options": [
+                { "code": "navigation", "en": "Getting the mobile base to the right place", "zh": "移动底盘未能到达正确位置" },
+                { "code": "perception", "en": "Perception: camera viewpoint, calibration or field of view", "zh": "感知：相机视角、标定或视野" },
+                { "code": "control", "en": "Control: joint limits, action mapping or latency", "zh": "控制：关节限位、动作映射或延迟" },
+                { "code": "sim_fidelity", "en": "The simulation wasn't realistic enough (contact, deformation, lighting)", "zh": "仿真不够真实（接触、形变、光照）" },
+                { "code": "sim_data", "en": "Not enough, or not varied enough, simulation data", "zh": "仿真数据量不足或多样性不够" },
+                { "code": "real_data", "en": "Not enough real-world data", "zh": "真实数据不足" },
+                { "code": "testbed_diff", "en": "The testbed differed from what we prepared for (layout, object placement, lighting)", "zh": "测试场地与我们准备的情况不同（布局、物体摆放、光照）" },
+                { "code": "hardware", "en": "Robot hardware condition or faults", "zh": "机器人硬件状态或故障" },
+                { "code": "integration", "en": "Software integration or deployment (container, drivers, launch order, ROS topics)", "zh": "软件集成或部署（容器、驱动、启动顺序、ROS 话题）" },
+                { "code": "policy", "en": "The policy itself (model or training)", "zh": "策略本身（模型或训练）" },
+                { "code": "bench_time", "en": "Not enough time on the real robot", "zh": "真机调试时间不足" },
+                { "code": "unknown", "en": "We don't know", "zh": "不清楚" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: which one mattered most?", "zh": "任务 2：其中最主要的是哪一项？" }
+            },
+            {
+              "name": "b03_t2_fix",
+              "type": "checkbox",
+              "options": [
+                { "code": "real_data", "en": "More real-world data, collected on the testbed itself", "zh": "更多在测试场地本身采集的真实数据" },
+                { "code": "sim_data", "en": "More, or more varied, simulation data", "zh": "更多或更多样的仿真数据" },
+                { "code": "sim_fidelity", "en": "A more realistic simulator", "zh": "更逼真的仿真器" },
+                { "code": "model", "en": "A different or larger model", "zh": "换用其他模型或更大的模型" },
+                { "code": "localization", "en": "Extra localization aids (e.g. markers, a map, a fixed start pose)", "zh": "额外的定位辅助（如标记物、地图、固定起始位姿）" },
+                { "code": "platform_info", "en": "More complete information about the platform and testbed", "zh": "更完整的平台与测试场地信息" },
+                { "code": "earlier_access", "en": "Earlier access to the real robot", "zh": "更早接触真实机器人" },
+                { "code": "eval_logs", "en": "Logs and video from our evaluation runs", "zh": "我们评测运行的日志与录像" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
+              "label": { "en": "Task 2: what would most likely have made your policy work on the real robot? Choose all that apply.", "zh": "任务 2：什么最有可能让贵队的策略在真实机器人上成功？可多选。" }
+            },
+            {
+              "name": "b03_t2_scoring",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
               "minLabel": { "en": "1 = not at all fair", "zh": "1 = 完全不公平" },
               "maxLabel": { "en": "5 = entirely fair", "zh": "5 = 完全公平" },
               "label": { "en": "Task 2: is the scoring a fair measure of the skill the task is meant to test?", "zh": "任务 2：评分方式能否公平地衡量该任务所要考察的能力？" }
             },
             {
-              "name": "b03_t2_comment", "type": "text",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t2"] }],
+              "name": "b03_t2_comment",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t2"] }
+              ],
               "label": { "en": "Anything else about Task 2?", "zh": "关于任务 2，还有什么想告诉我们的？" }
             }
           ]
@@ -277,23 +1171,32 @@
         {
           "questions": [
             {
-              "name": "b03_t3_diff_sim", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t3"] }],
+              "name": "b03_t3_diff_sim",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
               "minLabel": { "en": "1 = very easy", "zh": "1 = 非常容易" },
               "maxLabel": { "en": "5 = very hard", "zh": "5 = 非常困难" },
               "label": { "en": "Task 3: how hard was it in simulation?", "zh": "任务 3：在仿真中难度如何？" }
             },
             {
-              "name": "b03_t3_diff_real", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t3"] }],
+              "name": "b03_t3_diff_real",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
               "minLabel": { "en": "1 = very easy", "zh": "1 = 非常容易" },
               "maxLabel": { "en": "5 = very hard", "zh": "5 = 非常困难" },
               "label": { "en": "Task 3: how hard was it on the real robot?", "zh": "任务 3：在真实机器人上难度如何？" }
             },
             {
-              "name": "b03_t3_issues", "type": "checkbox",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t3"] }],
-              "label": { "en": "Task 3: what made it hardest? Choose all that apply.", "zh": "任务 3：最难的地方在哪里？可多选。" },
+              "name": "b03_t3_issues",
+              "type": "checkbox",
               "options": [
                 { "code": "setup", "en": "Setup and installation", "zh": "安装与环境配置" },
                 { "code": "eval_unclear", "en": "Unclear how it would be evaluated", "zh": "不清楚如何评测" },
@@ -302,23 +1205,104 @@
                 { "code": "long_horizon", "en": "The length of the four-stage sequence", "zh": "四个阶段连续完成的任务长度" },
                 { "code": "small_objects", "en": "Handling small objects such as beans", "zh": "处理豆子等小物体" },
                 { "code": "other", "en": "Other", "zh": "其他" }
-              ]
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: what made it hardest? Choose all that apply.", "zh": "任务 3：最难的地方在哪里？可多选。" }
             },
             {
-              "name": "b03_t3_stage", "type": "radio", "options": "t3stage",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t3"] }],
+              "name": "b03_t3_stage",
+              "type": "radio",
+              "options": "t3stage",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
               "label": { "en": "Which stage was hardest?", "zh": "哪个阶段最难？" }
             },
             {
-              "name": "b03_t3_scoring", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t3"] }],
+              "name": "b03_t3_cause",
+              "type": "checkbox",
+              "options": [
+                { "code": "navigation", "en": "Getting the mobile base to the right place", "zh": "移动底盘未能到达正确位置" },
+                { "code": "perception", "en": "Perception: camera viewpoint, calibration or field of view", "zh": "感知：相机视角、标定或视野" },
+                { "code": "control", "en": "Control: joint limits, action mapping or latency", "zh": "控制：关节限位、动作映射或延迟" },
+                { "code": "sim_fidelity", "en": "The simulation wasn't realistic enough (contact, deformation, lighting)", "zh": "仿真不够真实（接触、形变、光照）" },
+                { "code": "sim_data", "en": "Not enough, or not varied enough, simulation data", "zh": "仿真数据量不足或多样性不够" },
+                { "code": "real_data", "en": "Not enough real-world data", "zh": "真实数据不足" },
+                { "code": "testbed_diff", "en": "The testbed differed from what we prepared for (layout, object placement, lighting)", "zh": "测试场地与我们准备的情况不同（布局、物体摆放、光照）" },
+                { "code": "hardware", "en": "Robot hardware condition or faults", "zh": "机器人硬件状态或故障" },
+                { "code": "integration", "en": "Software integration or deployment (container, drivers, launch order, ROS topics)", "zh": "软件集成或部署（容器、驱动、启动顺序、ROS 话题）" },
+                { "code": "policy", "en": "The policy itself (model or training)", "zh": "策略本身（模型或训练）" },
+                { "code": "bench_time", "en": "Not enough time on the real robot", "zh": "真机调试时间不足" },
+                { "code": "unknown", "en": "We don't know", "zh": "不清楚" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: on the real robot, what do you think stopped your policy from scoring higher? Choose all that apply.", "zh": "任务 3：在真实机器人上，您认为是什么阻碍了策略取得更高分数？可多选。" }
+            },
+            {
+              "name": "b03_t3_cause_main",
+              "type": "radio",
+              "options": [
+                { "code": "navigation", "en": "Getting the mobile base to the right place", "zh": "移动底盘未能到达正确位置" },
+                { "code": "perception", "en": "Perception: camera viewpoint, calibration or field of view", "zh": "感知：相机视角、标定或视野" },
+                { "code": "control", "en": "Control: joint limits, action mapping or latency", "zh": "控制：关节限位、动作映射或延迟" },
+                { "code": "sim_fidelity", "en": "The simulation wasn't realistic enough (contact, deformation, lighting)", "zh": "仿真不够真实（接触、形变、光照）" },
+                { "code": "sim_data", "en": "Not enough, or not varied enough, simulation data", "zh": "仿真数据量不足或多样性不够" },
+                { "code": "real_data", "en": "Not enough real-world data", "zh": "真实数据不足" },
+                { "code": "testbed_diff", "en": "The testbed differed from what we prepared for (layout, object placement, lighting)", "zh": "测试场地与我们准备的情况不同（布局、物体摆放、光照）" },
+                { "code": "hardware", "en": "Robot hardware condition or faults", "zh": "机器人硬件状态或故障" },
+                { "code": "integration", "en": "Software integration or deployment (container, drivers, launch order, ROS topics)", "zh": "软件集成或部署（容器、驱动、启动顺序、ROS 话题）" },
+                { "code": "policy", "en": "The policy itself (model or training)", "zh": "策略本身（模型或训练）" },
+                { "code": "bench_time", "en": "Not enough time on the real robot", "zh": "真机调试时间不足" },
+                { "code": "unknown", "en": "We don't know", "zh": "不清楚" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: which one mattered most?", "zh": "任务 3：其中最主要的是哪一项？" }
+            },
+            {
+              "name": "b03_t3_fix",
+              "type": "checkbox",
+              "options": [
+                { "code": "real_data", "en": "More real-world data, collected on the testbed itself", "zh": "更多在测试场地本身采集的真实数据" },
+                { "code": "sim_data", "en": "More, or more varied, simulation data", "zh": "更多或更多样的仿真数据" },
+                { "code": "sim_fidelity", "en": "A more realistic simulator", "zh": "更逼真的仿真器" },
+                { "code": "model", "en": "A different or larger model", "zh": "换用其他模型或更大的模型" },
+                { "code": "localization", "en": "Extra localization aids (e.g. markers, a map, a fixed start pose)", "zh": "额外的定位辅助（如标记物、地图、固定起始位姿）" },
+                { "code": "platform_info", "en": "More complete information about the platform and testbed", "zh": "更完整的平台与测试场地信息" },
+                { "code": "earlier_access", "en": "Earlier access to the real robot", "zh": "更早接触真实机器人" },
+                { "code": "eval_logs", "en": "Logs and video from our evaluation runs", "zh": "我们评测运行的日志与录像" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
+              "label": { "en": "Task 3: what would most likely have made your policy work on the real robot? Choose all that apply.", "zh": "任务 3：什么最有可能让贵队的策略在真实机器人上成功？可多选。" }
+            },
+            {
+              "name": "b03_t3_scoring",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
               "minLabel": { "en": "1 = not at all fair", "zh": "1 = 完全不公平" },
               "maxLabel": { "en": "5 = entirely fair", "zh": "5 = 完全公平" },
               "label": { "en": "Task 3: is the scoring a fair measure of the skill the task is meant to test?", "zh": "任务 3：评分方式能否公平地衡量该任务所要考察的能力？" }
             },
             {
-              "name": "b03_t3_comment", "type": "text",
-              "showIf": [{ "field": "b01_tasks", "anyOf": ["t3"] }],
+              "name": "b03_t3_comment",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_tasks", "anyOf": ["t3"] }
+              ],
               "label": { "en": "Anything else about Task 3?", "zh": "关于任务 3，还有什么想告诉我们的？" }
             }
           ]
@@ -326,24 +1310,26 @@
       ]
     },
     {
-      "title": { "en": "Section 4 · Hands-on sessions", "zh": "第 4 部分 · 实操环节" },
+      "title": { "en": "Section 4 · Testbeds and evaluation", "zh": "第 4 部分 · 测试场地与评测" },
       "subsections": [
         {
           "questions": [
             {
-              "name": "b04_bench_time", "type": "radio",
-              "showIf": [{ "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }],
-              "label": { "en": "Was the bench time enough?", "zh": "实操时间是否充足？" },
+              "name": "b04_bench_time",
+              "type": "radio",
               "options": [
                 { "code": "too_little", "en": "Too little", "zh": "太少" },
                 { "code": "right", "en": "About right", "zh": "刚好" },
                 { "code": "too_much", "en": "More than we needed", "zh": "超出所需" }
-              ]
+              ],
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }
+              ],
+              "label": { "en": "Was the bench time enough?", "zh": "实操时间是否充足？" }
             },
             {
-              "name": "b04_time_spent", "type": "radio",
-              "showIf": [{ "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }],
-              "label": { "en": "What took most of your bench time?", "zh": "实操时间主要花在哪里？" },
+              "name": "b04_time_spent",
+              "type": "radio",
               "options": [
                 { "code": "setup", "en": "Setup", "zh": "环境搭建" },
                 { "code": "calibration", "en": "Calibration", "zh": "标定" },
@@ -351,25 +1337,42 @@
                 { "code": "debugging", "en": "Debugging", "zh": "调试" },
                 { "code": "evaluation", "en": "Evaluating our policy", "zh": "评估我们的策略" },
                 { "code": "other", "en": "Other", "zh": "其他" }
-              ]
+              ],
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }
+              ],
+              "label": { "en": "What took most of your bench time?", "zh": "实操时间主要花在哪里？" }
             },
             {
-              "name": "b04_support", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }],
+              "name": "b04_support",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }
+              ],
               "minLabel": { "en": "1 = very poor", "zh": "1 = 很差" },
               "maxLabel": { "en": "5 = excellent", "zh": "5 = 非常好" },
               "label": { "en": "How good was the support on site?", "zh": "现场支持如何？" }
             },
             {
-              "name": "b04_logistics", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }],
+              "name": "b04_logistics",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }
+              ],
               "minLabel": { "en": "1 = very poor", "zh": "1 = 很差" },
               "maxLabel": { "en": "5 = excellent", "zh": "5 = 非常好" },
               "label": { "en": "Was the information about your session (dates, address, access) timely and accurate?", "zh": "有关实操安排的信息（日期、地址、入场）是否及时、准确？" }
             },
             {
-              "name": "b04_travel", "type": "longtext",
-              "showIf": [{ "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }],
+              "name": "b04_travel",
+              "type": "longtext",
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }
+              ],
               "label": { "en": "Were travel, visas or photo ID a burden? What would have helped?", "zh": "出行、签证或带照片的身份证件是否造成负担？怎样会更好？" }
             }
           ]
@@ -377,23 +1380,129 @@
         {
           "questions": [
             {
-              "name": "b04_remote_access", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_mode", "anyOf": ["remote"] }],
+              "name": "b04_remote_access",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["remote"] }
+              ],
               "minLabel": { "en": "1 = very inadequate", "zh": "1 = 非常不足" },
               "maxLabel": { "en": "5 = fully adequate", "zh": "5 = 完全足够" },
               "label": { "en": "Were the data, trajectories or sessions you received adequate for your work?", "zh": "您获得的数据、轨迹或实操机会是否足以支持您的工作？" }
             },
             {
-              "name": "b04_remote_equal", "type": "scale", "min": 1, "max": 5,
-              "showIf": [{ "field": "b01_mode", "anyOf": ["remote"] }],
+              "name": "b04_remote_equal",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["remote"] }
+              ],
               "minLabel": { "en": "1 = not at all", "zh": "1 = 完全不" },
               "maxLabel": { "en": "5 = completely", "zh": "5 = 完全是" },
               "label": { "en": "Did taking part remotely feel equivalent to attending in person?", "zh": "远程参加是否与现场参加同等？" }
             },
             {
-              "name": "b04_remote_comment", "type": "text",
-              "showIf": [{ "field": "b01_mode", "anyOf": ["remote"] }],
+              "name": "b04_remote_comment",
+              "type": "text",
+              "showIf": [
+                { "field": "b01_mode", "anyOf": ["remote"] }
+              ],
               "label": { "en": "Anything you'd like to add about taking part remotely?", "zh": "关于远程参加，还有什么想补充的？" }
+            }
+          ]
+        },
+        {
+          "questions": [
+            {
+              "name": "b04_diff",
+              "type": "group",
+              "num": true,
+              "minLabel": { "en": "1 = the same", "zh": "1 = 完全相同" },
+              "maxLabel": { "en": "5 = very different", "zh": "5 = 差别很大" },
+              "label": { "en": "How different was the real testbed from what you developed for?", "zh": "真实测试场地与贵队开发时所假设的环境相比，差别有多大？" },
+              "items": [
+                {
+                  "name": "b04_diff_layout",
+                  "type": "scale",
+                  "min": 1,
+                  "max": 5,
+                  "extra": "unknown",
+                  "label": { "en": "Table and fixture sizes and positions", "zh": "桌子与固定装置的尺寸和位置" }
+                },
+                {
+                  "name": "b04_diff_objects",
+                  "type": "scale",
+                  "min": 1,
+                  "max": 5,
+                  "extra": "unknown",
+                  "label": { "en": "Object placement", "zh": "物体摆放" }
+                },
+                {
+                  "name": "b04_diff_lighting",
+                  "type": "scale",
+                  "min": 1,
+                  "max": 5,
+                  "extra": "unknown",
+                  "label": { "en": "Lighting and background", "zh": "光照与背景" }
+                },
+                {
+                  "name": "b04_diff_camera",
+                  "type": "scale",
+                  "min": 1,
+                  "max": 5,
+                  "extra": "unknown",
+                  "label": { "en": "Camera positions or calibration", "zh": "相机位置或标定" }
+                },
+                {
+                  "name": "b04_diff_start",
+                  "type": "scale",
+                  "min": 1,
+                  "max": 5,
+                  "extra": "unknown",
+                  "label": { "en": "The robot's start position", "zh": "机器人起始位置" }
+                },
+                {
+                  "name": "b04_diff_space",
+                  "type": "scale",
+                  "min": 1,
+                  "max": 5,
+                  "extra": "unknown",
+                  "label": { "en": "Space around the robot (walls, table legs, floor)", "zh": "机器人周围空间（墙壁、桌腿、地面）" }
+                }
+              ]
+            },
+            {
+              "name": "b04_platform_info",
+              "type": "checkbox",
+              "num": true,
+              "options": [
+                { "code": "limits", "en": "Joint position, velocity or torque limits", "zh": "关节位置、速度或力矩限位" },
+                { "code": "camera_calib", "en": "Camera intrinsics and extrinsics", "zh": "相机内参与外参" },
+                { "code": "frames", "en": "Sensor and robot coordinate frames (e.g. LiDAR, base)", "zh": "传感器与机器人坐标系（如激光雷达、底盘）" },
+                { "code": "controller", "en": "Controller behaviour and latency", "zh": "控制器特性与延迟" },
+                { "code": "spine", "en": "Spine (lift) range", "zh": "升降脊柱的行程" },
+                { "code": "layout", "en": "Testbed layout drawings and dimensions", "zh": "测试场地布局图与尺寸" },
+                { "code": "objects", "en": "Object models and specifications", "zh": "物体模型与规格" },
+                { "code": "deploy_env", "en": "The deployment environment (OS, ROS version, GPU, drivers)", "zh": "部署环境（操作系统、ROS 版本、GPU、驱动）" },
+                { "code": "none", "en": "None: we had what we needed", "zh": "无，所需信息均已具备" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "label": { "en": "Which information about the platform or testbed did you need but not have? Choose all that apply.", "zh": "您需要但未能获得哪些平台或测试场地信息？可多选。" }
+            },
+            {
+              "name": "b04_eval_pref",
+              "type": "radio",
+              "num": true,
+              "options": [
+                { "code": "best", "en": "Best of several trials, as now", "zh": "多次试验取最佳（与本届相同）" },
+                { "code": "mean", "en": "Average over all trials", "zh": "所有试验的平均值" },
+                { "code": "both", "en": "Best for the ranking, with the average and spread also reported", "zh": "以最佳成绩排名，同时公布平均值与波动" },
+                { "code": "variation", "en": "Success under deliberately varied conditions (e.g. lighting, object placement)", "zh": "在有意改变的条件下（如光照、物体摆放）的成功率" },
+                { "code": "none", "en": "No preference", "zh": "无偏好" }
+              ],
+              "label": { "en": "Phase II took the best of three trials at each of two sites. How would you prefer policies to be scored?", "zh": "第二阶段在两个场地各进行三次试验，并取每个场地的最佳成绩。您希望如何为策略计分？" }
             }
           ]
         }
@@ -403,8 +1512,9 @@
       "title": { "en": "Section 5 · The Franka Mobile FR3 Duo platform", "zh": "第 5 部分 · Franka Mobile FR3 Duo 平台" },
       "questions": [
         {
-          "name": "b05_interfaces", "type": "checkbox", "num": true,
-          "label": { "en": "Which interfaces or tools did you use with the robot?", "zh": "您使用了哪些接口或工具？" },
+          "name": "b05_interfaces",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "fci", "en": "Franka Control Interface (FCI)", "zh": "Franka Control Interface (FCI)" },
             { "code": "ros2", "en": "ROS 2", "zh": "ROS 2" },
@@ -412,122 +1522,307 @@
             { "code": "isaac_model", "en": "The robot model in Isaac Sim", "zh": "Isaac Sim 中的机器人模型" },
             { "code": "mujoco_model", "en": "The robot model in MuJoCo", "zh": "MuJoCo 中的机器人模型" },
             { "code": "other", "en": "Other", "zh": "其他" }
-          ]
+          ],
+          "label": { "en": "Which interfaces or tools did you use with the robot?", "zh": "您使用了哪些接口或工具？" }
         },
         {
-          "name": "b05_rate", "type": "group", "num": true,
-          "label": { "en": "Rate each aspect", "zh": "请为以下各项评分" },
-          "minLabel": { "en": "1 = very poor", "zh": "1 = 很差" },
-          "maxLabel": { "en": "5 = excellent", "zh": "5 = 非常好" },
-          "items": [
-            { "name": "b05_arm", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Arm control and API", "zh": "机械臂控制与 API" } },
-            { "name": "b05_base", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Mobile base", "zh": "移动底盘" } },
-            { "name": "b05_grippers", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Grippers", "zh": "夹爪" } },
-            { "name": "b05_sensors", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Cameras and sensors", "zh": "相机与传感器" } },
-            { "name": "b05_reliability", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Reliability during your session", "zh": "实操期间的可靠性" } },
-            { "name": "b05_safety", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Stop and safety behaviour", "zh": "急停与安全表现" } },
-            { "name": "b05_docs", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Documentation", "zh": "文档" } },
-            { "name": "b05_setup", "type": "scale", "min": 1, "max": 5, "extra": "na", "label": { "en": "Setup time", "zh": "配置所需时间" } }
-          ]
+          "name": "b05_teleop",
+          "type": "checkbox",
+          "num": true,
+          "options": [
+            { "code": "gello", "en": "GELLO", "zh": "GELLO" },
+            { "code": "keyboard", "en": "Keyboard", "zh": "键盘" },
+            { "code": "pedal", "en": "Foot pedal", "zh": "脚踏板" },
+            { "code": "vr", "en": "VR", "zh": "VR" },
+            { "code": "own", "en": "Our own tools", "zh": "自有工具" },
+            { "code": "none", "en": "None", "zh": "未使用" }
+          ],
+          "label": { "en": "Which teleoperation or data-collection tools did you use with the robot? Choose all that apply.", "zh": "您使用了哪些遥操作或数据采集工具？可多选。" }
         },
         {
-          "name": "b05_sim2real", "type": "scale", "num": true, "min": 1, "max": 5,
+          "name": "b05_teleop_rate",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
+          "extra": "na",
           "minLabel": { "en": "1 = very poorly", "zh": "1 = 非常差" },
           "maxLabel": { "en": "5 = very well", "zh": "5 = 非常好" },
-          "label": { "en": "How well did behaviour in simulation carry over to the real robot?", "zh": "仿真中的表现迁移到真实机器人上的效果如何？" }
+          "label": { "en": "How well did teleoperation work for collecting data?", "zh": "用遥操作采集数据的效果如何？" }
         },
         {
-          "name": "b05_mismatch", "type": "longtext", "num": true,
-          "label": { "en": "What was the biggest mismatch between simulation and the real robot?", "zh": "仿真与真实机器人之间最大的差异是什么？" }
+          "name": "b05_rate",
+          "type": "group",
+          "num": true,
+          "minLabel": { "en": "1 = very poor", "zh": "1 = 很差" },
+          "maxLabel": { "en": "5 = excellent", "zh": "5 = 非常好" },
+          "label": { "en": "Rate each aspect", "zh": "请为以下各项评分" },
+          "items": [
+            {
+              "name": "b05_arm",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Arm control and API", "zh": "机械臂控制与 API" }
+            },
+            {
+              "name": "b05_base",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Mobile base", "zh": "移动底盘" }
+            },
+            {
+              "name": "b05_grippers",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Grippers", "zh": "夹爪" }
+            },
+            {
+              "name": "b05_sensors",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Cameras and sensors", "zh": "相机与传感器" }
+            },
+            {
+              "name": "b05_reliability",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Reliability during your session", "zh": "实操期间的可靠性" }
+            },
+            {
+              "name": "b05_safety",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Stop and safety behaviour", "zh": "急停与安全表现" }
+            },
+            {
+              "name": "b05_docs",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Documentation", "zh": "文档" }
+            },
+            {
+              "name": "b05_setup",
+              "type": "scale",
+              "min": 1,
+              "max": 5,
+              "extra": "na",
+              "label": { "en": "Setup time", "zh": "配置所需时间" }
+            }
+          ]
         },
         {
-          "name": "b05_issue", "type": "longtext", "num": true,
+          "name": "b05_hw_events",
+          "type": "checkbox",
+          "options": [
+            { "code": "reflex", "en": "Joint-limit or reflex stops", "zh": "关节限位或反射保护停止" },
+            { "code": "controller", "en": "Controller or communication faults", "zh": "控制器或通信故障" },
+            { "code": "sensor", "en": "Camera or sensor dropouts", "zh": "相机或传感器掉线" },
+            { "code": "odometry", "en": "Base localization or odometry drift", "zh": "底盘定位或里程计漂移" },
+            { "code": "gripper", "en": "Gripper failures", "zh": "夹爪故障" },
+            { "code": "safety_stop", "en": "Safety stops triggered by the LiDAR or proximity sensing", "zh": "由激光雷达或接近检测触发的安全停止" },
+            { "code": "thermal", "en": "Performance dropping over time, e.g. overheating", "zh": "性能随时间下降（如过热）" },
+            { "code": "none", "en": "None of these", "zh": "以上都没有" }
+          ],
+          "showIf": [
+            { "field": "b01_mode", "anyOf": ["hamburg", "augsburg", "shanghai"] }
+          ],
+          "label": { "en": "During your hands-on session, did you see any of these? Choose all that apply.", "zh": "实操期间，您是否遇到以下情况？可多选。" }
+        },
+        {
+          "name": "b05_onboard",
+          "type": "radio",
+          "num": true,
+          "options": [
+            { "code": "yes", "en": "Yes", "zh": "能" },
+            { "code": "no", "en": "No: we needed a separate GPU computer", "zh": "不能：需要额外的 GPU 计算机" },
+            { "code": "not_tried", "en": "We didn't try", "zh": "未尝试" },
+            { "code": "unknown", "en": "Don't know", "zh": "不清楚" }
+          ],
+          "label": { "en": "Was the robot's onboard computer (Jetson AGX Orin) powerful enough for your policy?", "zh": "机器人自带的计算机（Jetson AGX Orin）能否满足贵队策略的算力需求？" }
+        },
+        {
+          "name": "b05_sim2real",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
+          "minLabel": { "en": "1 = very differently", "zh": "1 = 差别很大" },
+          "maxLabel": { "en": "5 = very closely", "zh": "5 = 非常接近" },
+          "label": { "en": "How closely did the simulated Mobile FR3 Duo behave like the real robot?", "zh": "仿真中的 Mobile FR3 Duo 与真实机器人的行为有多接近？" }
+        },
+        {
+          "name": "b05_assets",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
+          "extra": "na",
+          "minLabel": { "en": "1 = very poor", "zh": "1 = 很差" },
+          "maxLabel": { "en": "5 = excellent", "zh": "5 = 非常好" },
+          "label": { "en": "How usable were the robot's simulation assets (e.g. URDF, USD, MJCF)?", "zh": "机器人的仿真资产（如 URDF、USD、MJCF）是否好用？" }
+        },
+        {
+          "name": "b05_mismatch",
+          "type": "longtext",
+          "num": true,
+          "label": { "en": "What was the biggest difference between the simulated robot and the real one?", "zh": "仿真机器人与真实机器人之间最大的差异是什么？" }
+        },
+        {
+          "name": "b05_issue",
+          "type": "longtext",
+          "num": true,
           "label": { "en": "What was the most serious issue you hit with the platform?", "zh": "您在使用平台时遇到的最严重的问题是什么？" }
         },
         {
-          "name": "b05_change", "type": "longtext", "num": true,
+          "name": "b05_change",
+          "type": "longtext",
+          "num": true,
           "label": { "en": "What one change would you ask Franka for?", "zh": "您最希望 Franka 做出哪一项改进？" }
         },
         {
-          "name": "b05_own_research", "type": "radio", "num": true,
-          "label": { "en": "Would you use this platform in your own research?", "zh": "您是否会在自己的研究中使用该平台？" },
+          "name": "b05_adopt",
+          "type": "checkbox",
+          "num": true,
+          "options": [
+            { "code": "price", "en": "A lower price", "zh": "更低的价格" },
+            { "code": "docs", "en": "Better documentation", "zh": "更完善的文档" },
+            { "code": "low_level", "en": "More open low-level access", "zh": "更开放的底层接入" },
+            { "code": "sim_assets", "en": "Simulation assets that match the hardware more closely", "zh": "与硬件更一致的仿真资产" },
+            { "code": "ros2", "en": "Better ROS 2 integration", "zh": "更好的 ROS 2 集成" },
+            { "code": "local_support", "en": "Local support in our region", "zh": "本地区的技术支持" },
+            { "code": "nothing", "en": "Nothing: we would use it as it is", "zh": "无需额外条件，可直接使用" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ],
+          "label": { "en": "What would your lab need before using this platform in its own work? Choose all that apply.", "zh": "贵实验室在自己的工作中采用该平台前，需要具备哪些条件？可多选。" }
+        },
+        {
+          "name": "b05_own_research",
+          "type": "radio",
+          "num": true,
           "options": [
             { "code": "yes", "en": "Yes", "zh": "会" },
             { "code": "maybe", "en": "Maybe", "zh": "可能" },
             { "code": "no", "en": "No", "zh": "不会" }
-          ]
+          ],
+          "label": { "en": "Would you use this platform in your own research?", "zh": "您是否会在自己的研究中使用该平台？" }
         },
         {
-          "name": "b05_own_research_why", "type": "text",
+          "name": "b05_own_research_why",
+          "type": "text",
           "label": { "en": "Why?", "zh": "原因是？" }
         }
       ]
     },
     {
-      "title": { "en": "Section 6 · Compute and support", "zh": "第 6 部分 · 算力与支持" },
+      "title": { "en": "Section 6 · Tools and support", "zh": "第 6 部分 · 工具与支持" },
       "questions": [
         {
-          "name": "b06_compute", "type": "checkbox", "num": true,
-          "label": { "en": "Which compute did you use?", "zh": "您使用了哪些算力资源？" },
+          "name": "b02_setup_time",
+          "type": "radio",
+          "num": true,
+          "options": [
+            { "code": "lt_1d", "en": "Less than a day", "zh": "不到一天" },
+            { "code": "1_3d", "en": "1–3 days", "zh": "1–3 天" },
+            { "code": "4_7d", "en": "4–7 days", "zh": "4–7 天" },
+            { "code": "gt_1w", "en": "More than a week", "zh": "超过一周" },
+            { "code": "not_me", "en": "I didn't set it up myself", "zh": "不是我本人配置的" }
+          ],
+          "label": { "en": "How long did it take you to get the simulator running?", "zh": "让仿真器运行起来花了多长时间？" }
+        },
+        {
+          "name": "b02_docs",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
+          "minLabel": { "en": "1 = very unclear", "zh": "1 = 非常不清楚" },
+          "maxLabel": { "en": "5 = very clear", "zh": "5 = 非常清楚" },
+          "label": { "en": "How clear were the rulebook and documentation?", "zh": "规则手册和文档是否清楚？" }
+        },
+        {
+          "name": "b02_packaging",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
+          "minLabel": { "en": "1 = very difficult", "zh": "1 = 非常困难" },
+          "maxLabel": { "en": "5 = very easy", "zh": "5 = 非常容易" },
+          "label": { "en": "How easy was it to package and submit your work (Dockerfile, public repository, submission form)?", "zh": "打包并提交作品（Dockerfile、公开代码仓库、提交表单）是否容易？" }
+        },
+        {
+          "name": "b06_compute",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "gcloud", "en": "Google Cloud credits", "zh": "Google Cloud 额度" },
             { "code": "mi300x", "en": "AMD Instinct MI300X", "zh": "AMD Instinct MI300X" },
             { "code": "compfreedom", "en": "Computational Freedom", "zh": "Computational Freedom" },
             { "code": "own", "en": "Our own or our institution's", "zh": "自有或所在单位的算力" },
             { "code": "other", "en": "Other", "zh": "其他" }
-          ]
+          ],
+          "label": { "en": "Which compute did you use?", "zh": "您使用了哪些算力资源？" }
         },
         {
-          "name": "b06_gcloud_window", "type": "scale", "min": 1, "max": 5,
-          "showIf": [{ "field": "b06_compute", "anyOf": ["gcloud"] }],
+          "name": "b06_gcloud_window",
+          "type": "scale",
+          "min": 1,
+          "max": 5,
+          "showIf": [
+            { "field": "b06_compute", "anyOf": ["gcloud"] }
+          ],
           "minLabel": { "en": "1 = far too short", "zh": "1 = 远远不够" },
           "maxLabel": { "en": "5 = fully adequate", "zh": "5 = 完全足够" },
           "label": { "en": "Was the five-day Google Cloud window adequate?", "zh": "Google Cloud 额度五天的有效期是否足够？" }
         },
         {
-          "name": "b06_support_clear", "type": "scale", "num": true, "min": 1, "max": 5,
-          "minLabel": { "en": "1 = very unclear", "zh": "1 = 非常不清楚" },
-          "maxLabel": { "en": "5 = very clear", "zh": "5 = 非常清楚" },
-          "label": { "en": "Were the rules for financial support clear?", "zh": "资金支持的规则是否清楚？" }
-        },
-        {
-          "name": "b06_missing", "type": "longtext", "num": true,
+          "name": "b06_missing",
+          "type": "longtext",
+          "num": true,
           "label": { "en": "What support was missing?", "zh": "还缺少哪些支持？" }
-        }
-      ]
-    },
-    {
-      "title": { "en": "Section 7 · Organization and communication", "zh": "第 7 部分 · 组织与沟通" },
-      "questions": [
-        {
-          "name": "b07_clarity", "type": "scale", "num": true, "min": 1, "max": 5,
-          "minLabel": { "en": "1 = very unclear", "zh": "1 = 非常不清楚" },
-          "maxLabel": { "en": "5 = very clear", "zh": "5 = 非常清楚" },
-          "label": { "en": "How clear were our emails and announcements?", "zh": "我们的邮件与通知是否清楚？" }
         },
         {
-          "name": "b07_changes_fair", "type": "scale", "num": true, "min": 1, "max": 5,
+          "name": "b07_changes_fair",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
           "minLabel": { "en": "1 = very unfairly", "zh": "1 = 非常不公平" },
           "maxLabel": { "en": "5 = very fairly", "zh": "5 = 非常公平" },
           "label": { "en": "Were changes to deadlines and rules handled fairly?", "zh": "截止时间与规则的变更是否处理得公平？" }
         },
         {
-          "name": "b07_changes_comment", "type": "text",
-          "label": { "en": "Anything you'd like to add?", "zh": "还有什么想补充的？" }
-        },
-        {
-          "name": "q08_channels", "type": "checkbox", "num": true,
-          "label": { "en": "Which channels do you prefer for updates?", "zh": "您希望通过哪些渠道获取动态？" },
+          "name": "q08_channels",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "email", "en": "Email", "zh": "邮件" },
             { "code": "website", "en": "Website", "zh": "官网" },
             { "code": "discord", "en": "Discord", "zh": "Discord" },
             { "code": "wechat", "en": "WeChat", "zh": "微信" },
             { "code": "none", "en": "None", "zh": "都不需要" }
-          ]
+          ],
+          "label": { "en": "Which channels do you prefer for updates?", "zh": "您希望通过哪些渠道获取动态？" }
         },
         {
-          "name": "b07_language", "type": "scale", "num": true, "min": 1, "max": 5,
+          "name": "b07_language",
+          "type": "scale",
+          "num": true,
+          "min": 1,
+          "max": 5,
           "minLabel": { "en": "1 = very inadequate", "zh": "1 = 非常不足" },
           "maxLabel": { "en": "5 = fully adequate", "zh": "5 = 完全足够" },
           "label": { "en": "Were the materials in English and Chinese adequate for you?", "zh": "英文和中文资料对您来说是否足够？" }
@@ -535,11 +1830,12 @@
       ]
     },
     {
-      "title": { "en": "Section 8 · Value", "zh": "第 8 部分 · 价值" },
+      "title": { "en": "Section 7 · Value and the next edition", "zh": "第 7 部分 · 价值与下一届" },
       "questions": [
         {
-          "name": "b08_gained", "type": "checkbox", "num": true,
-          "label": { "en": "What did you gain from taking part? Choose all that apply.", "zh": "参赛给您带来了哪些收获？可多选。" },
+          "name": "b08_gained",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "publishable", "en": "Publishable results", "zh": "可发表的成果" },
             { "code": "dataset", "en": "A dataset", "zh": "数据集" },
@@ -548,43 +1844,74 @@
             { "code": "visibility", "en": "Visibility", "zh": "知名度" },
             { "code": "job", "en": "A job or internship", "zh": "工作或实习机会" },
             { "code": "none", "en": "None of these", "zh": "以上都没有" }
-          ]
+          ],
+          "label": { "en": "What did you gain from taking part? Choose all that apply.", "zh": "参赛给您带来了哪些收获？可多选。" }
         },
         {
-          "name": "b08_publish", "type": "radio", "num": true,
-          "label": { "en": "Do you plan to publish or open-source your work?", "zh": "您是否计划发表或开源您的工作？" },
+          "name": "b08_publish",
+          "type": "radio",
+          "num": true,
           "options": [
             { "code": "yes", "en": "Yes", "zh": "是" },
             { "code": "maybe", "en": "Maybe", "zh": "可能" },
             { "code": "no", "en": "No", "zh": "否" }
-          ]
+          ],
+          "label": { "en": "Do you plan to publish or open-source your work?", "zh": "您是否计划发表或开源您的工作？" }
         },
         {
-          "name": "b08_worth", "type": "scale", "num": true, "min": 1, "max": 5,
-          "minLabel": { "en": "1 = not at all", "zh": "1 = 完全不值得" },
-          "maxLabel": { "en": "5 = entirely", "zh": "5 = 非常值得" },
-          "label": { "en": "Was it worth the effort?", "zh": "投入的精力是否值得？" }
-        },
-        {
-          "name": "b08_recommend", "type": "scale", "num": true, "min": 0, "max": 10,
+          "name": "b08_recommend",
+          "type": "scale",
+          "num": true,
+          "min": 0,
+          "max": 10,
           "minLabel": { "en": "0 = not at all likely", "zh": "0 = 完全不可能" },
           "maxLabel": { "en": "10 = extremely likely", "zh": "10 = 非常可能" },
           "label": { "en": "How likely are you to recommend EBiM to a colleague?", "zh": "您向同事推荐 EBiM 的可能性有多大？" }
-        }
-      ]
-    },
-    {
-      "title": { "en": "Section 9 · The next edition", "zh": "第 9 部分 · 下一届" },
-      "questions": [
+        },
         {
-          "name": "q12_likelihood", "type": "scale", "num": true, "min": 0, "max": 10,
+          "name": "q12_likelihood",
+          "type": "scale",
+          "num": true,
+          "min": 0,
+          "max": 10,
           "minLabel": { "en": "0 = not at all likely", "zh": "0 = 完全不可能" },
           "maxLabel": { "en": "10 = extremely likely", "zh": "10 = 非常可能" },
           "label": { "en": "How likely are you to take part in the next edition?", "zh": "您参加下一届的可能性有多大？" }
         },
         {
-          "name": "b09_changes", "type": "checkbox", "num": true,
-          "label": { "en": "Which changes would you want? Choose all that apply.", "zh": "您希望有哪些改变？可多选。" },
+          "name": "b09_focus",
+          "type": "checkbox",
+          "num": true,
+          "options": [
+            { "code": "works", "en": "Whether it works on a real robot at all", "zh": "策略能否在真实机器人上成功运行" },
+            { "code": "consistency", "en": "How consistent it is over repeated trials", "zh": "重复试验中的稳定性" },
+            { "code": "cross_site", "en": "How it holds up across different sites and robots", "zh": "在不同场地和机器人上的表现" },
+            { "code": "variation", "en": "How it holds up when conditions change (e.g. lighting, object placement)", "zh": "条件变化时（如光照、物体摆放）的表现" },
+            { "code": "diagnosis", "en": "Which part of the system causes failures", "zh": "失败由系统的哪一部分导致" },
+            { "code": "ranking", "en": "How it ranks against other teams", "zh": "与其他队伍相比的排名" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ],
+          "label": { "en": "What should EBiM's evaluation tell you about your policy? Choose all that apply.", "zh": "您希望 EBiM 的评测告诉您关于策略的哪些信息？可多选。" }
+        },
+        {
+          "name": "b09_focus_main",
+          "type": "radio",
+          "num": true,
+          "options": [
+            { "code": "works", "en": "Whether it works on a real robot at all", "zh": "策略能否在真实机器人上成功运行" },
+            { "code": "consistency", "en": "How consistent it is over repeated trials", "zh": "重复试验中的稳定性" },
+            { "code": "cross_site", "en": "How it holds up across different sites and robots", "zh": "在不同场地和机器人上的表现" },
+            { "code": "variation", "en": "How it holds up when conditions change (e.g. lighting, object placement)", "zh": "条件变化时（如光照、物体摆放）的表现" },
+            { "code": "diagnosis", "en": "Which part of the system causes failures", "zh": "失败由系统的哪一部分导致" },
+            { "code": "ranking", "en": "How it ranks against other teams", "zh": "与其他队伍相比的排名" },
+            { "code": "other", "en": "Other", "zh": "其他" }
+          ],
+          "label": { "en": "Which one matters most to you?", "zh": "其中对您最重要的是哪一项？" }
+        },
+        {
+          "name": "b09_changes",
+          "type": "checkbox",
+          "num": true,
           "options": [
             { "code": "longer_sim", "en": "A longer simulation phase", "zh": "更长的仿真阶段" },
             { "code": "sim_track", "en": "A simulation-only track", "zh": "仅仿真赛道" },
@@ -592,84 +1919,170 @@
             { "code": "longer_hands_on", "en": "Longer hands-on sessions", "zh": "更长的实操时间" },
             { "code": "fixed_deadlines", "en": "All deadlines fixed and announced at the start", "zh": "所有截止时间在开始时确定并公布" },
             { "code": "more_baselines", "en": "More baseline code", "zh": "更多基线代码" },
+            { "code": "eval_logs", "en": "Logs and video from every evaluation run", "zh": "提供每次评测运行的日志与录像" },
+            { "code": "platform_spec", "en": "A published specification of the platform and testbeds", "zh": "公布平台与测试场地规格" },
+            { "code": "variation_track", "en": "Evaluation under controlled variations", "zh": "在受控变化条件下进行评测" },
             { "code": "other", "en": "Other", "zh": "其他" }
-          ]
+          ],
+          "label": { "en": "Which changes would you want? Choose all that apply.", "zh": "您希望有哪些改变？可多选。" }
         },
         {
-          "name": "b09_contribute", "type": "longtext", "num": true,
+          "name": "b09_other_benchmarks",
+          "type": "text",
+          "num": true,
+          "label": { "en": "Which other robot-learning benchmarks or competitions have you used or entered?", "zh": "您还使用过或参加过哪些机器人学习基准或竞赛？" }
+        },
+        {
+          "name": "b09_unique",
+          "type": "longtext",
+          "num": true,
+          "label": { "en": "Compared with those, what does EBiM offer that they don't, and what does it lack?", "zh": "与之相比，EBiM 有哪些它们所没有的地方？又欠缺什么？" }
+        },
+        {
+          "name": "b09_contribute",
+          "type": "longtext",
+          "num": true,
           "label": { "en": "Could you contribute to the next edition, for example a test site, data or code?", "zh": "您能否为下一届做出贡献，例如提供测试场地、数据或代码？" }
         }
       ]
     },
     {
-      "title": { "en": "Section 10 · Staying in touch and consent", "zh": "第 10 部分 · 保持联系与授权同意" },
-      "intro": {
-        "en": "Everything in this section is optional. Some choices need your name or email. If you give your name here, it is stored with this whole response. To keep your feedback separate from your name, leave this section blank and email organizers@ebim-benchmark.org instead.",
-        "zh": "本部分所有内容均为选填。部分选项需要您的姓名或邮箱。如在此填写姓名，姓名将与整份回答一同保存。如希望您的反馈与姓名分开，请不要填写本部分，改为发送邮件至 organizers@ebim-benchmark.org。"
-      },
+      "title": { "en": "Section 8 · Working with us on the analysis", "zh": "第 8 部分 · 与我们共同分析" },
+      "intro": { "en": "We want to understand, team by team, why policies that worked in simulation did or didn't work on the real robots, and to work out with you what would make them work. We don't have your training code or data, so we can only do this together. Everything here is optional and is only a statement of interest: nothing is shared until we have agreed the details with your team. Anything you share is used only for this analysis and is published only with your agreement.", "zh": "我们希望逐队了解：在仿真中可行的策略为何在真实机器人上成功或失败，并与贵队一起找出让策略真正可用的方法。我们没有贵队的训练代码和数据，因此只能与贵队合作完成。本部分完全自愿，仅表示意向：在与贵队商定具体安排之前，不会共享任何内容。贵队提供的任何材料仅用于此项分析，未经贵队同意不会公开。" },
       "subsections": [
         {
-          "title": { "en": "10a · Contact", "zh": "10a · 联系" },
+          "groups": [
+            {
+              "label": { "en": "For your team, after checking with your teammates", "zh": "以队伍名义（请先征得队友同意）" },
+              "questions": [
+                {
+                  "name": "collab_join",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "Our team would like to take part in a joint analysis with the organizers.", "zh": "我队希望与组委会共同开展分析。" }
+                  ]
+                },
+                {
+                  "name": "collab_code",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "We could share our source code privately with the organizers.", "zh": "我队可向组委会非公开地提供源代码。" }
+                  ]
+                },
+                {
+                  "name": "collab_data",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "We could share our training data, or a detailed description of it.", "zh": "我队可提供训练数据或其详细说明。" }
+                  ]
+                },
+                {
+                  "name": "collab_weights",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "We could share model weights or checkpoints.", "zh": "我队可提供模型权重或检查点。" }
+                  ]
+                },
+                {
+                  "name": "collab_rerun",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "We would like to run an improved version of our policy on the real robot in the next EBiM competition.", "zh": "我队希望在下一届 EBiM 竞赛中，于真实机器人上运行改进后的策略。" }
+                  ]
+                },
+                {
+                  "name": "collab_paper",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "We would be interested in co-authoring a joint paper or report.", "zh": "我队有兴趣共同撰写论文或报告。" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Section 9 · Staying in touch and consent", "zh": "第 9 部分 · 保持联系与授权同意" },
+      "intro": { "en": "Everything in this section is optional. Some choices need your name or email. If you give your name here, it is stored with this whole response. To keep your feedback separate from your name, leave this section blank and email organizers@ebim-benchmark.org instead.", "zh": "本部分所有内容均为选填。部分选项需要您的姓名或邮箱。如在此填写姓名，姓名将与整份回答一同保存。如希望您的反馈与姓名分开，请不要填写本部分，改为发送邮件至 organizers@ebim-benchmark.org。" },
+      "subsections": [
+        {
+          "title": { "en": "9a · Contact", "zh": "9a · 联系" },
           "questions": [
             {
-              "name": "b10_email_list", "type": "single",
-              "options": [{ "code": "yes", "en": "Add me to the EBiM email list.", "zh": "将我加入 EBiM 邮件列表。" }]
+              "name": "b10_email_list",
+              "type": "single",
+              "options": [
+                { "code": "yes", "en": "Add me to the EBiM email list.", "zh": "将我加入 EBiM 邮件列表。" }
+              ]
             },
             {
-              "name": "b10_interview", "type": "single",
-              "options": [{ "code": "yes", "en": "I'm willing to have a 20-minute follow-up conversation.", "zh": "我愿意参加约 20 分钟的后续交流。" }]
+              "name": "b10_interview",
+              "type": "single",
+              "options": [
+                { "code": "yes", "en": "I'm willing to have a 20-minute follow-up conversation.", "zh": "我愿意参加约 20 分钟的后续交流。" }
+              ]
             }
           ]
         },
         {
-          "title": { "en": "10b · Quoting your answers", "zh": "10b · 引用您的回答" },
+          "title": { "en": "9b · Quoting your answers", "zh": "9b · 引用您的回答" },
           "questions": [
             {
-              "name": "b10_quote", "type": "radio",
-              "label": { "en": "May we quote your answers in reports about this edition?", "zh": "我们能否在有关本届的报告中引用您的回答？" },
+              "name": "b10_quote",
+              "type": "radio",
               "options": [
                 { "code": "no", "en": "No", "zh": "不可以" },
                 { "code": "anon", "en": "Yes, without my name", "zh": "可以，但不注明姓名" },
                 { "code": "named", "en": "Yes, with my name", "zh": "可以，并注明姓名" }
-              ]
+              ],
+              "label": { "en": "May we quote your answers in reports about this edition?", "zh": "我们能否在有关本届的报告中引用您的回答？" }
             }
           ]
         },
         {
-          "title": { "en": "10c · Your answers about the Franka platform", "zh": "10c · 您对 Franka 平台的回答" },
+          "title": { "en": "9c · Your answers about the Franka platform", "zh": "9c · 您对 Franka 平台的回答" },
           "questions": [
             {
-              "name": "b10_franka_answers", "type": "radio",
-              "label": { "en": "May Franka Robotics GmbH receive your answers to Section 5?", "zh": "Franka Robotics GmbH 能否获得您在第 5 部分的回答？" },
+              "name": "b10_franka_answers",
+              "type": "radio",
               "options": [
                 { "code": "no", "en": "No", "zh": "不可以" },
                 { "code": "anon", "en": "Yes, without my name or team", "zh": "可以，但不含姓名和队名" },
                 { "code": "named", "en": "Yes, with my name and team", "zh": "可以，并含姓名和队名" }
-              ]
+              ],
+              "label": { "en": "May Franka Robotics GmbH receive your answers to Section 5?", "zh": "Franka Robotics GmbH 能否获得您在第 5 部分的回答？" }
             },
             {
-              "name": "b10_franka_contact", "type": "single",
-              "options": [{ "code": "yes", "en": "Franka Robotics GmbH may contact me about my platform feedback.", "zh": "Franka Robotics GmbH 可就我的平台反馈与我联系。" }]
+              "name": "b10_franka_contact",
+              "type": "single",
+              "options": [
+                { "code": "yes", "en": "Franka Robotics GmbH may contact me about my platform feedback.", "zh": "Franka Robotics GmbH 可就我的平台反馈与我联系。" }
+              ]
             }
           ]
         },
         {
-          "title": { "en": "10d · Sharing with Franka Robotics", "zh": "10d · 与 Franka Robotics 分享" },
-          "intro": {
-            "en": "Franka Robotics GmbH (Germany), including its team in China, would like to feature the EBiM competition in their own publicity and case studies. Each item below is separate and optional, and ticking none is fine. Your choice has no bearing on your results or on any future EBiM competition. You can withdraw consent at any time by emailing organizers@ebim-benchmark.org; material published before you withdraw may not be recallable.",
-            "zh": "Franka Robotics GmbH（德国，包括其中国团队）希望在其宣传与案例介绍中展示 EBiM 竞赛。以下各项相互独立、完全自愿，可全部不勾选。您的选择不会影响您的成绩，也不会影响今后任何 EBiM 竞赛。您可随时发送邮件至 organizers@ebim-benchmark.org 撤回同意；撤回前已发布的内容可能无法收回。"
-          },
+          "title": { "en": "9d · Sharing with Franka Robotics", "zh": "9d · 与 Franka Robotics 分享" },
+          "intro": { "en": "Franka Robotics GmbH (Germany), including its team in China, would like to feature the EBiM competition in their own publicity and case studies. Each item below is separate and optional, and ticking none is fine. Your choice has no bearing on your results or on any future EBiM competition. You can withdraw consent at any time by emailing organizers@ebim-benchmark.org; material published before you withdraw may not be recallable.", "zh": "Franka Robotics GmbH（德国，包括其中国团队）希望在其宣传与案例介绍中展示 EBiM 竞赛。以下各项相互独立、完全自愿，可全部不勾选。您的选择不会影响您的成绩，也不会影响今后任何 EBiM 竞赛。您可随时发送邮件至 organizers@ebim-benchmark.org 撤回同意；撤回前已发布的内容可能无法收回。" },
           "groups": [
             {
               "label": { "en": "For yourself", "zh": "个人" },
               "questions": [
                 {
-                  "name": "b10_share_photos", "type": "single",
-                  "options": [{ "code": "yes", "en": "Photos or video of me taken during EBiM Phase II sessions or EBiM events may be shared with Franka Robotics GmbH and published by them in publicity about the EBiM competition.", "zh": "在 EBiM 第二阶段实操或 EBiM 活动中拍摄的、包含我的照片或视频，可提供给 Franka Robotics GmbH，并由其用于有关 EBiM 竞赛的宣传。" }]
+                  "name": "b10_share_photos",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "Photos or video of me taken during EBiM Phase II sessions or EBiM events may be shared with Franka Robotics GmbH and published by them in publicity about the EBiM competition.", "zh": "在 EBiM 第二阶段实操或 EBiM 活动中拍摄的、包含我的照片或视频，可提供给 Franka Robotics GmbH，并由其用于有关 EBiM 竞赛的宣传。" }
+                  ]
                 },
                 {
-                  "name": "b10_share_name", "type": "single",
-                  "options": [{ "code": "yes", "en": "My name and affiliation may appear with my team's results in Franka Robotics GmbH's publicity about the EBiM competition.", "zh": "我的姓名和所属单位可与我所在队伍的成绩一同出现在 Franka Robotics GmbH 有关 EBiM 竞赛的宣传中。" }]
+                  "name": "b10_share_name",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "My name and affiliation may appear with my team's results in Franka Robotics GmbH's publicity about the EBiM competition.", "zh": "我的姓名和所属单位可与我所在队伍的成绩一同出现在 Franka Robotics GmbH 有关 EBiM 竞赛的宣传中。" }
+                  ]
                 }
               ]
             },
@@ -677,13 +2090,21 @@
               "label": { "en": "For your team — point of contact only, after checking with teammates", "zh": "队伍（仅限联系人，并已征得队友同意）" },
               "questions": [
                 {
-                  "name": "b10_share_work", "type": "single",
-                  "options": [{ "code": "yes", "en": "Our team's submitted work, such as our repository and videos of our policy running, may be shared with Franka Robotics GmbH and shown in case studies about the EBiM competition. I confirm my teammates agree.", "zh": "我队的参赛作品（如代码仓库及策略运行视频）可提供给 Franka Robotics GmbH，用于有关 EBiM 竞赛的案例展示。我确认已征得队友同意。" }]
+                  "name": "b10_share_work",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "Our team's submitted work, such as our repository and videos of our policy running, may be shared with Franka Robotics GmbH and shown in case studies about the EBiM competition. I confirm my teammates agree.", "zh": "我队的参赛作品（如代码仓库及策略运行视频）可提供给 Franka Robotics GmbH，用于有关 EBiM 竞赛的案例展示。我确认已征得队友同意。" }
+                  ]
                 },
                 {
-                  "name": "b10_is_poc", "type": "single",
-                  "showIf": [{ "field": "b10_share_work", "anyOf": ["yes"] }],
-                  "options": [{ "code": "yes", "en": "I am my team's registered point of contact.", "zh": "我是本队的注册联系人。" }]
+                  "name": "b10_is_poc",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "I am my team's registered point of contact.", "zh": "我是本队的注册联系人。" }
+                  ],
+                  "showIf": [
+                    { "field": "b10_share_work", "anyOf": ["yes"] }
+                  ]
                 }
               ]
             },
@@ -691,49 +2112,62 @@
               "label": { "en": "Wider use", "zh": "更广泛的用途" },
               "questions": [
                 {
-                  "name": "b10_share_wider", "type": "single",
+                  "name": "b10_share_wider",
+                  "type": "single",
+                  "options": [
+                    { "code": "yes", "en": "Material I ticked above may also be used in Franka Robotics GmbH's wider product and industry promotion, not only publicity about EBiM.", "zh": "上述我勾选的内容，还可用于 Franka Robotics GmbH 更广泛的产品与行业推广，而不仅限于 EBiM 相关宣传。" }
+                  ],
                   "showIf": [
                     { "field": "b10_share_photos", "anyOf": ["yes"] },
                     { "field": "b10_share_name", "anyOf": ["yes"] },
                     { "field": "b10_share_work", "anyOf": ["yes"] }
-                  ],
-                  "options": [{ "code": "yes", "en": "Material I ticked above may also be used in Franka Robotics GmbH's wider product and industry promotion, not only publicity about EBiM.", "zh": "上述我勾选的内容，还可用于 Franka Robotics GmbH 更广泛的产品与行业推广，而不仅限于 EBiM 相关宣传。" }]
+                  ]
                 }
               ]
             }
           ]
         },
         {
-          "title": { "en": "10e · Your details", "zh": "10e · 您的信息" },
+          "title": { "en": "9e · Your details", "zh": "9e · 您的信息" },
           "questions": [
             {
-              "name": "b10_name", "type": "text",
+              "name": "b10_name",
+              "type": "text",
               "showIf": [
                 { "field": "b10_quote", "anyOf": ["named"] },
                 { "field": "b10_franka_answers", "anyOf": ["named"] },
                 { "field": "b10_share_photos", "anyOf": ["yes"] },
                 { "field": "b10_share_name", "anyOf": ["yes"] },
-                { "field": "b10_share_work", "anyOf": ["yes"] }
+                { "field": "b10_share_work", "anyOf": ["yes"] },
+                { "field": "collab_paper", "anyOf": ["yes"] }
               ],
               "requiredIf": [
                 { "field": "b10_quote", "anyOf": ["named"] },
                 { "field": "b10_franka_answers", "anyOf": ["named"] },
                 { "field": "b10_share_photos", "anyOf": ["yes"] },
                 { "field": "b10_share_name", "anyOf": ["yes"] },
-                { "field": "b10_share_work", "anyOf": ["yes"] }
+                { "field": "b10_share_work", "anyOf": ["yes"] },
+                { "field": "collab_paper", "anyOf": ["yes"] }
               ],
               "requiredMsg": "required",
               "label": { "en": "Full name, as you would appear in photos or credits", "zh": "姓名（与照片或署名中一致）" }
             },
             {
-              "name": "b10_email", "type": "email",
+              "name": "b10_email",
+              "type": "email",
               "showIf": [
                 { "field": "b10_email_list", "anyOf": ["yes"] },
                 { "field": "b10_interview", "anyOf": ["yes"] },
                 { "field": "b10_franka_contact", "anyOf": ["yes"] },
                 { "field": "b10_share_photos", "anyOf": ["yes"] },
                 { "field": "b10_share_name", "anyOf": ["yes"] },
-                { "field": "b10_share_work", "anyOf": ["yes"] }
+                { "field": "b10_share_work", "anyOf": ["yes"] },
+                { "field": "collab_join", "anyOf": ["yes"] },
+                { "field": "collab_code", "anyOf": ["yes"] },
+                { "field": "collab_data", "anyOf": ["yes"] },
+                { "field": "collab_weights", "anyOf": ["yes"] },
+                { "field": "collab_rerun", "anyOf": ["yes"] },
+                { "field": "collab_paper", "anyOf": ["yes"] }
               ],
               "requiredIf": [
                 { "field": "b10_email_list", "anyOf": ["yes"] },
@@ -741,7 +2175,13 @@
                 { "field": "b10_franka_contact", "anyOf": ["yes"] },
                 { "field": "b10_share_photos", "anyOf": ["yes"] },
                 { "field": "b10_share_name", "anyOf": ["yes"] },
-                { "field": "b10_share_work", "anyOf": ["yes"] }
+                { "field": "b10_share_work", "anyOf": ["yes"] },
+                { "field": "collab_join", "anyOf": ["yes"] },
+                { "field": "collab_code", "anyOf": ["yes"] },
+                { "field": "collab_data", "anyOf": ["yes"] },
+                { "field": "collab_weights", "anyOf": ["yes"] },
+                { "field": "collab_rerun", "anyOf": ["yes"] },
+                { "field": "collab_paper", "anyOf": ["yes"] }
               ],
               "requiredMsg": "required",
               "label": { "en": "Email address", "zh": "电子邮箱" }
