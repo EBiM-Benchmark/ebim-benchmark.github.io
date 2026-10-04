@@ -57,7 +57,13 @@
             { "field": "b10_share_photos", "anyOf": ["yes"] },
             { "field": "b10_share_name", "anyOf": ["yes"] },
             { "field": "b10_share_work", "anyOf": ["yes"] },
-            { "field": "b10_franka_answers", "anyOf": ["named"] }
+            { "field": "b10_franka_answers", "anyOf": ["named"] },
+            { "field": "pol_t1_approach", "anyOf": ["scripted", "il_scratch", "vla_ft", "rl", "hybrid", "other"] },
+            { "field": "pol_t2_approach", "anyOf": ["scripted", "il_scratch", "vla_ft", "rl", "hybrid", "other"] },
+            { "field": "pol_t3_approach", "anyOf": ["scripted", "il_scratch", "vla_ft", "rl", "hybrid", "other"] },
+            { "field": "pol_t1_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] },
+            { "field": "pol_t2_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] },
+            { "field": "pol_t3_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] }
           ],
           "requiredMsg": "team",
           "label": { "en": "Your team. Needed if you worked on the policy, so that we can match your technical answers to your team's evaluation.", "zh": "您所在的队伍。如您参与了策略开发，请务必填写，以便我们将您的技术回答与贵队的评测结果对应。" }
