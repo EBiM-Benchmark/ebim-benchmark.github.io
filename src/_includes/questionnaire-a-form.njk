@@ -51,7 +51,7 @@
 {%- set cond = q.showIf %}
 {%- if q.num %}{% set _n = counter.push(1) %}{% endif %}
 {%- set numHtml %}{% if q.num %}<span class="q-num">{{ counter.length }}.</span> {% endif %}{% endset %}
-              <div class="q" data-q="{{ q.name }}" data-type="{{ q.type }}"{% if cond %} data-show-if="{{ cond | dump | e }}" hidden{% endif %}>
+              <div class="q" data-q="{{ q.name }}" data-type="{{ q.type }}"{% if cond %} data-show-if="{{ cond | dump | e }}"{% endif %}{% if q.requiredIf %} data-required-if="{{ q.requiredIf | dump | e }}"{% endif %}{% if cond %} hidden{% endif %}>
 {%- if q.type == "checkbox" or q.type == "radio" %}
                 <fieldset class="form-field">
                   <legend class="form-label">{{ numHtml | safe }}{{ q.label[L] | e }}</legend>
@@ -85,6 +85,9 @@
                   <label class="form-label" for="{{ q.name }}">{{ numHtml | safe }}{{ q.label[L] | e }}</label>
                   <input class="form-input" type="{{ "email" if q.type == "email" else "text" }}" id="{{ q.name }}" name="{{ q.name }}" maxlength="{{ 200 if q.type == "email" else 500 }}"{% if q.type == "email" %} autocomplete="email"{% endif %}{% if cond %} disabled{% endif %} />
                 </div>
+{%- endif %}
+{%- if q.requiredIf %}
+                <p class="q-req-msg" id="{{ q.name }}_req" hidden>{{ Q.text[q.requiredMsg][L] | e }}</p>
 {%- endif %}
               </div>
 {%- endfor %}

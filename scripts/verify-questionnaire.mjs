@@ -53,7 +53,7 @@
 //                 cycle, a field repeats an option code, or the data file names an
 //                 option set that does not exist.
 //
-// Questionnaire B only (it has required fields and a saved draft):
+// Questionnaires with required fields (A: q14_email; B) — `required: true`:
 //
 //   required    — a question's data-required-if differs EN vs zh or vs the data
 //                 file; a required condition is not a non-empty list of {field,
@@ -62,7 +62,7 @@
 //                 hidden message element (<p class="q-req-msg" id="<name>_req">
 //                 inside its own wrapper) with the data file's text in the page's
 //                 language, or a message element appears without a condition.
-//   draft key   — the form's data-draft-key differs EN vs zh, from the data file,
+//   draft key   — (B only, `draftKey`) the form's data-draft-key differs EN vs zh, from the data file,
 //                 or from the fixed key "ebim-questionnaire-B-2026-v2".
 //
 // Scope: this guards against HONEST template and data edits that would make the
@@ -86,7 +86,8 @@ const SITE = path.join(ROOT, "_site");
 // One entry per questionnaire. `marker` is the HTML comment that labels its
 // behaviour script; `floor` is the fewest submitted fields a page may have.
 const INSTRUMENTS = [
-  { id: "A", en: "feedback-registered.html", zh: "zh/feedback-registered.html", data: "src/_data/questionnaireA.json", marker: "Questionnaire A", floor: 30 },
+  { id: "A", en: "feedback-registered.html", zh: "zh/feedback-registered.html", data: "src/_data/questionnaireA.json", marker: "Questionnaire A", floor: 30,
+    required: true },
   { id: "B", en: "feedback-phase2.html", zh: "zh/feedback-phase2.html", data: "src/_data/questionnaireB.json", marker: "Questionnaire B", floor: 150,
     required: true, draftKey: "ebim-questionnaire-B-2026-v2" },
 ];
@@ -509,8 +510,15 @@ function checkInstrument(inst) {
     add("required: EN == zh", reqDiffs.length === 0, reqDiffs.join("\n    "));
     add("required: EN == data file", reqData.length === 0, reqData.join("\n    "));
     add("required: well-formed (real codes; text field; own hidden message in the page's language)", reqShape.length === 0, reqShape.join("\n    "));
+  }
+  if (inst.draftKey) {
     add(`draft key: data-draft-key EN == zh == data file == "${inst.draftKey}"`,
       en.draftKey === inst.draftKey && zh.draftKey === inst.draftKey && DATA.draftKey === inst.draftKey,
+      `EN ${en.draftKey}, zh ${zh.draftKey}, data ${DATA.draftKey}`);
+  } else if (inst.required) {
+    // A required-field instrument without draft saving must not grow one by accident.
+    add("draft key: none (no data-draft-key on either page, none in the data file)",
+      en.draftKey === undefined && zh.draftKey === undefined && DATA.draftKey === undefined,
       `EN ${en.draftKey}, zh ${zh.draftKey}, data ${DATA.draftKey}`);
   }
 

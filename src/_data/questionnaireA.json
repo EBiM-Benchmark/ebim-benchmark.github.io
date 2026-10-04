@@ -1,5 +1,5 @@
 {
-  "_comment": "Single data source for Questionnaire A (registered teams that did not submit), rendered by src/feedback-registered.njk and src/zh/feedback-registered.njk through src/_includes/questionnaire-a-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages still differ in field names, option codes/order or conditions. Participant-facing text is verbatim from Questionnaire_A_spec_bilingual.md (sha256 6b1e4284…9b57d) plus the two approved closed-state lines. `options` is either an inline list or the key of a shared set in `optionSets`. `showIf` is a list of {field, anyOf} tests OR'd together; a hidden question is disabled (never submitted) and cleared. `num: true` marks the questions that take a sequential display number: the spec's own numbered questions that are always shown (Q1, Q3, Q4, Q6–Q13c in page order, so spec Q12 displays before Q11). Conditional questions (Q2, Q5, q03_other, q11_ease/q11_comment, q14_email) the unlabelled follow-up text fields (q10_detail, q12_detail) and the three Section 7 boxes (q14_email_list, q14_interview, q14_share_sponsors) are unnumbered, so the numbers never skip when a question is hidden. The page closes itself at `closesAt` (end of 22 Oct 2026 AoE).",
+  "_comment": "Single data source for Questionnaire A (registered teams that did not submit), rendered by src/feedback-registered.njk and src/zh/feedback-registered.njk through src/_includes/questionnaire-a-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages still differ in field names, option codes/order or conditions. Participant-facing text is verbatim from Questionnaire_A_spec_bilingual.md (sha256 6b1e4284…9b57d) plus the two approved closed-state lines and `text.required`, copied verbatim from Questionnaire B's ratified required-field message. `requiredIf` (same shape as `showIf`) makes a shown question required while any test holds: submit is blocked, `text[requiredMsg]` appears beside it and it takes focus; no native `required` attribute is used. Only q14_email has one (identical to its showIf). `options` is either an inline list or the key of a shared set in `optionSets`. `showIf` is a list of {field, anyOf} tests OR'd together; a hidden question is disabled (never submitted) and cleared. `num: true` marks the questions that take a sequential display number: the spec's own numbered questions that are always shown (Q1, Q3, Q4, Q6–Q13c in page order, so spec Q12 displays before Q11). Conditional questions (Q2, Q5, q03_other, q11_ease/q11_comment, q14_email) the unlabelled follow-up text fields (q10_detail, q12_detail) and the three Section 7 boxes (q14_email_list, q14_interview, q14_share_sponsors) are unnumbered, so the numbers never skip when a question is hidden. The page closes itself at `closesAt` (end of 22 Oct 2026 AoE).",
   "instrument": "A-2026",
   "accessKey": "7450a84a-2bdd-4d02-b72c-f441c8d7910e",
   "subject": "EBiM feedback — registered teams (A)",
@@ -40,7 +40,8 @@
     "closed": {
       "en": "This questionnaire closed on 22 October 2026. Thank you to everyone who answered.",
       "zh": "本问卷已于 2026 年 10 月 22 日截止。感谢所有填写问卷的朋友。"
-    }
+    },
+    "required": { "en": "This is needed for the choice you made above.", "zh": "您在上方所作的选择需要填写此项。" }
   },
   "optionSets": {
     "stage": [
@@ -365,6 +366,8 @@
         {
           "name": "q14_email", "type": "email",
           "showIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }],
+          "requiredIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }],
+          "requiredMsg": "required",
           "label": { "en": "Email address", "zh": "电子邮箱" }
         }
       ]

@@ -97,6 +97,7 @@
     .q-section + .q-section { border-top: 1px solid var(--border); padding-top: 1.6rem; }
     .q-section-title { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; }
     .q-num { color: var(--text-mid); margin-right: .15rem; }
+    .q-req-msg { margin: -.1rem 0 0; color: #b91c1c; font-size: .85rem; line-height: 1.45; }
     /* Scales: one full-width row of equal cells, digit under its radio, so the first
        and last cells sit exactly above the end labels at every width. On phones the
        scale also spans the card's side padding, keeping each of the 11 targets at
@@ -628,11 +629,12 @@
               <div class="q" data-q="q14_share_sponsors" data-type="single">
                 <label class="reg-check"><input type="checkbox" name="q14_share_sponsors" value="yes" data-group /> <span>My answers may be shared with EBiM sponsors, including Franka Robotics, without my name or team.</span></label>
               </div>
-              <div class="q" data-q="q14_email" data-type="email" data-show-if="[{&quot;field&quot;:&quot;q14_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;q14_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
+              <div class="q" data-q="q14_email" data-type="email" data-show-if="[{&quot;field&quot;:&quot;q14_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;q14_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" data-required-if="[{&quot;field&quot;:&quot;q14_email_list&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]},{&quot;field&quot;:&quot;q14_interview&quot;,&quot;anyOf&quot;:[&quot;yes&quot;]}]" hidden>
                 <div class="form-field">
                   <label class="form-label" for="q14_email">Email address</label>
                   <input class="form-input" type="email" id="q14_email" name="q14_email" maxlength="200" autocomplete="email" disabled />
                 </div>
+                <p class="q-req-msg" id="q14_email_req" hidden>This is needed for the choice you made above.</p>
               </div>
             </div>
 
@@ -749,7 +751,7 @@
 <script src="js/main.js" defer></script>
 
   
-<!-- Questionnaire A: date close, conditional questions, one-field-per-group encoding, AJAX submit -->
+<!-- Questionnaire A: date close, conditional + required questions, one-field-per-group encoding, AJAX submit -->
 <script>
   (function () {
     'use strict';
@@ -814,7 +816,50 @@
         });
         if (!changed) break;
       }
+      syncRequired();
     }
+
+    // ── Required questions ──
+    // A question with data-required-if must be filled while ANY of its tests
+    // holds (and it is shown). Its message is shown only after a blocked submit,
+    // and is withdrawn as soon as the field is filled or stops being required.
+    var reqs = [].slice.call(form.querySelectorAll('.q[data-required-if]')).map(function (el) {
+      return {
+        el: el,
+        conds: JSON.parse(el.getAttribute('data-required-if')),
+        input: el.querySelector('input, textarea'),
+        msg: el.querySelector('.q-req-msg')
+      };
+    });
+    function isRequired(r) { return !r.el.hidden && !r.input.disabled && holds(r.conds); }
+    function isMissing(r) { return isRequired(r) && r.input.value.trim() === ''; }
+    function showMsg(r, show) {
+      r.msg.hidden = !show;
+      if (show) {
+        r.input.setAttribute('aria-invalid', 'true');
+        r.input.setAttribute('aria-describedby', r.msg.id);
+      } else {
+        r.input.removeAttribute('aria-invalid');
+        r.input.removeAttribute('aria-describedby');
+      }
+    }
+    function syncRequired() {
+      reqs.forEach(function (r) {
+        if (isRequired(r)) r.input.setAttribute('aria-required', 'true');
+        else r.input.removeAttribute('aria-required');
+        if (!r.msg.hidden && !isMissing(r)) showMsg(r, false);
+      });
+    }
+    // Returns true when submit may go ahead; otherwise shows every message and
+    // moves focus to the first missing field in page order.
+    function checkRequired() {
+      var missing = reqs.filter(isMissing);
+      reqs.forEach(function (r) { showMsg(r, missing.indexOf(r) !== -1); });
+      if (!missing.length) return true;
+      missing[0].input.focus();
+      return false;
+    }
+
     // Bring the page in line with the ticks it holds: show what they trigger and
     // keep every hidden question cleared. Browsers restore form values on
     // back/forward navigation and reload AFTER this script has run and without
@@ -822,9 +867,11 @@
     function sync() {
       applyConditions();
       blocks.forEach(function (b) { if (b.el.hidden) setShown(b, false); });
+      syncRequired();
       if (!sending) submitBtn.disabled = false;
     }
     form.addEventListener('change', applyConditions);
+    form.addEventListener('input', syncRequired);
     window.addEventListener('load', sync);
     // pageshow also fires on a back/forward-cache restore, which may come after
     // the close; a thank-you already on screen is left alone.
@@ -834,8 +881,8 @@
     });
     sync();
 
-    // Every question is optional, so Enter in a one-line field would send a
-    // half-finished questionnaire. Only the submit button submits.
+    // Almost every question is optional, so Enter in a one-line field would send
+    // a half-finished questionnaire. Only the submit button submits.
     form.addEventListener('keydown', function (e) {
       var t = e.target;
       if (e.isComposing || e.keyCode === 229) return;   // Enter that commits an IME candidate
@@ -885,6 +932,7 @@
       if (sending) return;
       errorBox.hidden = true;
       if (isClosed()) { closeNow(true); return; }
+      if (!checkRequired()) return;
 
       var hc = form.querySelector('textarea[name="h-captcha-response"]');
       if (hc && !hc.value) { showError(); return; }   // null hc = widget not loaded; let Web3Forms decide
