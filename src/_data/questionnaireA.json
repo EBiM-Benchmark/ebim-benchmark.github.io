@@ -1,10 +1,10 @@
 {
-  "_comment": "Single data source for Questionnaire A (registered teams that did not submit), rendered by src/feedback-registered.njk and src/zh/feedback-registered.njk through src/_includes/questionnaire-a-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages still differ in field names, option codes/order or conditions. Participant-facing text is verbatim from Questionnaire_A_spec_bilingual.md (sha256 6b1e4284…9b57d) plus the two approved closed-state lines and `text.required`, copied verbatim from Questionnaire B's ratified required-field message. `requiredIf` (same shape as `showIf`) makes a shown question required while any test holds: submit is blocked, `text[requiredMsg]` appears beside it and it takes focus; no native `required` attribute is used. Only q14_email has one (identical to its showIf). `options` is either an inline list or the key of a shared set in `optionSets`. `showIf` is a list of {field, anyOf} tests OR'd together; a hidden question is disabled (never submitted) and cleared. `num: true` marks the questions that take a sequential display number: the spec's own numbered questions that are always shown (Q1, Q3, Q4, Q6–Q13c in page order, so spec Q12 displays before Q11). Conditional questions (Q2, Q5, q03_other, q11_ease/q11_comment, q14_email) the unlabelled follow-up text fields (q10_detail, q12_detail) and the three Section 7 boxes (q14_email_list, q14_interview, q14_share_sponsors) are unnumbered, so the numbers never skip when a question is hidden. The page closes itself at `closesAt` (end of 22 Oct 2026 AoE).",
+  "_comment": "Single data source for Questionnaire A (registered teams that did not submit), rendered by src/feedback-registered.njk and src/zh/feedback-registered.njk through src/_includes/questionnaire-a-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages still differ in field names, option codes/order or conditions. Participant-facing text is verbatim from Questionnaire_A_spec_bilingual.md (sha256 6b1e4284…9b57d) plus the two approved closed-state lines and `text.required`, copied verbatim from Questionnaire B's ratified required-field message. `requiredIf` (same shape as `showIf`) makes a shown question required while any test holds: submit is blocked, `text[requiredMsg]` appears beside it and it takes focus; no native `required` attribute is used. Only q14_email has one (identical to its showIf). `options` is either an inline list or the key of a shared set in `optionSets`. `showIf` is a list of {field, anyOf} tests OR'd together; a hidden question is disabled (never submitted) and cleared. `num: true` marks the questions that take a sequential display number: the spec's own numbered questions that are always shown (Q1, Q3, Q4, Q6–Q13c in page order, so spec Q12 displays before Q11). Conditional questions (Q2, Q5, q03_other, q11_ease/q11_comment, q14_email) the unlabelled follow-up text fields (q10_detail, q12_detail) and the four Section 7 boxes (q14_email_list, q14_interview, q14_share_sponsors, q14_draw) are unnumbered, so the numbers never skip when a question is hidden. The page closes itself at `closesAt` (end of 5 Nov 2026 AoE).",
   "instrument": "A-2026",
   "accessKey": "7450a84a-2bdd-4d02-b72c-f441c8d7910e",
   "subject": "EBiM feedback — registered teams (A)",
   "fromName": "EBiM questionnaire A",
-  "closesAt": "2026-10-23T12:00:00Z",
+  "closesAt": "2026-11-06T12:00:00Z",
   "text": {
     "title": { "en": "Feedback from registered teams", "zh": "报名队伍反馈问卷" },
     "subtitle": { "en": "EBiM Benchmark Competition 2026", "zh": "EBiM Benchmark Competition 2026" },
@@ -13,21 +13,21 @@
       "zh": "本问卷面向已报名 EBiM Benchmark Competition 2026 但未提交第一阶段作品的队伍，约需五分钟。"
     },
     "intro": {
-      "en": "This questionnaire is for teams that registered for the EBiM Benchmark Competition 2026 but did not file a Phase I submission. It takes about five minutes. Every question is optional, and you do not need to give your team name. Everyone on your team is welcome to answer — one response per person. It closes on 22 October 2026 (AoE).",
-      "zh": "本问卷面向已报名 EBiM Benchmark Competition 2026 但未提交第一阶段作品的队伍，约需五分钟。所有问题均为选答，也无需填写队名。欢迎贵队每位成员分别填写，每人填写一份。问卷于 2026 年 10 月 22 日（AoE）截止。"
+      "en": "This questionnaire is for teams that registered for the EBiM Benchmark Competition 2026 but did not file a Phase I submission. It takes about five minutes. Every question is optional, and you do not need to give your team name. Everyone on your team is welcome to answer — one response per person. It closes on 5 November 2026 (AoE).",
+      "zh": "本问卷面向已报名 EBiM Benchmark Competition 2026 但未提交第一阶段作品的队伍，约需五分钟。所有问题均为选答，也无需填写队名。欢迎贵队每位成员分别填写，每人填写一份。问卷于 2026 年 11 月 5 日（AoE）截止。"
     },
     "switchLine": {
       "en": "To answer in 中文, switch language before you start — switching reloads the page.",
       "zh": "如需使用 English 作答，请在开始前切换语言；切换会重新加载页面。"
     },
     "privacy": {
-      "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. Answers are shared with sponsors only if you tick the box above, and then without your name or team; we also remove names from free-text answers before sharing. Your email address, if you give it, is used only for what you ticked. We don't sell your information. Submissions are processed by Web3Forms.",
-      "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况。只有在您勾选上方选项时，回答才会与赞助方分享，且不含您的姓名和队名；分享前我们也会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。我们不会出售您的信息。表单由 Web3Forms 处理。"
+      "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. Answers are shared with sponsors only if you tick the box above, and then without your name or team; we also remove names from free-text answers before sharing. Your email address, if you give it, is used only for what you ticked. If you win the prize draw, your email address is passed to the gift-card provider only to deliver the card. We don't sell your information. Submissions are processed by Web3Forms.",
+      "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况。只有在您勾选上方选项时，回答才会与赞助方分享，且不含您的姓名和队名；分享前我们也会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。如您在抽奖中中奖，您的邮箱仅会为发送礼品卡而提供给礼品卡平台。我们不会出售您的信息。表单由 Web3Forms 处理。"
     },
     "submit": { "en": "Submit", "zh": "提交" },
     "thanks": {
-      "en": "Thank you. We have your answers. If you asked to join the email list or to talk with us, we'll be in touch at the address you gave.",
-      "zh": "感谢您的填写，我们已收到您的回答。如您选择加入邮件列表或参加后续交流，我们会通过您留下的邮箱与您联系。"
+      "en": "Thank you. We have your answers. If you asked to join the email list or to talk with us, we'll be in touch at the address you gave. If you entered the prize draw, we'll email you only if you win.",
+      "zh": "感谢您的填写，我们已收到您的回答。如您选择加入邮件列表或参加后续交流，我们会通过您留下的邮箱与您联系。如您参加了抽奖，我们只会在您中奖时通过邮件通知您。"
     },
     "error": {
       "en": "Your answers could not be sent. Please try again, or email them to organizers@ebim-benchmark.org.",
@@ -38,8 +38,8 @@
       "zh": "提交本问卷需要启用 JavaScript（反垃圾验证需要）。如无法启用，请发送邮件至 organizers@ebim-benchmark.org。"
     },
     "closed": {
-      "en": "This questionnaire closed on 22 October 2026. Thank you to everyone who answered.",
-      "zh": "本问卷已于 2026 年 10 月 22 日截止。感谢所有填写问卷的朋友。"
+      "en": "This questionnaire closed on 5 November 2026. Thank you to everyone who answered.",
+      "zh": "本问卷已于 2026 年 11 月 5 日截止。感谢所有填写问卷的朋友。"
     },
     "required": { "en": "This is needed for the choice you made above.", "zh": "您在上方所作的选择需要填写此项。" }
   },
@@ -364,9 +364,13 @@
           "options": [{ "code": "yes", "en": "My answers may be shared with EBiM sponsors, including Franka Robotics, without my name or team.", "zh": "我的回答可在不含姓名和队名的情况下，与包括 Franka Robotics 在内的 EBiM 赞助方分享。" }]
         },
         {
+          "name": "q14_draw", "type": "single",
+          "options": [{ "code": "yes", "en": "Enter me in the prize draw. Five people who answer the question on what stopped their team will each receive a USD 20 gift card, or the local equivalent. Open to registered members of EBiM Benchmark Competition 2026 teams; one entry per person. Please give the email address you registered with. The draw is held after the questionnaire closes, and only winners are contacted.", "zh": "参加抽奖。在回答了“是什么阻碍了贵队提交”这一问题的填写者中，随机抽取五位，每位将获得价值 20 美元（或等值当地货币）的礼品卡。仅限 EBiM Benchmark Competition 2026 已注册队伍的成员参加，每人限一次。请填写您报名时使用的邮箱。抽奖将在问卷截止后进行，我们只会联系中奖者。" }]
+        },
+        {
           "name": "q14_email", "type": "email",
-          "showIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }],
-          "requiredIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }],
+          "showIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }, { "field": "q14_draw", "anyOf": ["yes"] }],
+          "requiredIf": [{ "field": "q14_email_list", "anyOf": ["yes"] }, { "field": "q14_interview", "anyOf": ["yes"] }, { "field": "q14_draw", "anyOf": ["yes"] }],
           "requiredMsg": "required",
           "label": { "en": "Email address", "zh": "电子邮箱" }
         }

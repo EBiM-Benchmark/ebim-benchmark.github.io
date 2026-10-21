@@ -1,27 +1,27 @@
 {
-  "_comment": "Single data source for Questionnaire B (Phase II participants), rendered by src/feedback-phase2.njk and src/zh/feedback-phase2.njk through src/_includes/questionnaire-b-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages differ in field names, option codes/order, conditions, required conditions or the draft key. Participant-facing text is verbatim from Questionnaire_B_spec_bilingual_v3.md (sha256 5295b610…5c43), and text the spec marks unchanged from v1 is carried over from the v1 build; where B repeats an A question it keeps A's field name, codes and (for the Section 3 issue and stage options) A's option text. A section holds `questions`, or `subsections` that hold `questions` or labelled `groups`. `options` is an inline list or the key of a set in `optionSets`; a scale's `extra` names a set appended after its numbers (\"Don't know\" [unknown] on B4.8, \"Didn't use\" [na] on B5.2, B5.10 and B5.12). `showIf` and `requiredIf` are lists of {field, anyOf} tests OR'd together: a hidden question is disabled (never submitted) and cleared; a required question blocks submit while empty and shows text[requiredMsg] beside it. `num: true` marks the spec's numbered questions that are always shown (B4.8 and B5.2 are each one numbered group of scales); conditional questions and the spec's unnumbered follow-ups are unnumbered. Answers are saved as a draft in localStorage under `draftKey`. The page closes itself at `closesAt` (end of 5 Nov 2026 AoE).",
+  "_comment": "Single data source for Questionnaire B (Phase II participants), rendered by src/feedback-phase2.njk and src/zh/feedback-phase2.njk through src/_includes/questionnaire-b-form.njk. Every question, option code, condition and both languages live here, so the two pages cannot drift; scripts/verify-questionnaire.mjs fails CI (npm run verify:all) if the built pages differ in field names, option codes/order, conditions, required conditions or the draft key. Participant-facing text is verbatim from Questionnaire_B_spec_bilingual_v3.md (sha256 5295b610…5c43), and text the spec marks unchanged from v1 is carried over from the v1 build; where B repeats an A question it keeps A's field name, codes and (for the Section 3 issue and stage options) A's option text. A section holds `questions`, or `subsections` that hold `questions` or labelled `groups`. `options` is an inline list or the key of a set in `optionSets`; a scale's `extra` names a set appended after its numbers (\"Don't know\" [unknown] on B4.8, \"Didn't use\" [na] on B5.2, B5.10 and B5.12). `showIf` and `requiredIf` are lists of {field, anyOf} tests OR'd together: a hidden question is disabled (never submitted) and cleared; a required question blocks submit while empty and shows text[requiredMsg] beside it. `num: true` marks the spec's numbered questions that are always shown (B4.8 and B5.2 are each one numbered group of scales); conditional questions and the spec's unnumbered follow-ups are unnumbered. Answers are saved as a draft in localStorage under `draftKey`. The page closes itself at `closesAt` (end of 15 Nov 2026 AoE).",
   "instrument": "B-2026",
   "accessKey": "6954a4e6-ff20-4cd3-9a36-8c025709f7a2",
   "subject": "EBiM feedback — Phase II (B)",
   "fromName": "EBiM questionnaire B",
-  "closesAt": "2026-11-06T12:00:00Z",
+  "closesAt": "2026-11-16T12:00:00Z",
   "draftKey": "ebim-questionnaire-B-2026-v2",
   "text": {
     "title": { "en": "Feedback from Phase II teams", "zh": "第二阶段队伍反馈问卷" },
     "subtitle": { "en": "EBiM Benchmark Competition 2026", "zh": "EBiM Benchmark Competition 2026" },
     "description": { "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026.", "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员。" },
-    "intro": { "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026. Above all, we want to understand why policies that worked in simulation did or did not work on the real robots, and what would make them work. Only the people who built them can tell us. It takes about 20 minutes, or about 30 if you built your team's policy. Every question is optional, except a few details that some choices need. One response per person, please. It closes on 5 November 2026 (AoE).", "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员。我们最想了解的是：在仿真中可行的策略，为什么在真实机器人上成功或失败，以及怎样才能让它们真正可用。只有开发这些策略的人才能告诉我们答案。填写约需 20 分钟；如您参与了策略开发，约需 30 分钟。除部分选项所需的个人信息外，所有问题均为选答。请每人填写一份。问卷于 2026 年 11 月 5 日（AoE）截止。" },
+    "intro": { "en": "This questionnaire is for everyone on a team that took part in Phase II of the EBiM Benchmark Competition 2026. Above all, we want to understand why policies that worked in simulation did or did not work on the real robots, and what would make them work. Only the people who built them can tell us. It takes about 20 minutes, or about 30 if you built your team's policy. Every question is optional, except a few details that some choices need. One response per person, please. It closes on 15 November 2026 (AoE).", "zh": "本问卷面向参加了 EBiM Benchmark Competition 2026 第二阶段的所有队伍成员。我们最想了解的是：在仿真中可行的策略，为什么在真实机器人上成功或失败，以及怎样才能让它们真正可用。只有开发这些策略的人才能告诉我们答案。填写约需 20 分钟；如您参与了策略开发，约需 30 分钟。除部分选项所需的个人信息外，所有问题均为选答。请每人填写一份。问卷于 2026 年 11 月 15 日（AoE）截止。" },
     "confidentiality": { "en": "Your answers are read only by the EBiM organizers, reported only in aggregate, and never quoted or attributed to you without your permission. Results are final, and nothing here can affect them.", "zh": "您的回答仅由 EBiM 组委会阅读，仅以汇总形式报告；未经您许可，我们不会引用您的回答或注明出处。比赛结果已为最终结果，本问卷不会对其产生任何影响。" },
     "draftLine": { "en": "Your answers are saved in this browser as you go, so you can close the page and come back later.", "zh": "您的回答会随填写自动保存在本浏览器中，可随时关闭页面，稍后继续填写。" },
     "switchLine": { "en": "To answer in 中文, switch language before you start. Your answers so far are kept.", "zh": "如需使用 English 作答，请在开始前切换语言。已填写的内容会保留。" },
     "required": { "en": "This is needed for the choice you made above.", "zh": "您在上方所作的选择需要填写此项。" },
     "team": { "en": "Please enter your team in Section 1.", "zh": "请在第 1 部分填写您所在的队伍。" },
-    "privacy": { "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. They are read only by the EBiM organizers. Your answers about the Franka platform go to Franka Robotics GmbH only as you chose in Section 9, and material is shared with them only for the items you ticked there. If you offered to work with us in Section 8, we will contact you only about that. We remove names from free-text answers before sharing anything. Your email address, if you give it, is used only for what you ticked. We don't sell your information. Submissions are processed by Web3Forms.", "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况，仅由 EBiM 组委会阅读。您对 Franka 平台的回答只会按您在第 9 部分的选择提供给 Franka Robotics GmbH；相关素材也只会按您在该部分勾选的项目与其分享。如您在第 8 部分表示愿意与我们合作，我们只会就此事与您联系。分享前我们会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。我们不会出售您的信息。表单由 Web3Forms 处理。" },
+    "privacy": { "en": "We use your answers only to improve future EBiM competitions and to report on this edition in aggregate. They are read only by the EBiM organizers. Your answers about the Franka platform go to Franka Robotics GmbH only as you chose in Section 9, and material is shared with them only for the items you ticked there. If you offered to work with us in Section 8, we will contact you only about that. We remove names from free-text answers before sharing anything. Your email address, if you give it, is used only for what you ticked. If you ask for the gift card, your email address is passed to the gift-card provider only to deliver it. We don't sell your information. Submissions are processed by Web3Forms.", "zh": "您的回答仅用于改进今后的 EBiM 竞赛，以及以汇总形式报告本届情况，仅由 EBiM 组委会阅读。您对 Franka 平台的回答只会按您在第 9 部分的选择提供给 Franka Robotics GmbH；相关素材也只会按您在该部分勾选的项目与其分享。如您在第 8 部分表示愿意与我们合作，我们只会就此事与您联系。分享前我们会删除自由填写内容中的姓名。如您留下邮箱，仅用于您勾选的用途。如您申请礼品卡，您的邮箱仅会为发送礼品卡而提供给礼品卡平台。我们不会出售您的信息。表单由 Web3Forms 处理。" },
     "submit": { "en": "Submit", "zh": "提交" },
     "thanks": { "en": "Thank you. We have your answers. If you asked to join the email list or to talk with us, offered to work with us in Section 8, or gave consent in Section 9, we'll use the address you gave only for those purposes.", "zh": "感谢您的填写，我们已收到您的回答。如您选择加入邮件列表或参加后续交流、在第 8 部分表示愿意与我们合作，或在第 9 部分作出了授权，我们只会将您留下的邮箱用于这些用途。" },
     "error": { "en": "Your answers could not be sent. Please try again, or email them to organizers@ebim-benchmark.org.", "zh": "提交未成功。请重试，或将您的回答发送至 organizers@ebim-benchmark.org。" },
     "noscript": { "en": "JavaScript is required to submit this form (the spam check needs it). If you can't enable it, email organizers@ebim-benchmark.org.", "zh": "提交本问卷需要启用 JavaScript（反垃圾验证需要）。如无法启用，请发送邮件至 organizers@ebim-benchmark.org。" },
-    "closed": { "en": "This questionnaire closed on 5 November 2026. Thank you to everyone who answered.", "zh": "本问卷已于 2026 年 11 月 5 日截止。感谢所有填写问卷的朋友。" }
+    "closed": { "en": "This questionnaire closed on 15 November 2026. Thank you to everyone who answered.", "zh": "本问卷已于 2026 年 11 月 15 日截止。感谢所有填写问卷的朋友。" }
   },
   "optionSets": {
     "na": [
@@ -63,7 +63,8 @@
             { "field": "pol_t3_approach", "anyOf": ["scripted", "il_scratch", "vla_ft", "rl", "hybrid", "other"] },
             { "field": "pol_t1_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] },
             { "field": "pol_t2_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] },
-            { "field": "pol_t3_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] }
+            { "field": "pol_t3_base", "anyOf": ["none", "pi0", "pi05", "groot", "rdt", "openvla", "other"] },
+            { "field": "b10_reward", "anyOf": ["yes"] }
           ],
           "requiredMsg": "team",
           "label": { "en": "Your team. Needed if you worked on the policy, so that we can match your technical answers to your team's evaluation.", "zh": "您所在的队伍。如您参与了策略开发，请务必填写，以便我们将您的技术回答与贵队的评测结果对应。" }
@@ -2029,6 +2030,36 @@
               "options": [
                 { "code": "yes", "en": "I'm willing to have a 20-minute follow-up conversation.", "zh": "我愿意参加约 20 分钟的后续交流。" }
               ]
+            },
+            {
+              "name": "b10_reward",
+              "type": "single",
+              "options": [
+                { "code": "yes", "en": "Send me the thank-you gift card. Everyone on a Phase II team who completes this questionnaire receives a USD 20 gift card, or the local equivalent. Complete means you answered Section 1, and Section 3 for each task you ticked. Please give the email address you registered with.", "zh": "请向我发送致谢礼品卡。第二阶段队伍的每位成员完成本问卷后，均可获得价值 20 美元（或等值当地货币）的礼品卡。“完成”指您已填写第 1 部分，以及您所勾选的每个任务在第 3 部分的问题。请填写您报名时使用的邮箱。" }
+              ]
+            },
+            {
+              "name": "b10_reward_card",
+              "type": "radio",
+              "showIf": [
+                { "field": "b10_reward", "anyOf": ["yes"] }
+              ],
+              "options": [
+                { "code": "jd", "en": "JD.com E-card, for mainland China", "zh": "京东E卡（适用于中国大陆）" },
+                { "code": "amazon_de", "en": "Amazon.de", "zh": "Amazon.de" },
+                { "code": "amazon_com", "en": "Amazon.com", "zh": "Amazon.com" },
+                { "code": "taiwan", "en": "A gift card for Taiwan (e.g. 7-ELEVEN, 博客來, PChome, Shopee)", "zh": "台湾礼品卡（如 7-ELEVEN、博客来、PChome、虾皮）" },
+                { "code": "other", "en": "Other", "zh": "其他" }
+              ],
+              "label": { "en": "Which gift card would you like?", "zh": "您希望获得哪种礼品卡？" }
+            },
+            {
+              "name": "b10_reward_other",
+              "type": "text",
+              "showIf": [
+                { "field": "b10_reward_card", "anyOf": ["other", "taiwan"] }
+              ],
+              "label": { "en": "Which one, and for which country or region?", "zh": "请说明礼品卡类型及适用的国家或地区。" }
             }
           ]
         },
@@ -2173,7 +2204,8 @@
                 { "field": "collab_data", "anyOf": ["yes"] },
                 { "field": "collab_weights", "anyOf": ["yes"] },
                 { "field": "collab_rerun", "anyOf": ["yes"] },
-                { "field": "collab_paper", "anyOf": ["yes"] }
+                { "field": "collab_paper", "anyOf": ["yes"] },
+                { "field": "b10_reward", "anyOf": ["yes"] }
               ],
               "requiredIf": [
                 { "field": "b10_email_list", "anyOf": ["yes"] },
@@ -2187,7 +2219,8 @@
                 { "field": "collab_data", "anyOf": ["yes"] },
                 { "field": "collab_weights", "anyOf": ["yes"] },
                 { "field": "collab_rerun", "anyOf": ["yes"] },
-                { "field": "collab_paper", "anyOf": ["yes"] }
+                { "field": "collab_paper", "anyOf": ["yes"] },
+                { "field": "b10_reward", "anyOf": ["yes"] }
               ],
               "requiredMsg": "required",
               "label": { "en": "Email address", "zh": "电子邮箱" }
