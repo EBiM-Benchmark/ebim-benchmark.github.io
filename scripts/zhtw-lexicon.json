@@ -87,6 +87,11 @@
       "note": "您 throughout"
     },
     {
+      "pattern": "賽題",
+      "termbase": "A17",
+      "note": "competition tasks are 任務"
+    },
+    {
       "pattern": "代金券",
       "termbase": "A18",
       "note": "採購抵用券"
