@@ -4,15 +4,20 @@
 // which is its markup template. Only pages that EXIST under _site/zh-tw/ are
 // checked, so the gates grow with the tree as pages are drafted.
 //
-//   A  skeleton parity — the two pages are the same document once every
-//      translatable run is masked. Removed first (both sides): <link
+//   A  skeleton parity — MARKUP only: the two pages are the same document once
+//      all prose is masked, whatever its script (a zh node in Chinese may be
+//      Latin in zh-TW, e.g. 领英 → LinkedIn). Removed first (both sides): <link
 //      rel="alternate">, <meta name="robots">, the <li class="nav-lang"> subtree
 //      (each with the newline + indent before it, so a published zh page and a
 //      zh-TW draft line up). Ignored: html@lang, meta[og:locale]@content.
-//      Attribute values: /zh-tw/ → /zh/, then Han → ◇, else exact. Text and
-//      comments: Han → ◇, else exact (whitespace included). Inline scripts:
+//      Masked regardless of script: every non-whitespace text node and comment;
+//      the text-bearing attributes (TEXT_ATTRS) and the content of the text
+//      metas (TEXT_META). Every other attribute — tag names, ids, classes,
+//      href/src (after /zh-tw/ → /zh/), form name/value, data-* — is compared
+//      exactly, except that a value containing Han (a translated data-msg-*
+//      string, say) is masked. Whitespace-only text: exact. Inline scripts:
 //      /zh-tw/ → /zh/, Han string literals → "◇", then exact. <style>: exact.
-//      JSON-LD: every string mapped like an attribute value, then deep-equal.
+//      JSON-LD: every string /zh-tw/ → /zh/ then Han → ◇, then deep-equal.
 //   B  fact-token parity — after the same removals, the multiset of numbers,
 //      emails and URLs in text, attribute values (/zh-tw/ → /zh/) and JSON-LD
 //      strings is equal on both sides. Exceptions: scripts/zhtw-fact-exceptions.json
@@ -141,11 +146,19 @@ const parseLd = (raw) => {
 };
 
 // ───────────────────────────────────────────────────── Gate A — skeleton ──
+// Attributes that carry prose, masked whatever their script.
+const TEXT_ATTRS = new Set(["alt", "title", "placeholder", "aria-label", "aria-description"]);
+const isTextMeta = (n) =>
+  n.name === "meta" &&
+  (/^(description|keywords|twitter:.+)$/.test(n.attribs.name || "") ||
+    /^(og:title|og:description|og:image:alt)$/.test(n.attribs.property || ""));
+const maskProse = (s) => (/\S/.test(s) ? MASK : s);
+
 function skeleton(doc) {
   const out = [];
   let pendingText = null;
   const flush = () => {
-    if (pendingText) out.push({ path: pendingText.path, tok: `#text ${JSON.stringify(maskHan(pendingText.raw))}` });
+    if (pendingText) out.push({ path: pendingText.path, tok: `#text ${JSON.stringify(maskProse(pendingText.raw))}` });
     pendingText = null;
   };
   const walk = (node, p) => {
@@ -156,7 +169,7 @@ function skeleton(doc) {
         continue;
       }
       flush();
-      if (n.type === "comment") out.push({ path: p, tok: `#comment ${JSON.stringify(maskHan(n.data))}` });
+      if (n.type === "comment") out.push({ path: p, tok: `#comment ${JSON.stringify(maskProse(n.data))}` });
       else if (n.type === "directive") out.push({ path: p, tok: `#directive ${n.data}` });
       else if (isEl(n)) {
         const np = `${p} > ${label(n)}`;
@@ -164,7 +177,8 @@ function skeleton(doc) {
           const ignored =
             (n.name === "html" && k === "lang") ||
             (n.name === "meta" && k === "content" && (n.attribs.property || "") === "og:locale");
-          return `${k}=${ignored ? "∅" : JSON.stringify(maskHan(toCn(v)))}`;
+          const prose = TEXT_ATTRS.has(k) || (k === "content" && isTextMeta(n));
+          return `${k}=${ignored ? "∅" : JSON.stringify(prose ? maskProse(v) : maskHan(toCn(v)))}`;
         });
         out.push({ path: np, tok: `<${n.name}${attrs.length ? " " + attrs.join(" ") : ""}>` });
         if (isJsonLd(n)) {
@@ -447,6 +461,33 @@ function selfTest() {
     const el = find(doc);
     el.attribs.class += "-selftest";
     expect(`A fails on a changed class attribute (${el.name}.${el.attribs.class})`, !gateA(parse(zhHtml), doc).ok);
+  }
+
+  // A is markup-only: prose may change script freely; links and form values may not.
+  {
+    const firstIn = (doc, pred) => {
+      let hit = null;
+      const find = (n) => {
+        for (const c of n.children || []) {
+          if (hit) return;
+          if (pred(c)) hit = c;
+          else if (isEl(c) && c.name !== "script" && c.name !== "style") find(c);
+        }
+      };
+      find(doc);
+      return hit;
+    };
+    const d1 = parse(twHtml);
+    firstIn(d1, (c) => c.type === "text" && HAN.test(c.data) && c.parent?.name !== "title").data = "Latin text";
+    expect("A passes when a Han text node becomes Latin text", gateA(parse(zhHtml), d1).ok);
+    const d2 = parse(twHtml);
+    const a = firstIn(d2, (c) => isEl(c) && c.name === "a" && c.attribs.href && !c.attribs.href.startsWith("#"));
+    a.attribs.href += "-selftest";
+    expect(`A fails on a changed href (${a.attribs.href})`, !gateA(parse(zhHtml), d2).ok);
+    const d3 = parse(twHtml);
+    const o = firstIn(d3, (c) => isEl(c) && c.name === "option" && c.attribs.value);
+    o.attribs.value += " (selftest)";
+    expect(`A fails on a changed option value (${o.attribs.value})`, !gateA(parse(zhHtml), d3).ok);
   }
 
   // B — one digit changed in a text node.
