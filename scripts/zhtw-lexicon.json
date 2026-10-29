@@ -362,6 +362,21 @@
       "page": "*",
       "text": "報名表",
       "reason": "cn→tw misreads 名表 as 名錶 (watch). Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "zh-tw/open-day-shanghai.html",
+      "text": "上海仙工智能科技股份有限公司",
+      "reason": "Registered legal name; Part D: Chinese names are converted character by character, with no vocabulary substitution. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "獲准",
+      "reason": "Standard Taiwanese for 'be approved'; OpenCC cn→tw wrongly rewrites 准→準. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "儀表板",
+      "reason": "Standard Taiwanese/MOE form for a software dashboard; OpenCC rewrites to 儀錶板. Ratified by Cecil 2026-10-29."
     }
   ]
 }
