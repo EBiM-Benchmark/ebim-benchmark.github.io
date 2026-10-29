@@ -397,7 +397,7 @@ Edit `src/_includes/navbar.njk` or `src/_includes/footer.njk` once — visible l
 
 **Two units live in this navbar — do not mix them** (mixing them produced a wrong "1024px" claim in three earlier revisions of this file):
 - **`clientWidth`** *excludes* the scrollbar. Layout — the row, the box, every threshold below — is in this unit.
-- **`innerWidth`** *includes* it, and **`@media` matches on `innerWidth`** (verified at the old value: at innerWidth 768 / clientWidth 753 the drawer engaged; at 769 / 754 it did not). So the drawer's **`max-width: 1050px`** is an **innerWidth** number.
+- **`innerWidth`** *includes* it, and **`@media` matches on `innerWidth`** (verified in Chrome 156 with a 15px scrollbar: at innerWidth 1050 / clientWidth 1035 the drawer engages; at 1051 / 1036 it does not, and the EN row keeps 988 − 976.7 = 11.3px). So the drawer's **`max-width: 1050px`** is an **innerWidth** number.
 
 With a classic ~15px scrollbar, `clientWidth = innerWidth − 15`. Practical conversions: the **drawer engages at clientWidth ≤1035**; a **1024px laptop window is clientWidth ≈1009**, so it gets the drawer.
 
@@ -419,6 +419,7 @@ The switcher costs EN **+21.2px** over the two-way EN · 中文 row (955.6). Wit
 - **Never `scrollWidth` on the live `.nav-links`.** It is a shrunk flex item, so you get the *post*-shrink width. Tell-tale: deleting a 98px item moves it by 2px. Use a detached clone with the dropdowns removed and an explicit `width`.
 - **`max-content` and `min-content` answer different questions.** `max-content` (EN: 976.7) is what the row *wants* — use it for "does it fit the 1052px box". `min-content` is the floor a flex item cannot shrink past (`min-width: auto`) — use it for "at what clientWidth does it start overflowing". With `white-space: nowrap` the two are **identical on EN**, which is precisely why the row overflows rather than folds; without nowrap min-content drops ~57px because the labels can break. The *active* locale chip is a `<span class="lang-opt">`, which `.nav-links a` does not cover; with the two-way toggle a 中文 chip could still fold (zh 829.7 vs 816.8), but 简 is one character, so the three-way rows are identical too.
 - **Measure clientWidth and innerWidth separately, and load the self-hosted Inter first** (`document.fonts.ready`). Headless Chromium draws no scrollbar (clientWidth = innerWidth there), so add the 15px yourself when converting a threshold to a breakpoint. Record which font supplied ▾ (`CSS.getPlatformFontsForNode` over CDP) — it is the soft part of every number.
+- **Test the breakpoint in a real Chrome, not Playwright's bundled headless shell.** With scrollbars enabled (`ignoreDefaultArgs: ["--hide-scrollbars"]`), the bundled Chromium 130 shell reports a **34px** scrollbar on Windows, which makes innerWidth 1051 look like an overflow (clientWidth 1017). The installed Chrome (`channel: "chrome"`) reports the real 15px. Row widths are the same in both; only the scrollbar differs.
 
 > **✅ Resolved by the 1050px drawer breakpoint (PR C).** The drawer now engages at every width where the row would not fit, so the band described below no longer exists. Kept for the record:
 >
