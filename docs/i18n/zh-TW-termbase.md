@@ -64,6 +64,7 @@ This is the terminology and style standard for everything under `src/zh-tw/` and
 | 奖杯 · 礼品 · 奖金 · 奖项 · 排名 · 晋级 | 獎盃 · 禮品 · 獎金 · 獎項 · 排名 · 晉級 |
 | 海报 · 签到 · 现场 · 参观 · 邀请函 | 海報 · 報到 · 現場 · 參觀 · 邀請函 |
 | 地铁 (Hamburg/Munich) | 地鐵 (foreign systems; 捷運 is Taiwan-only) |
+| 赛题 | 任務 (competition tasks are 任務; see A17) |
 
 ## Part C — Style rules
 

@@ -555,6 +555,8 @@ function selfTest() {
     expect(`C passes ${okWords.join(" ")} (${passed.length}/${okWords.length})`, passed.length === okWords.length);
     const failed = badWords.filter((w) => lint1(w).some((x) => x.kind === "deny"));
     expect(`C denies ${badWords.join(" ")} (${failed.length}/${badWords.length})`, failed.length === badWords.length);
+    // A17: competition tasks are 任務, never 賽題.
+    expect("C denies 賽題 (A17) and passes 任務", lint1("有哪些賽題？").some((x) => x.kind === "deny" && x.span === "賽題") && lint1("有哪些任務？").length === 0);
     const zhFindings = gateC(parse(read(zhFile("contact.html"))), "zh/contact.html", lexicon).length;
     expect(`C flags ≥ 20 findings on _site/zh/contact.html (${zhFindings})`, zhFindings >= 20);
   }
