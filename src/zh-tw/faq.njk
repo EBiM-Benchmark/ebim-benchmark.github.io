@@ -1,0 +1,242 @@
+---
+permalink: "/zh-tw/faq.html"
+i18nKey: "faq"
+bodyClass: "page-faq"
+title: "常見問題 · EBiM Benchmark"
+description: "EBiM 競賽常見問題——報名、任務、模擬器、運算資源補助、AMD Solution Award 與作品繳交。"
+keywords: "EBiM Benchmark 常見問題, FAQ, 具身雙臂操作競賽, 報名, 任務, 模擬器, 運算資源補助, AMD Solution Award"
+canonical: "https://ebim-benchmark.github.io/zh-tw/faq.html"
+headComments: true
+backToTop: true
+navActive: "faq"
+---
+{% extends "layouts/base.njk" %}
+
+{% block headStructured %}
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="EBiM Benchmark" />
+  <meta property="og:url"         content="https://ebim-benchmark.github.io/zh-tw/faq.html" />
+  <meta property="og:title"       content="常見問題 · EBiM Benchmark" />
+  <meta property="og:description" content="EBiM 競賽常見問題——報名、任務、模擬器、運算資源補助、AMD Solution Award 與作品繳交。" />
+  <meta property="og:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"   content="EBiM Benchmark — 邁向真實世界具身雙臂操作的全球協同基準" />
+  <meta property="og:locale"      content="zh_TW" />
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="常見問題 · EBiM Benchmark" />
+  <meta name="twitter:description" content="EBiM 競賽常見問題——報名、任務、模擬器、運算資源補助、AMD Solution Award 與作品繳交。" />
+  <meta name="twitter:image"       content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta name="twitter:image:alt"   content="EBiM Benchmark — 邁向真實世界具身雙臂操作的全球協同基準" />
+{% endblock %}
+{# NOTE: do NOT include jsonld.njk — faq is not in the pageMeta/jsonLd whitelist, so the computed
+   bundles are undefined for it and base.njk falls back to this front-matter title/description. #}
+
+{% block headStyle %}{% raw %}
+  <style>
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* Active nav link for the current page (FAQ) */
+    .page-faq .nav-links a[href="faq.html"] { color: var(--accent); font-weight: 700; }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 1.5rem; width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent, #00d4ff); color: #0a0e1a; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: opacity .3s, visibility .3s, transform .3s, background .2s, box-shadow .2s;
+      z-index: 998; box-shadow: 0 4px 18px rgba(0,212,255,.35);
+    }
+    #back-to-top.visible { opacity: 1; visibility: visible; transform: none; }
+    #back-to-top:hover { background: #fff; box-shadow: 0 6px 24px rgba(0,212,255,.45); }
+    #back-to-top:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+    #back-to-top svg { pointer-events: none; }
+
+    /* ── Sub-page hero (copied from contact.njk — the global stylesheet has no .subhero/.breadcrumb) ── */
+    #home.subhero {
+      min-height: 32vh; display: flex; align-items: center; justify-content: center;
+      position: relative; background: var(--bg-dark); overflow: hidden;
+      padding: calc(var(--nav-h) + 2.5rem) 0 3rem; box-sizing: border-box;
+    }
+    #home.subhero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    #home.subhero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .subhero-content { position: relative; z-index: 1; text-align: center; max-width: 820px; padding: 1.25rem 1.5rem; }
+    .breadcrumb { display: inline-block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 1rem; }
+    .breadcrumb a { color: rgba(255,255,255,.55); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb-sep { margin: 0 .55rem; opacity: .5; }
+    .breadcrumb-current { color: var(--accent); }
+    .subhero-title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); color: #fff; font-weight: 800; line-height: 1.18; margin-bottom: .9rem; letter-spacing: -.01em; }
+    .subhero-subtitle { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,.72); margin-bottom: .8rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .subhero-subtitle a { color: var(--accent); }
+    @media (max-width: 700px) { #home.subhero { min-height: 40vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; } }
+
+    /* ── FAQ redesign: category rail + accordion ── */
+    #faq { --faq-link: #0e7490; }
+    #faq .faq-shell { max-width: 940px; margin: 0 auto; }
+    #faq .faq-updated { font-size: .8rem; color: var(--text-muted); margin: 0 0 1.5rem; display: flex; align-items: center; gap: .4rem; }
+    #faq .faq-grid { display: flex; gap: 2rem; align-items: flex-start; }
+    #faq .faq-rail { flex: 0 0 190px; position: sticky; top: calc(var(--nav-h) + 1rem); display: flex; flex-direction: column; gap: 2px; }
+    #faq .faq-rail-h { font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin: 0 0 .6rem; padding-left: .7rem; }
+    #faq .faq-cat { display: flex; align-items: center; gap: .55rem; width: 100%; padding: .5rem .7rem; border: 0; background: transparent; border-radius: 8px; cursor: pointer; text-align: left; color: var(--text-mid); font-family: inherit; font-size: .84rem; font-weight: 600; border-left: 2px solid transparent; transition: var(--transition); }
+    #faq .faq-cat:hover { background: var(--bg-white); color: var(--text-dark); }
+    #faq .faq-cat.is-active { color: var(--text-dark); border-left-color: var(--accent); background: var(--bg-white); }
+    #faq .faq-cat-n { flex: 1; }
+    #faq .faq-cat-c { font-size: .72rem; color: var(--text-muted); }
+    #faq .faq-cards { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1rem; }
+    /* cards are <section>s: padding:0 cancels the global "section { padding: 5rem 0 }" bleed */
+    #faq .faq-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--card-shadow); overflow: hidden; padding: 0; scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    #faq .faq-card-h { display: flex; align-items: center; gap: .6rem; padding: .85rem 1.1rem; border-bottom: 1px solid var(--border); }
+    #faq .faq-card-h h2 { font-size: .95rem; font-weight: 800; color: var(--text-dark); margin: 0; flex: 1; }
+    #faq .faq-card-c { font-size: .72rem; color: var(--text-muted); }
+    #faq .faq-ico { flex-shrink: 0; }
+    #faq .faq-cat .faq-ico { width: 17px; height: 17px; color: var(--text-muted); transition: color var(--transition); }
+    #faq .faq-cat.is-active .faq-ico { color: var(--accent); }
+    #faq .faq-card-h .faq-ico { width: 18px; height: 18px; color: var(--accent); }
+    #faq .faq-qa { border-bottom: 1px solid var(--border); }
+    #faq .faq-qa:last-child { border-bottom: 0; }
+    #faq .faq-q { width: 100%; display: flex; align-items: center; gap: .7rem; padding: .8rem 1.1rem; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: var(--text-dark); font-size: .9rem; font-weight: 700; border-left: 2px solid transparent; transition: background .16s; }
+    #faq .faq-q:hover { background: var(--bg-light); }
+    #faq .faq-q-t { flex: 1; }
+    #faq .faq-chev { flex-shrink: 0; color: var(--text-muted); transition: transform .25s, color .25s; }
+    #faq .faq-qa.is-open > .faq-q { border-left-color: var(--accent); color: var(--faq-link); }
+    #faq .faq-qa.is-open .faq-chev { transform: rotate(180deg); color: var(--accent); }
+    #faq .faq-a { max-height: 0; overflow: hidden; visibility: hidden; transition: max-height .3s ease, visibility 0s .3s; }
+    #faq .faq-qa.is-open .faq-a { max-height: 560px; visibility: visible; transition: max-height .3s ease, visibility 0s 0s; }
+    #faq .faq-a p { margin: 0; padding: .1rem 1.1rem 1rem 2rem; font-size: .86rem; line-height: 1.62; color: var(--text-mid); }
+    #faq .faq-a a { color: var(--faq-link); text-decoration: none; border-bottom: 1px solid rgba(14,116,144,.32); }
+    #faq .faq-a a:hover { border-bottom-color: var(--faq-link); }
+    #faq .faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    #faq .faq-cat:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    @media (max-width: 680px) {
+      #faq .faq-grid { flex-direction: column; gap: 1.25rem; }
+      #faq .faq-rail { flex-basis: auto; position: static; flex-direction: row; flex-wrap: wrap; gap: 6px; }
+      #faq .faq-rail-h { display: none; }
+      #faq .faq-cat { width: auto; border-left: 0; border: 1px solid var(--border); }
+      #faq .faq-cat.is-active { border-color: var(--accent); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #faq .faq-a, #faq .faq-chev, #faq .faq-cat, #faq .faq-q, #faq .faq-ico { transition: none; }
+    }
+  </style>
+{% endraw %}{% endblock %}
+
+{% block main %}{% raw %}
+<main id="main-content">
+<section id="home" class="subhero">
+  <div class="subhero-content">
+    <div class="hero-wordmark hero-wordmark-sm" role="img" aria-label="EBiM Benchmark">
+      <span class="hero-wordmark-mark">EBiM</span><span class="hero-wordmark-sub">Benchmark</span>
+    </div>
+    <div class="breadcrumb" aria-label="麵包屑導覽">
+      <a href="index.html">首頁</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">常見問題</span>
+    </div>
+    <h1 class="subhero-title">常見問題</h1>
+    <p class="subhero-subtitle">關於 EBiM 競賽的快速解答。還有疑問嗎？歡迎在 <a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord</a> 提問。</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="faq-shell fade-in">
+
+      <p class="faq-updated">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        {% endraw %}{% set _iso = page.inputPath | gitDateISO %}{% if _iso %}<time datetime="{{ _iso }}">最後更新 {{ _iso | humanDate("zh-tw") }}</time>{% else %}<span>最近更新</span>{% endif %}{% raw %}
+      </p>
+
+      <div class="faq-grid">
+        <nav class="faq-rail" aria-label="常見問題分類">
+          <p class="faq-rail-h">分類</p>
+          <button class="faq-cat is-active" data-target="faq-g1"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v18"/><path d="M5 4h13l-3 4 3 4H5z"/></svg><span class="faq-cat-n">入門</span><span class="faq-cat-c">6</span></button>
+          <button class="faq-cat" data-target="faq-g2"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span class="faq-cat-n">競賽</span><span class="faq-cat-c">6</span></button>
+          <button class="faq-cat" data-target="faq-g3"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 2v2"/><path d="M15 2v2"/><path d="M9 20v2"/><path d="M15 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg><span class="faq-cat-n">運算資源</span><span class="faq-cat-c">2</span></button>
+          <button class="faq-cat" data-target="faq-g4"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/></svg><span class="faq-cat-n">AMD Solution Award</span><span class="faq-cat-c">1</span></button>
+          <button class="faq-cat" data-target="faq-g5"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span class="faq-cat-n">聯絡與更新</span><span class="faq-cat-c">1</span></button>
+        </nav>
+
+        <div class="faq-cards">
+          <section class="faq-card" id="faq-g1">
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v18"/><path d="M5 4h13l-3 4 3 4H5z"/></svg><h2>入門</h2><span class="faq-card-c">6 個問題</span></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">如何報名？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>在<a href="register.html">報名頁面</a>登記 1–6 人的隊伍。Member 1 為聯絡人，負責接收所有隊伍電子郵件。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">需要報名費嗎？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>不需要——參賽完全免費。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">可以單人參賽嗎？還是需要自行組隊？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>每隊 1–6 人，允許單人參賽，並由您自行組隊。想找隊友嗎？可使用我們的 <a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord</a>，中國大陸參賽者也可加入<a href="https://qr61.cn/oioUKl/qtksKk2" target="_blank" rel="noopener">上海測試平台微信群組</a>。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">需要什麼程度的經驗？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>歡迎各種程度的參賽者——我們提供基線範例與教學。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">送出報名後，可以更改隊伍名稱或更新報名資料嗎？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>可以——請重新送出報名表單，並填入包括更正內容在內的所有資料。更新僅受理完整的重新送出（我們以您最新一次送出的內容為準），因此請重新完整填寫隊伍資料，而非以其他方式寄送更改。隊伍名稱須使用拉丁（英文）字母，並與各表單保持一致。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">報名後會收到確認信嗎？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>貴隊的聯絡人（成員一）將透過電子郵件收到競賽公告與更新——系統不會即時自動回覆，請耐心等候並檢查垃圾郵件匣。若您已報名但尚未收到我們的來信，報名仍然有效；公告會寄送至每一位聯絡人的電子郵件信箱。</p></div></div>
+          </section>
+
+          <section class="faq-card" id="faq-g2">
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><h2>競賽</h2><span class="faq-card-c">6 個問題</span></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">有哪些賽題？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>三個獨立賽題——任務 1：纜線佈線與插接；任務 2：可變形物體操作（導熱墊放置）；任務 3：輔助生活與餵食。可任選一項或多項參加，各賽題獨立排名。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">使用哪些模擬器？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>NVIDIA Isaac Sim 與 MuJoCo。開發者預覽版中並非所有任務/模擬器組合皆已就緒——請查看 <a href="https://github.com/EBiM-Benchmark/benchmark/blob/main/STATUS.md" target="_blank" rel="noopener">STATUS.md</a> 了解目前的就緒狀態矩陣。（例如，任務 2 的 MuJoCo 版本尚未隨版本釋出；若您自行建置，仍然有效。）</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">提供哪些遙控操作介面？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Teleoperation Toolkit 現已釋出三種介面：<a href="https://franka.de/de/gello" target="_blank" rel="noopener">Franka Duo GELLO</a>（用於操作），以及鍵盤控制與 USB 腳踏板控制（用於移動底盤）。VR 控制尚未釋出。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">需要親赴現場嗎？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>第一階段（開放模擬基準）完全遠端進行，無需親赴現場。第二階段是在合作實驗室（漢堡、慕尼黑、上海）以 Mobile FR3 Duo 實體機器人進行的驗證：從模擬階段晉級的隊伍將獲得現場實作測試時段（2026 年 8 月 25 日 – 9 月 3 日，以各場地當地時間為準），之後 9 月 4 日至 9 月 12 日期間，您可繼續繳交程式碼，由主辦單位操作機器人並執行評估。第二階段繳交截止時間為 2026 年 9 月 12 日（AoE）。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">模擬套件與基線模型何時釋出？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>基準現已以<strong>開發者預覽版</strong>形式釋出——包含框架、模擬環境、機器人資產與任務環境，詳見 <a href="https://github.com/EBiM-Benchmark/benchmark" target="_blank" rel="noopener">基準程式碼儲存庫</a>。開發前請先查看 <a href="https://github.com/EBiM-Benchmark/benchmark/blob/main/STATUS.md" target="_blank" rel="noopener">STATUS.md</a>，了解目前可用的任務與模擬器組合。後續將陸續釋出：基線模型、教學與文件，以及真實世界資料集。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">如何評估繳交作品？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>繳交現已<strong>開放</strong>：請透過 <a href="https://github.com/EBiM-Benchmark/submissions/issues/new/choose" target="_blank" rel="noopener">GitHub issue 表單</a> 繳交貴隊的公開儲存庫（含 Dockerfile 與執行說明 README）——完整要求請見競賽頁面的 <a href="competition.html#submission">作品繳交</a> 區塊。正式評分由主辦單位依競賽頁面規則執行；基準儲存庫中的評估程式碼僅供開發輔助，並非正式評分工具。</p></div></div>
+          </section>
+
+          <section class="faq-card" id="faq-g3">
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 2v2"/><path d="M15 2v2"/><path d="M9 20v2"/><path d="M15 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg><h2>運算資源</h2><span class="faq-card-c">2 個問題</span></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">可獲得哪些運算資源？如何申請？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>共有三項運算資源補助計畫，可至<a href="compute-apply.html">申請頁面</a>申請——Google Cloud（Nvidia GPU 額度；第一階段配額已結束，第二階段配額確認中）、Computational Freedom（RTX 4090 / L40S；僅限中國大陸隊伍，整個競賽期間皆可申請）、AMD Instinct MI300X（位於臺北的共享 8 卡 MI300X，至 2026 年 8 月 31 日 00:00 臺北時間；每隊 48 小時額度，可輪替續用）。中國大陸隊伍建議使用 Computational Freedom 或 MI300X。</p></div></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">一定要自備 GPU 嗎？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>不一定——上述補助計畫旨在滿足運算需求。</p></div></div>
+          </section>
+
+          <section class="faq-card" id="faq-g4">
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/></svg><h2>AMD Solution Award</h2><span class="faq-card-c">1 個問題</span></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">什麼是 AMD Solution Award？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>頒給每項任務前 3 名隊伍的獎項：須在 AMD ROCm 平台上完成完整的 AI 工作流程——資料處理、訓練、推論與官方評估，並透過貴隊的 Docker 映像檔與官方 AMD 評估環境驗證。此獎項為選擇性參加，不影響總排名。</p></div></div>
+          </section>
+
+          <section class="faq-card" id="faq-g5">
+            <div class="faq-card-h"><svg class="faq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><h2>聯絡與更新</h2><span class="faq-card-c">1 個問題</span></div>
+            <div class="faq-qa is-open"><button class="faq-q" aria-expanded="true"><span class="faq-q-t">如何取得協助與最新資訊？</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p><a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord</a>、官方網站，以及中國大陸參賽者專用的<a href="https://qr61.cn/oioUKl/qtksKk2" target="_blank" rel="noopener">微信群組</a>。</p></div></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var faq=document.getElementById('faq'); if(!faq) return;
+  var qas=faq.querySelectorAll('.faq-qa');
+  qas.forEach(function(qa,i){
+    var q=qa.querySelector('.faq-q');
+    if(i!==0){qa.classList.remove('is-open');q.setAttribute('aria-expanded','false');}
+    q.addEventListener('click',function(){var open=qa.classList.toggle('is-open');q.setAttribute('aria-expanded',open?'true':'false');});
+  });
+  var cats=faq.querySelectorAll('.faq-cat'), byId={};
+  cats.forEach(function(c){byId[c.getAttribute('data-target')]=c;});
+  cats.forEach(function(cat){
+    cat.addEventListener('click',function(){
+      cats.forEach(function(c){c.classList.remove('is-active');});
+      cat.classList.add('is-active');
+      var t=document.getElementById(cat.getAttribute('data-target'));
+      if(t){var _rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;t.scrollIntoView({behavior:_rm?'auto':'smooth',block:'start'});var f=t.querySelector('.faq-qa');if(f&&!f.classList.contains('is-open')){f.classList.add('is-open');f.querySelector('.faq-q').setAttribute('aria-expanded','true');}}
+    });
+  });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){cats.forEach(function(c){c.classList.remove('is-active');});var c=byId[e.target.id];if(c)c.classList.add('is-active');}});},{rootMargin:'-40% 0px -55% 0px'});
+    faq.querySelectorAll('.faq-card').forEach(function(c){io.observe(c);});
+  }
+})();
+</script>
+</main>
+{% endraw %}{% endblock %}
