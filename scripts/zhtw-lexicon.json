@@ -347,6 +347,21 @@
       "page": "*",
       "text": "公布",
       "reason": "MOE standard form; OpenCC twp rewrites to 公佈. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "查看",
+      "reason": "Standard Taiwanese verb for 'View …' links; OpenCC twp rewrites to 檢視. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "支持",
+      "reason": "'Support' in the sense of backing; 支援 means assistance/technical support. OpenCC twp rewrites to 支援. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "了解",
+      "reason": "MOE primary form; 瞭解 is a variant. Ratified by Cecil 2026-10-29."
     }
   ]
 }

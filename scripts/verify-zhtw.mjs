@@ -454,12 +454,15 @@ function selfTest() {
       }
     };
     find(doc);
-    hit.data += "仿真软件，舞台";
+    hit.data += "仿真软件，舞台，檢視，聯絡窗口";
     const f = gateC(doc, `zh-tw/${rel}`, lexicon);
     expect("C flags injected 仿真 (denylist)", f.some((x) => x.kind === "deny" && x.span === "仿真"));
     expect("C flags injected 软件 (OpenCC fixed point)", f.some((x) => x.kind === "opencc" && x.span.includes("软件")));
     // Allow entries are word-scoped: the 平台 waiver must not cover 台 in another word.
     expect("C still flags 台 in 舞台 (allowlist is word-scoped)", f.some((x) => x.kind === "opencc" && x.context.includes("舞[台")));
+    // 檢視 (the 查看 entry's rewrite target) is itself a fixed point; an unrelated rewrite still fires.
+    expect("C leaves 檢視 unflagged", !f.some((x) => x.span.includes("檢") || x.span.includes("視")));
+    expect("C still flags 窗口 (unrelated OpenCC rewrite)", f.some((x) => x.kind === "opencc" && x.span === "窗口"));
     const zhFindings = gateC(parse(read(zhFile("contact.html"))), "zh/contact.html", lexicon).length;
     expect(`C flags ≥ 20 findings on _site/zh/contact.html (${zhFindings})`, zhFindings >= 20);
   }
