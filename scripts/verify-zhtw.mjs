@@ -82,6 +82,11 @@ const removable = (n) =>
 
 // Removes the Gate A/B elements in place, each with the newline + indent that
 // precedes it (the conditional tags are each emitted on their own line).
+// Also the ONE normalization for Gates A and B: every <time datetime> stamp (the
+// attribute value and the element's text) is masked on both sides. The FAQ's
+// "Last updated" stamp comes from each file's OWN last commit (gitDateISO), so a
+// zh-TW page's date legitimately differs from its zh twin's — the same reason
+// scripts/verify.mjs masks it in the EN golden diff.
 function strip(node) {
   const kids = node.children || [];
   for (let i = 0; i < kids.length; i++) {
@@ -90,6 +95,9 @@ function strip(node) {
       const prev = kids[i - 1];
       if (prev && prev.type === "text") prev.data = prev.data.replace(/\n[ \t]*$/, "");
       kids.splice(i--, 1);
+    } else if (isEl(k) && k.name === "time" && "datetime" in k.attribs) {
+      k.attribs.datetime = MASK;
+      k.children = [{ type: "text", data: MASK }];
     } else strip(k);
   }
   return node;
@@ -456,6 +464,18 @@ function selfTest() {
     const before = hit.data.trim().slice(0, 40);
     hit.data = hit.data.replace(/\d/, (d) => String((+d + 1) % 10));
     expect(`B fails on one changed digit ("${before}")`, !gateB(parse(zhHtml), doc, `zh-tw/${rel}`, []).ok);
+  }
+
+  // <time> stamp — differing only inside <time datetime> passes A and B; a digit
+  // changed OUTSIDE <time> still fails B.
+  {
+    const stamp = (iso, text) => `<p><time datetime="${iso}">${text}</time> 2</p></main>`;
+    const zhT = zhHtml.replace("</main>", stamp("2026-07-01", "最后更新 2026年7月1日"));
+    const twT = twHtml.replace("</main>", stamp("2026-10-29", "最後更新 2026年10月29日"));
+    expect("A passes when only the <time> stamp differs", gateA(parse(zhT), parse(twT)).ok);
+    expect("B passes when only the <time> stamp differs", gateB(parse(zhT), parse(twT), `zh-tw/${rel}`, []).ok);
+    const twT2 = twHtml.replace("</main>", stamp("2026-10-29", "最後更新 2026年10月29日").replace(" 2</p>", " 3</p>"));
+    expect("B still fails on a digit changed outside <time>", !gateB(parse(zhT), parse(twT2), `zh-tw/${rel}`, []).ok);
   }
 
   // C — 仿真 (denylist, A3) and 软件 (Simplified; OpenCC rewrites it to 軟體).
