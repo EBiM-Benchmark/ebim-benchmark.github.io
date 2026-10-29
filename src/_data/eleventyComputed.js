@@ -21,6 +21,19 @@
 //             Events. openDay is the Open Day HUB — a listing page, not an event —
 //             so it never emits one. Each gate is
 //             independent; see the per-key blocks below.
+//
+// Every locale fact (lang tags, dirs, publish maps, page pairs) comes from the
+// registry in lib/locales.mjs; nothing below branches on a specific language.
+
+import {
+  LOCALES,
+  DEFAULT_LOCALE,
+  HREFLANG_ORDER,
+  TOGGLE_ORDER,
+  SITE_URL,
+  PAIRS,
+  depth,
+} from "../../lib/locales.mjs";
 
 function deepMerge(base, over) {
   if (over === undefined) return base;
@@ -33,28 +46,45 @@ function deepMerge(base, over) {
   return out;
 }
 
+// The page's locale: its `lang` data (src/zh/zh.11tydata.json sets "zh") if
+// that is a registry key, else the default. Every locale-aware helper below
+// reads the registry row for this code instead of branching on a language.
+const localeOf = (data) => (Object.hasOwn(LOCALES, data.lang ?? "") ? data.lang : DEFAULT_LOCALE);
+
+// String table for the page's locale: walk the `fallback` chain from the
+// page's locale (zh-tw → zh → en), then deep-merge from the base outward so the
+// nearest locale wins and any missing key falls back.
 function resolveLocale(data) {
   const locales = data.i18n || {};
-  const lang = data.lang || "en";
-  return deepMerge(locales.en || {}, locales[lang] || {});
+  const chain = [];
+  for (let loc = localeOf(data); loc; loc = LOCALES[loc].fallback) chain.unshift(loc);
+  return chain.reduce((acc, loc) => deepMerge(acc, locales[loc] || {}), {});
 }
 
-// True only for the Simplified-Chinese /zh/ pages (lang === "zh"). Every
-// locale-aware helper below branches on this; EN pages take the unchanged path.
-const isZh = (data) => (data.lang || "en") === "zh";
-
-// Per-page publish gate. site.zhPublished is a map keyed by i18nKey (see
-// src/_data/site.json); a localized page is PUBLISHED iff its own key's flag is
-// true. Drives zhNoindex / hreflangAlternates / localeToggle so each page's SEO
-// surface (noindex, hreflang, sitemap, toggle) lights up independently — the
-// four content pages (index, competition, workshop, contact) are published as of
-// Phase 2c and the registration + FAQ pages since, joined by the Hamburg Open Day
-// page and then the Open Day hub + the Shanghai Open Day page, so all nine
-// localized pages are published (set a flag back to false to
-// return that page to a draft).
-const isPublished = (data) => {
-  const map = (data.site && data.site.zhPublished) || {};
+// Per-page publish gate. Each non-default locale's row names a site.json map
+// (publishedKey, e.g. site.zhPublished) keyed by i18nKey; a localized page is
+// PUBLISHED in that locale iff its own key's flag is true. A missing map or key
+// means "not published". The default locale is always published. Drives
+// localeNoindex / hreflangAlternates / localeToggle so each page's SEO surface
+// (noindex, hreflang, sitemap, toggle) lights up independently (set a flag
+// back to false to return that page to a draft).
+const isPublished = (data, loc) => {
+  const key = LOCALES[loc].publishedKey;
+  if (key === null) return true;
+  const map = (data.site && data.site[key]) || {};
   return map[data.i18nKey] === true;
+};
+
+// The locales a page's pair is published in, in `order` — or [] when the page
+// has no cross-locale relationship to advertise: its i18nKey is not a PAIRS
+// key, its OWN locale is a draft, or fewer than two locales are published for
+// the key (a lone locale has no counterpart). So a zh draft drops hreflang and
+// the toggle on BOTH sides of its pair.
+const publishedCluster = (data, order) => {
+  if (!Object.hasOwn(PAIRS, data.i18nKey ?? "")) return [];
+  if (!isPublished(data, localeOf(data))) return [];
+  const locs = order.filter((loc) => isPublished(data, loc));
+  return locs.length >= 2 ? locs : [];
 };
 
 // The page's data key for the shared head-meta + JSON-LD bundles (meta.<key>
@@ -68,79 +98,6 @@ const isPublished = (data) => {
 // pageKey today, but the fallback is kept for any future EN-only-but-data-bound
 // page; promote it to i18nKey (and add a /zh/ counterpart) to localize.
 const pageDataKey = (data) => data.i18nKey || data.pageKey;
-
-// Cross-locale counterpart URLs for the in-page language toggle (navbar.njk),
-// keyed by i18nKey and RELATIVE to the page being rendered: `en` is the path to
-// the EN page (used on a /zh/ page, linking back to English), `zh` is the path
-// to the /zh/ page (used on the EN page, linking out to 中文). These are the
-// SAME page pairs the reciprocal hreflang advertises — kept here as nav-relative
-// links (hreflangAlternates emits the absolute forms). All ten localized pages
-// have a row; the toggle only RENDERS where isPublished is true — all ten
-// published (index/competition/workshop/contact since Phase 2c, register + faq since,
-// openDayHamburg since, openDay + openDayShanghai since, openDayMunich since) (a page returned to draft
-// would silently drop its toggle, no template change).
-const TOGGLE_HREFS = {
-  index: { en: "../", zh: "zh/" },
-  competition: { en: "../competition.html", zh: "zh/competition.html" },
-  workshop: { en: "../workshop.html", zh: "zh/workshop.html" },
-  faq: { en: "../faq.html", zh: "zh/faq.html" },
-  results: { en: "../results.html", zh: "zh/results.html" },
-  contact: { en: "../contact.html", zh: "zh/contact.html" },
-  register: { en: "../register.html", zh: "zh/register.html" },
-  // The Open Day family: the hub (openDay) lists every Open Day; the three dated
-  // pages sit under it. All four are separate localized pairs.
-  openDay: { en: "../open-day.html", zh: "zh/open-day.html" },
-  openDayHamburg: { en: "../open-day-hamburg.html", zh: "zh/open-day-hamburg.html" },
-  openDayShanghai: { en: "../open-day-shanghai.html", zh: "zh/open-day-shanghai.html" },
-  openDayMunich: { en: "../open-day-munich.html", zh: "zh/open-day-munich.html" },
-};
-
-// Absolute en / zh URLs for each localized pair, the source of the reciprocal
-// hreflang cluster (en + x-default → en; zh-Hans → zh). Same pairs as
-// TOGGLE_HREFS, emitted absolute. Gated per page by isPublished.
-const HREFLANG_PAIRS = {
-  index: { en: "https://ebim-benchmark.github.io/", zh: "https://ebim-benchmark.github.io/zh/" },
-  competition: {
-    en: "https://ebim-benchmark.github.io/competition.html",
-    zh: "https://ebim-benchmark.github.io/zh/competition.html",
-  },
-  workshop: {
-    en: "https://ebim-benchmark.github.io/workshop.html",
-    zh: "https://ebim-benchmark.github.io/zh/workshop.html",
-  },
-  faq: {
-    en: "https://ebim-benchmark.github.io/faq.html",
-    zh: "https://ebim-benchmark.github.io/zh/faq.html",
-  },
-  results: {
-    en: "https://ebim-benchmark.github.io/results.html",
-    zh: "https://ebim-benchmark.github.io/zh/results.html",
-  },
-  contact: {
-    en: "https://ebim-benchmark.github.io/contact.html",
-    zh: "https://ebim-benchmark.github.io/zh/contact.html",
-  },
-  register: {
-    en: "https://ebim-benchmark.github.io/register.html",
-    zh: "https://ebim-benchmark.github.io/zh/register.html",
-  },
-  openDay: {
-    en: "https://ebim-benchmark.github.io/open-day.html",
-    zh: "https://ebim-benchmark.github.io/zh/open-day.html",
-  },
-  openDayHamburg: {
-    en: "https://ebim-benchmark.github.io/open-day-hamburg.html",
-    zh: "https://ebim-benchmark.github.io/zh/open-day-hamburg.html",
-  },
-  openDayShanghai: {
-    en: "https://ebim-benchmark.github.io/open-day-shanghai.html",
-    zh: "https://ebim-benchmark.github.io/zh/open-day-shanghai.html",
-  },
-  openDayMunich: {
-    en: "https://ebim-benchmark.github.io/open-day-munich.html",
-    zh: "https://ebim-benchmark.github.io/zh/open-day-munich.html",
-  },
-};
 
 function organizationSchema(ev, t) {
   return {
@@ -161,12 +118,13 @@ function organizationSchema(ev, t) {
 export default {
   t: (data) => resolveLocale(data),
 
-  // BCP-47 language tag for <html lang>. EN pages stay "en" (output unchanged);
+  // BCP-47 language tag for <html lang>, from the registry row: EN pages "en";
   // /zh/ pages advertise Simplified Chinese as "zh-Hans".
-  htmlLang: (data) => (isZh(data) ? "zh-Hans" : "en"),
+  htmlLang: (data) => LOCALES[localeOf(data)].htmlLang,
 
   // Path prefix for the root-level assets (fonts/js/img) relative to the current
-  // page. EN pages live at the site root → "" (every asset link unchanged).
+  // page: one "../" per segment of the locale's dir. EN pages live at the site
+  // root → "" (every asset link unchanged).
   // /zh/ pages live one directory down → "../" so fonts/inter-…woff2 resolves to
   // /fonts/…, img/favicon.svg to /img/favicon.svg, etc. (The global CSS is now
   // INLINED into <head>, so it no longer rides assetBase; the @font-face src uses
@@ -178,7 +136,7 @@ export default {
   //   and /img/favicon.svg (and base.njk /js/main.js) — correct from any depth.
   //   No other page sets the flag, so every other page's assetBase is
   //   byte-identical to before.
-  assetBase: (data) => (data.absoluteUrls ? "/" : isZh(data) ? "../" : ""),
+  assetBase: (data) => (data.absoluteUrls ? "/" : "../".repeat(depth(LOCALES[localeOf(data)].dir))),
 
   // Locale-aware navigation targets for navbar.njk / footer.njk — CHROME only.
   // The page bodies hardcode their own links inside their translated raw blocks,
@@ -199,91 +157,65 @@ export default {
   //   absoluteUrls — the 404 ONLY: root-absolute chrome links (/index.html etc.)
   //   so the navbar/footer point at the real pages from a miss at ANY depth,
   //   matching its root-absolute assetBase. Gated on the flag, so no other page
-  //   changes (the EN and zh branches below are byte-identical to before).
+  //   changes. Every locale gets the same relative filenames (each resolves
+  //   within the page's own locale dir), one per PAIRS key, in PAIRS order.
   links: (data) =>
-    data.absoluteUrls
-      ? {
-          index: "/index.html",
-          competition: "/competition.html",
-          workshop: "/workshop.html",
-          openDay: "/open-day.html",
-          openDayHamburg: "/open-day-hamburg.html",
-          openDayShanghai: "/open-day-shanghai.html",
-          openDayMunich: "/open-day-munich.html",
-          faq: "/faq.html",
-          results: "/results.html",
-          contact: "/contact.html",
-          register: "/register.html",
-        }
-      : isZh(data)
-        ? {
-            index: "index.html",
-            competition: "competition.html",
-            workshop: "workshop.html",
-            openDay: "open-day.html",
-            openDayHamburg: "open-day-hamburg.html",
-            openDayShanghai: "open-day-shanghai.html",
-            openDayMunich: "open-day-munich.html",
-            faq: "faq.html",
-            results: "results.html",
-            contact: "contact.html",
-            register: "register.html",
-          }
-        : {
-            index: "index.html",
-            competition: "competition.html",
-            workshop: "workshop.html",
-            openDay: "open-day.html",
-            openDayHamburg: "open-day-hamburg.html",
-            openDayShanghai: "open-day-shanghai.html",
-            openDayMunich: "open-day-munich.html",
-            faq: "faq.html",
-            results: "results.html",
-            contact: "contact.html",
-            register: "register.html",
-          },
+    Object.fromEntries(
+      Object.entries(PAIRS).map(([key, { file }]) => [key, data.absoluteUrls ? "/" + file : file]),
+    ),
 
-  // noindex directive for a /zh/ page while ITS page is a draft. A draft (its
-  // zhPublished[key] flag is false) must not be indexed; flipping that flag to
-  // true drops the tag. EN pages never set this (their own `robots` front-matter,
-  // e.g. on 404, is untouched).
-  zhNoindex: (data) => isZh(data) && !isPublished(data),
+  // noindex directive for a non-default-locale page while ITS page is a draft
+  // in that locale. A draft (e.g. its zhPublished[key] flag is false, or the
+  // page has no i18nKey) must not be indexed; flipping that flag to true drops
+  // the tag. EN pages never set this (their own `robots` front-matter, e.g. on
+  // 404, is untouched).
+  localeNoindex: (data) => {
+    const loc = localeOf(data);
+    return loc !== DEFAULT_LOCALE && !isPublished(data, loc);
+  },
 
-  // hreflang alternates, emitted by base.njk ONLY for a PUBLISHED localized page.
-  // Gated per page: a draft (or a page with no localized counterpart) returns []
-  // → no hreflang on either side and the EN <head> stays byte-identical. A
-  // published page (EN or /zh/) advertises the reciprocal en / zh-Hans /
-  // x-default cluster for its pair.
+  // hreflang alternates, emitted by base.njk ONLY for a PUBLISHED localized page
+  // (see publishedCluster). A draft, a page with no localized counterpart, or a
+  // pair with a single published locale returns [] → no hreflang on either side.
+  // Otherwise every published locale of the pair, in HREFLANG_ORDER, followed by
+  // x-default → the default locale (today: en / zh-Hans / x-default).
   hreflangAlternates: (data) => {
-    if (!isPublished(data)) return [];
-    const pair = HREFLANG_PAIRS[data.i18nKey];
-    if (!pair) return [];
+    const locs = publishedCluster(data, HREFLANG_ORDER);
+    if (!locs.length) return [];
+    const href = (loc) => SITE_URL + LOCALES[loc].dir + PAIRS[data.i18nKey].url;
     return [
-      { hreflang: "en", href: pair.en },
-      { hreflang: "zh-Hans", href: pair.zh },
-      { hreflang: "x-default", href: pair.en },
+      ...locs.map((loc) => ({ hreflang: LOCALES[loc].hreflang, href: href(loc) })),
+      { hreflang: "x-default", href: href(DEFAULT_LOCALE) },
     ];
   },
 
-  // In-page language toggle, consumed by navbar.njk. Present ONLY on a PUBLISHED
-  // localized page — its i18nKey is in TOGGLE_HREFS AND its own zhPublished[key]
-  // flag is true, so the toggle is visible exactly where the reciprocal hreflang
-  // is emitted (all ten localized pairs — the four content pages plus register,
-  // faq, the Open Day hub and the three dated Open Day pages).
-  // Returns null everywhere
-  // else, so the navbar renders with NO toggle (byte-identical to the pre-toggle
-  // output on the EN-only utility pages, and on any /zh/ page returned to draft).
-  // Shape:
-  //   active        — the current page's locale ("en" | "zh"); the template
-  //                   marks it aria-current and renders the OTHER locale as the
-  //                   cross-locale link.
-  //   enHref/zhHref — the counterpart URL relative to the current page (the EN
-  //                   page links out to zhHref, the /zh/ page back to enHref).
+  // In-page language toggle, consumed by navbar.njk. Present ONLY where the
+  // reciprocal hreflang is emitted (same publishedCluster gate); null everywhere
+  // else, so the navbar renders with NO toggle (the EN-only utility pages, and
+  // both sides of a pair returned to draft).
+  // Shape: { options } — one per published locale of the pair, in TOGGLE_ORDER:
+  //   code     — registry key
+  //   active   — true for the current page's locale (rendered aria-current)
+  //   label    — the registry chip
+  //   lang / hreflang — the registry htmlLang / hreflang
+  //   href     — the counterpart URL RELATIVE to the current page: up out of
+  //              the current locale's dir, then into the target's ("../",
+  //              "zh/competition.html", …)
   localeToggle: (data) => {
-    if (!isPublished(data)) return null;
-    const hrefs = TOGGLE_HREFS[data.i18nKey];
-    if (!hrefs) return null;
-    return { active: isZh(data) ? "zh" : "en", enHref: hrefs.en, zhHref: hrefs.zh };
+    const locs = publishedCluster(data, TOGGLE_ORDER);
+    if (!locs.length) return null;
+    const cur = localeOf(data);
+    const up = "../".repeat(depth(LOCALES[cur].dir));
+    return {
+      options: locs.map((loc) => ({
+        code: loc,
+        active: loc === cur,
+        label: LOCALES[loc].chip,
+        lang: LOCALES[loc].htmlLang,
+        hreflang: LOCALES[loc].hreflang,
+        href: up + LOCALES[loc].dir + PAIRS[data.i18nKey].url,
+      })),
+    };
   },
 
   // Head-meta string set, keyed by pageDataKey (i18nKey or pageKey). Undefined
