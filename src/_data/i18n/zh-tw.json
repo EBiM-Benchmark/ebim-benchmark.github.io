@@ -83,7 +83,7 @@
     },
     "competition": {
       "title": "EBiM 競賽 · 跨洲機器人基準",
-      "description": "每項任務最高可贏得 $5,250（現金 + 採購抵用券）：在三個測試平台的 Mobile FR3 Duo 上挑戰纜線佈線、可變形物體操作與輔助生活。",
+      "description": "每項任務最高可贏得 $5,250（現金 + 採購抵用券）：在三個測試平台的 Mobile FR3 Duo 上挑戰纜線佈線與插接、可變形物體操作，以及輔助生活與餵食。",
       "ogTitle": "EBiM 競賽 · 跨洲機器人基準",
       "ogDescription": "開放的模擬基準，並在漢堡、慕尼黑與上海的 Mobile FR3 Duo 平台上進行實機驗證。涵蓋纜線、可變形物體與輔助生活。",
       "twitterTitle": "EBiM 競賽 · 跨洲機器人基準",
@@ -112,7 +112,7 @@
     "eventAlternateName": "EBiM Benchmark",
     "eventDescriptionIndex": "針對真實世界具身雙臂操作的全球協同基準計畫，包含跨洲實機驗證與社群研討會。",
     "eventNameCompetition": "EBiM 競賽：跨洲雙臂操作基準",
-    "eventDescriptionCompetition": "開放的模擬基準，隨後在漢堡、慕尼黑與上海的 Mobile FR3 Duo 平台上進行實機驗證。任務包括纜線佈線、可變形導熱墊放置，以及輔助生活與餵食。",
+    "eventDescriptionCompetition": "開放的模擬基準，隨後在漢堡、慕尼黑與上海的 Mobile FR3 Duo 平台上進行實機驗證。任務包括纜線佈線與插接、可變形物體操作（導熱墊放置），以及輔助生活與餵食。",
     "locationNameIndex": "跨洲測試平台（漢堡、慕尼黑、上海）",
     "testbedNames": [
       "University of Hamburg · TAMS Group",
