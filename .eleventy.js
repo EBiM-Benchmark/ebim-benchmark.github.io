@@ -10,10 +10,10 @@
 // src/css/style.css is deliberately NOT copied: it is a build input, minified by
 // _data/inlineCss.js and inlined into every page's <head>, so no page requests it.
 // sitemap.xml is rendered from src/sitemap.njk (locale-aware, per-page gated on
-// the site.zhPublished map).
+// each locale's publish map in site.json, via the sitemapRows filter).
 import { EleventyI18nPlugin } from "@11ty/eleventy";
 import { execFileSync } from "node:child_process";
-import { LOCALES } from "./lib/locales.mjs";
+import { LOCALES, sitemapRows } from "./lib/locales.mjs";
 
 // Last commit date (YYYY-MM-DD) that touched a given source file, or null if git
 // is unavailable / the file is untracked. Used for the FAQ "Last updated" stamp,
@@ -49,6 +49,11 @@ export default function (eleventyConfig) {
   // ISO string is stamped into <time datetime="…"> and masked in the golden
   // diff (scripts/verify.mjs) so a rebuild's date never fails EN parity.
   eleventyConfig.addFilter("gitDateISO", (p) => gitISO(p));
+  // sitemap.xml rows for every published locale, derived from the locale
+  // registry (lib/locales.mjs) and the site.json publish maps.
+  eleventyConfig.addFilter("sitemapRows", (pages, site, lastmodByLocale) =>
+    sitemapRows(pages, site, lastmodByLocale),
+  );
   eleventyConfig.addFilter("humanDate", (iso, locale) => {
     if (!iso) return "";
     const d = new Date(iso + "T00:00:00Z");
