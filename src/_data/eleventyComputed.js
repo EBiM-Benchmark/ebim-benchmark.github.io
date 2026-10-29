@@ -142,18 +142,15 @@ export default {
   // The page bodies hardcode their own links inside their translated raw blocks,
   // so these must MATCH the body links for each page (do NOT auto-flip on the
   // publish flag, or the navbar would diverge from the still-hardcoded body).
-  // EN keeps the exact current relative filenames (byte-identical render). All
-  // ten /zh/ pages are now PUBLISHED (Phase 2c: workshop + contact joined index
-  // + competition; register + faq added since, then the Hamburg Open Day, then the
-  // Open Day hub + the Shanghai Open Day, then the Munich Open Day), so every
-  // zh chrome link is localized — relative, resolving
-  // under /zh/. The hardcoded zh bodies were repointed to match in the same
-  // commit (../workshop.html → workshop.html, ../contact.html → contact.html,
-  // preserving every #anchor and ?topic= suffix). The only cross-locale link left
-  // on a zh page is the navbar language toggle's EN counterpart (localeToggle,
-  // ../…). Publishing a future draft is a content edit, not just a flag flip:
-  // repoint these AND the hardcoded body links to the /zh/ page, flip its
-  // zhPublished flag, and re-baseline the EN fixture for its new hreflang cluster.
+  // EN keeps the exact current relative filenames (byte-identical render). Every
+  // locale's chrome links are the same relative filenames, so each resolves inside
+  // the page's own locale dir (/zh/…, /zh-tw/…); the /zh/ and /zh-tw/ bodies link
+  // the same way (the zh bodies were repointed from ../workshop.html etc. when
+  // they were published, preserving every #anchor and ?topic= suffix). The only
+  // cross-locale links on a localized page are the navbar language toggle's
+  // (localeToggle, ../…). So publishing a page in a locale is a flag flip plus
+  // re-baselining the EN fixtures for their new hreflang cluster and toggle
+  // (README: Publishing zh-TW).
   //   absoluteUrls — the 404 ONLY: root-absolute chrome links (/index.html etc.)
   //   so the navbar/footer point at the real pages from a miss at ANY depth,
   //   matching its root-absolute assetBase. Gated on the flag, so no other page

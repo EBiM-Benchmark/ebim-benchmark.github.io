@@ -2,14 +2,14 @@
 // workshop + contact as drafts; Phase 2c published them; register shipped
 // published later; the FAQ page was added and published since, then the Hamburg
 // Open Day page, then the Open Day hub + the Shanghai Open Day page, then the
-// Munich Open Day page — all ten /zh/ pages are now live).
+// Munich Open Day page, then the Final Results page — all eleven /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the TEN pages we now ship: /zh/index.html,
+// is actually localized, for the ELEVEN pages we now ship: /zh/index.html,
 // /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html,
 // /zh/register.html, /zh/open-day.html, /zh/open-day-hamburg.html,
-// /zh/open-day-shanghai.html, /zh/open-day-munich.html.
+// /zh/open-day-shanghai.html, /zh/open-day-munich.html, /zh/results.html.
 // It also covers the hidden /zh/contact-success.html, /zh/register-success.html,
 // /zh/open-day-success.html and /zh/open-day-munich-success.html utility pages
 // (the no-JS targets of the zh contact/register/Open Day form redirects) and
@@ -94,7 +94,7 @@ const isPubTw = (key) => PUB_TW[key] === true;
 const twUrlOf = (p) => p.zhUrl.replace(`${SITE_ORIGIN}/zh/`, `${SITE_ORIGIN}/zh-tw/`);
 const twFileOf = (p) => p.file.replace(/^zh\//, "zh-tw/");
 
-// The nine localized pages. `key` is the i18nKey (the publish-flag key).
+// The eleven localized pages. `key` is the i18nKey (the publish-flag key).
 // `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
 // advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
 // is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
@@ -508,7 +508,7 @@ function pageChecks(p) {
 // redirect (src/zh/contact-success.njk). It is NOT one of the nine localized
 // PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
 // and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
-// the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN
+// the localeNoindex computed, since it's an unpublished zh page) that mirrors the EN
 // contact-success.html, localized. Living under src/zh/ gives it lang="zh-Hans",
 // ../ assets, and the zh navbar/footer.
 function contactSuccessChecks() {
@@ -563,7 +563,7 @@ function contactSuccessChecks() {
 // registration form's redirect (src/zh/register-success.njk). Same shape as
 // contactSuccessChecks — NO i18nKey, so it carries NO hreflang, NO language
 // toggle, and stays OUT of the sitemap; a plain noindex zh page (noindex from
-// the zhNoindex computed) mirroring the EN register-success.html, localized.
+// the localeNoindex computed) mirroring the EN register-success.html, localized.
 function registerSuccessChecks() {
   const file = "zh/register-success.html";
   const checks = [];
@@ -616,7 +616,7 @@ function registerSuccessChecks() {
 // zh RSVP form's redirect (src/zh/open-day-success.njk). Same shape as
 // registerSuccessChecks — NO i18nKey, so it carries NO hreflang, NO language
 // toggle, and stays OUT of the sitemap; a plain noindex zh page (noindex from the
-// zhNoindex computed) mirroring the EN open-day-success.html, localized. The
+// localeNoindex computed) mirroring the EN open-day-success.html, localized. The
 // redirect assertion pins the zh form at the /zh/ target: the EN and zh forms share
 // one access_key, so a copy-paste of the EN redirect would silently land zh
 // registrants on the English confirmation.
@@ -772,7 +772,7 @@ function openDayMunichSuccessChecks() {
 // The hidden /zh/ UNLISTED compute-resource application page
 // (src/zh/compute-apply.njk). Same shape as the success-page checks — NO
 // i18nKey, so it carries NO hreflang, NO language toggle, and stays OUT of the
-// sitemap; a plain noindex zh page (noindex from the zhNoindex computed). Its URL
+// sitemap; a plain noindex zh page (noindex from the localeNoindex computed). Its URL
 // is emailed privately to each registered team's PoC, never linked in the site
 // chrome. Living under src/zh/ gives it lang="zh-Hans", ../ assets, and the zh
 // navbar/footer.
@@ -826,7 +826,7 @@ function computeApplyChecks() {
 
 // The hidden /zh/ UNLISTED Questionnaire A page (src/zh/feedback-registered.njk),
 // modelled on computeApplyChecks — NO i18nKey, so NO hreflang, NO navbar language
-// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the zhNoindex
+// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the localeNoindex
 // computed). Its only cross-locale link is the page-local EN switch back to
 // ../feedback-registered.html, and it submits lang=zh. Field/option/condition
 // parity with the EN page is scripts/verify-questionnaire.mjs's job.
@@ -891,7 +891,7 @@ function feedbackRegisteredChecks() {
 // The hidden /zh/ UNLISTED Questionnaire B page (src/zh/feedback-phase2.njk),
 // modelled on feedbackRegisteredChecks — NO i18nKey, so NO hreflang, NO navbar
 // language toggle, OUT of the sitemap; a plain noindex zh page (noindex from the
-// zhNoindex computed). Its only cross-locale link is the page-local EN switch
+// localeNoindex computed). Its only cross-locale link is the page-local EN switch
 // back to ../feedback-phase2.html, and it submits lang=zh. Field/option/
 // condition/required parity with the EN page is scripts/verify-questionnaire.mjs's job.
 function feedbackPhase2Checks() {
@@ -955,7 +955,7 @@ function feedbackPhase2Checks() {
 // The hidden /zh/ UNLISTED utility page for the compute application: the no-JS
 // target of the zh compute form's redirect (src/zh/compute-success.njk). Same
 // shape as registerSuccessChecks — NO i18nKey, so NO hreflang, NO language
-// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the zhNoindex
+// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the localeNoindex
 // computed) mirroring the EN compute-success.html, localized.
 function computeSuccessChecks() {
   const file = "zh/compute-success.html";
