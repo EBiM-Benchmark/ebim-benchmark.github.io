@@ -20,10 +20,16 @@
 //   C  lexicon lint — over every zh-TW page (text, attributes, comments, inline
 //      script string literals, JSON-LD strings) and every string in
 //      src/_data/i18n/zh-tw.json: (1) the deny regexes in scripts/zhtw-lexicon.json
-//      must not match; (2) each Han string is an OpenCC (cn → twp) fixed point.
-//      Exceptions to both: `allow` in the same file ([{ page, text, reason }];
-//      page "*" = any page). A finding is waived when its span lies inside an
-//      occurrence of `text`. Additions need Cecil's ratification.
+//      must not match — mainland VOCABULARY is the denylist's job; (2) each Han
+//      string is an OpenCC (cn → tw) fixed point — this catches Simplified
+//      CHARACTER leakage. Exceptions to both: `allow` in the same file
+//      ([{ page, text, reason }]; page "*" = any page). A finding is waived when
+//      its span lies inside an occurrence of `text`. Additions need Cecil's
+//      ratification.
+//      Advisory (never fails the run): a cn → twp pass, whose phrase layer forces
+//      IT vocabulary onto general text (文件 → 檔案, 查看 → 檢視). Its findings
+//      that the blocking checks did not already report, and that no allow entry
+//      waives, are printed with counts and context for a human to read.
 //   D  chrome key parity — zh-tw.json has exactly zh.json's key paths, with the
 //      same value types and array lengths.
 //
@@ -56,7 +62,8 @@ const MASK = "◇";
 const toCn = (s) => s.replaceAll("/zh-tw/", "/zh/");
 const maskHan = (s) => (HAN.test(s) ? MASK : s);
 const readJson = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8"));
-const toTw = OpenCC.Converter({ from: "cn", to: "twp" });
+const toTw = OpenCC.Converter({ from: "cn", to: "tw" }); // blocking: character leakage
+const toTwp = OpenCC.Converter({ from: "cn", to: "twp" }); // advisory: phrase layer
 
 // ─────────────────────────────────────────────────────────────── DOM helpers ──
 const isEl = (n) => n.type === "tag" || n.type === "script" || n.type === "style";
@@ -306,15 +313,20 @@ const ctx = (s, i, j, repl) =>
     " ",
   );
 
-// waivedCounts (optional): array indexed like lexicon.allow, incremented per waived finding.
-function lintStrings(strings, page, lexicon, waivedCounts = []) {
+// Returns the BLOCKING findings. waivedCounts (optional): array indexed like
+// lexicon.allow, incremented per waived blocking finding (the evidence that an
+// entry is still needed). advisory (optional): array that collects the cn → twp
+// findings the blocking checks did not already report and no allow entry waives.
+function lintStrings(strings, page, lexicon, waivedCounts = [], advisory = []) {
   const deny = lexicon.deny.map((d) => ({ ...d, re: new RegExp(d.pattern, "gu") }));
-  const waived = (s, i, j) => {
-    const n = lexicon.allow.findIndex((a) => {
+  const waiver = (s, i, j) =>
+    lexicon.allow.findIndex((a) => {
       if (a.page !== page && a.page !== "*") return false;
       for (let k = s.indexOf(a.text); k !== -1; k = s.indexOf(a.text, k + 1)) if (k <= i && j <= k + a.text.length) return true;
       return false;
     });
+  const waived = (s, i, j) => {
+    const n = waiver(s, i, j);
     if (n !== -1) waivedCounts[n] = (waivedCounts[n] || 0) + 1;
     return n !== -1;
   };
@@ -326,18 +338,22 @@ function lintStrings(strings, page, lexicon, waivedCounts = []) {
         if (!waived(text, i, j))
           findings.push({ kind: "deny", rule: `${d.pattern} (${d.termbase})`, where, span: text.slice(i, j), context: ctx(text, i, j) });
       }
-    if (HAN.test(text)) {
-      const c = toTw(text);
-      if (c !== text)
-        for (const [i, j, repl] of convDiffs(text, c))
-          if (!waived(text, i, j))
-            findings.push({ kind: "opencc", rule: "cn→twp fixed point", where, span: text.slice(i, j), context: ctx(text, i, j, repl) });
-    }
+    if (!HAN.test(text)) continue;
+    const c = toTw(text);
+    const blocking = c === text ? [] : convDiffs(text, c);
+    for (const [i, j, repl] of blocking)
+      if (!waived(text, i, j))
+        findings.push({ kind: "opencc", rule: "cn→tw fixed point", where, span: text.slice(i, j), context: ctx(text, i, j, repl) });
+    const p = toTwp(text);
+    if (p !== text)
+      for (const [i, j, repl] of convDiffs(text, p))
+        if (!blocking.some(([a, b]) => a < j && i < b) && waiver(text, i, j) === -1)
+          advisory.push({ page, where, span: text.slice(i, j), repl, context: ctx(text, i, j, repl) });
   }
   return findings;
 }
 
-const gateC = (doc, page, lexicon, waivedCounts) => lintStrings(pageStrings(doc), page, lexicon, waivedCounts);
+const gateC = (doc, page, lexicon, waivedCounts, advisory) => lintStrings(pageStrings(doc), page, lexicon, waivedCounts, advisory);
 
 // ────────────────────────────────────────────── Gate D — chrome key parity ──
 function shape(v, p = "", out = new Map()) {
@@ -454,15 +470,21 @@ function selfTest() {
       }
     };
     find(doc);
-    hit.data += "仿真软件，舞台，檢視，聯絡窗口";
-    const f = gateC(doc, `zh-tw/${rel}`, lexicon);
+    hit.data += "仿真软件，联络，舞台，頭部企業，頭部前方，聯絡窗口";
+    const adv = [];
+    const f = gateC(doc, `zh-tw/${rel}`, lexicon, [], adv);
     expect("C flags injected 仿真 (denylist)", f.some((x) => x.kind === "deny" && x.span === "仿真"));
-    expect("C flags injected 软件 (OpenCC fixed point)", f.some((x) => x.kind === "opencc" && x.span.includes("软件")));
+    // Simplified leakage is the blocking converter's job.
+    expect("C flags Simplified 软件 (cn→tw fixed point)", f.some((x) => x.kind === "opencc" && x.span.includes("软")));
+    expect("C flags Simplified 联络 (cn→tw fixed point)", f.some((x) => x.kind === "opencc" && x.span.includes("联")));
     // Allow entries are word-scoped: the 平台 waiver must not cover 台 in another word.
     expect("C still flags 台 in 舞台 (allowlist is word-scoped)", f.some((x) => x.kind === "opencc" && x.context.includes("舞[台")));
-    // 檢視 (the 查看 entry's rewrite target) is itself a fixed point; an unrelated rewrite still fires.
-    expect("C leaves 檢視 unflagged", !f.some((x) => x.span.includes("檢") || x.span.includes("視")));
-    expect("C still flags 窗口 (unrelated OpenCC rewrite)", f.some((x) => x.kind === "opencc" && x.span === "窗口"));
+    // 頭部 is denied only in business-jargon compounds (Part B), not as the anatomical word.
+    expect("C flags 頭部企業 (denylist, jargon compound)", f.some((x) => x.kind === "deny" && x.span === "頭部企業"));
+    expect("C passes 頭部前方 (anatomical)", !f.some((x) => x.kind === "deny" && x.context.includes("頭部]前方")) && !f.some((x) => x.span === "頭部"));
+    // The twp phrase layer is advisory: 聯絡窗口 passes the blocking check but is reported.
+    expect("C passes 聯絡窗口 on the blocking check", !f.some((x) => [..."聯絡窗口"].some((ch) => x.span.includes(ch))));
+    expect("C lists 窗口 → 視窗 in the advisory output", adv.some((x) => x.span === "窗口" && x.repl === "視窗"));
     const zhFindings = gateC(parse(read(zhFile("contact.html"))), "zh/contact.html", lexicon).length;
     expect(`C flags ≥ 20 findings on _site/zh/contact.html (${zhFindings})`, zhFindings >= 20);
   }
@@ -486,6 +508,7 @@ function main() {
   const pages = twPages();
   const fails = [];
   const waivedCounts = [];
+  const advisory = [];
   let allOk = true;
 
   if (!pages.length) {
@@ -510,7 +533,7 @@ function main() {
     const twHtml = read(twFile(rel));
     const a = gateA(parse(zhHtml), parse(twHtml));
     const b = gateB(parse(zhHtml), parse(twHtml), page, exceptions);
-    const c = gateC(parse(twHtml), page, lexicon, waivedCounts);
+    const c = gateC(parse(twHtml), page, lexicon, waivedCounts, advisory);
     console.log(row([page, a.ok ? GREEN("PASS") : RED("FAIL"), b.ok ? GREEN("PASS") : RED("FAIL"), c.length ? RED(`FAIL (${c.length})`) : GREEN("PASS")]));
     if (!a.ok) fails.push(`${page} — Gate A skeleton: ${a.detail}`);
     if (!b.ok) fails.push(`${page} — Gate B fact tokens:\n          ${b.detail}`);
@@ -526,7 +549,7 @@ function main() {
     return false;
   }
   const twJson = readJson(TW_JSON);
-  const cj = lintStrings(jsonFileStrings(twJson), TW_JSON, lexicon, waivedCounts);
+  const cj = lintStrings(jsonFileStrings(twJson), TW_JSON, lexicon, waivedCounts, advisory);
   console.log(row([TW_JSON, "—", "—", cj.length ? RED(`FAIL (${cj.length})`) : GREEN("PASS")]));
   for (const f of cj) fails.push(`${TW_JSON} — Gate C ${f.kind} [${f.rule}] ${f.where}\n          ${f.context}`);
   if (cj.length) allOk = false;
@@ -536,6 +559,19 @@ function main() {
   const totalWaived = waivedCounts.reduce((s, x) => s + (x || 0), 0);
   console.log(`\n  Gate C allowlist — ${totalWaived} finding(s) waived:`);
   lexicon.allow.forEach((a, i) => console.log(`    ${String(waivedCounts[i] || 0).padStart(4)} × page ${a.page}  text ${a.text}`));
+
+  // Advisory: printed for a human, never counted against the run.
+  const groups = new Map();
+  for (const x of advisory) {
+    const key = `${x.span} → ${x.repl}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(x);
+  }
+  console.log(`\n  Gate C advisory (non-blocking, cn → twp) — ${advisory.length} finding(s), ${groups.size} distinct:`);
+  for (const [key, xs] of [...groups].sort((a, b) => b[1].length - a[1].length)) {
+    console.log(`    ${String(xs.length).padStart(4)} × ${key}   [${[...new Set(xs.map((x) => x.page))].join(", ")}]`);
+    for (const ctxt of [...new Set(xs.map((x) => x.context))].slice(0, 3)) console.log(`           ${ctxt}`);
+  }
 
   const d = gateD(readJson(ZH_JSON), twJson);
   console.log(`\n  ${d.ok ? GREEN("PASS") : RED("FAIL")}  Gate D — zh-tw.json key paths match zh.json (${d.ok ? d.detail : "see below"})`);

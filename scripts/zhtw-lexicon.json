@@ -262,9 +262,9 @@
       "note": "rephrase naturally"
     },
     {
-      "pattern": "頭部",
+      "pattern": "頭部(企業|廠商|公司|品牌|玩家|陣營)",
       "termbase": "B",
-      "note": "rephrase naturally"
+      "note": "rephrase naturally — business-jargon compounds only; the anatomical 頭部 is fine"
     },
     {
       "pattern": "聚焦",
@@ -350,18 +350,23 @@
     },
     {
       "page": "*",
-      "text": "查看",
-      "reason": "Standard Taiwanese verb for 'View …' links; OpenCC twp rewrites to 檢視. Ratified by Cecil 2026-10-29."
-    },
-    {
-      "page": "*",
-      "text": "支持",
-      "reason": "'Support' in the sense of backing; 支援 means assistance/technical support. OpenCC twp rewrites to 支援. Ratified by Cecil 2026-10-29."
-    },
-    {
-      "page": "*",
       "text": "了解",
       "reason": "MOE primary form; 瞭解 is a variant. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "單台",
+      "reason": "Everyday Taiwanese 台 as a measure word for machines; OpenCC rewrites to 單臺. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "工作台",
+      "reason": "Common Taiwanese form; OpenCC rewrites to 工作臺. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "宣布",
+      "reason": "MOE standard form, like 公布; OpenCC rewrites to 宣佈. Ratified by Cecil 2026-10-29."
     }
   ]
 }

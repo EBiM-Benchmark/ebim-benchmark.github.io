@@ -59,7 +59,7 @@ This is the terminology and style standard for everything under `src/zh-tw/` and
 | 运营 · 负责人 | 營運 · 負責人 (char conversion only) |
 | 站点 (testbed site) | 站點 · 據點 → **據點** |
 | 落地 (VLA … 真实落地) | 實際應用 / 實際部署 |
-| 打造 · 生态 · 头部 · 聚焦 | rephrase naturally; avoid as set phrases |
+| 打造 · 生态 · 头部 · 聚焦 | rephrase naturally; avoid as set phrases (头部: business-jargon compounds only, e.g. 头部企业; the anatomical 頭部 is fine) |
 | 周一…周日 | 週一…週日 |
 | 奖杯 · 礼品 · 奖金 · 奖项 · 排名 · 晋级 | 獎盃 · 禮品 · 獎金 · 獎項 · 排名 · 晉級 |
 | 海报 · 签到 · 现场 · 参观 · 邀请函 | 海報 · 報到 · 現場 · 參觀 · 邀請函 |
