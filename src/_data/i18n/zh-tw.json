@@ -1,0 +1,144 @@
+{
+  "_comment": "Traditional-Chinese (Taiwan) strings, hand-translated from en.json following docs/i18n/zh-TW-termbase.md — never converted from zh.json. Mirrors every key of zh.json in the same order (Gate D of scripts/verify-zhtw.mjs); resolved per page via the eleventyComputed `t` lookup (lang: zh-tw → zh-tw.json, falling back to zh.json, then en.json). Proper nouns, the brand 'EBiM Benchmark' and product names (Mobile FR3 Duo) stay in Latin. HTML entities (&nbsp;/&copy;/&mdash;) are kept literal and emitted with the `safe` filter, exactly as in en.json. The meta.* and jsonld.* strings of pages not yet drafted are re-read against each finished page in the stage that drafts it.",
+
+  "brand": {
+    "mark": "EBiM",
+    "word": "Benchmark"
+  },
+
+  "nav": {
+    "ariaMain": "主導覽",
+    "ariaToggle": "切換導覽",
+    "home": "首頁",
+    "ariaToggleHome": "切換首頁選單",
+    "homeOverview": "總覽",
+    "homeEngage": "兩種參與方式",
+    "homeThemes": "核心主題",
+    "homeMaturity": "成熟度路線圖",
+    "homeDates": "重要日期",
+    "homeOrganizers": "組織團隊",
+    "competition": "競賽",
+    "ariaToggleCompetition": "切換競賽選單",
+    "compWhy": "為何需要本基準",
+    "compOverview": "三階段機制",
+    "compPlatform": "Mobile FR3 Duo",
+    "compBenchmark": "基準測試",
+    "compTasks": "任務",
+    "compTestbeds": "測試平台",
+    "compRegister": "參賽招募",
+    "compGetBenchmark": "取得程式碼",
+    "compSubmission": "作品繳交",
+    "compAwards": "獎項與獎金",
+    "compResults": "最終結果",
+    "workshop": "研討會",
+    "ariaToggleWorkshop": "切換研討會選單",
+    "wsOverview": "總覽",
+    "wsSchedule": "議程",
+    "wsTalks": "邀請演講",
+    "wsPanel": "座談",
+    "wsPosters": "海報",
+    "wsDates": "重要日期",
+    "wsDissemination": "成果推廣",
+    "partners": "合作夥伴",
+    "faq": "常見問題",
+    "contact": "聯絡我們",
+    "register": "報名",
+    "openDay": "開放日",
+    "ariaLanguage": "語言"
+  },
+
+  "footer": {
+    "tagline1": "邁向全球協同基準",
+    "tagline2": "針對真實世界的具身雙臂操作",
+    "venue": "針對具身雙臂操作的全球協同基準 &nbsp;·&nbsp; 研討會日期與地點待定",
+    "ariaNav": "頁尾導覽",
+    "pagesHeading": "頁面",
+    "pagesHome": "首頁",
+    "pagesCompetition": "競賽",
+    "pagesWorkshop": "研討會",
+    "pagesOpenDay": "開放日",
+    "peopleHeading": "人員",
+    "peopleOrganizers": "組織團隊",
+    "peoplePartners": "合作夥伴",
+    "participateHeading": "參與",
+    "participateCompete": "參賽",
+    "participateSubmitPoster": "投稿海報",
+    "participateContact": "聯絡我們",
+    "participateFaq": "常見問題",
+    "participateRegister": "報名",
+    "linkContactForm": "聯絡表單",
+    "linkGithub": "GitHub",
+    "linkDiscord": "Discord",
+    "copy": "&copy; 2026 EBiM 組織委員會 &mdash; 邁向真實世界具身雙臂操作的全球協同基準。"
+  },
+
+  "meta": {
+    "index": {
+      "title": "EBiM Benchmark · 具身雙臂操作",
+      "description": "針對真實世界具身雙臂操作的全球協同基準，於 Mobile FR3 Duo 平台上進行跨洲實機驗證。",
+      "ogTitle": "EBiM Benchmark · 具身雙臂操作",
+      "ogDescription": "針對真實世界具身雙臂操作的全球協同基準，於 Mobile FR3 Duo 平台上進行跨洲實機驗證。",
+      "twitterTitle": "EBiM Benchmark · 具身雙臂操作",
+      "twitterDescription": "針對真實世界具身雙臂操作的全球協同基準，於 Mobile FR3 Duo 平台上進行跨洲實機驗證。"
+    },
+    "competition": {
+      "title": "EBiM 競賽 · 跨洲機器人基準",
+      "description": "每項任務最高可贏得 $5,250（現金 + 採購抵用券）：在三個測試平台的 Mobile FR3 Duo 上挑戰纜線佈線、可變形物體操作與輔助生活。",
+      "ogTitle": "EBiM 競賽 · 跨洲機器人基準",
+      "ogDescription": "開放的模擬基準，並在漢堡、慕尼黑與上海的 Mobile FR3 Duo 平台上進行實機驗證。涵蓋纜線、可變形物體與輔助生活。",
+      "twitterTitle": "EBiM 競賽 · 跨洲機器人基準",
+      "twitterDescription": "開放的模擬基準，並在漢堡、慕尼黑與上海的 Mobile FR3 Duo 平台上進行實機驗證。涵蓋纜線、可變形物體與輔助生活。"
+    },
+    "workshop": {
+      "title": "EBiM Benchmark 研討會 · 具身雙臂操作",
+      "description": "為期半天的 EBiM Benchmark 具身雙臂操作研討會：4 場邀請演講、一場以基準測試為主題的專家座談、海報發表與頒獎。",
+      "ogTitle": "EBiM Benchmark 研討會 · 具身雙臂操作",
+      "ogDescription": "為期半天的 EBiM Benchmark 具身雙臂操作研討會：4 場邀請演講、一場以基準測試為主題的專家座談、海報發表與頒獎。",
+      "twitterTitle": "EBiM Benchmark 研討會 · 具身雙臂操作",
+      "twitterDescription": "為期半天的 EBiM Benchmark 具身雙臂操作研討會：4 場邀請演講、一場以基準測試為主題的專家座談、海報發表與頒獎。"
+    },
+    "contact": {
+      "title": "聯絡我們 · EBiM Benchmark",
+      "description": "對 EBiM Benchmark 的競賽、研討會、合作或平台有疑問嗎？請送出分類留言，我們會轉交給負責的團隊。",
+      "ogTitle": "聯絡我們 · EBiM Benchmark",
+      "ogDescription": "傳送分類留言給 EBiM Benchmark 團隊——競賽、研討會、合作、媒體、技術或承辦測試平台等洽詢。",
+      "twitterTitle": "聯絡我們 · EBiM Benchmark",
+      "twitterDescription": "傳送分類留言給 EBiM Benchmark 團隊——競賽、研討會、合作、媒體、技術或承辦測試平台等洽詢。"
+    }
+  },
+
+  "jsonld": {
+    "eventNameIndex": "EBiM Benchmark：邁向真實世界具身雙臂操作的全球協同基準",
+    "eventAlternateName": "EBiM Benchmark",
+    "eventDescriptionIndex": "針對真實世界具身雙臂操作的全球協同基準計畫，包含跨洲實機驗證與社群研討會。",
+    "eventNameCompetition": "EBiM 競賽：跨洲雙臂操作基準",
+    "eventDescriptionCompetition": "開放的模擬基準，隨後在漢堡、慕尼黑與上海的 Mobile FR3 Duo 平台上進行實機驗證。任務包括纜線佈線、可變形導熱墊放置，以及輔助生活與餵食。",
+    "locationNameIndex": "跨洲測試平台（漢堡、慕尼黑、上海）",
+    "testbedNames": [
+      "University of Hamburg · TAMS Group",
+      "Agile Robots SE",
+      "Franka Robotics · 上海分公司"
+    ],
+    "contactType": "一般洽詢",
+    "breadcrumbHome": "首頁",
+    "breadcrumbCompetition": "競賽",
+    "eventNameWorkshop": "EBiM Benchmark 具身雙臂操作研討會",
+    "eventDescriptionWorkshop": "邀請演講、座談、海報發表與競賽頒獎。日期與地點待公布。",
+    "talkTitleTba": "演講題目待公布",
+    "panelName": "專家座談：具身機器人的基準測試標準",
+    "breadcrumbWorkshop": "研討會",
+    "eventNameOpenDayHamburg": "EBiM Benchmark 開放日 · 漢堡",
+    "eventDescriptionOpenDayHamburg": "EBiM Benchmark 於 Google 漢堡辦公室舉辦的一日實體開放日：邀請演講、參觀 EBiM 評測中心，以及漢堡大學實驗室參訪。免費參加，須事先報名。與 IJCAI-ECAI 2026 同期舉行。",
+    "breadcrumbOpenDayHamburg": "開放日 · 漢堡",
+    "eventNameOpenDayShanghai": "EBiM Benchmark 開放日 · 上海",
+    "eventDescriptionOpenDayShanghai": "EBiM Benchmark 於上海舉辦的半日開放日：涵蓋機器人教育、醫療 AI 與 VLA 實際部署的演講，並現場參觀 Mobile FR3 Duo 競賽場地。僅限受邀者參加。",
+    "eventNameOpenDayMunich": "EBiM Benchmark 開放日 · 慕尼黑",
+    "eventDescriptionOpenDayMunich": "EBiM Benchmark 於慕尼黑 Agile Robots SE 舉辦的一日實體開放日：參訪位於奧格斯堡的 EBiM 慕尼黑測試平台並觀看實機展示、下午的邀請演講，以及晚餐。免費參加，須事先報名。",
+    "breadcrumbOpenDay": "開放日",
+    "breadcrumbOpenDayShanghai": "開放日 · 上海",
+    "breadcrumbOpenDayMunich": "開放日 · 慕尼黑",
+    "contactPageName": "聯絡我們 · EBiM Benchmark",
+    "contactPageDescription": "EBiM Benchmark 具身雙臂操作計畫的聯絡表單。",
+    "breadcrumbContact": "聯絡"
+  }
+}
