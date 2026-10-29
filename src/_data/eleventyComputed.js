@@ -196,7 +196,9 @@ export default {
   // Shape: { options } — one per published locale of the pair, in TOGGLE_ORDER:
   //   code     — registry key
   //   active   — true for the current page's locale (rendered aria-current)
-  //   label    — the registry chip
+  //   label    — the registry chip; a zh* locale with no OTHER zh* locale in
+  //              the cluster uses its chipAlone instead (zh: 中文 alone, 简
+  //              beside 繁), so the label only changes once zh-TW publishes
   //   lang / hreflang — the registry htmlLang / hreflang
   //   href     — the counterpart URL RELATIVE to the current page: up out of
   //              the current locale's dir, then into the target's ("../",
@@ -206,11 +208,16 @@ export default {
     if (!locs.length) return null;
     const cur = localeOf(data);
     const up = "../".repeat(depth(LOCALES[cur].dir));
+    const zhFamily = (loc) => LOCALES[loc].htmlLang.startsWith("zh");
+    const label = (loc) =>
+      zhFamily(loc) && LOCALES[loc].chipAlone && !locs.some((o) => o !== loc && zhFamily(o))
+        ? LOCALES[loc].chipAlone
+        : LOCALES[loc].chip;
     return {
       options: locs.map((loc) => ({
         code: loc,
         active: loc === cur,
-        label: LOCALES[loc].chip,
+        label: label(loc),
         lang: LOCALES[loc].htmlLang,
         hreflang: LOCALES[loc].hreflang,
         href: up + LOCALES[loc].dir + PAIRS[data.i18nKey].url,
