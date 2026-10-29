@@ -221,7 +221,7 @@ backToTop: true
       <!-- AMD MI300X — OPEN -->
       <div class="resource-card">
         <h3>AMD Instinct MI300X <span class="status-badge open">現已開放申請</span></h3>
-        <p>共享 8 卡 MI300X 伺服器，位於<strong>臺北</strong>，可從中國大陸存取。每張 GPU 配備 <strong>192 GB HBM3</strong>——這是它在記憶體受限工作上的突出優勢，可容納在較小顯示卡上放不下的模型與批次。作為粗略且視工作負載而定的參考，MI300X 在許多工作上與 Nvidia H200 大致相當——在記憶體受限與 FP32/FP64 工作上較強，在經 CUDA 最佳化的推論吞吐量與延遲上稍遜（<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X 與 H200 比較</a>）。以 ROCm 環境提供通用的訓練/開發運算資源。開放所有隊伍申請。使用期間：2026 年 7 月 1 日至 8 月 31 日 00:00（臺北時間）。<br>
+        <p>共享 8 張 MI300X 伺服器，位於<strong>臺北</strong>，可從中國大陸存取。每張 GPU 配備 <strong>192 GB HBM3</strong>——這是它在記憶體受限工作上的突出優勢，可容納在較小顯示卡上放不下的模型與批次。作為粗略且視工作負載而定的參考，MI300X 在許多工作上與 Nvidia H200 大致相當——在記憶體受限與 FP32/FP64 工作上較強，在經 CUDA 最佳化的推論吞吐量與延遲上稍遜（<a href="https://www.spheron.network/blog/amd-mi300x-vs-nvidia-h200/" target="_blank" rel="noopener">MI300X 與 H200 比較</a>）。以 ROCm 環境提供通用的訓練/開發運算資源。開放所有隊伍申請。使用期間：2026 年 7 月 1 日至 8 月 31 日 00:00（臺北時間）。<br>
         規則（2026 年 7 月 27 日更新）：每隊配有獨立帳號，各帳號的資料互相隔離。環境固定為 2 張 MI300X，不提供單卡環境。每個帳號的額度上限為 48 小時，在平台儀表板上顯示為「GPU Hours」；額度用盡後將無法再啟動環境，但檔案與環境都會保留。額度以隊伍輪替方式續用——請來信 organizers@ebim-benchmark.org 申請下一輪，屆時同一帳號的額度會重置為 48 小時，資料不會刪除，也無需遷移到新帳號。連線採用 IP 白名單：首次使用前請提供您用於連線的公用 IP 位址，日後若有變更也請告知。運算資源為共享資源，環境啟動採先到先服務。請將資料集、原始碼與模型檢查點存放於 project/data，並另外準備可從零重建環境的初始化腳本——請勿將執行中的環境當作唯一副本。</p>
       </div>
 
@@ -256,7 +256,7 @@ backToTop: true
               <label class="reg-check"><input type="checkbox" name="resources" value="Google Cloud — Nvidia GPUs (up to $1000)" /> <span>Google Cloud — Nvidia GPU（第一階段已結束；可登記第二階段配額意向）</span></label>
               <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 40h RTX 4090" /> <span>Computational Freedom — 40 小時 RTX 4090（僅限中國大陸隊伍）</span></label>
               <label class="reg-check"><input type="checkbox" name="resources" value="Computational Freedom — 25h L40S" /> <span>Computational Freedom — 25 小時 L40S（僅限中國大陸隊伍）</span></label>
-              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — 共享 8 卡 MI300X（所有隊伍；至 2026 年 8 月 31 日 00:00 臺北時間）</span></label>
+              <label class="reg-check"><input type="checkbox" name="resources" value="AMD Instinct MI300X — shared 8x MI300X" /> <span>AMD Instinct MI300X — 共享 8 張 MI300X（所有隊伍；至 2026 年 8 月 31 日 00:00 臺北時間）</span></label>
             </div>
             <span class="form-label-note">Computational Freedom 二擇一（RTX 4090 或 L40S），且僅限位於中國大陸的隊伍。</span>
           </fieldset>
