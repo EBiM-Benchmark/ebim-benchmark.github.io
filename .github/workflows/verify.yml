@@ -66,7 +66,7 @@ jobs:
       # either file alone. Reading `npm run verify:all` costs one hop and removes
       # the drift class. The stage that failed is still named in the log — each
       # script prints its own banner and the `&&` chain stops at the first failure.
-      - name: Verify (EN parity, /zh/ locale, questionnaire parity, reference self-test, reference existence)
+      - name: Verify (EN parity, /zh/ locale, questionnaire parity, /zh-tw/ locale, reference self-test, reference existence)
         run: npm run verify:all
 
       # PR-only, so it lives outside verify:all: it diffs the PR against its base

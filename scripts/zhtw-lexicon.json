@@ -144,7 +144,7 @@
     {
       "pattern": "軟件",
       "termbase": "B",
-      "note": "軟體 (not in Part B's table; same family as 硬件 → 硬體)"
+      "note": "軟體"
     },
     {
       "pattern": "網絡",
@@ -289,17 +289,17 @@
     {
       "pattern": "視頻",
       "termbase": "B",
-      "note": "影片 (not in Part B's table)"
+      "note": "影片"
     },
     {
       "pattern": "質量",
       "termbase": "B",
-      "note": "品質 (not in Part B's table)"
+      "note": "品質"
     },
     {
       "pattern": "默認",
       "termbase": "B",
-      "note": "預設 (not in Part B's table)"
+      "note": "預設"
     },
     {
       "pattern": "周[一二三四五六日]",
@@ -337,5 +337,16 @@
       "note": "⋯⋯ (C2)"
     }
   ],
-  "allow": []
+  "allow": [
+    {
+      "page": "*",
+      "text": "平台",
+      "reason": "Termbase A8 ratified 測試平台; OpenCC twp rewrites every 台→臺. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "公布",
+      "reason": "MOE standard form; OpenCC twp rewrites to 公佈. Ratified by Cecil 2026-10-29."
+    }
+  ]
 }

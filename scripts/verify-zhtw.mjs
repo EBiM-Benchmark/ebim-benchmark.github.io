@@ -306,14 +306,18 @@ const ctx = (s, i, j, repl) =>
     " ",
   );
 
-function lintStrings(strings, page, lexicon) {
+// waivedCounts (optional): array indexed like lexicon.allow, incremented per waived finding.
+function lintStrings(strings, page, lexicon, waivedCounts = []) {
   const deny = lexicon.deny.map((d) => ({ ...d, re: new RegExp(d.pattern, "gu") }));
-  const allow = lexicon.allow.filter((a) => a.page === page || a.page === "*");
-  const waived = (s, i, j) =>
-    allow.some((a) => {
+  const waived = (s, i, j) => {
+    const n = lexicon.allow.findIndex((a) => {
+      if (a.page !== page && a.page !== "*") return false;
       for (let k = s.indexOf(a.text); k !== -1; k = s.indexOf(a.text, k + 1)) if (k <= i && j <= k + a.text.length) return true;
       return false;
     });
+    if (n !== -1) waivedCounts[n] = (waivedCounts[n] || 0) + 1;
+    return n !== -1;
+  };
   const findings = [];
   for (const { where, text } of strings) {
     for (const d of deny)
@@ -333,7 +337,7 @@ function lintStrings(strings, page, lexicon) {
   return findings;
 }
 
-const gateC = (doc, page, lexicon) => lintStrings(pageStrings(doc), page, lexicon);
+const gateC = (doc, page, lexicon, waivedCounts) => lintStrings(pageStrings(doc), page, lexicon, waivedCounts);
 
 // ────────────────────────────────────────────── Gate D — chrome key parity ──
 function shape(v, p = "", out = new Map()) {
@@ -450,10 +454,12 @@ function selfTest() {
       }
     };
     find(doc);
-    hit.data += "仿真软件";
+    hit.data += "仿真软件，舞台";
     const f = gateC(doc, `zh-tw/${rel}`, lexicon);
     expect("C flags injected 仿真 (denylist)", f.some((x) => x.kind === "deny" && x.span === "仿真"));
     expect("C flags injected 软件 (OpenCC fixed point)", f.some((x) => x.kind === "opencc" && x.span.includes("软件")));
+    // Allow entries are word-scoped: the 平台 waiver must not cover 台 in another word.
+    expect("C still flags 台 in 舞台 (allowlist is word-scoped)", f.some((x) => x.kind === "opencc" && x.context.includes("舞[台")));
     const zhFindings = gateC(parse(read(zhFile("contact.html"))), "zh/contact.html", lexicon).length;
     expect(`C flags ≥ 20 findings on _site/zh/contact.html (${zhFindings})`, zhFindings >= 20);
   }
@@ -476,6 +482,7 @@ function main() {
   const exceptions = readJson(FACT_EXCEPTIONS);
   const pages = twPages();
   const fails = [];
+  const waivedCounts = [];
   let allOk = true;
 
   if (!pages.length) {
@@ -500,7 +507,7 @@ function main() {
     const twHtml = read(twFile(rel));
     const a = gateA(parse(zhHtml), parse(twHtml));
     const b = gateB(parse(zhHtml), parse(twHtml), page, exceptions);
-    const c = gateC(parse(twHtml), page, lexicon);
+    const c = gateC(parse(twHtml), page, lexicon, waivedCounts);
     console.log(row([page, a.ok ? GREEN("PASS") : RED("FAIL"), b.ok ? GREEN("PASS") : RED("FAIL"), c.length ? RED(`FAIL (${c.length})`) : GREEN("PASS")]));
     if (!a.ok) fails.push(`${page} — Gate A skeleton: ${a.detail}`);
     if (!b.ok) fails.push(`${page} — Gate B fact tokens:\n          ${b.detail}`);
@@ -516,10 +523,16 @@ function main() {
     return false;
   }
   const twJson = readJson(TW_JSON);
-  const cj = lintStrings(jsonFileStrings(twJson), TW_JSON, lexicon);
+  const cj = lintStrings(jsonFileStrings(twJson), TW_JSON, lexicon, waivedCounts);
   console.log(row([TW_JSON, "—", "—", cj.length ? RED(`FAIL (${cj.length})`) : GREEN("PASS")]));
   for (const f of cj) fails.push(`${TW_JSON} — Gate C ${f.kind} [${f.rule}] ${f.where}\n          ${f.context}`);
   if (cj.length) allOk = false;
+
+  // Every allow entry and how many Gate C findings it waived across the run, so a
+  // ratified exception that silently grows (or goes dead) is visible in the log.
+  const totalWaived = waivedCounts.reduce((s, x) => s + (x || 0), 0);
+  console.log(`\n  Gate C allowlist — ${totalWaived} finding(s) waived:`);
+  lexicon.allow.forEach((a, i) => console.log(`    ${String(waivedCounts[i] || 0).padStart(4)} × page ${a.page}  text ${a.text}`));
 
   const d = gateD(readJson(ZH_JSON), twJson);
   console.log(`\n  ${d.ok ? GREEN("PASS") : RED("FAIL")}  Gate D — zh-tw.json key paths match zh.json (${d.ok ? d.detail : "see below"})`);
