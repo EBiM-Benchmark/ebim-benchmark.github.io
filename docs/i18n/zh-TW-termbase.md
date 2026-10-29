@@ -43,7 +43,7 @@ This is the terminology and style standard for everything under `src/zh-tw/` and
 | 数据集 · 数据 (meaning data) | 資料集 · 資料 (數據 only for figures/statistics) |
 | 信息 | 資訊 (information) / 訊息 (a message) |
 | 硬件 · 网络 · 链接 · 用户 | 硬體 · 網路 · 連結 · 使用者 |
-| 軟件 · 視頻 · 質量 · 默認 | 軟體 · 影片 · 品質 · 預設 |
+| 软件 · 视频 · 质量 · 默认 | 軟體 · 影片 · 品質 · 預設 |
 | 邮件 · 邮箱 | 電子郵件 (Email in UI labels) · 電子郵件信箱 |
 | 合作伙伴 · 社区 · 渠道 | 合作夥伴 · 社群 · 管道 |
 | 发布 (dataset/code) · 上传 | 釋出 · 上傳 |
