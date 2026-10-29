@@ -13,6 +13,7 @@
 // the site.zhPublished map).
 import { EleventyI18nPlugin } from "@11ty/eleventy";
 import { execFileSync } from "node:child_process";
+import { LOCALES } from "./lib/locales.mjs";
 
 // Last commit date (YYYY-MM-DD) that touched a given source file, or null if git
 // is unavailable / the file is untracked. Used for the FAQ "Last updated" stamp,
@@ -43,14 +44,15 @@ export default function (eleventyConfig) {
   });
 
   // "Last updated" support (FAQ page): gitDateISO reads the last commit date for
-  // a page's own source; humanDate localizes an ISO date (en-GB / zh-CN). The
+  // a page's own source; humanDate localizes an ISO date via the locale
+  // registry's dateLocale (lib/locales.mjs; en-GB fallback). The
   // ISO string is stamped into <time datetime="…"> and masked in the golden
   // diff (scripts/verify.mjs) so a rebuild's date never fails EN parity.
   eleventyConfig.addFilter("gitDateISO", (p) => gitISO(p));
   eleventyConfig.addFilter("humanDate", (iso, locale) => {
     if (!iso) return "";
     const d = new Date(iso + "T00:00:00Z");
-    return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-GB", {
+    return new Intl.DateTimeFormat(LOCALES[locale]?.dateLocale ?? "en-GB", {
       year: "numeric",
       month: "long",
       day: "numeric",

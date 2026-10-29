@@ -6,7 +6,7 @@
 {%- if robots %}
   <meta name="robots" content="{{ robots | safe }}" />
 {%- endif %}
-{%- if zhNoindex %}
+{%- if localeNoindex %}
   <meta name="robots" content="noindex" />
 {%- endif %}
   <title>{{ (pageMeta.title if pageMeta else title) | safe }}</title>
