@@ -143,7 +143,7 @@ section:nth-child(even) { background: var(--bg-light); }
      boundary: measured +1.3px clear on one machine and -9.0px CLIPPED on another,
      i.e. whether the language toggle survived depended on the visitor's fonts.
      The trim buys ~38px, ~4x the variance, so it no longer does.
-     Desktop only: the drawer (@media max-width:768px) re-declares its own padding
+     Desktop only: the drawer (@media max-width:1050px) re-declares its own padding
      below. See the navbar note in README.md before adding a top-level item. */
   padding: .45rem .7rem;
   font-size: .88rem;
@@ -2370,7 +2370,10 @@ footer {
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 768px) {
+/* The drawer. 1050px is an innerWidth (@media matches innerWidth, scrollbar
+   included): the three-way EN · 繁 · 简 row needs clientWidth >= 1025, plus a
+   15px scrollbar and 10px of ▾ caret variance. See the navbar note in README.md. */
+@media (max-width: 1050px) {
   .nav-links {
     position: fixed;
     top: var(--nav-h);
@@ -2439,7 +2442,10 @@ footer {
      show the toggle button instead. */
   .has-dropdown > a .dropdown-caret { display: none; }
   .dropdown-toggle { display: inline-flex; align-items: center; }
+}
 
+/* Page layout on narrow screens (kept at 768px; only the drawer moved to 1050px). */
+@media (max-width: 768px) {
   section { padding: 3.5rem 0; }
   .people-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   /* Reduce hero vertical padding on mid screens */
