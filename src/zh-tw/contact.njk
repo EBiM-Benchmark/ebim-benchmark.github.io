@@ -1,0 +1,475 @@
+---
+permalink: "/zh-tw/contact.html"
+bodyClass: "page-contact"
+keywords: "EBiM Benchmark 聯絡方式, 具身雙臂操作聯絡, 競賽洽詢, 研討會海報投稿, 合作洽詢, 機器人基準"
+canonical: "https://ebim-benchmark.github.io/zh-tw/contact.html"
+headComments: true
+backToTop: true
+navActive: "contact"
+i18nKey: contact
+---
+{% extends "layouts/base.njk" %}
+
+{% block headStructured %}
+  <!-- Open Graph -->
+  <meta property="og:type"            content="website" />
+  <meta property="og:site_name"       content="EBiM Benchmark" />
+  <meta property="og:url"             content="https://ebim-benchmark.github.io/zh-tw/contact.html" />
+  <meta property="og:title"           content="{{ pageMeta.ogTitle | safe }}" />
+  <meta property="og:description"     content="{{ pageMeta.ogDescription | safe }}" />
+  <meta property="og:image"           content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta property="og:image:width"     content="1200" />
+  <meta property="og:image:height"    content="630" />
+  <meta property="og:image:alt"       content="EBiM Benchmark — 邁向真實世界具身雙臂操作的全球協同基準" />
+  <meta property="og:locale"          content="zh_TW" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"           content="summary_large_image" />
+  <meta name="twitter:title"          content="{{ pageMeta.twitterTitle | safe }}" />
+  <meta name="twitter:description"    content="{{ pageMeta.twitterDescription | safe }}" />
+  <meta name="twitter:image"          content="https://ebim-benchmark.github.io/img/og-cover.png" />
+  <meta name="twitter:image:alt"      content="EBiM Benchmark — 邁向真實世界具身雙臂操作的全球協同基準" />
+{% include "jsonld.njk" %}
+{% endblock %}
+
+{% block headStyle %}{% raw %}
+  <!-- Critical CSS inlined to prevent FOUC -->
+  <style>
+    /* Fade-in default state — must be set before JS runs */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* Active nav link for the current page (Contact) */
+    .page-contact .nav-links a[href="contact.html"] { color: var(--accent); font-weight: 700; }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 1.5rem;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent, #00d4ff); color: #0a0e1a;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: opacity .3s, visibility .3s, transform .3s, background .2s, box-shadow .2s;
+      z-index: 998;
+      box-shadow: 0 4px 18px rgba(0,212,255,.35);
+    }
+    #back-to-top.visible { opacity: 1; visibility: visible; transform: none; }
+    #back-to-top:hover { background: #fff; box-shadow: 0 6px 24px rgba(0,212,255,.45); }
+    #back-to-top:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+    #back-to-top svg { pointer-events: none; }
+
+    /* ── Sub-page hero (~30vh, shorter than home #home) ──
+       Selector specificity bumped to (1,1,0) via `#home.subhero` to override
+       `#home { min-height: 100vh; padding: ... }` from the global stylesheet. */
+    #home.subhero {
+      min-height: 32vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: var(--bg-dark);
+      overflow: hidden;
+      padding: calc(var(--nav-h) + 2.5rem) 0 3rem;
+      box-sizing: border-box;
+    }
+    #home.subhero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: none;
+      pointer-events: none;
+    }
+    #home.subhero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .subhero-content {
+      position: relative; z-index: 1;
+      text-align: center;
+      max-width: 820px;
+      padding: 1.25rem 1.5rem;
+    }
+    .breadcrumb {
+      display: inline-block;
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 1rem;
+    }
+    .breadcrumb a {
+      color: rgba(255,255,255,.55);
+      transition: color .2s;
+    }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb-sep { margin: 0 .55rem; opacity: .5; }
+    .breadcrumb-current { color: var(--accent); }
+    .subhero-title {
+      font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+      color: #fff;
+      font-weight: 800;
+      line-height: 1.18;
+      margin-bottom: .9rem;
+      letter-spacing: -.01em;
+    }
+    .subhero-subtitle {
+      font-size: clamp(.95rem, 1.6vw, 1.1rem);
+      color: rgba(255,255,255,.72);
+      margin-bottom: .8rem;
+      max-width: 600px;
+      margin-left: auto; margin-right: auto;
+    }
+    .subhero-note {
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    @media (max-width: 700px) {
+      #home.subhero { min-height: 40vh; padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 2rem; }
+    }
+
+    /* ── Contact form ── */
+    .contact-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2.25rem;
+      box-shadow: var(--card-shadow);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .form-label {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: .005em;
+    }
+    .form-label .req {
+      color: #dc2626;
+      margin-left: .15rem;
+    }
+    .form-label-note {
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: .78rem;
+      margin-left: .15rem;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: .95rem;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .72rem .9rem;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: #64748b; }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--bg-white);
+      box-shadow: 0 0 0 3px rgba(0,212,255,.16);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.6;
+    }
+    /* Native select with a custom caret */
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .9rem center;
+      cursor: pointer;
+    }
+    /* Muted text while the placeholder option (value="") is selected */
+    .form-select:invalid { color: #64748b; }
+    .form-select option { color: var(--text-dark); }
+
+    /* Submit button — matches site CTAs, tuned for the light card background */
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+      background: var(--accent);
+      color: var(--bg-dark);
+      font-size: 1rem;
+      padding: .95rem 2rem;
+      margin-top: .25rem;
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--accent-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,212,255,.28);
+    }
+    .btn-submit:disabled { opacity: .65; cursor: not-allowed; }
+    .btn-submit:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
+
+    /* Inline error (shown above the submit button on failure) */
+    /* `.form-error` sets display:flex, which would otherwise override the
+       `hidden` attribute — this keeps it hidden until JS reveals it. */
+    .form-error[hidden] { display: none; }
+    .form-error {
+      display: flex;
+      align-items: flex-start;
+      gap: .55rem;
+      background: rgba(220,38,38,.07);
+      border: 1px solid rgba(220,38,38,.3);
+      color: #b91c1c;
+      border-radius: 8px;
+      padding: .75rem .9rem;
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+    .form-error svg { flex-shrink: 0; margin-top: .1rem; }
+
+    /* Success panel (replaces the form on success) */
+    .form-success {
+      text-align: center;
+      padding: 1rem .5rem;
+    }
+    .form-success-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: rgba(0,212,255,.12);
+      border: 1px solid rgba(0,212,255,.4);
+      color: var(--accent-dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .form-success h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: .6rem;
+    }
+    .form-success p {
+      color: var(--text-mid);
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 420px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Privacy note below the card */
+    .contact-privacy {
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      text-align: center;
+      font-size: .82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 540px) {
+      .contact-card { padding: 1.75rem 1.35rem; }
+    }
+  </style>
+{% endraw %}{% endblock %}
+
+{% block main %}{% raw %}
+<main id="main-content">
+
+<!-- ============================================================
+     SUB-PAGE HERO
+     ============================================================ -->
+<section id="home" class="subhero">
+  <div class="subhero-content">
+    <div class="hero-wordmark hero-wordmark-sm" role="img" aria-label="EBiM Benchmark">
+      <span class="hero-wordmark-mark">EBiM</span>
+      <span class="hero-wordmark-sub">Benchmark</span>
+    </div>
+
+    <div class="breadcrumb" aria-label="麵包屑導覽">
+      <a href="index.html">首頁</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">聯絡</span>
+    </div>
+
+    <h1 class="subhero-title">聯絡我們</h1>
+    <p class="subhero-subtitle">
+      有任何疑問嗎？請留言給我們，我們會轉交給團隊中負責的同仁。
+    </p>
+    <p class="subhero-note">
+      為了最快獲得回覆，請選擇最符合您洽詢內容的類別。
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT FORM
+     ============================================================ -->
+<section id="contact-form">
+  <div class="container">
+
+    <div class="contact-card fade-in">
+
+      <!-- Web3Forms-powered contact form. AJAX-first (see contact-form-script.njk);
+           hCaptcha is enforced server-side once enabled on the key, so JS is required to submit. -->
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST"
+            data-msg-captcha="請先完成人機驗證再送出。">
+
+        <div class="contact-form">
+
+          <!-- Name -->
+          <div class="form-field">
+            <label class="form-label" for="name">您的姓名 <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="name" name="name" maxlength="120"
+                   required autocomplete="name" placeholder="王小明" />
+          </div>
+
+          <!-- Email -->
+          <div class="form-field">
+            <label class="form-label" for="email">
+              您的 Email <span class="req" aria-hidden="true">*</span>
+              <span class="form-label-note">我們會回覆至此電子郵件信箱。</span>
+            </label>
+            <input class="form-input" type="email" id="email" name="email" maxlength="200"
+                   required autocomplete="email" placeholder="you@example.com" />
+          </div>
+
+          <!-- Affiliation -->
+          <div class="form-field">
+            <label class="form-label" for="affiliation">
+              所屬單位 <span class="form-label-note">（選填）</span>
+            </label>
+            <input class="form-input" type="text" id="affiliation" name="affiliation" maxlength="200"
+                   autocomplete="organization" placeholder="大學 / 公司 / 實驗室" />
+          </div>
+
+          <!-- Category -->
+          <div class="form-field">
+            <label class="form-label" for="category">類別 <span class="req" aria-hidden="true">*</span></label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="" disabled selected>請選擇類別</option>
+              <option value="Competition Question" data-slug="competition">競賽洽詢</option>
+              <option value="Workshop / Poster Submission" data-slug="workshop">研討會 / 海報投稿</option>
+              <option value="Partnership Inquiry" data-slug="partner">合作 —— 硬體、資金與運算資源</option>
+              <option value="Media / Press" data-slug="media">媒體 / 新聞</option>
+              <option value="Technical (Platform / Website)" data-slug="tech">技術（平台 / 網站）</option>
+              <option value="Partnership / Testbed Hosting" data-slug="testbed">合作 —— 承辦測試平台</option>
+              <option value="Other / General" data-slug="other">其他 / 一般洽詢</option>
+            </select>
+          </div>
+
+          <!-- Discord CTA — revealed by the inline script only when a Discord-relevant
+               category is selected. Additive: this form is always available. -->
+          <div id="discordCta" class="discord-cta" role="status" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.63 1.612-1.438 1.612Z"/>
+            </svg>
+            <span class="discord-cta-text">
+              聯絡我們最快的方式是我們的
+              <a href="https://discord.gg/pGwRbMRjuH" target="_blank" rel="noopener">Discord <span aria-hidden="true">→</span></a>
+            </span>
+            <span class="discord-cta-note">您仍可使用此表單 —— 兩邊的訊息我們都會閱讀。</span>
+          </div>
+
+          <!-- Subject (user-facing; the Web3Forms email subject is set on submit) -->
+          <div class="form-field">
+            <label class="form-label" for="subject_user">主旨 <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="subject_user" name="subject_user" maxlength="200"
+                   required placeholder="簡要說明您的問題" />
+          </div>
+
+          <!-- Message -->
+          <div class="form-field">
+            <label class="form-label" for="message">留言 <span class="req" aria-hidden="true">*</span></label>
+            <textarea class="form-textarea" id="message" name="message" rows="6" maxlength="5000"
+                      required placeholder="請多告訴我們一些，讓我們知道能如何協助您⋯⋯"></textarea>
+          </div>
+
+          <!-- Hidden Web3Forms fields -->
+          <input type="hidden" name="access_key" value="748f5c30-e7fd-49b0-9eb5-5c1c92f03f78" />
+          <input type="hidden" name="from_name" value="EBiM Benchmark Website Contact" />
+          <input type="hidden" name="subject" value="[CONTACT] New contact form submission" />
+          <input type="hidden" name="redirect" value="https://ebim-benchmark.github.io/zh-tw/contact-success.html" />
+
+          <!-- Honeypot (spam trap) — Web3Forms auto-discards if this is checked -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <!-- hCaptcha (zero-config via the web3forms client script in trailingScripts) -->
+          <div class="h-captcha" data-captcha="true"></div>
+
+          <!-- Inline error message (revealed by JS on failure) -->
+          <div id="formError" class="form-error" role="alert" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="formErrorText">發生錯誤，請再試一次。</span>
+          </div>
+
+          <button type="submit" class="btn btn-submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z"/>
+            </svg>
+            <span class="btn-label">送出留言</span>
+          </button>
+
+          <noscript><p style="text-align:center;font-size:.85rem;color:#b91c1c;margin-top:1rem;">必須啟用 JavaScript 才能送出留言（垃圾訊息檢查需要用到）。若無法啟用，請寄送電子郵件至 <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>。</p></noscript>
+
+        </div>
+      </form>
+
+      <!-- Success panel (revealed by JS; replaces the form) -->
+      <div id="formSuccess" class="form-success" role="status" hidden>
+        <div class="form-success-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2>感謝您！</h2>
+        <p>我們已收到您的留言，將於 3–5 個工作天內回覆。</p>
+        <a href="index.html" class="btn btn-submit" style="max-width:240px;margin:0 auto;">返回首頁</a>
+      </div>
+
+    </div>
+
+    <p class="contact-privacy fade-in">
+      我們僅會使用您的資訊來回覆您的留言，不會分享給第三方，也不會將您加入任何郵寄名單。
+      您送出的內容由 Web3Forms 處理，並轉寄至本團隊的電子郵件信箱。
+    </p>
+
+  </div>
+</section>
+
+
+</main>
+{% endraw %}{% endblock %}
+
+{# Contact-form behavior is single-sourced in _includes/contact-form-script.njk
+   and shared verbatim with the EN src/contact.njk — language-agnostic JS (keys
+   off each option's data-slug, never the visible label), so the zh-TW page's form
+   submits the identical Web3Forms payload. #}
+{% block trailingScripts %}{% include "contact-form-script.njk" %}<script src="https://web3forms.com/client/script.js" async defer></script>{% endblock %}

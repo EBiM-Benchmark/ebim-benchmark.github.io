@@ -1,0 +1,382 @@
+{
+  "_comment": "zh-TW lexicon for Gate C of scripts/verify-zhtw.mjs. deny: regexes (Unicode flag) that must not match any zh-TW page string or any string in src/_data/i18n/zh-tw.json; termbase names the row of docs/i18n/zh-TW-termbase.md (A1…A19, B, or C) and note gives the zh-TW form. allow: [{ page, text, reason }] waives a deny or OpenCC finding whose span lies inside an occurrence of text on that page (page is the _site-relative path, e.g. zh-tw/contact.html, or src/_data/i18n/zh-tw.json, or * for every page). allow entries need Cecil's ratification.",
+  "deny": [
+    {
+      "pattern": "組委會",
+      "termbase": "A1",
+      "note": "組織委員會"
+    },
+    {
+      "pattern": "組織方",
+      "termbase": "A2",
+      "note": "主辦單位"
+    },
+    {
+      "pattern": "主辦方",
+      "termbase": "A2",
+      "note": "主辦單位"
+    },
+    {
+      "pattern": "仿真",
+      "termbase": "A3",
+      "note": "模擬 / 模擬器"
+    },
+    {
+      "pattern": "真實機器人",
+      "termbase": "A4",
+      "note": "實體機器人"
+    },
+    {
+      "pattern": "台架",
+      "termbase": "A6",
+      "note": "平台實測 / 現場實作測試"
+    },
+    {
+      "pattern": "實操",
+      "termbase": "A6",
+      "note": "現場實作測試"
+    },
+    {
+      "pattern": "評測(?!中心)",
+      "termbase": "A7",
+      "note": "評估; 評測中心 (Hamburg) is the fixed name"
+    },
+    {
+      "pattern": "測試台",
+      "termbase": "A8",
+      "note": "測試平台"
+    },
+    {
+      "pattern": "講座",
+      "termbase": "A10",
+      "note": "演講"
+    },
+    {
+      "pattern": "特邀報告",
+      "termbase": "A10",
+      "note": "邀請演講"
+    },
+    {
+      "pattern": "嘉賓",
+      "termbase": "A10",
+      "note": "講者"
+    },
+    {
+      "pattern": "圓桌",
+      "termbase": "A11",
+      "note": "座談 (titles: 專家座談)"
+    },
+    {
+      "pattern": "算力",
+      "termbase": "A12",
+      "note": "運算資源"
+    },
+    {
+      "pattern": "計算資源",
+      "termbase": "A12",
+      "note": "運算資源"
+    },
+    {
+      "pattern": "提交",
+      "termbase": "A14",
+      "note": "繳交 (competition); 送出 on form buttons (A15)"
+    },
+    {
+      "pattern": "你",
+      "termbase": "A16",
+      "note": "您 throughout"
+    },
+    {
+      "pattern": "代金券",
+      "termbase": "A18",
+      "note": "採購抵用券"
+    },
+    {
+      "pattern": "聯繫我們",
+      "termbase": "B",
+      "note": "聯絡我們 — the fixed phrase only; 保持聯繫 is fine"
+    },
+    {
+      "pattern": "聯系",
+      "termbase": "B",
+      "note": "聯絡"
+    },
+    {
+      "pattern": "下拉菜單|菜單(欄|列)",
+      "termbase": "B",
+      "note": "選單 — UI menus only"
+    },
+    {
+      "pattern": "(?<!自)主導航|頁尾導航|頁腳導航|導航(列|欄|選單|菜單)",
+      "termbase": "B",
+      "note": "導覽 — UI navigation only; robot navigation 導航 is fine ((?<!自) keeps 自主導航 'autonomous navigation' out of 主導航)"
+    },
+    {
+      "pattern": "頁腳",
+      "termbase": "B",
+      "note": "頁尾"
+    },
+    {
+      "pattern": "日程",
+      "termbase": "B",
+      "note": "議程"
+    },
+    {
+      "pattern": "源代碼|代碼(庫|倉庫|倉)|(示例|開源)代碼",
+      "termbase": "B",
+      "note": "程式碼 — source/repository code only; 錯誤代碼 (error code) is fine"
+    },
+    {
+      "pattern": "數據集",
+      "termbase": "B",
+      "note": "資料集"
+    },
+    {
+      "pattern": "信息",
+      "termbase": "B",
+      "note": "資訊 (information) / 訊息 (a message)"
+    },
+    {
+      "pattern": "硬件",
+      "termbase": "B",
+      "note": "硬體"
+    },
+    {
+      "pattern": "軟件",
+      "termbase": "B",
+      "note": "軟體"
+    },
+    {
+      "pattern": "網絡",
+      "termbase": "B",
+      "note": "網路"
+    },
+    {
+      "pattern": "鏈接",
+      "termbase": "B",
+      "note": "連結"
+    },
+    {
+      "pattern": "用戶",
+      "termbase": "B",
+      "note": "使用者"
+    },
+    {
+      "pattern": "郵箱",
+      "termbase": "B",
+      "note": "電子郵件信箱"
+    },
+    {
+      "pattern": "伙",
+      "termbase": "B",
+      "note": "夥 (合作夥伴)"
+    },
+    {
+      "pattern": "社區",
+      "termbase": "B",
+      "note": "社群"
+    },
+    {
+      "pattern": "渠道",
+      "termbase": "B",
+      "note": "管道"
+    },
+    {
+      "pattern": "復現",
+      "termbase": "B",
+      "note": "重現"
+    },
+    {
+      "pattern": "推理(速度|延遲|時間|階段|服務|伺服器|成本|框架)",
+      "termbase": "B",
+      "note": "推論 — ML inference only; 推理能力 (reasoning) is fine"
+    },
+    {
+      "pattern": "遙操作",
+      "termbase": "B",
+      "note": "遙控操作"
+    },
+    {
+      "pattern": "搭建",
+      "termbase": "B",
+      "note": "建置"
+    },
+    {
+      "pattern": "智能",
+      "termbase": "B",
+      "note": "智慧 — except inside proper names (allowlist with ratification)"
+    },
+    {
+      "pattern": "班車",
+      "termbase": "B",
+      "note": "接駁車"
+    },
+    {
+      "pattern": "茶歇",
+      "termbase": "B",
+      "note": "茶敘"
+    },
+    {
+      "pattern": "線下",
+      "termbase": "B",
+      "note": "實體"
+    },
+    {
+      "pattern": "演示",
+      "termbase": "B",
+      "note": "展示 / 示範"
+    },
+    {
+      "pattern": "托管",
+      "termbase": "B",
+      "note": "承辦 / 設置 (context)"
+    },
+    {
+      "pattern": "征集",
+      "termbase": "B",
+      "note": "招募"
+    },
+    {
+      "pattern": "徵集",
+      "termbase": "B",
+      "note": "招募"
+    },
+    {
+      "pattern": "席位",
+      "termbase": "B",
+      "note": "名額"
+    },
+    {
+      "pattern": "落地",
+      "termbase": "B",
+      "note": "實際應用 / 實際部署"
+    },
+    {
+      "pattern": "生態(圈|布局|佈局|建設)",
+      "termbase": "B",
+      "note": "rephrase naturally — jargon compounds only; 生態系 (ecosystem) is fine"
+    },
+    {
+      "pattern": "頭部(企業|廠商|公司|品牌|玩家|陣營)",
+      "termbase": "B",
+      "note": "rephrase naturally — business-jargon compounds only; the anatomical 頭部 is fine"
+    },
+    {
+      "pattern": "運營",
+      "termbase": "B",
+      "note": "營運"
+    },
+    {
+      "pattern": "站點",
+      "termbase": "B",
+      "note": "據點"
+    },
+    {
+      "pattern": "獲取",
+      "termbase": "B",
+      "note": "取得"
+    },
+    {
+      "pattern": "視頻",
+      "termbase": "B",
+      "note": "影片"
+    },
+    {
+      "pattern": "(高|低|優)質量|質量(保證|控制|管理|問題)",
+      "termbase": "B",
+      "note": "品質 — quality only; 質量 as physical mass is fine"
+    },
+    {
+      "pattern": "默認",
+      "termbase": "B",
+      "note": "預設"
+    },
+    {
+      "pattern": "周[一二三四五六日]",
+      "termbase": "B",
+      "note": "週一…週日"
+    },
+    {
+      "pattern": "獎杯",
+      "termbase": "B",
+      "note": "獎盃"
+    },
+    {
+      "pattern": "“",
+      "termbase": "C",
+      "note": "「」 (C1)"
+    },
+    {
+      "pattern": "”",
+      "termbase": "C",
+      "note": "「」 (C1)"
+    },
+    {
+      "pattern": "‘",
+      "termbase": "C",
+      "note": "『』 (C1)"
+    },
+    {
+      "pattern": "’",
+      "termbase": "C",
+      "note": "『』 (C1)"
+    },
+    {
+      "pattern": "……",
+      "termbase": "C",
+      "note": "⋯⋯ (C2)"
+    }
+  ],
+  "allow": [
+    {
+      "page": "*",
+      "text": "平台",
+      "reason": "Termbase A8 ratified 測試平台; OpenCC twp rewrites every 台→臺. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "公布",
+      "reason": "MOE standard form; OpenCC twp rewrites to 公佈. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "了解",
+      "reason": "MOE primary form; 瞭解 is a variant. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "單台",
+      "reason": "Everyday Taiwanese 台 as a measure word for machines; OpenCC rewrites to 單臺. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "工作台",
+      "reason": "Common Taiwanese form; OpenCC rewrites to 工作臺. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "宣布",
+      "reason": "MOE standard form, like 公布; OpenCC rewrites to 宣佈. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "報名表",
+      "reason": "cn→tw misreads 名表 as 名錶 (watch). Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "zh-tw/open-day-shanghai.html",
+      "text": "上海仙工智能科技股份有限公司",
+      "reason": "Registered legal name; Part D: Chinese names are converted character by character, with no vocabulary substitution. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "獲准",
+      "reason": "Standard Taiwanese for 'be approved'; OpenCC cn→tw wrongly rewrites 准→準. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "儀表板",
+      "reason": "Standard Taiwanese/MOE form for a software dashboard; OpenCC rewrites to 儀錶板. Ratified by Cecil 2026-10-29."
+    }
+  ]
+}
