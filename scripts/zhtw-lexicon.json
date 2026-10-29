@@ -1,0 +1,341 @@
+{
+  "_comment": "zh-TW lexicon for Gate C of scripts/verify-zhtw.mjs. deny: regexes (Unicode flag) that must not match any zh-TW page string or any string in src/_data/i18n/zh-tw.json; termbase names the row of docs/i18n/zh-TW-termbase.md (A1…A19, B, or C) and note gives the zh-TW form. allow: [{ page, text, reason }] waives a deny or OpenCC finding whose span lies inside an occurrence of text on that page (page is the _site-relative path, e.g. zh-tw/contact.html, or src/_data/i18n/zh-tw.json, or * for every page). allow entries need Cecil's ratification.",
+  "deny": [
+    {
+      "pattern": "組委會",
+      "termbase": "A1",
+      "note": "組織委員會"
+    },
+    {
+      "pattern": "組織方",
+      "termbase": "A2",
+      "note": "主辦單位"
+    },
+    {
+      "pattern": "主辦方",
+      "termbase": "A2",
+      "note": "主辦單位"
+    },
+    {
+      "pattern": "仿真",
+      "termbase": "A3",
+      "note": "模擬 / 模擬器"
+    },
+    {
+      "pattern": "真實機器人",
+      "termbase": "A4",
+      "note": "實體機器人"
+    },
+    {
+      "pattern": "台架",
+      "termbase": "A6",
+      "note": "平台實測 / 現場實作測試"
+    },
+    {
+      "pattern": "實操",
+      "termbase": "A6",
+      "note": "現場實作測試"
+    },
+    {
+      "pattern": "評測(?!中心)",
+      "termbase": "A7",
+      "note": "評估; 評測中心 (Hamburg) is the fixed name"
+    },
+    {
+      "pattern": "測試台",
+      "termbase": "A8",
+      "note": "測試平台"
+    },
+    {
+      "pattern": "講座",
+      "termbase": "A10",
+      "note": "演講"
+    },
+    {
+      "pattern": "特邀報告",
+      "termbase": "A10",
+      "note": "邀請演講"
+    },
+    {
+      "pattern": "嘉賓",
+      "termbase": "A10",
+      "note": "講者"
+    },
+    {
+      "pattern": "圓桌",
+      "termbase": "A11",
+      "note": "座談 (titles: 專家座談)"
+    },
+    {
+      "pattern": "算力",
+      "termbase": "A12",
+      "note": "運算資源"
+    },
+    {
+      "pattern": "計算資源",
+      "termbase": "A12",
+      "note": "運算資源"
+    },
+    {
+      "pattern": "提交",
+      "termbase": "A14",
+      "note": "繳交 (competition); 送出 on form buttons (A15)"
+    },
+    {
+      "pattern": "你",
+      "termbase": "A16",
+      "note": "您 throughout"
+    },
+    {
+      "pattern": "代金券",
+      "termbase": "A18",
+      "note": "採購抵用券"
+    },
+    {
+      "pattern": "聯繫",
+      "termbase": "B",
+      "note": "聯絡"
+    },
+    {
+      "pattern": "聯系",
+      "termbase": "B",
+      "note": "聯絡"
+    },
+    {
+      "pattern": "菜單",
+      "termbase": "B",
+      "note": "選單"
+    },
+    {
+      "pattern": "導航",
+      "termbase": "B",
+      "note": "導覽"
+    },
+    {
+      "pattern": "頁腳",
+      "termbase": "B",
+      "note": "頁尾"
+    },
+    {
+      "pattern": "日程",
+      "termbase": "B",
+      "note": "議程"
+    },
+    {
+      "pattern": "代碼",
+      "termbase": "B",
+      "note": "程式碼"
+    },
+    {
+      "pattern": "數據集",
+      "termbase": "B",
+      "note": "資料集"
+    },
+    {
+      "pattern": "信息",
+      "termbase": "B",
+      "note": "資訊 (information) / 訊息 (a message)"
+    },
+    {
+      "pattern": "硬件",
+      "termbase": "B",
+      "note": "硬體"
+    },
+    {
+      "pattern": "軟件",
+      "termbase": "B",
+      "note": "軟體 (not in Part B's table; same family as 硬件 → 硬體)"
+    },
+    {
+      "pattern": "網絡",
+      "termbase": "B",
+      "note": "網路"
+    },
+    {
+      "pattern": "鏈接",
+      "termbase": "B",
+      "note": "連結"
+    },
+    {
+      "pattern": "用戶",
+      "termbase": "B",
+      "note": "使用者"
+    },
+    {
+      "pattern": "郵箱",
+      "termbase": "B",
+      "note": "電子郵件信箱"
+    },
+    {
+      "pattern": "伙",
+      "termbase": "B",
+      "note": "夥 (合作夥伴)"
+    },
+    {
+      "pattern": "社區",
+      "termbase": "B",
+      "note": "社群"
+    },
+    {
+      "pattern": "渠道",
+      "termbase": "B",
+      "note": "管道"
+    },
+    {
+      "pattern": "復現",
+      "termbase": "B",
+      "note": "重現"
+    },
+    {
+      "pattern": "推理",
+      "termbase": "B",
+      "note": "推論"
+    },
+    {
+      "pattern": "遙操作",
+      "termbase": "B",
+      "note": "遙控操作"
+    },
+    {
+      "pattern": "搭建",
+      "termbase": "B",
+      "note": "建置"
+    },
+    {
+      "pattern": "智能",
+      "termbase": "B",
+      "note": "智慧 — except inside proper names (allowlist with ratification)"
+    },
+    {
+      "pattern": "班車",
+      "termbase": "B",
+      "note": "接駁車"
+    },
+    {
+      "pattern": "茶歇",
+      "termbase": "B",
+      "note": "茶敘"
+    },
+    {
+      "pattern": "線下",
+      "termbase": "B",
+      "note": "實體"
+    },
+    {
+      "pattern": "演示",
+      "termbase": "B",
+      "note": "展示 / 示範"
+    },
+    {
+      "pattern": "托管",
+      "termbase": "B",
+      "note": "承辦 / 設置 (context)"
+    },
+    {
+      "pattern": "征集",
+      "termbase": "B",
+      "note": "招募"
+    },
+    {
+      "pattern": "徵集",
+      "termbase": "B",
+      "note": "招募"
+    },
+    {
+      "pattern": "席位",
+      "termbase": "B",
+      "note": "名額"
+    },
+    {
+      "pattern": "落地",
+      "termbase": "B",
+      "note": "實際應用 / 實際部署"
+    },
+    {
+      "pattern": "打造",
+      "termbase": "B",
+      "note": "rephrase naturally"
+    },
+    {
+      "pattern": "生態",
+      "termbase": "B",
+      "note": "rephrase naturally"
+    },
+    {
+      "pattern": "頭部",
+      "termbase": "B",
+      "note": "rephrase naturally"
+    },
+    {
+      "pattern": "聚焦",
+      "termbase": "B",
+      "note": "rephrase naturally"
+    },
+    {
+      "pattern": "運營",
+      "termbase": "B",
+      "note": "營運"
+    },
+    {
+      "pattern": "站點",
+      "termbase": "B",
+      "note": "據點"
+    },
+    {
+      "pattern": "獲取",
+      "termbase": "B",
+      "note": "取得"
+    },
+    {
+      "pattern": "視頻",
+      "termbase": "B",
+      "note": "影片 (not in Part B's table)"
+    },
+    {
+      "pattern": "質量",
+      "termbase": "B",
+      "note": "品質 (not in Part B's table)"
+    },
+    {
+      "pattern": "默認",
+      "termbase": "B",
+      "note": "預設 (not in Part B's table)"
+    },
+    {
+      "pattern": "周[一二三四五六日]",
+      "termbase": "B",
+      "note": "週一…週日"
+    },
+    {
+      "pattern": "獎杯",
+      "termbase": "B",
+      "note": "獎盃"
+    },
+    {
+      "pattern": "“",
+      "termbase": "C",
+      "note": "「」 (C1)"
+    },
+    {
+      "pattern": "”",
+      "termbase": "C",
+      "note": "「」 (C1)"
+    },
+    {
+      "pattern": "‘",
+      "termbase": "C",
+      "note": "『』 (C1)"
+    },
+    {
+      "pattern": "’",
+      "termbase": "C",
+      "note": "『』 (C1)"
+    },
+    {
+      "pattern": "……",
+      "termbase": "C",
+      "note": "⋯⋯ (C2)"
+    }
+  ],
+  "allow": []
+}
