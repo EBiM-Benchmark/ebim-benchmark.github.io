@@ -1,112 +1,56 @@
 ---
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
-# Locale-aware sitemap, gated PER PAGE on site.zhPublished[pair] (the i18nKey
-# map in src/_data/site.json). The ten EN URLs are always listed. A /zh/ URL is
-# listed iff its pair's flag is true; an EN URL gets <xhtml:link> hreflang
-# alternates iff its pair's flag is true. With all ten pairs published
-# (index/competition/workshop/contact since Phase 2c, register since, faq since,
-# open-day-hamburg since, open-day + open-day-shanghai since, open-day-munich
-# since): 20 URLs (10 EN + 10 /zh/), each pair carrying reciprocal
-# en/zh-Hans/x-default alternates
-# on both its EN and /zh/ rows. (Return a flag to false and that /zh/ row drops
-# out and its pair's alternates disappear.)
-# The xhtml namespace is emitted whenever any page is published. The alternate
-# hrefs mirror HREFLANG_PAIRS in src/_data/eleventyComputed.js. 404 /
-# contact-success (EN + /zh/) / register-success (EN + /zh/) / open-day-success
-# (EN + /zh/) / open-day-munich-success (EN + /zh/) / contact-test are
-# intentionally excluded.
+# Locale-aware sitemap, gated PER PAGE on each locale's publish map in
+# src/_data/site.json (zhPublished for /zh/, zhTwPublished for /zh-tw/). The
+# rows are derived by the sitemapRows filter (lib/locales.mjs) from the 11 EN
+# rows below: the 11 EN URLs are always listed; a /zh/ or /zh-tw/ URL is listed
+# iff its pair's flag in that locale is true. A pair published in two or more
+# locales carries the same alternates as its pages' hreflangAlternates on every
+# one of its rows: each published locale (en, zh-Hans, zh-Hant), then x-default.
+# Today all 11 /zh/ pairs are published and no /zh-tw/ pair is: 22 URLs
+# (11 EN + 11 /zh/), each pair carrying en/zh-Hans/x-default alternates. With
+# every zh-TW pair published too: 33 URLs (11 EN + 11 /zh/ + 11 /zh-tw/), each
+# carrying en/zh-Hans/zh-Hant/x-default. (Return a flag to false and that row
+# drops out and its pair's alternates shrink.) /zh/ rows reuse the EN lastmod;
+# /zh-tw/ rows use localeLastmod["zh-tw"], the date the locale's chrome landed.
+# The xhtml namespace is emitted whenever any pair has alternates. 404 /
+# contact-success / register-success / open-day-success / open-day-munich-success
+# / compute-apply / compute-success / contact-test / the feedback questionnaires
+# (in every locale) are intentionally excluded.
 sitemap:
-  urls:
-    - { loc: "https://ebim-benchmark.github.io/", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0", pair: "index" }
-    - { loc: "https://ebim-benchmark.github.io/competition.html", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9", pair: "competition" }
-    - { loc: "https://ebim-benchmark.github.io/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop" }
-    - { loc: "https://ebim-benchmark.github.io/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6", pair: "contact" }
-    - { loc: "https://ebim-benchmark.github.io/register.html", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8", pair: "register" }
-    - { loc: "https://ebim-benchmark.github.io/faq.html", lastmod: "2026-07-01", changefreq: "monthly", priority: "0.6", pair: "faq" }
-    - { loc: "https://ebim-benchmark.github.io/open-day-hamburg.html", lastmod: "2026-07-15", changefreq: "weekly", priority: "0.8", pair: "openDayHamburg" }
-    - { loc: "https://ebim-benchmark.github.io/open-day.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDay" }
-    - { loc: "https://ebim-benchmark.github.io/open-day-shanghai.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDayShanghai" }
-    - { loc: "https://ebim-benchmark.github.io/open-day-munich.html", lastmod: "2026-09-04", changefreq: "weekly", priority: "0.8", pair: "openDayMunich" }
-    - { loc: "https://ebim-benchmark.github.io/results.html", lastmod: "2026-10-02", changefreq: "monthly", priority: "0.8", pair: "results" }
-    - { loc: "https://ebim-benchmark.github.io/zh/", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0", pair: "index", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/competition.html", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9", pair: "competition", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/workshop.html", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9", pair: "workshop", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/contact.html", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6", pair: "contact", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/register.html", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8", pair: "register", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/faq.html", lastmod: "2026-07-01", changefreq: "monthly", priority: "0.6", pair: "faq", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/open-day-hamburg.html", lastmod: "2026-07-15", changefreq: "weekly", priority: "0.8", pair: "openDayHamburg", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/open-day.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDay", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/open-day-shanghai.html", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8", pair: "openDayShanghai", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/open-day-munich.html", lastmod: "2026-09-04", changefreq: "weekly", priority: "0.8", pair: "openDayMunich", zh: true }
-    - { loc: "https://ebim-benchmark.github.io/zh/results.html", lastmod: "2026-10-02", changefreq: "monthly", priority: "0.8", pair: "results", zh: true }
-  alternates:
-    index:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/" }
-    competition:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/competition.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/competition.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/competition.html" }
-    workshop:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/workshop.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/workshop.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/workshop.html" }
-    contact:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/contact.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/contact.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/contact.html" }
-    register:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/register.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/register.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/register.html" }
-    faq:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/faq.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/faq.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/faq.html" }
-    openDayHamburg:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/open-day-hamburg.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/open-day-hamburg.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/open-day-hamburg.html" }
-    openDay:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/open-day.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/open-day.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/open-day.html" }
-    openDayShanghai:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/open-day-shanghai.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/open-day-shanghai.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/open-day-shanghai.html" }
-    openDayMunich:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/open-day-munich.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/open-day-munich.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/open-day-munich.html" }
-    results:
-      - { hreflang: "en", href: "https://ebim-benchmark.github.io/results.html" }
-      - { hreflang: "zh-Hans", href: "https://ebim-benchmark.github.io/zh/results.html" }
-      - { hreflang: "x-default", href: "https://ebim-benchmark.github.io/results.html" }
+  pages:
+    - { pair: "index", lastmod: "2026-06-21", changefreq: "weekly", priority: "1.0" }
+    - { pair: "competition", lastmod: "2026-06-21", changefreq: "weekly", priority: "0.9" }
+    - { pair: "workshop", lastmod: "2026-06-15", changefreq: "weekly", priority: "0.9" }
+    - { pair: "contact", lastmod: "2026-06-15", changefreq: "monthly", priority: "0.6" }
+    - { pair: "register", lastmod: "2026-06-29", changefreq: "weekly", priority: "0.8" }
+    - { pair: "faq", lastmod: "2026-07-01", changefreq: "monthly", priority: "0.6" }
+    - { pair: "openDayHamburg", lastmod: "2026-07-15", changefreq: "weekly", priority: "0.8" }
+    - { pair: "openDay", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8" }
+    - { pair: "openDayShanghai", lastmod: "2026-08-02", changefreq: "weekly", priority: "0.8" }
+    - { pair: "openDayMunich", lastmod: "2026-09-04", changefreq: "weekly", priority: "0.8" }
+    - { pair: "results", lastmod: "2026-10-02", changefreq: "monthly", priority: "0.8" }
+  localeLastmod:
+    zh-tw: "2026-10-30"
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-{%- set anyPublished = site.zhPublished.index or site.zhPublished.competition or site.zhPublished.workshop or site.zhPublished.faq or site.zhPublished.contact or site.zhPublished.register or site.zhPublished.openDay or site.zhPublished.openDayHamburg or site.zhPublished.openDayShanghai or site.zhPublished.openDayMunich or site.zhPublished.results %}
-{%- if anyPublished %}
+{%- set rows = sitemap.pages | sitemapRows(site, sitemap.localeLastmod) %}
+{%- if rows | selectattr("hasAlternates") | length %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {%- else %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- endif %}
-{%- for u in sitemap.urls %}
-{%- if (not u.zh) or site.zhPublished[u.pair] %}
+{%- for u in rows %}
   <url>
     <loc>{{ u.loc }}</loc>
     <lastmod>{{ u.lastmod }}</lastmod>
     <changefreq>{{ u.changefreq }}</changefreq>
     <priority>{{ u.priority }}</priority>
-{%- if u.pair and site.zhPublished[u.pair] %}
-{%- for alt in sitemap.alternates[u.pair] %}
+{%- for alt in u.alternates %}
     <xhtml:link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.href }}" />
 {%- endfor %}
-{%- endif %}
   </url>
-{%- endif %}
 {%- endfor %}
 </urlset>

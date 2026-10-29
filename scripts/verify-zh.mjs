@@ -2,14 +2,14 @@
 // workshop + contact as drafts; Phase 2c published them; register shipped
 // published later; the FAQ page was added and published since, then the Hamburg
 // Open Day page, then the Open Day hub + the Shanghai Open Day page, then the
-// Munich Open Day page — all ten /zh/ pages are now live).
+// Munich Open Day page, then the Final Results page — all eleven /zh/ pages are now live).
 //
 // Sibling to verify.mjs (which is the PERMANENT EN parity net — never touched
 // here). This asserts the Simplified-Chinese locale is in the correct state and
-// is actually localized, for the TEN pages we now ship: /zh/index.html,
+// is actually localized, for the ELEVEN pages we now ship: /zh/index.html,
 // /zh/competition.html, /zh/workshop.html, /zh/faq.html, /zh/contact.html,
 // /zh/register.html, /zh/open-day.html, /zh/open-day-hamburg.html,
-// /zh/open-day-shanghai.html, /zh/open-day-munich.html.
+// /zh/open-day-shanghai.html, /zh/open-day-munich.html, /zh/results.html.
 // It also covers the hidden /zh/contact-success.html, /zh/register-success.html,
 // /zh/open-day-success.html and /zh/open-day-munich-success.html utility pages
 // (the no-JS targets of the zh contact/register/Open Day form redirects) and
@@ -35,6 +35,11 @@
 //   no language toggle             navbar language toggle: 中文 active +
 //                                  "EN" → the EN counterpart
 //
+// zhTwPublished[key] EXTENDS the published column (never weakens it): the
+// cluster gains zh-Hant (en/zh-Hans/zh-Hant/x-default, in that order), the
+// toggle gains a 繁 link and the zh chip reads 简 (EN · 繁 · 简), and the
+// sitemap total counts the /zh-tw/ row. While it is false: 中文, and no 繁 link.
+//
 // State-independent per-page checks (always asserted):
 //   build        — the file exists in _site/.
 //   <html lang>  — is exactly "zh-Hans" (BCP-47 Simplified Chinese).
@@ -55,9 +60,10 @@
 //
 // Site-wide it checks (per-page gated):
 //   sitemap      — each PUBLISHED page's /zh/ url is present; each DRAFT's is
-//                  absent. Total = 9 EN + (number of published zh).
-//   hreflang     — emitted ONLY on the published localized pairs (EN + /zh/);
-//                  never on a draft pair, and never on the EN-only utility pages.
+//                  absent. Total = 11 EN + (published zh) + (published zh-TW).
+//   hreflang     — emitted ONLY on the published localized pages (the EN page of
+//                  a pair published in /zh/ or /zh-tw/, plus each published
+//                  locale page); never on a draft, never on the EN-only utility pages.
 //
 // Usage:  node scripts/verify-zh.mjs            (builds, then verifies)
 //         node scripts/verify-zh.mjs --no-build (verify an existing _site)
@@ -79,8 +85,16 @@ const SITE_ORIGIN = "https://ebim-benchmark.github.io";
 const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "src/_data/site.json"), "utf8"));
 const PUB = SITE_DATA.zhPublished || {};
 const isPub = (key) => PUB[key] === true;
+// The zh-TW publish map. Publishing a pair in zh-TW adds zh-Hant to that pair's
+// hreflang cluster and a 繁 option to its toggle, and turns the zh chip from 中文
+// into 简; it changes nothing else here. The zh-TW pages themselves are asserted
+// by scripts/verify-zhtw.mjs.
+const PUB_TW = SITE_DATA.zhTwPublished || {};
+const isPubTw = (key) => PUB_TW[key] === true;
+const twUrlOf = (p) => p.zhUrl.replace(`${SITE_ORIGIN}/zh/`, `${SITE_ORIGIN}/zh-tw/`);
+const twFileOf = (p) => p.file.replace(/^zh\//, "zh-tw/");
 
-// The nine localized pages. `key` is the i18nKey (the publish-flag key).
+// The eleven localized pages. `key` is the i18nKey (the publish-flag key).
 // `enUrl`/`zhUrl` are the canonical pair URLs the reciprocal hreflang must
 // advertise (en + x-default → enUrl, zh-Hans → zhUrl) when published; `canonical`
 // is the page's OWN (self) URL. `enGone`/`zhHas` prove translation.
@@ -219,17 +233,23 @@ const EN_FILE = {
   results: "results.html",
 };
 
-// The full set of pages that ARE allowed hreflang: the EN + /zh/ pair of every
-// PUBLISHED localized page. Every other built page (drafts + 404/contact-success/
-// contact-test) must carry none.
+// The full set of pages that ARE allowed hreflang: for every pair published in
+// /zh/ or /zh-tw/, its EN page plus each locale page that is published. Every
+// other built page (drafts + 404/contact-success/contact-test) must carry none.
 const LOCALIZED_PAGES = new Set(
-  PAGES.filter((p) => isPub(p.key)).flatMap((p) => [EN_FILE[p.key], p.file]),
+  PAGES.flatMap((p) => [
+    ...(isPub(p.key) || isPubTw(p.key) ? [EN_FILE[p.key]] : []),
+    ...(isPub(p.key) ? [p.file] : []),
+    ...(isPubTw(p.key) ? [twFileOf(p)] : []),
+  ]),
 );
 
-// The three reciprocal hreflang <link>s a localized page must emit when published.
+// The reciprocal hreflang <link>s a localized page must emit when published, in
+// cluster order: en, zh-Hans, zh-Hant (iff the pair is published in zh-TW), x-default.
 const hreflangLines = (p) => [
   `<link rel="alternate" hreflang="en" href="${p.enUrl}" />`,
   `<link rel="alternate" hreflang="zh-Hans" href="${p.zhUrl}" />`,
+  ...(isPubTw(p.key) ? [`<link rel="alternate" hreflang="zh-Hant" href="${twUrlOf(p)}" />`] : []),
   `<link rel="alternate" hreflang="x-default" href="${p.enUrl}" />`,
 ];
 
@@ -327,12 +347,23 @@ function pageChecks(p) {
   const hreflangCount = (html.match(/rel="alternate" hreflang=/g) || []).length;
   if (published) {
     add("no noindex (published)", !hasNoindex, "published zh page must NOT be noindex");
+    const lines = hreflangLines(p);
+    const tags = isPubTw(p.key) ? "en/zh-Hans/zh-Hant/x-default" : "en/zh-Hans/x-default";
     add(
-      "hreflang reciprocal (en/zh-Hans/x-default)",
-      hreflangLines(p).every((l) => html.includes(l)),
-      `expected reciprocal hreflang:\n      ${hreflangLines(p).join("\n      ")}`,
+      `hreflang reciprocal (${tags})`,
+      lines.every((l) => html.includes(l)),
+      `expected reciprocal hreflang:\n      ${lines.join("\n      ")}`,
     );
-    add("exactly 3 hreflang", hreflangCount === 3, `expected 3 hreflang links, found ${hreflangCount}`);
+    add(
+      `hreflang in cluster order (${tags})`,
+      lines.every((l, i) => i === 0 || html.indexOf(lines[i - 1]) < html.indexOf(l)),
+      `expected the hreflang links in the order ${tags}`,
+    );
+    add(
+      `exactly ${lines.length} hreflang`,
+      hreflangCount === lines.length,
+      `expected ${lines.length} hreflang links, found ${hreflangCount}`,
+    );
   } else {
     add("noindex (draft)", hasNoindex, "expected <meta name=robots content=noindex>");
     add("no hreflang (draft)", hreflangCount === 0, "draft page must emit no hreflang");
@@ -386,26 +417,46 @@ function pageChecks(p) {
   );
 
   // In-page language toggle (navbar) — gated on this page's publish flag,
-  // mirroring the hreflang relationship. On a published /zh/ page "中文" is the
-  // active option and "EN" links to the EN counterpart; a draft has no toggle.
+  // mirroring the hreflang relationship. On a published /zh/ page the zh chip is
+  // the active option and "EN" links to the EN counterpart; a draft has no toggle.
+  // The chip reads 中文 on its own and 简 once the pair is also published in
+  // zh-TW, which adds a 繁 link (order EN · 繁 · 简).
   if (published) {
+    const tw = isPubTw(p.key);
+    const chip = tw ? "简" : "中文";
+    const activeChip = `<span class="lang-opt is-active" lang="zh-Hans" aria-current="true">${chip}</span>`;
+    const enLink = `<a class="lang-opt" lang="en" hreflang="en" href="${p.enToggleHref}">EN</a>`;
+    const twToggleHref = p.enToggleHref.replace(/^\.\.\//, "../zh-tw/");
+    const twLink = `<a class="lang-opt" lang="zh-Hant-TW" hreflang="zh-Hant" href="${twToggleHref}">繁</a>`;
     add(
       "lang toggle group",
       /<span class="lang-toggle" role="group" aria-label="[^"]+">/.test(html),
       "language toggle group did not render",
     );
     add(
-      "lang toggle: 中文 active",
-      html.includes(
-        '<span class="lang-opt is-active" lang="zh-Hans" aria-current="true">中文</span>',
-      ),
-      "expected 中文 marked active (aria-current, lang=zh-Hans)",
+      `lang toggle: ${chip} active`,
+      html.includes(activeChip),
+      `expected ${chip} marked active (aria-current, lang=zh-Hans)`,
     );
     add(
       `lang toggle: EN → ${p.enToggleHref}`,
-      html.includes(`<a class="lang-opt" lang="en" hreflang="en" href="${p.enToggleHref}">EN</a>`),
+      html.includes(enLink),
       `expected EN counterpart link href="${p.enToggleHref}" with hreflang="en"`,
     );
+    if (tw) {
+      add(
+        `lang toggle: 繁 → ${twToggleHref}`,
+        html.includes(twLink),
+        `expected zh-TW counterpart link href="${twToggleHref}" with hreflang="zh-Hant"`,
+      );
+      add(
+        "lang toggle order EN · 繁 · 简",
+        html.indexOf(enLink) < html.indexOf(twLink) && html.indexOf(twLink) < html.indexOf(activeChip),
+        "expected the toggle options in the order EN · 繁 · 简",
+      );
+    } else {
+      add("lang toggle: no 繁 (zh-TW draft)", !/>繁</.test(html), "a zh-TW draft must not get a 繁 link");
+    }
   } else {
     add(
       "no lang toggle (draft)",
@@ -457,7 +508,7 @@ function pageChecks(p) {
 // redirect (src/zh/contact-success.njk). It is NOT one of the nine localized
 // PAGES — it has no i18nKey, so it must carry NO hreflang, NO language toggle,
 // and stay OUT of the sitemap. It is a plain noindex zh page (noindex emitted by
-// the zhNoindex computed, since it's an unpublished zh page) that mirrors the EN
+// the localeNoindex computed, since it's an unpublished zh page) that mirrors the EN
 // contact-success.html, localized. Living under src/zh/ gives it lang="zh-Hans",
 // ../ assets, and the zh navbar/footer.
 function contactSuccessChecks() {
@@ -512,7 +563,7 @@ function contactSuccessChecks() {
 // registration form's redirect (src/zh/register-success.njk). Same shape as
 // contactSuccessChecks — NO i18nKey, so it carries NO hreflang, NO language
 // toggle, and stays OUT of the sitemap; a plain noindex zh page (noindex from
-// the zhNoindex computed) mirroring the EN register-success.html, localized.
+// the localeNoindex computed) mirroring the EN register-success.html, localized.
 function registerSuccessChecks() {
   const file = "zh/register-success.html";
   const checks = [];
@@ -565,7 +616,7 @@ function registerSuccessChecks() {
 // zh RSVP form's redirect (src/zh/open-day-success.njk). Same shape as
 // registerSuccessChecks — NO i18nKey, so it carries NO hreflang, NO language
 // toggle, and stays OUT of the sitemap; a plain noindex zh page (noindex from the
-// zhNoindex computed) mirroring the EN open-day-success.html, localized. The
+// localeNoindex computed) mirroring the EN open-day-success.html, localized. The
 // redirect assertion pins the zh form at the /zh/ target: the EN and zh forms share
 // one access_key, so a copy-paste of the EN redirect would silently land zh
 // registrants on the English confirmation.
@@ -721,7 +772,7 @@ function openDayMunichSuccessChecks() {
 // The hidden /zh/ UNLISTED compute-resource application page
 // (src/zh/compute-apply.njk). Same shape as the success-page checks — NO
 // i18nKey, so it carries NO hreflang, NO language toggle, and stays OUT of the
-// sitemap; a plain noindex zh page (noindex from the zhNoindex computed). Its URL
+// sitemap; a plain noindex zh page (noindex from the localeNoindex computed). Its URL
 // is emailed privately to each registered team's PoC, never linked in the site
 // chrome. Living under src/zh/ gives it lang="zh-Hans", ../ assets, and the zh
 // navbar/footer.
@@ -775,7 +826,7 @@ function computeApplyChecks() {
 
 // The hidden /zh/ UNLISTED Questionnaire A page (src/zh/feedback-registered.njk),
 // modelled on computeApplyChecks — NO i18nKey, so NO hreflang, NO navbar language
-// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the zhNoindex
+// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the localeNoindex
 // computed). Its only cross-locale link is the page-local EN switch back to
 // ../feedback-registered.html, and it submits lang=zh. Field/option/condition
 // parity with the EN page is scripts/verify-questionnaire.mjs's job.
@@ -840,7 +891,7 @@ function feedbackRegisteredChecks() {
 // The hidden /zh/ UNLISTED Questionnaire B page (src/zh/feedback-phase2.njk),
 // modelled on feedbackRegisteredChecks — NO i18nKey, so NO hreflang, NO navbar
 // language toggle, OUT of the sitemap; a plain noindex zh page (noindex from the
-// zhNoindex computed). Its only cross-locale link is the page-local EN switch
+// localeNoindex computed). Its only cross-locale link is the page-local EN switch
 // back to ../feedback-phase2.html, and it submits lang=zh. Field/option/
 // condition/required parity with the EN page is scripts/verify-questionnaire.mjs's job.
 function feedbackPhase2Checks() {
@@ -904,7 +955,7 @@ function feedbackPhase2Checks() {
 // The hidden /zh/ UNLISTED utility page for the compute application: the no-JS
 // target of the zh compute form's redirect (src/zh/compute-success.njk). Same
 // shape as registerSuccessChecks — NO i18nKey, so NO hreflang, NO language
-// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the zhNoindex
+// toggle, OUT of the sitemap; a plain noindex zh page (noindex from the localeNoindex
 // computed) mirroring the EN compute-success.html, localized.
 function computeSuccessChecks() {
   const file = "zh/compute-success.html";
@@ -1095,9 +1146,11 @@ function main() {
       );
     }
   }
-  const expectedTotal = PAGES.length + expectedZhUrls;
+  // The published /zh-tw/ rows count too (their presence is asserted by verify-zhtw).
+  const expectedTwUrls = PAGES.filter((p) => isPubTw(p.key)).length;
+  const expectedTotal = PAGES.length + expectedZhUrls + expectedTwUrls;
   siteAdd(
-    `sitemap has ${expectedTotal} URLs (${PAGES.length} EN + ${expectedZhUrls} zh)`,
+    `sitemap has ${expectedTotal} URLs (${PAGES.length} EN + ${expectedZhUrls} zh + ${expectedTwUrls} zh-TW)`,
     locCount === expectedTotal,
     `expected ${expectedTotal} <loc>, found ${locCount}`,
   );

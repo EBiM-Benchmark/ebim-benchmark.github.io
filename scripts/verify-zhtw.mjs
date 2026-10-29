@@ -37,6 +37,10 @@
 //      waives, are printed with counts and context for a human to read.
 //   D  chrome key parity — zh-tw.json has exactly zh.json's key paths, with the
 //      same value types and array lengths.
+//   P  publish state — each zh-TW page against its zhTwPublished flag in
+//      site.json: a draft is noindex with no hreflang, no toggle and no sitemap
+//      row; a published page has the reciprocal cluster, the EN · 繁 · 简 toggle
+//      and a sitemap row with the same alternates (see publishChecks).
 //
 // --self-test proves every gate can fail (and that the clean pair passes A and B)
 // before any result is trusted.
@@ -279,25 +283,32 @@ function gateB(zhDoc, twDoc, page, exceptions) {
 
 // ────────────────────────────────────────────────── Gate C — lexicon lint ──
 // Every string Gate C reads from a page: { where, text }.
+// Content inside the page whose nearest lang attribute declares Simplified
+// Chinese (zh-Hans) is not zh-TW copy and is skipped — today that is only the
+// language toggle's 简 link to the /zh/ page. Anything untagged, or tagged
+// zh-Hant*, is linted, and <html lang> itself never exempts a page.
+const isSimplifiedLang = (lang) => /^zh-hans(-|$)/i.test(lang);
 function pageStrings(doc) {
   const out = [];
-  const walk = (node, p) => {
+  const walk = (node, p, simplified) => {
     for (const n of node.children || []) {
-      if (n.type === "text") out.push({ where: p, text: n.data });
-      else if (n.type === "comment") out.push({ where: `${p} <!-- -->`, text: n.data });
+      if (n.type === "text") { if (!simplified) out.push({ where: p, text: n.data }); }
+      else if (n.type === "comment") { if (!simplified) out.push({ where: `${p} <!-- -->`, text: n.data }); }
       else if (isEl(n)) {
         const np = `${p} > ${label(n)}`;
-        for (const [k, v] of Object.entries(n.attribs)) out.push({ where: `${np} @${k}`, text: v });
+        // <html lang> is the page's own language, the thing under test — never an exemption.
+        const simp = "lang" in n.attribs && n.name !== "html" ? isSimplifiedLang(n.attribs.lang) : simplified;
+        if (!simp) for (const [k, v] of Object.entries(n.attribs)) out.push({ where: `${np} @${k}`, text: v });
         if (isJsonLd(n)) {
           const ld = parseLd(textOf(n));
           (ld.ok ? jsonStrings(ld.value) : [ld.value]).forEach((s) => out.push({ where: `${np} json-ld`, text: s }));
         } else if (isInlineScript(n)) {
           for (const m of textOf(n).matchAll(JS_STRING)) out.push({ where: `${np} js-string`, text: m[0] });
-        } else if (n.name !== "style" && n.name !== "script") walk(n, np);
+        } else if (n.name !== "style" && n.name !== "script") walk(n, np, simp);
       }
     }
   };
-  walk(doc, "");
+  walk(doc, "", false);
   return out;
 }
 
@@ -417,6 +428,85 @@ function twPages() {
 }
 const twFile = (rel) => path.join(TW_DIR, rel);
 const zhFile = (rel) => path.join(SITE, "zh", rel);
+
+// ───────────────────────────────────────────────────────────── publish state ──
+// P — the zh-TW side of the publish invariants, per page, read from site.json
+// (mirrors scripts/verify-zh.mjs for /zh/):
+//   DRAFT (zhTwPublished[key] false)   PUBLISHED (true)
+//   exactly one noindex                no noindex
+//   no hreflang                        the reciprocal cluster en / zh-Hans (iff the
+//                                      pair is published in zh) / zh-Hant / x-default,
+//                                      in that order, and nothing else
+//   no language toggle                 toggle EN · 繁 · 简 with 繁 active (简 iff zh
+//                                      is published), and nothing else
+//   absent from sitemap.xml            in sitemap.xml, its row carrying the same
+//                                      alternates in the same order
+// Every other zh-TW page (the hidden utility pages) is always a draft.
+const SITE_ORIGIN = "https://ebim-benchmark.github.io";
+const TW_PAIRS = [
+  ["index", "index.html"],
+  ["competition", "competition.html"],
+  ["workshop", "workshop.html"],
+  ["faq", "faq.html"],
+  ["contact", "contact.html"],
+  ["register", "register.html"],
+  ["openDay", "open-day.html"],
+  ["openDayHamburg", "open-day-hamburg.html"],
+  ["openDayShanghai", "open-day-shanghai.html"],
+  ["openDayMunich", "open-day-munich.html"],
+  ["results", "results.html"],
+];
+const inOrder = (s, parts) => parts.every((p, i) => s.includes(p) && (i === 0 || s.indexOf(parts[i - 1]) < s.indexOf(p)));
+
+// What a zh-TW page must show, given the zh and zh-TW publish maps.
+function publishExpect(key, file, flags) {
+  const u = file === "index.html" ? "" : file;
+  const zhPub = flags.zh[key] === true;
+  return {
+    published: flags.tw[key] === true,
+    loc: `${SITE_ORIGIN}/zh-tw/${u}`,
+    alternates: [
+      ["en", `${SITE_ORIGIN}/${u}`],
+      ...(zhPub ? [["zh-Hans", `${SITE_ORIGIN}/zh/${u}`]] : []),
+      ["zh-Hant", `${SITE_ORIGIN}/zh-tw/${u}`],
+      ["x-default", `${SITE_ORIGIN}/${u}`],
+    ],
+    toggle: [
+      `<a class="lang-opt" lang="en" hreflang="en" href="../${u}">EN</a>`,
+      `<span class="lang-opt is-active" lang="zh-Hant-TW" aria-current="true">繁</span>`,
+      ...(zhPub ? [`<a class="lang-opt" lang="zh-Hans" hreflang="zh-Hans" href="../zh/${u}">简</a>`] : []),
+    ],
+  };
+}
+
+function publishChecks(html, sitemap, exp) {
+  const out = [];
+  const add = (name, ok) => out.push({ name, ok });
+  const noindex = (html.match(/<meta name="robots" content="noindex"\s*\/?>/g) || []).length;
+  const hreflang = (html.match(/rel="alternate" hreflang=/g) || []).length;
+  const listed = sitemap.includes(`<loc>${exp.loc}</loc>`);
+  if (!exp.published) {
+    add("exactly one noindex", noindex === 1);
+    add("no hreflang", hreflang === 0);
+    add("no language toggle", !/class="lang-toggle"/.test(html) && !/class="nav-lang"/.test(html));
+    add("absent from sitemap.xml", !listed);
+    return out;
+  }
+  const tags = exp.alternates.map(([h]) => h).join("/");
+  const lines = exp.alternates.map(([h, href]) => `<link rel="alternate" hreflang="${h}" href="${href}" />`);
+  const smLines = exp.alternates.map(([h, href]) => `<xhtml:link rel="alternate" hreflang="${h}" href="${href}" />`);
+  const row = sitemap.split("<url>").find((b) => b.includes(`<loc>${exp.loc}</loc>`)) || "";
+  add("no noindex", noindex === 0);
+  add(`hreflang ${tags}, in order`, inOrder(html, lines));
+  add(`exactly ${lines.length} hreflang`, hreflang === lines.length);
+  add("listed in sitemap.xml", listed);
+  add(`sitemap row alternates ${tags}`, inOrder(row, smLines) && (row.match(/<xhtml:link/g) || []).length === smLines.length);
+  add(
+    `toggle ${exp.toggle.length === 3 ? "EN · 繁 · 简" : "EN · 繁"} (繁 active)`,
+    inOrder(html, exp.toggle) && (html.match(/class="lang-opt/g) || []).length === exp.toggle.length,
+  );
+  return out;
+}
 
 // ──────────────────────────────────────────────────────────────── self-test ──
 function selfTest() {
@@ -559,6 +649,13 @@ function selfTest() {
     expect("C denies 賽題 (A17) and passes 任務", lint1("有哪些賽題？").some((x) => x.kind === "deny" && x.span === "賽題") && lint1("有哪些任務？").length === 0);
     const zhFindings = gateC(parse(read(zhFile("contact.html"))), "zh/contact.html", lexicon).length;
     expect(`C flags ≥ 20 findings on _site/zh/contact.html (${zhFindings})`, zhFindings >= 20);
+    // Only content declared zh-Hans (the toggle's 简 link) is exempt from C.
+    const cOf = (body) => gateC(parse(`<html lang="zh-Hant-TW"><body>${body}</body></html>`), `zh-tw/${rel}`, lexicon).length;
+    expect("C skips 简 inside lang=zh-Hans", cOf('<a lang="zh-Hans">简</a>') === 0);
+    expect("C flags 简 with no lang", cOf("<a>简</a>") > 0);
+    expect("C flags 简 inside lang=zh (not zh-Hans)", cOf('<a lang="zh">简</a>') > 0);
+    expect("C flags 简 re-tagged zh-Hant-TW inside zh-Hans", cOf('<span lang="zh-Hans"><b lang="zh-Hant-TW">简</b></span>') > 0);
+    expect("C flags 简 on a page whose <html lang> is zh-Hans", gateC(parse('<html lang="zh-Hans"><body>简</body></html>'), `zh-tw/${rel}`, lexicon).length > 0);
   }
 
   // D — one key deleted.
@@ -566,6 +663,25 @@ function selfTest() {
     const broken = structuredClone(twJson);
     delete broken.nav.home;
     expect("D fails when nav.home is deleted", !gateD(zhJson, broken).ok);
+  }
+
+  // P — publish state, on synthetic pages built from the expectations.
+  {
+    const pub = publishExpect("index", "index.html", { zh: { index: true }, tw: { index: true } });
+    const draft = publishExpect("index", "index.html", { zh: { index: true }, tw: {} });
+    const altHtml = pub.alternates.map(([h, href]) => `<link rel="alternate" hreflang="${h}" href="${href}" />`).join("\n");
+    const goodPub = `<head>${altHtml}</head><nav><span class="lang-toggle">${pub.toggle.join("")}</span></nav>`;
+    const goodMap = `<url><loc>${pub.loc}</loc>${pub.alternates.map(([h, href]) => `<xhtml:link rel="alternate" hreflang="${h}" href="${href}" />`).join("")}</url>`;
+    const goodDraft = `<head><meta name="robots" content="noindex" /></head>`;
+    const passes = (h, m, e) => publishChecks(h, m, e).every((c) => c.ok);
+    expect("control: a well-formed published page passes P", passes(goodPub, goodMap, pub));
+    expect("control: a well-formed draft passes P", passes(goodDraft, "", draft));
+    expect("P fails on a draft with hreflang", !passes(goodDraft + altHtml, "", draft));
+    expect("P fails on a draft listed in the sitemap", !passes(goodDraft, goodMap, draft));
+    expect("P fails on a published page with noindex", !passes(goodDraft + goodPub, goodMap, pub));
+    expect("P fails on a published page without the 简 link", !passes(goodPub.replace(pub.toggle[2], ""), goodMap, pub));
+    expect("P fails when the hreflang cluster is out of order", !passes(goodPub.replace(altHtml, altHtml.split("\n").reverse().join("\n")), goodMap, pub));
+    expect("P fails when the sitemap row lacks zh-Hant", !passes(goodPub, goodMap.replace(/<xhtml:link[^>]*zh-Hant[^>]*>/, ""), pub));
   }
 
   console.log(ok ? GREEN(BOLD("\n✓ ZH-TW SELF-TEST PASSED\n")) : RED(BOLD("\n✗ ZH-TW SELF-TEST FAILED\n")));
@@ -650,6 +766,34 @@ function main() {
   if (!d.ok) {
     fails.push(`Gate D:\n      ${d.detail}`);
     allOk = false;
+  }
+
+  // P — publish state per page, from site.json's zhPublished / zhTwPublished.
+  const siteData = readJson("src/_data/site.json");
+  const flags = { zh: siteData.zhPublished || {}, tw: siteData.zhTwPublished || {} };
+  const sitemapPath = path.join(SITE, "sitemap.xml");
+  const sitemap = fs.existsSync(sitemapPath) ? read(sitemapPath) : "";
+  const pairFiles = new Set(TW_PAIRS.map(([, f]) => f));
+  const targets = [
+    ...TW_PAIRS.map(([key, f]) => [f, publishExpect(key, f, flags)]),
+    ...pages.filter((rel) => !pairFiles.has(rel)).map((rel) => [rel, { published: false, loc: `${SITE_ORIGIN}/zh-tw/${rel}` }]),
+  ];
+  const published = targets.filter(([, e]) => e.published).length;
+  console.log(`\n  Publish state P — ${published} of ${TW_PAIRS.length} zh-TW pairs published (site.json zhTwPublished):`);
+  for (const [rel, exp] of targets) {
+    const page = `zh-tw/${rel}`;
+    if (!fs.existsSync(twFile(rel))) {
+      console.log(`    ${RED("FAIL")}  ${page} missing`);
+      fails.push(`${page} — P: _site/${page} missing`);
+      allOk = false;
+      continue;
+    }
+    const res = publishChecks(read(twFile(rel)), sitemap, exp);
+    const bad = res.filter((c) => !c.ok);
+    const state = pairFiles.has(rel) ? (exp.published ? "published" : "draft") : "utility";
+    console.log(`    ${bad.length ? RED("FAIL") : GREEN("PASS")}  ${page.padEnd(36)}${state.padEnd(10)}(${res.length - bad.length}/${res.length})`);
+    for (const c of bad) fails.push(`${page} — P (${state}): ${c.name}`);
+    if (bad.length) allOk = false;
   }
   console.log("");
 
