@@ -520,7 +520,8 @@ export default {
               "@type": "Offer",
               price: "0",
               priceCurrency: "EUR",
-              url: ev.openDayHamburgUrl,
+              // Self-canonical: each locale's Offer points at its own page (the EN canonical equals the event.json URL).
+              url: data.canonical,
               availability:
                 ((data.site && data.site.openDayRegistration) === "open")
                   ? "https://schema.org/InStock"
@@ -645,7 +646,8 @@ export default {
               "@type": "Offer",
               price: "0",
               priceCurrency: "EUR",
-              url: ev.openDayMunichUrl,
+              // Self-canonical: each locale's Offer points at its own page (the EN canonical equals the event.json URL).
+              url: data.canonical,
               availability:
                 ((data.site && data.site.openDayMunichRegistration) === "open")
                   ? "https://schema.org/InStock"
