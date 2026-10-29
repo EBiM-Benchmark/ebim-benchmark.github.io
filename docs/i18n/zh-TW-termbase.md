@@ -36,18 +36,18 @@ This is the terminology and style standard for everything under `src/zh-tw/` and
 
 | zh (must not appear in zh-TW) | zh-TW |
 |---|---|
-| 首页 · 联系我们 · 联系表单 · 咨询 | 首頁 · 聯絡我們 · 聯絡表單 · 洽詢 |
-| 菜单 · 导航 · 页脚 · 切换 · 概述 (nav) | 選單 · 導覽 · 頁尾 · 切換 · 總覽 |
+| 首页 · 联系我们 · 联系表单 · 咨询 | 首頁 · 聯絡我們 · 聯絡表單 · 洽詢 (联系我们 is the fixed phrase; 保持聯繫 is fine) |
+| 菜单 · 导航 · 页脚 · 切换 · 概述 (nav) | 選單 · 導覽 · 頁尾 · 切換 · 總覽 (UI navigation only: 主导航, 导航栏, 下拉菜单; robot navigation 導航 is fine) |
 | 日程 (event) | 議程 |
-| 代码 · 获取代码 | 程式碼 · 取得程式碼 |
+| 代码 · 获取代码 | 程式碼 · 取得程式碼 (source/repository code: 源代码, 代码库, 开源代码; 錯誤代碼 'error code' is fine) |
 | 数据集 · 数据 (meaning data) | 資料集 · 資料 (數據 only for figures/statistics) |
 | 信息 | 資訊 (information) / 訊息 (a message) |
 | 硬件 · 网络 · 链接 · 用户 | 硬體 · 網路 · 連結 · 使用者 |
-| 软件 · 视频 · 质量 · 默认 | 軟體 · 影片 · 品質 · 預設 |
+| 软件 · 视频 · 质量 · 默认 | 軟體 · 影片 · 品質 · 預設 (质量 = quality: 高质量, 质量控制; 質量 as physical mass is fine) |
 | 邮件 · 邮箱 | 電子郵件 (Email in UI labels) · 電子郵件信箱 |
 | 合作伙伴 · 社区 · 渠道 | 合作夥伴 · 社群 · 管道 |
 | 发布 (dataset/code) · 上传 | 釋出 · 上傳 |
-| 复现 · 推理 · 遥操作 · 搭建 | 重現 · 推論 · 遙控操作 · 建置 |
+| 复现 · 推理 · 遥操作 · 搭建 | 重現 · 推論 · 遙控操作 · 建置 (推理 = ML inference: 推理速度, 推理延迟; 推理能力 'reasoning' is fine) |
 | 智能 (incl. 具身智能, 人工智能) | 智慧 (具身智慧, 人工智慧) — **except inside proper names** |
 | 班车 | 接駁車 |
 | 茶歇 | 茶敘 |
@@ -59,7 +59,7 @@ This is the terminology and style standard for everything under `src/zh-tw/` and
 | 运营 · 负责人 | 營運 · 負責人 (char conversion only) |
 | 站点 (testbed site) | 站點 · 據點 → **據點** |
 | 落地 (VLA … 真实落地) | 實際應用 / 實際部署 |
-| 打造 · 生态 · 头部 · 聚焦 | rephrase naturally; avoid as set phrases (头部: business-jargon compounds only, e.g. 头部企业; the anatomical 頭部 is fine) |
+| 生态 · 头部 | rephrase naturally; avoid as set phrases — jargon compounds only (生态圈, 生态布局; 头部企业); 生態系 'ecosystem' and the anatomical 頭部 are fine |
 | 周一…周日 | 週一…週日 |
 | 奖杯 · 礼品 · 奖金 · 奖项 · 排名 · 晋级 | 獎盃 · 禮品 · 獎金 · 獎項 · 排名 · 晉級 |
 | 海报 · 签到 · 现场 · 参观 · 邀请函 | 海報 · 報到 · 現場 · 參觀 · 邀請函 |

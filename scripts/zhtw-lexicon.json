@@ -92,9 +92,9 @@
       "note": "採購抵用券"
     },
     {
-      "pattern": "聯繫",
+      "pattern": "聯繫我們",
       "termbase": "B",
-      "note": "聯絡"
+      "note": "聯絡我們 — the fixed phrase only; 保持聯繫 is fine"
     },
     {
       "pattern": "聯系",
@@ -102,14 +102,14 @@
       "note": "聯絡"
     },
     {
-      "pattern": "菜單",
+      "pattern": "下拉菜單|菜單(欄|列)",
       "termbase": "B",
-      "note": "選單"
+      "note": "選單 — UI menus only"
     },
     {
-      "pattern": "導航",
+      "pattern": "(?<!自)主導航|頁尾導航|頁腳導航|導航(列|欄|選單|菜單)",
       "termbase": "B",
-      "note": "導覽"
+      "note": "導覽 — UI navigation only; robot navigation 導航 is fine ((?<!自) keeps 自主導航 'autonomous navigation' out of 主導航)"
     },
     {
       "pattern": "頁腳",
@@ -122,9 +122,9 @@
       "note": "議程"
     },
     {
-      "pattern": "代碼",
+      "pattern": "源代碼|代碼(庫|倉庫|倉)|(示例|開源)代碼",
       "termbase": "B",
-      "note": "程式碼"
+      "note": "程式碼 — source/repository code only; 錯誤代碼 (error code) is fine"
     },
     {
       "pattern": "數據集",
@@ -187,9 +187,9 @@
       "note": "重現"
     },
     {
-      "pattern": "推理",
+      "pattern": "推理(速度|延遲|時間|階段|服務|伺服器|成本|框架)",
       "termbase": "B",
-      "note": "推論"
+      "note": "推論 — ML inference only; 推理能力 (reasoning) is fine"
     },
     {
       "pattern": "遙操作",
@@ -252,24 +252,14 @@
       "note": "實際應用 / 實際部署"
     },
     {
-      "pattern": "打造",
+      "pattern": "生態(圈|布局|佈局|建設)",
       "termbase": "B",
-      "note": "rephrase naturally"
-    },
-    {
-      "pattern": "生態",
-      "termbase": "B",
-      "note": "rephrase naturally"
+      "note": "rephrase naturally — jargon compounds only; 生態系 (ecosystem) is fine"
     },
     {
       "pattern": "頭部(企業|廠商|公司|品牌|玩家|陣營)",
       "termbase": "B",
       "note": "rephrase naturally — business-jargon compounds only; the anatomical 頭部 is fine"
-    },
-    {
-      "pattern": "聚焦",
-      "termbase": "B",
-      "note": "rephrase naturally"
     },
     {
       "pattern": "運營",
@@ -292,9 +282,9 @@
       "note": "影片"
     },
     {
-      "pattern": "質量",
+      "pattern": "(高|低|優)質量|質量(保證|控制|管理|問題)",
       "termbase": "B",
-      "note": "品質"
+      "note": "品質 — quality only; 質量 as physical mass is fine"
     },
     {
       "pattern": "默認",
@@ -367,6 +357,11 @@
       "page": "*",
       "text": "宣布",
       "reason": "MOE standard form, like 公布; OpenCC rewrites to 宣佈. Ratified by Cecil 2026-10-29."
+    },
+    {
+      "page": "*",
+      "text": "報名表",
+      "reason": "cn→tw misreads 名表 as 名錶 (watch). Ratified by Cecil 2026-10-29."
     }
   ]
 }

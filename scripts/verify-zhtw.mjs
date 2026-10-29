@@ -546,6 +546,15 @@ function selfTest() {
     // The twp phrase layer is advisory: 聯絡窗口 passes the blocking check but is reported.
     expect("C passes 聯絡窗口 on the blocking check", !f.some((x) => [..."聯絡窗口"].some((ch) => x.span.includes(ch))));
     expect("C lists 窗口 → 視窗 in the advisory output", adv.some((x) => x.span === "窗口" && x.repl === "視窗"));
+    // Denylist precision: these deny entries are scoped to their mainland/jargon
+    // compounds, so the general-Taiwanese uses pass while the compounds still fail.
+    const lint1 = (text) => lintStrings([{ where: "self-test", text }], `zh-tw/${rel}`, lexicon);
+    const okWords = ["保持聯繫", "自主導航", "生態系", "推理能力", "錯誤代碼", "機器人質量"];
+    const badWords = ["聯繫我們", "主導航", "生態圈", "推理速度", "源代碼", "高質量"];
+    const passed = okWords.filter((w) => lint1(w).length === 0);
+    expect(`C passes ${okWords.join(" ")} (${passed.length}/${okWords.length})`, passed.length === okWords.length);
+    const failed = badWords.filter((w) => lint1(w).some((x) => x.kind === "deny"));
+    expect(`C denies ${badWords.join(" ")} (${failed.length}/${badWords.length})`, failed.length === badWords.length);
     const zhFindings = gateC(parse(read(zhFile("contact.html"))), "zh/contact.html", lexicon).length;
     expect(`C flags ≥ 20 findings on _site/zh/contact.html (${zhFindings})`, zhFindings >= 20);
   }
