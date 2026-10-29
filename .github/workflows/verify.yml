@@ -74,5 +74,6 @@ jobs:
       # has no base to diff against. Its decision logic is self-tested inside
       # verify:all (check-zhtw-cochange.mjs --self-test).
       - name: zh → zh-TW co-change
-        if: github.event_name == 'pull_request'
+        # !cancelled(): must run even when Verify is red, or a failing Verify silently skips it.
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
         run: node scripts/check-zhtw-cochange.mjs origin/${{ github.base_ref }}
