@@ -249,7 +249,8 @@
 
 <script>
   (function () {
-    if (!/^\/zh(\/|$)/.test(location.pathname)) return;
+    var zhTw = /^\/zh-tw(\/|$)/.test(location.pathname);
+    if (!zhTw && !/^\/zh(\/|$)/.test(location.pathname)) return;
     var setText = function (id, text) {
       var el = document.getElementById(id);
       if (el) el.textContent = text;
@@ -258,6 +259,19 @@
       var el = document.getElementById(id);
       if (el) el.setAttribute('href', url);
     };
+    if (zhTw) {
+      document.documentElement.setAttribute('lang', 'zh-Hant-TW');
+      document.title = '頁面不存在 · EBiM Benchmark';
+      setText('nf-title', '頁面不存在');
+      setText('nf-message', '您要找的頁面不存在或已移動。請透過下方連結，找到您需要的內容。');
+      setText('nf-home-label', '返回首頁');
+      setHref('nf-home', '/zh-tw/');
+      setText('nf-competition', '查看競賽');
+      setHref('nf-competition', '/zh-tw/competition.html');
+      setText('nf-workshop', '查看研討會');
+      setHref('nf-workshop', '/zh-tw/workshop.html');
+      return;
+    }
     document.documentElement.setAttribute('lang', 'zh-Hans');
     document.title = '页面未找到 · EBiM Benchmark';
     setText('nf-title', '页面未找到');
