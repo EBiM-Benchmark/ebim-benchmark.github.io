@@ -1,0 +1,25 @@
+---
+permalink: "organizer-apparel-2026.html"
+bodyClass: "page-organizer-apparel"
+title: "Organizer Apparel Survey · EBiM Benchmark"
+description: "Design vote and sizes for the EBiM organizing team's T-shirts, polo shirts and blazers."
+canonical: "https://ebim-benchmark.github.io/organizer-apparel-2026.html"
+robots: "noindex"
+headComments: true
+backToTop: true
+---
+{#- Organizer apparel survey (EN only, Nov 2026). UNLISTED: no nav/footer/sitemap
+    entry and no inbound link from the rest of the site; reached only from the
+    email to the organizing team. No /zh/ or /zh-tw/ counterpart and no i18nKey,
+    so no hreflang or language toggle. Own Web3Forms key + hCaptcha (required
+    for that key). Images live in src/img/apparel/. -#}
+{% extends "layouts/base.njk" %}
+
+{% block headStyle %}{% include "apparel-survey-style.njk" %}{% endblock %}
+
+{% block main %}{% include "apparel-survey-form.njk" %}{% endblock %}
+
+{% block trailingScripts %}
+  {% include "apparel-survey-script.njk" %}
+  <script src="https://web3forms.com/client/script.js" async defer></script>
+{% endblock %}

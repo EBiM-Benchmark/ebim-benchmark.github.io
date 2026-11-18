@@ -1,0 +1,389 @@
+{#- Organizer apparel survey page body (EN only), used by src/organizer-apparel-2026.njk.
+    Same page furniture and form classes as the questionnaires (subhero, reg-card,
+    form-field, btn-submit, form-error, form-success). The body starts hidden and is
+    revealed by apparel-survey-script.njk, so with JavaScript off only the noscript
+    notice shows. Required questions carry data-req; the script validates them and
+    shows each one's .q-req-msg. Images are in src/img/apparel/. -#}
+{%- set ACCESS_KEY = "7b47e8ed-0cdd-4583-abd3-1799bacc553d" -%}
+{%- set SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"] -%}
+{%- set DESIGNS = [["A", "Sport Stripe"], ["B", "Illustrated Organizer"], ["C", "Varsity Crest"], ["D", "Bold & Modern"], ["E", "Technical Minimal"], ["F", "Blueprint Neon"], ["G", "Blueprint Map"], ["H", "Blazer Ready"]] -%}
+{%- set PLOGOS = [["1", "Small wordmark"], ["2", "Icon + EBiM Benchmark"], ["3", "Wordmark + Organizing Team"], ["4", "Mini crest"]] -%}
+{%- macro designOptions() %}
+                    <option value="">Choose…</option>
+{%- for d in DESIGNS %}
+                    <option value="{{ d[0] }} – {{ d[1] | e }}">{{ d[0] }} – {{ d[1] | e }}</option>
+{%- endfor %}
+{%- endmacro %}
+{%- macro sizeOptions() %}
+                    <option value="">Choose…</option>
+{%- for s in SIZES %}
+                    <option>{{ s }}</option>
+{%- endfor %}
+{%- endmacro %}
+{%- macro bing(q) %}https://www.bing.com/images/search?q={{ q | replace(" ", "+") }}{% endmacro -%}
+<main id="main-content">
+
+<section id="home" class="subhero">
+  <div class="subhero-content">
+    <h1 class="subhero-title">Organizer Apparel Survey</h1>
+    <p class="subhero-subtitle">EBiM Benchmark · Organizing Team</p>
+  </div>
+</section>
+
+<section id="questionnaire">
+  <div class="container">
+
+    <noscript><p class="reg-noscript">This survey needs JavaScript. Please enable it, or email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</p></noscript>
+
+    <div id="qBody" hidden>
+      <p class="q-intro">We're getting every member of the EBiM organizing team a T-shirt, a polo shirt and a blazer. Please vote on the designs and tell us your sizes. It takes about 5 minutes.</p>
+      <p class="q-intro">Questions? Email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>. If you need to change anything later, just submit again. We'll use your latest response.</p>
+
+      <div class="reg-card">
+        <form id="qForm" novalidate>
+          <div class="reg-form">
+
+            <div class="q-section">
+              <h2 class="q-section-title">1 · About you</h2>
+              <p class="q-note">We use your name only to match clothes to people.</p>
+              <div class="q-row">
+                <div class="form-field q" data-req="field">
+                  <label class="form-label" for="name">Full name</label>
+                  <input class="form-input" type="text" id="name" name="name" maxlength="200" autocomplete="name" />
+                  <p class="q-req-msg" hidden>Please enter your name.</p>
+                </div>
+                <div class="form-field q" data-req="email">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-input" type="email" id="email" name="email" maxlength="200" autocomplete="email" />
+                  <p class="q-req-msg" hidden>Please enter a valid email address.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="q-section">
+              <h2 class="q-section-title">2 · The design options</h2>
+              <p class="q-callout"><strong>These options are for the T-shirt.</strong> The polo gets its own questions in section 4. The T-shirt gets worn <strong>on its own</strong> and <strong>under a suit jacket, blazer or sport coat</strong>. Under an open jacket only the upper chest shows and the back is covered. So ask yourself: does this look good on its own, and does the front still look good when a jacket hides most of it? (Design H shows what that looks like.)</p>
+              <p class="q-callout">These are AI-generated concepts. Spelling errors, garbled small text, sponsor logos and city names will all be corrected before printing. Vote on the overall style, not the details. Shirt color gets its own question below. Click any image to enlarge it.</p>
+              <div class="ap-designs">
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-a.jpg" width="1100" height="541" loading="lazy" alt="Design A, front and back" /></div><figcaption><span class="ap-tag">A</span><strong>Sport Stripe.</strong> Big EBiM logo on the front, cyan sleeve stripes, "Sim-to-Real · Bimanual · Reproducible" on the back.</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-b.jpg" width="1100" height="541" loading="lazy" alt="Design B, front and back" /></div><figcaption><span class="ap-tag">B</span><strong>Illustrated Organizer.</strong> Logo with a robot line illustration on the front, "Organizing Team" sleeve bands, slogan and sponsor logos on the back.</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs two"><img class="ap-zoom" src="img/apparel/design-c-light.jpg" width="1100" height="733" loading="lazy" alt="Design C on a light shirt, front and back" /><img class="ap-zoom" src="img/apparel/design-c-dark.jpg" width="1100" height="733" loading="lazy" alt="Design C on a dark shirt, front and back" /></div><figcaption><span class="ap-tag">C</span><strong>Varsity Crest.</strong> College-style EBiM lettering with a laurel crest of two arms and a globe on the front, a small logo at the back of the neck. (Shown in two colors. One design.)</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-d.jpg" width="1024" height="935" loading="lazy" alt="Design D, front, back and details" /></div><figcaption><span class="ap-tag">D</span><strong>Bold &amp; Modern.</strong> Clean wordmark on the chest, blue geometric slashes, a small robot on the sleeve, "Organizing Team" across the back.</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-e.jpg" width="1400" height="876" loading="lazy" alt="Design E, shirts and jacket with details" /></div><figcaption><span class="ap-tag">E</span><strong>Technical Minimal.</strong> Small EBiM logo on the chest (embroidered), technical line drawing of the robot on the back.</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-f.jpg" width="700" height="782" loading="lazy" alt="Design F, front and back" /></div><figcaption><span class="ap-tag">F</span><strong>Blueprint Neon.</strong> Small chest logo with a cube mark; on the back, a large cyan outline of the robot with task names and sites.</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-g.jpg" width="700" height="782" loading="lazy" alt="Design G, front and back" /></div><figcaption><span class="ap-tag">G</span><strong>Blueprint Map.</strong> Engineering-drawing scene of two arms on the front; world map with the testbed sites and the robot on the back.</figcaption></figure>
+                <figure class="ap-design"><div class="ap-design-imgs"><img class="ap-zoom" src="img/apparel/design-h.jpg" width="1300" height="867" loading="lazy" alt="Design H, on its own and under a blazer, with details" /></div><figcaption><span class="ap-tag">H</span><strong>Blazer Ready.</strong> Centered chest logo (two-arm icon + "EBiM Benchmark"), thin curved blue side lines, a small robot arm on the sleeve, "Organizing Team" on the back. Shown on its own and under a blazer.</figcaption></figure>
+              </div>
+            </div>
+
+            <div class="q-section">
+              <h2 class="q-section-title">3 · Your vote: T-shirt design</h2>
+              <p class="q-note">Pick your top three designs, all different. 1st choice = 3 points, 2nd = 2, 3rd = 1.</p>
+              <div class="q" data-req="rank">
+                <div class="ap-rank">
+                  <div class="form-field"><label class="form-label" for="r1">1st choice</label><select class="form-select" id="r1" name="rank_1st">{{ designOptions() }}
+                  </select></div>
+                  <div class="form-field"><label class="form-label" for="r2">2nd choice</label><select class="form-select" id="r2" name="rank_2nd">{{ designOptions() }}
+                  </select></div>
+                  <div class="form-field"><label class="form-label" for="r3">3rd choice</label><select class="form-select" id="r3" name="rank_3rd">{{ designOptions() }}
+                  </select></div>
+                </div>
+                <p class="q-req-msg" hidden>Please pick three different designs.</p>
+              </div>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">T-shirt color</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="shirt_color" value="Navy" /><span class="ap-sw" style="background:#1b2a4a"></span> Navy</label>
+                  <label><input type="radio" name="shirt_color" value="Black" /><span class="ap-sw" style="background:#141414"></span> Black</label>
+                  <label><input type="radio" name="shirt_color" value="Cream / natural" /><span class="ap-sw" style="background:#efe8d8"></span> Cream / natural</label>
+                  <label><input type="radio" name="shirt_color" value="White" /><span class="ap-sw" style="background:#ffffff"></span> White</label>
+                  <label><input type="radio" name="shirt_color" value="No preference" /><span class="ap-sw none"></span> No preference</label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose a color.</p>
+              </fieldset>
+              <div class="form-field">
+                <label class="form-label" for="design_comments">Comments on the designs <span class="q-opt">(optional)</span></label>
+                <textarea class="form-textarea" id="design_comments" name="design_comments" rows="3" maxlength="3000" placeholder="e.g. 'I like C but with E's small chest logo', or anything you'd change"></textarea>
+              </div>
+            </div>
+
+            <div class="q-section">
+              <h2 class="q-section-title">4 · Polo shirt</h2>
+              <p class="q-note">Polos usually get an embroidered chest logo rather than a large print. That also looks neater under a jacket, where only the chest shows.</p>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Polo color</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="polo_color" value="Navy" /><span class="ap-sw" style="background:#1b2a4a"></span> Navy</label>
+                  <label><input type="radio" name="polo_color" value="Black" /><span class="ap-sw" style="background:#141414"></span> Black</label>
+                  <label><input type="radio" name="polo_color" value="White" /><span class="ap-sw" style="background:#ffffff"></span> White</label>
+                  <label><input type="radio" name="polo_color" value="Light grey" /><span class="ap-sw" style="background:#c9cdd3"></span> Light grey</label>
+                  <label><input type="radio" name="polo_color" value="Same as T-shirt" /><span class="ap-sw none"></span> Same as the T-shirt</label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose a color.</p>
+              </fieldset>
+
+              <div class="form-field">
+                <p class="form-label">Chest logo: rank your top two</p>
+                <p class="q-note">Each picture is cropped from the design it names. On the polo the logo would be embroidered at pocket size on the left chest. Click a picture to enlarge it. 1st choice = 2 points, 2nd = 1.</p>
+                <div class="ap-tiles">
+                  <figure><img class="ap-zoom" src="img/apparel/polo-logo-1.jpg" width="400" height="400" loading="lazy" alt="Chest logo from design E" /><figcaption><span><span class="ap-num">1</span><strong>Small wordmark</strong><small>Just "EBiM", straightened. From design E.</small></span></figcaption></figure>
+                  <figure><img class="ap-zoom" src="img/apparel/polo-logo-2.jpg" width="400" height="400" loading="lazy" alt="Chest logo from design H" /><figcaption><span><span class="ap-num">2</span><strong>Icon + "EBiM Benchmark"</strong><small>Two-arm icon over the name. From design H.</small></span></figcaption></figure>
+                  <figure><img class="ap-zoom" src="img/apparel/polo-logo-3.jpg" width="400" height="400" loading="lazy" alt="Sketch: EBiM wordmark with Organizing Team underneath" /><figcaption><span><span class="ap-num">3</span><strong>Wordmark + "Organizing Team"</strong><small>Design E's logo, straightened, with "Organizing Team" added. Rough sketch.</small></span></figcaption></figure>
+                  <figure><img class="ap-zoom" src="img/apparel/polo-logo-4.jpg" width="400" height="400" loading="lazy" alt="Crest from design C" /><figcaption><span><span class="ap-num">4</span><strong>Mini crest</strong><small>The lettering and crest from design C, shrunk down.</small></span></figcaption></figure>
+                </div>
+              </div>
+              <div class="q" data-req="rank">
+                <div class="ap-rank two">
+{%- for slot in [["pl1", "polo_logo_1st", "1st choice"], ["pl2", "polo_logo_2nd", "2nd choice"]] %}
+                  <div class="form-field"><label class="form-label" for="{{ slot[0] }}">{{ slot[2] }}</label><select class="form-select" id="{{ slot[0] }}" name="{{ slot[1] }}">
+                    <option value="">Choose…</option>
+{%- for p in PLOGOS %}
+                    <option value="{{ p[0] }} – {{ p[1] }}">{{ p[0] }} – {{ p[1] }}</option>
+{%- endfor %}
+                  </select></div>
+{%- endfor %}
+                </div>
+                <p class="q-req-msg" hidden>Please pick two different logos.</p>
+              </div>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Should the polo match the T-shirt instead?</legend>
+                <p class="q-note">If the winning T-shirt design has a small chest logo, we could put that same logo on the polo instead of the vote above. (This doesn't work if a big front-print design like B or G wins.)</p>
+                <div class="ap-pills">
+                  <label><input type="radio" name="polo_match_tshirt" value="Yes, match the T-shirt if possible" /> Yes, match the T-shirt if possible</label>
+                  <label><input type="radio" name="polo_match_tshirt" value="No, use the polo vote" /> No, use the polo vote</label>
+                  <label><input type="radio" name="polo_match_tshirt" value="No preference" /> No preference</label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose one.</p>
+              </fieldset>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Collar and sleeve-cuff stripe</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="polo_tipping" value="None" /><span class="ap-sw tip"></span> None, plain collar</label>
+                  <label><input type="radio" name="polo_tipping" value="Cyan stripe" /><span class="ap-sw tip" style="--c:#22b8e0"></span> Cyan stripe</label>
+                  <label><input type="radio" name="polo_tipping" value="Royal blue stripe" /><span class="ap-sw tip" style="--c:#2f6fd6"></span> Royal blue stripe</label>
+                  <label><input type="radio" name="polo_tipping" value="White stripe" /><span class="ap-sw tip" style="--c:#ffffff"></span> White stripe</label>
+                </div>
+                <p class="q-note">The swatch shows the stripe on a dark collar. On a light polo it would be a navy or blue stripe.</p>
+                <p class="q-req-msg" hidden>Please choose an option.</p>
+              </fieldset>
+              <fieldset class="form-field">
+                <legend class="form-label">Anything else on the polo? <span class="q-opt">(pick any)</span></legend>
+                <div class="ap-tiles">
+                  <label><img class="ap-zoom" src="img/apparel/polo-sleeve-d.jpg" width="400" height="400" loading="lazy" alt="Mobile robot sleeve icon from design D" /><span class="ap-tile-text"><input type="checkbox" name="polo_extras" value="Mobile robot icon on sleeve (D)" /><span><strong>Mobile robot icon on the sleeve</strong><small>From design D.</small></span></span></label>
+                  <label><img class="ap-zoom" src="img/apparel/polo-sleeve-h.jpg" width="400" height="400" loading="lazy" alt="Robot arm sleeve icon from design H" /><span class="ap-tile-text"><input type="checkbox" name="polo_extras" value="Robot arm icon on sleeve (H)" /><span><strong>Robot arm icon on the sleeve</strong><small>From design H, with the blue cuff line.</small></span></span></label>
+                  <label><img class="ap-zoom" src="img/apparel/polo-back.jpg" width="400" height="400" loading="lazy" alt="Organizing Team back text from design H" /><span class="ap-tile-text"><input type="checkbox" name="polo_extras" value="Organizing Team on upper back" /><span><strong>"Organizing Team" on the upper back</strong><small>From design H.</small></span></span></label>
+                  <label><span class="ap-tile-blank">Nothing extra</span><span class="ap-tile-text"><input type="checkbox" name="polo_extras" value="Keep it plain" /><span><strong>Keep it plain</strong><small>Just the chest logo.</small></span></span></label>
+                </div>
+              </fieldset>
+              <div class="form-field">
+                <label class="form-label" for="polo_comments">Comments on the polo <span class="q-opt">(optional)</span></label>
+                <textarea class="form-textarea" id="polo_comments" name="polo_comments" rows="3" maxlength="3000" placeholder="e.g. a different logo idea, collar or button style, fabric (cotton piqué vs. performance), short vs. long sleeves"></textarea>
+              </div>
+            </div>
+
+            <div class="q-section">
+              <h2 class="q-section-title">5 · Jacket</h2>
+              <p class="q-note">We're buying one <strong>blazer</strong> for each organizer: a solid-color, standalone tailored jacket to wear over the T-shirt or polo (jacket only, no trousers).</p>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Structured or soft?</legend>
+                <p class="q-note">This is the difference you'll notice most when wearing it. Use the "See photos" links to look at real examples (they open Bing Images in a new tab).</p>
+                <div class="ap-cards">
+                  <label><input type="radio" name="jacket_structure" value="Structured" /><span><strong>Structured</strong><small>Padded shoulders, a full lining and a firmer shape. Looks sharper and more formal, and keeps its shape all day.</small><span class="ap-links">See photos: <a href="{{ bing("men structured blazer") }}" target="_blank" rel="noopener">men's</a> · <a href="{{ bing("women structured blazer") }}" target="_blank" rel="noopener">women's</a></span></span></label>
+                  <label><input type="radio" name="jacket_structure" value="Soft / unstructured" /><span><strong>Soft / unstructured</strong><small>No shoulder padding, little or no lining. Lighter and more relaxed, packs well for travel, and sits more naturally over a T-shirt.</small><span class="ap-links">See photos: <a href="{{ bing("men unstructured blazer") }}" target="_blank" rel="noopener">men's</a> · <a href="{{ bing("women unstructured blazer") }}" target="_blank" rel="noopener">women's</a></span></span></label>
+                  <label><input type="radio" name="jacket_structure" value="No preference" /><span><strong>No preference</strong><small>Either is fine.</small></span></label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose one.</p>
+              </fieldset>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Jacket color</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="jacket_color" value="Navy" /><span class="ap-sw" style="background:#1f2a44"></span> Navy</label>
+                  <label><input type="radio" name="jacket_color" value="Charcoal" /><span class="ap-sw" style="background:#3a3d42"></span> Charcoal</label>
+                  <label><input type="radio" name="jacket_color" value="Mid grey" /><span class="ap-sw" style="background:#80858d"></span> Mid grey</label>
+                  <label><input type="radio" name="jacket_color" value="Black" /><span class="ap-sw" style="background:#141414"></span> Black</label>
+                  <label><input type="radio" name="jacket_color" value="No preference" /><span class="ap-sw none"></span> No preference</label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose a color.</p>
+              </fieldset>
+              <div class="q-row">
+                <fieldset class="form-field q" data-req="radio">
+                  <legend class="form-label">Jacket fit</legend>
+                  <div class="ap-pills">
+                    <label><input type="radio" name="jacket_fit" value="Slim" /> Slim</label>
+                    <label><input type="radio" name="jacket_fit" value="Regular" /> Regular</label>
+                    <label><input type="radio" name="jacket_fit" value="Relaxed" /> Relaxed</label>
+                  </div>
+                  <p class="q-req-msg" hidden>Please choose a fit.</p>
+                </fieldset>
+                <fieldset class="form-field q" data-req="radio">
+                  <legend class="form-label">Fabric weight</legend>
+                  <div class="ap-pills">
+                    <label><input type="radio" name="jacket_weight" value="Lightweight (warm weather)" /> Lightweight (warm weather)</label>
+                    <label><input type="radio" name="jacket_weight" value="Regular, all-season" /> Regular, all-season</label>
+                  </div>
+                  <p class="q-req-msg" hidden>Please choose one.</p>
+                </fieldset>
+              </div>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">EBiM branding on the jacket</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="jacket_logo" value="None" /> None, plain jacket</label>
+                  <label><input type="radio" name="jacket_logo" value="Small embroidered logo on chest pocket" /> Small embroidered logo on the chest pocket</label>
+                  <label><input type="radio" name="jacket_logo" value="EBiM lapel pin" /> EBiM lapel pin (removable)</label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose one.</p>
+              </fieldset>
+              <div class="form-field">
+                <label class="form-label" for="jacket_comments">Comments on the jacket <span class="q-opt">(optional)</span></label>
+                <textarea class="form-textarea" id="jacket_comments" name="jacket_comments" rows="3" maxlength="3000" placeholder="e.g. a color or style not listed, one or two buttons, pocket style, anything you'd avoid"></textarea>
+              </div>
+            </div>
+
+            <div class="q-section">
+              <h2 class="q-section-title">6 · Your sizes</h2>
+              <p class="q-note">Sizes vary a lot between countries (an Asian L is often closer to an EU/US M), so please tell us which size system you mean. Body measurements are the most reliable way for us to match you to each supplier's chart.</p>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Cut</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="cut" value="Unisex / men's" /> Unisex / men's</label>
+                  <label><input type="radio" name="cut" value="Women's" /> Women's</label>
+                </div>
+                <p class="q-note">This applies to all three items.</p>
+                <p class="q-req-msg" hidden>Please choose a cut.</p>
+              </fieldset>
+
+              <h3 class="q-sub-title">Shirts</h3>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Size system you're using for shirts</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="shirt_size_system" value="EU / US" /> EU / US</label>
+                  <label><input type="radio" name="shirt_size_system" value="Asian (TW / CN / JP)" /> Asian (TW / CN / JP)</label>
+                </div>
+                <p class="q-req-msg" hidden>Please choose a size system.</p>
+              </fieldset>
+              <div class="q-row">
+                <div class="form-field q" data-req="field">
+                  <label class="form-label" for="ts">T-shirt size</label>
+                  <select class="form-select" id="ts" name="tshirt_size">{{ sizeOptions() }}
+                  </select>
+                  <p class="q-req-msg" hidden>Please choose a size.</p>
+                </div>
+                <div class="form-field q" data-req="field">
+                  <label class="form-label" for="ps">Polo size</label>
+                  <select class="form-select" id="ps" name="polo_size">{{ sizeOptions() }}
+                  </select>
+                  <p class="q-req-msg" hidden>Please choose a size.</p>
+                </div>
+              </div>
+              <fieldset class="form-field q" data-req="radio">
+                <legend class="form-label">Shirt fit</legend>
+                <div class="ap-pills">
+                  <label><input type="radio" name="shirt_fit" value="Slim" /> Slim</label>
+                  <label><input type="radio" name="shirt_fit" value="Regular" /> Regular</label>
+                  <label><input type="radio" name="shirt_fit" value="Relaxed / oversized" /> Relaxed / oversized</label>
+                </div>
+                <p class="q-note">Tip: shirts worn under a jacket sit better in a slim or regular fit than oversized.</p>
+                <p class="q-req-msg" hidden>Please choose a fit.</p>
+              </fieldset>
+              <div class="form-field">
+                <label class="form-label" for="chestw">Chest width of a T-shirt that fits you well, in cm <span class="q-opt">(optional, but very helpful)</span></label>
+                <input class="form-input" type="number" id="chestw" name="tshirt_chest_width_cm" min="35" max="90" step="0.5" placeholder="e.g. 54" />
+                <details class="ap-how"><summary>How to measure a T-shirt</summary>
+                  <p>Lay a T-shirt that fits you well flat on a table. Measure straight across from armpit seam to armpit seam, 1 cm below the armholes. That number (not doubled) is the chest width. Rough guide for a regular unisex fit:</p>
+                  <table class="ap-sz"><tr><th>EU/US</th><td>XS</td><td>S</td><td>M</td><td>L</td><td>XL</td><td>2XL</td><td>3XL</td></tr><tr><th>Chest width</th><td>~46</td><td>~49</td><td>~52</td><td>~55</td><td>~58</td><td>~61</td><td>~64</td></tr></table>
+                </details>
+              </div>
+
+              <h3 class="q-sub-title">Jacket</h3>
+              <div class="q-row">
+                <fieldset class="form-field q" data-req="radio">
+                  <legend class="form-label">Size system you're using for jackets</legend>
+                  <div class="ap-pills">
+                    <label><input type="radio" name="jacket_size_system" value="EU (e.g. 50)" /> EU (e.g. 50)</label>
+                    <label><input type="radio" name="jacket_size_system" value="US / UK (e.g. 40R)" /> US / UK (e.g. 40R)</label>
+                    <label><input type="radio" name="jacket_size_system" value="Asian (e.g. L or 175/96A)" /> Asian (e.g. L, 175/96A)</label>
+                    <label><input type="radio" name="jacket_size_system" value="Don't know" /> Don't know</label>
+                  </div>
+                  <p class="q-req-msg" hidden>Please choose one.</p>
+                </fieldset>
+                <div class="form-field">
+                  <label class="form-label" for="js">Jacket size <span class="q-opt">(if you know it)</span></label>
+                  <input class="form-input" type="text" id="js" name="jacket_size" maxlength="40" placeholder="e.g. 50, 40R, L, 175/96A" />
+                </div>
+              </div>
+              <div class="q-row3">
+                <div class="form-field q" data-req="number">
+                  <label class="form-label" for="height">Height, cm</label>
+                  <input class="form-input" type="number" id="height" name="height_cm" min="130" max="220" step="1" placeholder="e.g. 175" />
+                  <p class="q-req-msg" hidden>Please enter your height (130–220 cm).</p>
+                </div>
+                <div class="form-field q" data-req="number">
+                  <label class="form-label" for="chestc">Chest circumference, cm</label>
+                  <input class="form-input" type="number" id="chestc" name="chest_circumference_cm" min="60" max="160" step="0.5" placeholder="e.g. 96" />
+                  <p class="q-req-msg" hidden>Please enter your chest measurement (60–160 cm).</p>
+                </div>
+                <div class="form-field q" data-req="field">
+                  <label class="form-label" for="jl">Jacket length</label>
+                  <select class="form-select" id="jl" name="jacket_length">
+                    <option value="">Choose…</option>
+                    <option>Short</option>
+                    <option>Regular</option>
+                    <option>Long</option>
+                    <option>Not sure</option>
+                  </select>
+                  <p class="q-req-msg" hidden>Please choose a length.</p>
+                </div>
+              </div>
+              <div class="q-row">
+                <div class="form-field">
+                  <label class="form-label" for="shoulder">Shoulder width, cm <span class="q-opt">(optional)</span></label>
+                  <input class="form-input" type="number" id="shoulder" name="shoulder_width_cm" min="30" max="65" step="0.5" placeholder="e.g. 45" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="sleeve">Sleeve length, cm <span class="q-opt">(optional)</span></label>
+                  <input class="form-input" type="number" id="sleeve" name="sleeve_length_cm" min="45" max="80" step="0.5" placeholder="e.g. 62" />
+                </div>
+              </div>
+              <details class="ap-how"><summary>How to measure for a jacket</summary>
+                <ul>
+                  <li><strong>Chest circumference:</strong> wearing a thin shirt, wrap a tape measure around the fullest part of your chest, under your arms, level all the way round. Breathe normally, don't pull tight. Ask someone to help if you can.</li>
+                  <li><strong>Shoulder width:</strong> from the bony tip of one shoulder to the other, across your upper back.</li>
+                  <li><strong>Sleeve length:</strong> from the shoulder tip down to your wrist bone, arm relaxed at your side.</li>
+                  <li><strong>Length:</strong> Short is usually for under about 170 cm, Regular about 170–185 cm, Long over about 185 cm. Your height alone is enough if you're not sure.</li>
+                  <li>No tape measure? Measure a jacket that fits you well instead (lay it flat; chest = armpit to armpit × 2) and tell us in the comments below that you did.</li>
+                </ul>
+              </details>
+              <div class="form-field">
+                <label class="form-label" for="size_notes">Anything else about fit or sizing? <span class="q-opt">(optional)</span></label>
+                <textarea class="form-textarea" id="size_notes" name="size_notes" rows="3" maxlength="3000" placeholder="e.g. 'Long arms, usually need a size up in sleeves' or 'measured from a jacket, not my body'"></textarea>
+              </div>
+            </div>
+
+            <input type="hidden" name="access_key" value="{{ ACCESS_KEY }}" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="h-captcha" data-captcha="true"></div>
+
+            <div id="formError" class="form-error" role="alert" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span id="formErrorText">Something went wrong. Please try again, or email <a href="mailto:organizers@ebim-benchmark.org">organizers@ebim-benchmark.org</a>.</span>
+            </div>
+
+            <button type="submit" class="btn btn-submit"><span class="btn-label">Submit</span></button>
+          </div>
+        </form>
+
+        <div id="formSuccess" class="form-success" role="status" tabindex="-1" hidden>
+          <div class="form-success-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>Thank you! Your votes and sizes have been recorded. If you need to change anything, just submit again. We'll use your latest response.</p>
+        </div>
+      </div>
+
+      <p class="reg-privacy">Your answers go only to the EBiM organizing team and are used only to choose the designs and order the clothes. Body measurements are deleted once the order is placed.</p>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<div class="ap-lightbox" id="apLightbox" aria-hidden="true"><img alt="" /></div>
