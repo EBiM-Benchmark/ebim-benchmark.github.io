@@ -1,0 +1,164 @@
+{% raw %}
+<!-- Organizer apparel survey: reveal, validation, rank scoring, polo-extras exclusivity, lightbox, AJAX submit -->
+<script>
+  (function () {
+    'use strict';
+    var form = document.querySelector('#qForm');
+    if (!form) return;
+
+    var body      = document.querySelector('#qBody');
+    var errorBox  = document.querySelector('#formError');
+    var successEl = document.querySelector('#formSuccess');
+    var submitBtn = form.querySelector('button[type=submit]');
+    var SUBJECT   = 'EBiM organizer apparel survey';
+    var SEND_TIMEOUT_MS = 30000;
+    var DESIGN_KEYS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    var LOGO_KEYS   = ['1', '2', '3', '4'];
+    var sending = false;
+
+    body.hidden = false;
+
+    // ── Lightbox for every zoomable picture ──
+    var lb = document.querySelector('#apLightbox');
+    var lbImg = lb.querySelector('img');
+    [].forEach.call(document.querySelectorAll('img.ap-zoom'), function (img) {
+      img.addEventListener('click', function (e) {
+        e.preventDefault();               // a picture inside a <label> must not toggle its checkbox
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt;
+        lb.classList.add('is-open');
+        lb.setAttribute('aria-hidden', 'false');
+      });
+    });
+    function closeLightbox() { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); }
+    lb.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── "Keep it plain" and the other polo extras exclude each other ──
+    var extras = [].slice.call(form.querySelectorAll('input[name="polo_extras"]'));
+    extras.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        if (!cb.checked) return;
+        var plain = cb.value === 'Keep it plain';
+        extras.forEach(function (o) {
+          if (o !== cb && (o.value === 'Keep it plain') !== plain) o.checked = false;
+        });
+      });
+    });
+
+    // ── Validation: every [data-req] wrapper is checked and shows its own message ──
+    function setInvalid(wrap, bad) {
+      var msg = wrap.querySelector('.q-req-msg');
+      if (msg) msg.hidden = !bad;
+      [].forEach.call(wrap.querySelectorAll('input.form-input, select'), function (el) {
+        el.classList.toggle('is-invalid', bad && (el.tagName === 'SELECT' ? !el.value : true));
+      });
+      return bad;
+    }
+    function isBad(wrap) {
+      var kind = wrap.getAttribute('data-req');
+      if (kind === 'radio') return !wrap.querySelector('input[type=radio]:checked');
+      if (kind === 'rank') {
+        var vals = [].map.call(wrap.querySelectorAll('select'), function (s) { return s.value; });
+        var filled = vals.filter(Boolean);
+        return filled.length !== vals.length || new Set(filled).size !== vals.length;
+      }
+      var el = wrap.querySelector('input, select');
+      var v = (el.value || '').trim();
+      if (!v) return true;
+      if (kind === 'email' || kind === 'number') return !el.checkValidity();
+      return false;
+    }
+    function validate() {
+      var first = null;
+      [].forEach.call(form.querySelectorAll('[data-req]'), function (wrap) {
+        if (setInvalid(wrap, isBad(wrap)) && !first) first = wrap;
+      });
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return !first;
+    }
+    // Clear a question's message as soon as it is answered.
+    form.addEventListener('change', function (e) {
+      var wrap = e.target.closest('[data-req]');
+      if (wrap && !wrap.querySelector('.q-req-msg').hidden) setInvalid(wrap, isBad(wrap));
+    });
+
+    // ── Payload: one field per question; checkbox groups joined with "; " ──
+    function points(keys, picks) {
+      var p = {};
+      picks.forEach(function (pick) { if (pick[0]) p[pick[0].charAt(0)] = pick[1]; });
+      return keys.map(function (k) { return k + '=' + (p[k] || 0); }).join(' ');
+    }
+    function payload() {
+      var data = {};
+      new FormData(form).forEach(function (v, k) {
+        data[k] = (k in data) ? data[k] + '; ' + v : v;
+      });
+      data.points = points(DESIGN_KEYS, [[data.rank_1st, 3], [data.rank_2nd, 2], [data.rank_3rd, 1]]);
+      data.polo_logo_points = points(LOGO_KEYS, [[data.polo_logo_1st, 2], [data.polo_logo_2nd, 1]]);
+      data.instrument = 'organizer-apparel-2026';
+      data.subject = SUBJECT + ': ' + (data.name || '').trim();
+      data.from_name = 'EBiM Apparel Survey';
+      data.replyto = data.email;
+      return data;
+    }
+
+    // Re-shown on the next frame so a repeated error is announced again.
+    var errorText = document.querySelector('#formErrorText');
+    var defaultError = errorText.innerHTML;
+    function showError(html) {
+      errorText.innerHTML = html || defaultError;
+      errorBox.hidden = true;
+      requestAnimationFrame(function () {
+        errorBox.hidden = false;
+        errorBox.scrollIntoView({ block: 'center' });
+      });
+    }
+    function resetCaptcha() {
+      if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') window.hcaptcha.reset();
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (sending) return;
+      errorBox.hidden = true;
+      if (!validate()) return;
+
+      var hc = form.querySelector('textarea[name="h-captcha-response"]');
+      if (hc && !hc.value) { showError('Please complete the "I am human" check above the Submit button.'); return; }   // null hc = widget not loaded; let Web3Forms decide
+
+      sending = true;
+      submitBtn.disabled = true;
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, SEND_TIMEOUT_MS);
+      try {
+        var res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload()),
+          signal: ctrl.signal
+        });
+        var json = await res.json();
+        if (res.ok && json.success) {
+          form.hidden = true;
+          successEl.hidden = false;
+          successEl.focus();
+          successEl.scrollIntoView({ block: 'center' });
+        } else {
+          console.error('Web3Forms:', json.message);
+          showError();
+          resetCaptcha();
+        }
+      } catch (err) {
+        console.error('Web3Forms:', err);
+        showError();
+        resetCaptcha();
+      } finally {
+        clearTimeout(timer);
+        sending = false;
+        submitBtn.disabled = false;
+      }
+    });
+  })();
+</script>
+{% endraw %}

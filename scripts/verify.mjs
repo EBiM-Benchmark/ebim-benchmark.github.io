@@ -19,7 +19,7 @@
 //                open-day-munich]
 //   extra      — contact.html: data-slug values + slug-keyed inline script +
 //                untouched form internals. contact-test.html and
-//                feedback-registered.html + feedback-phase2.html: the inline behavior <script> is
+//                feedback-registered.html + feedback-phase2.html + organizer-apparel-2026.html: the inline behavior <script> is
 //                unchanged (blank lines and trailing whitespace ignored) — the structure axis strips
 //                script bodies, so this is what pins the questionnaire payload.
 //
@@ -64,6 +64,7 @@ const PAGES = [
   "compute-success.html",
   "feedback-registered.html",
   "feedback-phase2.html",
+  "organizer-apparel-2026.html",
 ];
 const JSONLD_PAGES = new Set([
   "index.html",
@@ -76,7 +77,7 @@ const JSONLD_PAGES = new Set([
   "open-day-munich.html",
 ]);
 const CONTACT = "contact.html";
-const SCRIPT_UNCHANGED = new Set(["contact-test.html", "feedback-registered.html", "feedback-phase2.html"]);
+const SCRIPT_UNCHANGED = new Set(["contact-test.html", "feedback-registered.html", "feedback-phase2.html", "organizer-apparel-2026.html"]);
 
 const GREEN = (s) => `\x1b[32m${s}\x1b[0m`;
 const RED = (s) => `\x1b[31m${s}\x1b[0m`;

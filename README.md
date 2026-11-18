@@ -52,6 +52,7 @@ The site is a **multi-page** static site, built with [Eleventy](https://www.11ty
 | **Compute** *(unlisted)* | `compute-apply.html` | Registered-team compute-resource application — own Web3Forms key, honeypot-only (no hCaptcha). URL emailed privately to each team's PoC, so it is kept out of nav/footer/sitemap (`noindex`; + `compute-success.html` no-JS fallback). Both mirrored under `/zh/` |
 | **Feedback** *(unlisted)* | `feedback-registered.html` | Questionnaire A for teams that registered but did not file a Phase I submission — own Web3Forms key + hCaptcha. Every question, option code, condition and both languages live in `src/_data/questionnaireA.json`; the EN and `/zh/` pages render from it through shared includes, and `verify-questionnaire.mjs` fails CI (`npm run verify:all`) if the two built pages would submit anything different. Each checkbox group is sent as one `;`-joined field. The email field is required exactly while it is shown (either contact box ticked): a blocked submit shows Questionnaire B's required-field message beside it. The page closes itself at `closesAt` (end of 22 Oct 2026 AoE). URL is emailed only, so it is kept out of nav/footer/sitemap (`noindex`) and no other page links to it; the two pages' only cross-link is their page-local EN/中文 switch |
 | **Feedback, Phase II** *(unlisted)* | `feedback-phase2.html` | Questionnaire B for every member of the Phase II teams — own Web3Forms key + hCaptcha. Built exactly like Questionnaire A from its own data file, `src/_data/questionnaireB.json`, through its own includes (A's files are untouched), with `verify-questionnaire.mjs` holding the two built pages to the same fields, codes, conditions and required conditions. Beyond A: `b01_team`, `b10_name` and `b10_email` become required only when a Section 10 choice needs them (`requiredIf`), and answers are saved as a draft in `localStorage` under `ebim-questionnaire-B-2026-v2` (one key for both languages, cleared after a successful submit; the form works without saving if storage is unavailable). Closes itself at `closesAt` (end of 5 Nov 2026 AoE). Emailed only: out of nav/footer/sitemap (`noindex`), and the two pages' only cross-link is their page-local EN/中文 switch |
+| **Organizer apparel survey** *(unlisted)* | `organizer-apparel-2026.html` | Design vote (T-shirt top 3, polo chest logo top 2) and T-shirt/polo/blazer preferences and sizes for the organizing team — own Web3Forms key + hCaptcha. EN only (no `/zh/` or `/zh-tw/` counterpart, no `i18nKey`). Body, style and JS live in their own includes; images in `img/apparel/`. Reached only from the email to the organizers, so it is kept out of nav/footer/sitemap (`noindex`) |
 | **404** | `404.html` | Branded not-found page (`noindex`). Emits **root-absolute** asset/nav/CTA URLs so it renders correctly when GitHub Pages serves the single `/404.html` for a miss at any depth; a tiny client-side script localizes its copy + CTAs when the missed path is under `/zh/` |
 
 ### Why the split
@@ -117,7 +118,10 @@ ebim-benchmark.github.io/
 │   │   ├── questionnaire-a-script.njk   # Questionnaire A JS — conditions, one-field-per-group encoding, date close, AJAX submit (shared by EN + zh)
 │   │   ├── questionnaire-b-form.njk     # Questionnaire B page body, rendered from _data/questionnaireB.json (shared by EN + zh feedback-phase2)
 │   │   ├── questionnaire-b-style.njk    # Questionnaire B page-local <style> (A's rules copied + B's additions; shared by EN + zh)
-│   │   └── questionnaire-b-script.njk   # Questionnaire B JS — A's behaviour plus required fields and draft saving (shared by EN + zh)
+│   │   ├── questionnaire-b-script.njk   # Questionnaire B JS — A's behaviour plus required fields and draft saving (shared by EN + zh)
+│   │   ├── apparel-survey-form.njk      # Organizer apparel survey page body (EN only)
+│   │   ├── apparel-survey-style.njk     # Organizer apparel survey page-local <style> (questionnaire rules copied + survey additions)
+│   │   └── apparel-survey-script.njk    # Organizer apparel survey JS — validation, rank points, lightbox, AJAX submit
 │   ├── index.njk                        # Landing page (funnel to sub-pages)
 │   ├── competition.njk                  # The EBiM Competition
 │   ├── workshop.njk                     # Workshop Program
@@ -137,6 +141,7 @@ ebim-benchmark.github.io/
 │   ├── compute-success.njk              # No-JS POST fallback success page (EN; localized sibling at zh/compute-success.njk)
 │   ├── feedback-registered.njk          # UNLISTED Questionnaire A (own Web3Forms key + hCaptcha; body/JS via shared includes) — noindex, not in nav/footer/sitemap
 │   ├── feedback-phase2.njk              # UNLISTED Questionnaire B (own Web3Forms key + hCaptcha; body/JS via its own includes) — noindex, not in nav/footer/sitemap
+│   ├── organizer-apparel-2026.njk       # UNLISTED organizer apparel survey (EN only; own Web3Forms key + hCaptcha; body/JS via its own includes) — noindex, not in nav/footer/sitemap
 │   ├── 404.njk                          # Branded 404 (noindex; absoluteUrls → root-absolute URLs so it works at any depth; client-side zh-TW and zh variants)
 │   ├── zh/                              # Simplified-Chinese locale (1b; index/competition PUBLISHED 1d, workshop/contact PUBLISHED 2c, register + faq + open-day-hamburg + open-day + open-day-shanghai + open-day-munich PUBLISHED since)
 │   │   ├── zh.11tydata.json             #   sets lang: zh for the whole tree
@@ -169,6 +174,7 @@ ebim-benchmark.github.io/
 │   ├── img/                             # favicon, OG cover, platform photos, sponsor logos, people photos
 │   │                                    #   (sponsors/ folder name kept so asset paths stay stable)
 │   │                                    #   organizers/ = people holding an EBiM role (committee, advisory, support team)
+│   │                                    #   apparel/ = design mockups and crops for the organizer apparel survey
 │   │                                    #   speakers/   = external Open Day / Workshop speakers with no EBiM role
 │   ├── docs/                            # Served documents → passthrough to /docs/ — the frozen, citable
 │   │                                    #   Rulebook PDF; version lives in the FILENAME, never replaced in place
