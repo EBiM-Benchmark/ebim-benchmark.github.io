@@ -1768,15 +1768,17 @@ a.partner-card:hover .partner-namecard { color: var(--accent-dark); }
 .partners-tier.tier-bronze .partner-namecard { font-size: .95rem; }
 .partners-tier.tier-bronze .partner-caption { font-size: .72rem; }
 
-/* Platinum: two logos per row on wider screens
-   (Agile Robots + Franka Robotics, then Google + AMD, then Ingrasys
-   alone on the third row). Cards size to their
-   logo (no flex-grow), so a narrow logo gets a narrow card instead of a wide
-   card with large side margins — card widths therefore vary within the tier.
-   The per-card max-width (~half the row) keeps at most two per row: the
-   wide-aspect logos (Agile, Franka, AMD) fill that capped width, while Google
-   hugs its smaller intrinsic width. Cards go full-width / one per row on
-   narrow screens via the max-width:600px rule below. */
+/* Platinum: two logos per row on wider screens (Agile Robots + Franka
+   Robotics, then Google + AMD, then Ingrasys alone on the third row). Cards
+   size to their logo (no flex-grow), so a narrow logo gets a narrow card
+   instead of a wide card with large side margins — card widths therefore
+   vary within the tier. The per-card max-width (~half the row) only caps a
+   card's width; it does NOT limit a row to two, because narrower cards fit
+   three (Google + AMD + Ingrasys do on /zh/). The two-per-row layout is
+   enforced by the page-scoped row-breaker rule in each template that
+   renders this tier. Only Agile and Franka reach the capped width; Google,
+   AMD and Ingrasys hug their smaller intrinsic widths. Cards go full-width /
+   one per row on narrow screens via the max-width:600px rule below. */
 .partners-tier.tier-platinum .partners-logos {
   max-width: 760px;
   margin-left: auto;
